@@ -1,0 +1,36 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/operations/getNamespaces.md>Markdown</a></div><meta data-pagefind-meta="title:Get namespaces and repos — Publisher analytics API 1.0.0"><h1>Get namespaces and repos</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Gets a list of your namespaces and repos which have data available.</div><h2>Connection and access</h2><p><a href=/reference/api/dvp/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/api/publisher/analytics/v1</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>HubAuth</code></li></ul><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/NamespaceData/><code>NamespaceData</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;namespaces&#34;: [
+    &#34;myorganization&#34;
+  ]
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/dvp/latest/schemas/NamespaceData/>#/components/schemas/NamespaceData</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Gets a list of your namespaces and repos which have data available.",
+  "operationId": "getNamespaces",
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/NamespaceData"
+          }
+        }
+      },
+      "description": "Success"
+    }
+  },
+  "summary": "Get namespaces and repos",
+  "tags": [
+    "discovery"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/api/publisher/analytics/v1/&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcIkh1YkF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL05hbWVzcGFjZURhdGFcIlxufSJd"></template>

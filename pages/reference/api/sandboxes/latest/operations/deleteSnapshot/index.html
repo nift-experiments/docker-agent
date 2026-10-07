@@ -1,0 +1,196 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/deleteSnapshot.md>Markdown</a></div><meta data-pagefind-meta="title:DeleteSnapshot deletes a snapshot; deleting an already absent snapshot succeeds. — Docker Sandboxes API v1"><h1>DeleteSnapshot deletes a snapshot; deleting an already absent snapshot succeeds.</h1><div class=api-signature><span class=api-method data-method=DELETE>DELETE</span><code><wbr>/v1<wbr>/snapshots<wbr>/{snapshot}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">DeleteSnapshot deletes a snapshot; deleting an already absent snapshot succeeds.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=snapshot><h3><code>snapshot</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The snapshot id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-Match><h3><code>If-Match</code>
+<small>header</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag is the required precondition, the value the target's last read returned.
+An absent one refuses etag_required and a stale one etag_mismatch.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+  "title": "If-Match",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1snapshots~1{snapshot}/delete/responses/204 data-api-media><h3><span>Response</span>
+<code class=api-status>204</code></h3><div class="prose dark:prose-invert">Success. The response carries no body.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v1~1snapshots~1{snapshot}/delete/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert"><p>The target's preparation, capture, or import has not finished; deletion is refused until it settles to a terminal state.</p><p>An admitted consumer or live resource holds a content lease on the target; deletion is refused while any lease remains held.</p></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>deletion_content_lease_held</option><option value=1>deletion_preparation_incomplete</option></select></label><div data-api-example=0><h4>deletion_content_lease_held</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;deletion_content_lease_held: An admitted consumer or live resource holds a content lease on the target; deletion is refused while any lease remains held.&#34;
+}</code></pre></div><div data-api-example=1><h4>deletion_preparation_incomplete</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;deletion_preparation_incomplete: The target&#39;s preparation, capture, or import has not finished; deletion is refused until it settles to a terminal state.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1snapshots~1{snapshot}/delete/responses/412/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>412</code></h3><div class="prose dark:prose-invert">The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_mismatch</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;details&#34;: [
+    {
+      &#34;@type&#34;: &#34;type.googleapis.com/docker.sandboxes.v1.EtagMismatch&#34;,
+      &#34;currentEtag&#34;: &#34;v2&#34;
+    }
+  ],
+  &#34;message&#34;: &#34;etag_mismatch: The precondition is not the resource&#39;s current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1snapshots~1{snapshot}/delete/responses/428/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>428</code></h3><div class="prose dark:prose-invert">No precondition was sent. The body carries failedPrecondition naming etag_required.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_required</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1snapshots~1{snapshot}/delete/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "DeleteSnapshot deletes a snapshot; deleting an already absent snapshot succeeds.",
+  "operationId": "deleteSnapshot",
+  "parameters": [
+    {
+      "description": "The snapshot id.",
+      "in": "path",
+      "name": "snapshot",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.",
+      "in": "header",
+      "name": "If-Match",
+      "required": true,
+      "schema": {
+        "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+        "title": "If-Match",
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Success. The response carries no body."
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "deletion_content_lease_held": {
+              "summary": "An admitted consumer or live resource holds a content lease on the target; deletion is refused while any lease remains held.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "deletion_content_lease_held: An admitted consumer or live resource holds a content lease on the target; deletion is refused while any lease remains held."
+              }
+            },
+            "deletion_preparation_incomplete": {
+              "summary": "The target's preparation, capture, or import has not finished; deletion is refused until it settles to a terminal state.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "deletion_preparation_incomplete: The target's preparation, capture, or import has not finished; deletion is refused until it settles to a terminal state."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The target's preparation, capture, or import has not finished; deletion is refused until it settles to a terminal state.\n\nAn admitted consumer or live resource holds a content lease on the target; deletion is refused while any lease remains held."
+    },
+    "412": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_mismatch": {
+              "summary": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.",
+              "value": {
+                "code": "failedPrecondition",
+                "details": [
+                  {
+                    "@type": "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+                    "currentEtag": "v2"
+                  }
+                ],
+                "message": "etag_mismatch: The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+    },
+    "428": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_required": {
+              "summary": "No precondition was sent. The body carries failedPrecondition naming etag_required.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "No precondition was sent. The body carries failedPrecondition naming etag_required."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "DeleteSnapshot deletes a snapshot; deleting an already absent snapshot succeeds.",
+  "tags": [
+    "Snapshots"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The target's preparation, capture, or import has not finished; deletion is refused until it settles to a terminal state.",
+      "reason": "deletion_preparation_incomplete"
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "An admitted consumer or live resource holds a content lease on the target; deletion is refused while any lease remains held.",
+      "reason": "deletion_content_lease_held"
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "snapshotsWrite"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request DELETE \
+  --header &#39;If-Match: &lt;IF-MATCH&gt;&#39; \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  &#39;https://connect.docker.com/sandboxes/v1/snapshots/&lt;SNAPSHOT&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzbmFwc2hvdCBpZC5cIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwic25hcHNob3RcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNuYXBzaG90c34xe3NuYXBzaG90fS9kZWxldGUvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiVGhlIGNvbXBsZXRlIHF1b3RlZCBzdHJvbmcgZW50aXR5LXRhZyBvYnNlcnZlZCBvbiB0aGUgcmVzb3VyY2UsIGluY2x1ZGluZyBpdHMgcXVvdGVzLiBFdmVyeSBtdXRhdGlvbiBvZiBhbiBleGlzdGluZyByZXNvdXJjZSByZXF1aXJlcyBpdDogYW4gYWJzZW50IHZhbHVlIGFuc3dlcnMgNDI4IGFuZCBhIHN0YWxlIG9uZSA0MTIsIGVhY2ggY2FycnlpbmcgZmFpbGVkUHJlY29uZGl0aW9uIGluIHRoZSBib2R5LlwiLFxuICBcImluXCI6IFwiaGVhZGVyXCIsXG4gIFwibmFtZVwiOiBcIklmLU1hdGNoXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzbmFwc2hvdHN+MXtzbmFwc2hvdH0vZGVsZXRlL3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiZXRhZyBpcyB0aGUgcmVxdWlyZWQgcHJlY29uZGl0aW9uLCB0aGUgdmFsdWUgdGhlIHRhcmdldCdzIGxhc3QgcmVhZCByZXR1cm5lZC5cXG5BbiBhYnNlbnQgb25lIHJlZnVzZXMgZXRhZ19yZXF1aXJlZCBhbmQgYSBzdGFsZSBvbmUgZXRhZ19taXNtYXRjaC5cIixcbiAgICBcInRpdGxlXCI6IFwiSWYtTWF0Y2hcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

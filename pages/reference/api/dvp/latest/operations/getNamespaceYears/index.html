@@ -1,0 +1,54 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/operations/getNamespaceYears.md>Markdown</a></div><meta data-pagefind-meta="title:Get years with data — Publisher analytics API 1.0.0"><h1>Get years with data</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/namespaces<wbr>/{namespace}<wbr>/pulls<wbr>/exports<wbr>/years</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Gets a list of years that have data for the given namespace.</div><h2>Connection and access</h2><p><a href=/reference/api/dvp/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/api/publisher/analytics/v1</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>HubAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=namespace><h3><code>namespace</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Namespace to fetch data for</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1namespaces~1{namespace}~1pulls~1exports~1years/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/YearData/><code>YearData</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;years&#34;: [
+    {
+      &#34;year&#34;: 2025
+    }
+  ]
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/dvp/latest/schemas/YearData/>#/components/schemas/YearData</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Gets a list of years that have data for the given namespace.",
+  "operationId": "getNamespaceYears",
+  "parameters": [
+    {
+      "description": "Namespace to fetch data for",
+      "in": "path",
+      "name": "namespace",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/YearData"
+          }
+        }
+      },
+      "description": "Success"
+    }
+  },
+  "summary": "Get years with data",
+  "tags": [
+    "namespaces"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/api/publisher/analytics/v1/namespaces/&lt;NAMESPACE&gt;/pulls/exports/years&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcIkh1YkF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lc3BhY2UgdG8gZmV0Y2ggZGF0YSBmb3JcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZXNwYWNlXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFwdWxsc34xZXhwb3J0c34xeWVhcnMvZ2V0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvWWVhckRhdGFcIlxufSJd"></template>

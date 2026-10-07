@@ -1,0 +1,37 @@
+<p>Docker's networking subsystem is pluggable, using drivers. Several drivers
+exist by default, and provide core networking functionality:</p><ul><li><p><code>bridge</code>: The default network driver. If you don't specify a driver, this is
+the type of network you are creating. Bridge networks are commonly used when
+your application runs in a container that needs to communicate with other
+containers on the same host.
+See <a class=link href=https://docs.docker.com/engine/network/drivers/bridge/>Bridge network driver</a>.</p></li><li><p><code>host</code>: Remove network isolation between the container and the Docker host,
+and use the host's networking directly.
+See <a class=link href=https://docs.docker.com/engine/network/drivers/host/>Host network driver</a>.</p></li><li><p><code>overlay</code>: Overlay networks connect multiple Docker daemons together and
+enable Swarm services and containers to communicate across nodes. This
+strategy removes the need to do OS-level routing.
+See <a class=link href=https://docs.docker.com/engine/network/drivers/overlay/>Overlay network driver</a>.</p></li><li><p><code>ipvlan</code>: IPvlan networks give users total control over both IPv4 and IPv6
+addressing. The VLAN driver builds on top of that in giving operators complete
+control of layer 2 VLAN tagging and even IPvlan L3 routing for users
+interested in underlay network integration.
+See <a class=link href=https://docs.docker.com/engine/network/drivers/ipvlan/>IPvlan network driver</a>.</p></li><li><p><code>macvlan</code>: Macvlan networks allow you to assign a MAC address to a container,
+making it appear as a physical device on your network. The Docker daemon
+routes traffic to containers by their MAC addresses. Using the <code>macvlan</code>
+driver is sometimes the best choice when dealing with legacy applications that
+expect to be directly connected to the physical network, rather than routed
+through the Docker host's network stack.
+See <a class=link href=https://docs.docker.com/engine/network/drivers/macvlan/>Macvlan network driver</a>.</p></li><li><p><code>none</code>: Completely isolate a container from the host and other containers.
+<code>none</code> is not available for Swarm services.
+See <a class=link href=https://docs.docker.com/engine/network/drivers/none/>None network driver</a>.</p></li><li><p><a class=link href=/engine/extend/plugins_network/>Network plugins</a>: You can install and use
+third-party network plugins with Docker.</p></li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=network-driver-summary><a class="text-black dark:text-white no-underline hover:underline" href=#network-driver-summary>Network driver summary</a></h3><ul><li>The default bridge network is good for running containers that don't require
+special networking capabilities.</li><li>User-defined bridge networks enable containers on the same Docker host to
+communicate with each other. A user-defined network typically defines an
+isolated network for multiple containers belonging to a common project or
+component.</li><li>Host network shares the host's network with the container. When you use this
+driver, the container's network isn't isolated from the host.</li><li>Overlay networks are best when you need containers running on different
+Docker hosts to communicate, or when multiple applications work together
+using Swarm services.</li><li>Macvlan networks are best when you are migrating from a VM setup or need your
+containers to look like physical hosts on your network, each with a unique
+MAC address.</li><li>IPvlan is similar to Macvlan, but doesn't assign unique MAC addresses to
+containers. Consider using IPvlan when there's a restriction on the number of
+MAC addresses that can be assigned to a network interface or port.</li><li>Third-party network plugins allow you to integrate Docker with specialized
+network stacks.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=next-steps><a class="text-black dark:text-white no-underline hover:underline" href=#next-steps>Next steps</a></h2><p>Each driver page includes detailed explanations, configuration options, and
+hands-on usage examples to help you work with that driver effectively.</p>

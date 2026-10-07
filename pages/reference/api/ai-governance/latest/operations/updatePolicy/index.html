@@ -1,0 +1,285 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/operations/updatePolicy.md>Markdown</a></div><meta data-pagefind-meta="title:Update policy — AI Governance API 1"><h1>Update policy</h1><div class=api-signature><span class=api-method data-method=PATCH>PATCH</span><code><wbr>/orgs<wbr>/{org_name}<wbr>/governance<wbr>/policies<wbr>/{policy_id}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Partially updates a policy's metadata. Only fields present in the
+request body are updated; absent fields are left unchanged. The <code>scope</code>
+object is patched per sub-field: sending <code>teams</code> replaces that list,
+while an omitted sub-field is left untouched and an empty list clears
+it (org-wide).</p><p>The rule set is not modified here. Use the rule endpoints for that.
+At least one field must be present. Returns the policy in both its old
+and new states. Changes may take up to five minutes to reach developer
+machines.</p></div><h2>Connection and access</h2><p><a href=/reference/api/ai-governance/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/v2</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Docker Hub organization name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=policy_id><h3><code>policy_id</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Unique policy identifier.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert">Fields to update. Absent fields are left unchanged.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/UpdatePolicyRequest/><code>UpdatePolicyRequest</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>rename</option><option value=1>scope</option></select></label><div data-api-example=0><h4>rename</h4><pre><code>{
+  &#34;name&#34;: &#34;Security Research&#34;
+}</code></pre></div><div data-api-example=1><h4>scope</h4><pre><code>{
+  &#34;scope&#34;: {
+    &#34;teams&#34;: [
+      &#34;d290f1ee-6c54-4b01-90e6-d701748f0851&#34;
+    ]
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Policy updated, returns old and new states.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/UpdatePolicyResponse/><code>UpdatePolicyResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;new&#34;: {
+    &#34;allowlist_v0&#34;: {
+      &#34;domain&#34;: &#34;network&#34;,
+      &#34;rules&#34;: [
+        {
+          &#34;actions&#34;: [
+            &#34;connect:tcp&#34;,
+            &#34;connect:udp&#34;
+          ],
+          &#34;decision&#34;: &#34;allow&#34;,
+          &#34;id&#34;: &#34;rule_06evsm9qjm1pdsk0a8nkfaxy7jna&#34;,
+          &#34;name&#34;: &#34;allow research mirrors&#34;,
+          &#34;resources&#34;: [
+            &#34;research.mitre.org&#34;,
+            &#34;cve.mitre.org&#34;
+          ]
+        }
+      ]
+    },
+    &#34;created_at&#34;: &#34;2026-04-22T00:00:00Z&#34;,
+    &#34;id&#34;: &#34;pol_06evsmp24r1pg71cm8500546pkbn&#34;,
+    &#34;name&#34;: &#34;Security Research&#34;,
+    &#34;org&#34;: &#34;my-org&#34;,
+    &#34;scope&#34;: {
+      &#34;teams&#34;: [
+        &#34;d290f1ee-6c54-4b01-90e6-d701748f0851&#34;
+      ]
+    },
+    &#34;updated_at&#34;: &#34;2026-04-22T10:00:00Z&#34;
+  },
+  &#34;old&#34;: {
+    &#34;allowlist_v0&#34;: {
+      &#34;domain&#34;: &#34;network&#34;,
+      &#34;rules&#34;: [
+        {
+          &#34;actions&#34;: [
+            &#34;connect:tcp&#34;,
+            &#34;connect:udp&#34;
+          ],
+          &#34;decision&#34;: &#34;allow&#34;,
+          &#34;id&#34;: &#34;rule_06evsm9qjm1pdsk0a8nkfaxy7jna&#34;,
+          &#34;name&#34;: &#34;allow research mirrors&#34;,
+          &#34;resources&#34;: [
+            &#34;research.mitre.org&#34;,
+            &#34;cve.mitre.org&#34;
+          ]
+        }
+      ]
+    },
+    &#34;created_at&#34;: &#34;2026-04-22T00:00:00Z&#34;,
+    &#34;id&#34;: &#34;pol_06evsmp24r1pg71cm8500546pkbn&#34;,
+    &#34;name&#34;: &#34;Security Research — hardened&#34;,
+    &#34;org&#34;: &#34;my-org&#34;,
+    &#34;scope&#34;: {
+      &#34;teams&#34;: [
+        &#34;d290f1ee-6c54-4b01-90e6-d701748f0851&#34;
+      ]
+    },
+    &#34;updated_at&#34;: &#34;2026-04-22T00:00:00Z&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;invalid_argument&#34;,
+    &#34;message&#34;: &#34;name is required&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Missing or invalid credentials</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;unauthenticated&#34;,
+    &#34;message&#34;: &#34;unauthenticated&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Caller lacks the required permission for this org, the org is not entitled to use governance (<code>permission_denied</code>), or a creation limit has been reached (<code>limit_exceeded</code>): the org already has the maximum number of policies, or the policy already has the maximum number of rules.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>limit_exceeded</option><option value=1>permission_denied</option></select></label><div data-api-example=0><h4>limit_exceeded</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;limit_exceeded&#34;,
+    &#34;message&#34;: &#34;organization has reached the maximum of 100 policies&#34;
+  }
+}</code></pre></div><div data-api-example=1><h4>permission_denied</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;permission_denied&#34;,
+    &#34;message&#34;: &#34;permission denied&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;not_found&#34;,
+    &#34;message&#34;: &#34;policy not found&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert">Conflict</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;conflict&#34;,
+    &#34;message&#34;: &#34;policy name already in use&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}/patch/responses/500/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal server error</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;internal&#34;,
+    &#34;message&#34;: &#34;internal error&#34;
+  }
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/ai-governance/latest/schemas/UpdatePolicyRequest/>#/components/schemas/UpdatePolicyRequest</a></p><p><a href=/reference/api/ai-governance/latest/schemas/UpdatePolicyResponse/>#/components/schemas/UpdatePolicyResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Partially updates a policy's metadata. Only fields present in the\nrequest body are updated; absent fields are left unchanged. The `scope`\nobject is patched per sub-field: sending `teams` replaces that list,\nwhile an omitted sub-field is left untouched and an empty list clears\nit (org-wide).\n\nThe rule set is not modified here. Use the rule endpoints for that.\nAt least one field must be present. Returns the policy in both its old\nand new states. Changes may take up to five minutes to reach developer\nmachines.\n",
+  "operationId": "updatePolicy",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "examples": {
+          "rename": {
+            "summary": "Rename the policy",
+            "value": {
+              "name": "Security Research"
+            }
+          },
+          "scope": {
+            "summary": "Restrict to a team",
+            "value": {
+              "scope": {
+                "teams": [
+                  "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                ]
+              }
+            }
+          }
+        },
+        "schema": {
+          "$ref": "#/components/schemas/UpdatePolicyRequest"
+        }
+      }
+    },
+    "description": "Fields to update. Absent fields are left unchanged.",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "default": {
+              "value": {
+                "new": {
+                  "allowlist_v0": {
+                    "domain": "network",
+                    "rules": [
+                      {
+                        "actions": [
+                          "connect:tcp",
+                          "connect:udp"
+                        ],
+                        "decision": "allow",
+                        "id": "rule_06evsm9qjm1pdsk0a8nkfaxy7jna",
+                        "name": "allow research mirrors",
+                        "resources": [
+                          "research.mitre.org",
+                          "cve.mitre.org"
+                        ]
+                      }
+                    ]
+                  },
+                  "created_at": "2026-04-22T00:00:00Z",
+                  "id": "pol_06evsmp24r1pg71cm8500546pkbn",
+                  "name": "Security Research",
+                  "org": "my-org",
+                  "scope": {
+                    "teams": [
+                      "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    ]
+                  },
+                  "updated_at": "2026-04-22T10:00:00Z"
+                },
+                "old": {
+                  "allowlist_v0": {
+                    "domain": "network",
+                    "rules": [
+                      {
+                        "actions": [
+                          "connect:tcp",
+                          "connect:udp"
+                        ],
+                        "decision": "allow",
+                        "id": "rule_06evsm9qjm1pdsk0a8nkfaxy7jna",
+                        "name": "allow research mirrors",
+                        "resources": [
+                          "research.mitre.org",
+                          "cve.mitre.org"
+                        ]
+                      }
+                    ]
+                  },
+                  "created_at": "2026-04-22T00:00:00Z",
+                  "id": "pol_06evsmp24r1pg71cm8500546pkbn",
+                  "name": "Security Research — hardened",
+                  "org": "my-org",
+                  "scope": {
+                    "teams": [
+                      "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                    ]
+                  },
+                  "updated_at": "2026-04-22T00:00:00Z"
+                }
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/UpdatePolicyResponse"
+          }
+        }
+      },
+      "description": "Policy updated, returns old and new states."
+    },
+    "400": {
+      "$ref": "#/components/responses/InvalidArgument"
+    },
+    "401": {
+      "$ref": "#/components/responses/Unauthenticated"
+    },
+    "403": {
+      "$ref": "#/components/responses/Forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    },
+    "409": {
+      "$ref": "#/components/responses/Conflict"
+    },
+    "500": {
+      "$ref": "#/components/responses/InternalError"
+    }
+  },
+  "summary": "Update policy",
+  "tags": [
+    "policies"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PATCH \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;name&#34;: &#34;Security Research&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/orgs/&lt;ORG_NAME&gt;/governance/policies/&lt;POLICY_ID&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJEb2NrZXIgSHViIG9yZ2FuaXphdGlvbiBuYW1lLlwiLFxuICBcImV4YW1wbGVzXCI6IHtcbiAgICBcImRlZmF1bHRcIjoge1xuICAgICAgXCJ2YWx1ZVwiOiBcIm15LW9yZ1wiXG4gICAgfVxuICB9LFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJvcmdfbmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFvcmdzfjF7b3JnX25hbWV9fjFnb3Zlcm5hbmNlfjFwb2xpY2llc34xe3BvbGljeV9pZH0vcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiVW5pcXVlIHBvbGljeSBpZGVudGlmaWVyLlwiLFxuICBcImV4YW1wbGVzXCI6IHtcbiAgICBcImRlZmF1bHRcIjoge1xuICAgICAgXCJ2YWx1ZVwiOiBcInBvbF8wNmV2c21wMjRyMXBnNzFjbTg1MDA1NDZwa2JuXCJcbiAgICB9XG4gIH0sXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInBvbGljeV9pZFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFvcmdzfjF7b3JnX25hbWV9fjFnb3Zlcm5hbmNlfjFwb2xpY2llc34xe3BvbGljeV9pZH0vcGFyYW1ldGVycy8xXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9VcGRhdGVQb2xpY3lSZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9VcGRhdGVQb2xpY3lSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59Il0="></template>

@@ -1,0 +1,68 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/IssueSSHCertResponse.md>Markdown</a></div><meta data-pagefind-meta="title:IssueSSHCertResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>IssueSSHCertResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">IssueSSHCertResponse returns signed SSH client material, never a private key.</div><details class=api-field open><summary><code>certificate</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">certificate is the signed SSH certificate.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "certificate is the signed SSH certificate.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>expiresAt</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">expires_at is the instant after which the certificate is invalid.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "expires_at is the instant after which the certificate is invalid."
+}</code></pre></details></details><details class=api-field open><summary><code>host</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">host is the SSH endpoint host to connect to.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "host is the SSH endpoint host to connect to.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>knownHosts</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">known_hosts is host key material that authenticates the SSH endpoint.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "known_hosts is host key material that authenticates the SSH endpoint.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>port</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">port is the SSH endpoint port to connect to.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "port is the SSH endpoint port to connect to.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>sshConfig</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">ssh_config optionally renders the connection fields as OpenSSH client
+configuration; the structured fields are canonical.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ssh_config optionally renders the connection fields as OpenSSH client\nconfiguration; the structured fields are canonical.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>username</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">username is the SSH username to present; it carries no authorization.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "username is the SSH username to present; it carries no authorization.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "IssueSSHCertResponse returns signed SSH client material, never a private key.",
+  "properties": {
+    "certificate": {
+      "description": "certificate is the signed SSH certificate.",
+      "type": "string"
+    },
+    "expiresAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "expires_at is the instant after which the certificate is invalid."
+    },
+    "host": {
+      "description": "host is the SSH endpoint host to connect to.",
+      "type": "string"
+    },
+    "knownHosts": {
+      "description": "known_hosts is host key material that authenticates the SSH endpoint.",
+      "type": "string"
+    },
+    "port": {
+      "description": "port is the SSH endpoint port to connect to.",
+      "type": "integer"
+    },
+    "sshConfig": {
+      "description": "ssh_config optionally renders the connection fields as OpenSSH client\nconfiguration; the structured fields are canonical.",
+      "type": "string"
+    },
+    "username": {
+      "description": "username is the SSH username to present; it carries no authorization.",
+      "type": "string"
+    }
+  },
+  "title": "IssueSSHCertResponse",
+  "type": "object"
+}</code></pre></details></article>

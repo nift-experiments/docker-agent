@@ -1,0 +1,65 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/schemas/PullModel.md>Markdown</a></div><meta data-pagefind-meta="title:PullModel — Publisher analytics API 1.0.0"><p class=api-eyebrow>Schema</p><h1>PullModel</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>country</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Country. Present for results grouped by geography and repository.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Country. Present for results grouped by geography and repository.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>end</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">End of the reporting interval in RFC 3339 format.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "End of the reporting interval in RFC 3339 format.",
+  "format": "date-time",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>ipCount</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>namespace</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Namespace name. Present for results grouped by namespace.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Namespace name. Present for results grouped by namespace.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>pullCount</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>repo</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Repository name. Present for results grouped by repository.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Repository name. Present for results grouped by repository.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>start</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Start of the reporting interval in RFC 3339 format.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Start of the reporting interval in RFC 3339 format.",
+  "format": "date-time",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "country": {
+      "description": "Country. Present for results grouped by geography and repository.",
+      "type": "string"
+    },
+    "end": {
+      "description": "End of the reporting interval in RFC 3339 format.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "ipCount": {
+      "type": "integer"
+    },
+    "namespace": {
+      "description": "Namespace name. Present for results grouped by namespace.",
+      "type": "string"
+    },
+    "pullCount": {
+      "type": "integer"
+    },
+    "repo": {
+      "description": "Repository name. Present for results grouped by repository.",
+      "type": "string"
+    },
+    "start": {
+      "description": "Start of the reporting interval in RFC 3339 format.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

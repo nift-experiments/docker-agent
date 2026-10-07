@@ -1,0 +1,69 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/operations/PostUsers2FALogin.md>Markdown</a></div><meta data-pagefind-meta="title:Second factor authentication — Publisher analytics API 1.0.0"><h1>Second factor authentication</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v2<wbr>/users<wbr>/2fa-login</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>When a user has 2FA enabled, this is the second call to perform after
+<code>/v2/users/login</code> call.</p><p>Creates and returns a bearer token in JWT format that you can use to authenticate with Docker Hub APIs.</p><p>The returned token is used in the HTTP Authorization header like <code>Authorization: Bearer {TOKEN}</code>.</p><p>Most Docker Hub APIs require this token either to consume or to get detailed information. For example, to list images in a private repository.</p></div><h2>Connection and access</h2><p><a href=/reference/api/dvp/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code></p><p>No HTTP authentication requirement is declared for this
+operation. Transport access controls can still apply.</p><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1users~12fa-login/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert">Login details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/Users2FALoginRequest/><code>Users2FALoginRequest</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;123456&#34;,
+  &#34;login_2fa_token&#34;: &#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1users~12fa-login/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Authentication successful</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/PostUsersLoginSuccessResponse/><code>PostUsersLoginSuccessResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;token&#34;: &#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1users~12fa-login/post/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication failed or second factor required</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/PostUsers2FALoginErrorResponse/><code>PostUsers2FALoginErrorResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;detail&#34;: &#34;Incorrect authentication credentials&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/dvp/latest/schemas/PostUsers2FALoginErrorResponse/>#/components/schemas/PostUsers2FALoginErrorResponse</a></p><p><a href=/reference/api/dvp/latest/schemas/PostUsersLoginSuccessResponse/>#/components/schemas/PostUsersLoginSuccessResponse</a></p><p><a href=/reference/api/dvp/latest/schemas/Users2FALoginRequest/>#/components/schemas/Users2FALoginRequest</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "When a user has 2FA enabled, this is the second call to perform after\n`/v2/users/login` call.\n\nCreates and returns a bearer token in JWT format that you can use to authenticate with Docker Hub APIs.\n\nThe returned token is used in the HTTP Authorization header like `Authorization: Bearer {TOKEN}`.\n\nMost Docker Hub APIs require this token either to consume or to get detailed information. For example, to list images in a private repository.\n",
+  "operationId": "PostUsers2FALogin",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/Users2FALoginRequest"
+        }
+      }
+    },
+    "description": "Login details.",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/PostUsersLoginSuccessResponse"
+          }
+        }
+      },
+      "description": "Authentication successful"
+    },
+    "401": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/PostUsers2FALoginErrorResponse"
+          }
+        }
+      },
+      "description": "Authentication failed or second factor required"
+    }
+  },
+  "security": [],
+  "summary": "Second factor authentication",
+  "tags": [
+    "authentication"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;code&#34;: &#34;123456&#34;,
+  &#34;login_2fa_token&#34;: &#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/users/2fa-login&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1VzZXJzMkZBTG9naW5SZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9Qb3N0VXNlcnNMb2dpblN1Y2Nlc3NSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvUG9zdFVzZXJzMkZBTG9naW5FcnJvclJlc3BvbnNlXCJcbn0iXQ=="></template>

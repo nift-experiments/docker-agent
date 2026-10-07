@@ -1,0 +1,152 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/getV2AccessTokensByUuid.md>Markdown</a></div><meta data-pagefind-meta="title:Get personal access token — Docker Hub API 2-beta"><h1>Get personal access token</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/access-tokens<wbr>/{uuid}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Returns a personal access token by UUID.</div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=uuid><h3><code>uuid</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">UUID of the personal access token.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">OK</div><p class=api-media><code>application/json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/accessToken/><code>accessToken</code></a></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>token</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "***",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "token": {
+      "example": "***",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/accessToken"
+    },
+    {
+      "properties": {
+        "token": {
+          "example": "***",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ],
+  "examples": [
+    {
+      "client_id": "HUB",
+      "created_at": "2021-07-20T12:00:00.000000Z",
+      "creator_ip": "127.0.0.1",
+      "creator_ua": "some user agent",
+      "expires_at": "2021-10-28T18:30:19.520861Z",
+      "generated_by": "manual",
+      "is_active": true,
+      "last_used": null,
+      "scopes": [
+        "repo:read"
+      ],
+      "token": "***",
+      "token_label": "My read only token",
+      "uuid": "b30bbf97-506c-4ecd-aabc-842f3cb484fb"
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;client_id&#34;: &#34;HUB&#34;,
+  &#34;created_at&#34;: &#34;2021-07-20T12:00:00.000000Z&#34;,
+  &#34;creator_ip&#34;: &#34;127.0.0.1&#34;,
+  &#34;creator_ua&#34;: &#34;some user agent&#34;,
+  &#34;expires_at&#34;: &#34;2021-10-28T18:30:19.520861Z&#34;,
+  &#34;generated_by&#34;: &#34;manual&#34;,
+  &#34;is_active&#34;: true,
+  &#34;last_used&#34;: null,
+  &#34;scopes&#34;: [
+    &#34;repo:read&#34;
+  ],
+  &#34;token&#34;: &#34;***&#34;,
+  &#34;token_label&#34;: &#34;My read only token&#34;,
+  &#34;uuid&#34;: &#34;b30bbf97-506c-4ecd-aabc-842f3cb484fb&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/get/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/accessToken/>#/components/schemas/accessToken</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns a personal access token by UUID.",
+  "operationId": "getV2AccessTokensByUuid",
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/accessToken"
+              },
+              {
+                "properties": {
+                  "token": {
+                    "example": "***",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            ],
+            "examples": [
+              {
+                "client_id": "HUB",
+                "created_at": "2021-07-20T12:00:00.000000Z",
+                "creator_ip": "127.0.0.1",
+                "creator_ua": "some user agent",
+                "expires_at": "2021-10-28T18:30:19.520861Z",
+                "generated_by": "manual",
+                "is_active": true,
+                "last_used": null,
+                "scopes": [
+                  "repo:read"
+                ],
+                "token": "***",
+                "token_label": "My read only token",
+                "uuid": "b30bbf97-506c-4ecd-aabc-842f3cb484fb"
+              }
+            ]
+          }
+        }
+      },
+      "description": "OK"
+    },
+    "401": {
+      "$ref": "#/components/responses/Unauthorized"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Get personal access token",
+  "tags": [
+    "access-tokens"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/v2/access-tokens/&lt;UUID&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJVVUlEIG9mIHRoZSBwZXJzb25hbCBhY2Nlc3MgdG9rZW4uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInV1aWRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWFjY2Vzcy10b2tlbnN+MXt1dWlkfS9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2FjY2Vzc1Rva2VuXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwidG9rZW5cIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIioqKlwiLFxuICAgICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICAgIH1cbiAgICAgIH0sXG4gICAgICBcInR5cGVcIjogXCJvYmplY3RcIlxuICAgIH1cbiAgXSxcbiAgXCJleGFtcGxlc1wiOiBbXG4gICAge1xuICAgICAgXCJjbGllbnRfaWRcIjogXCJIVUJcIixcbiAgICAgIFwiY3JlYXRlZF9hdFwiOiBcIjIwMjEtMDctMjBUMTI6MDA6MDAuMDAwMDAwWlwiLFxuICAgICAgXCJjcmVhdG9yX2lwXCI6IFwiMTI3LjAuMC4xXCIsXG4gICAgICBcImNyZWF0b3JfdWFcIjogXCJzb21lIHVzZXIgYWdlbnRcIixcbiAgICAgIFwiZXhwaXJlc19hdFwiOiBcIjIwMjEtMTAtMjhUMTg6MzA6MTkuNTIwODYxWlwiLFxuICAgICAgXCJnZW5lcmF0ZWRfYnlcIjogXCJtYW51YWxcIixcbiAgICAgIFwiaXNfYWN0aXZlXCI6IHRydWUsXG4gICAgICBcImxhc3RfdXNlZFwiOiBudWxsLFxuICAgICAgXCJzY29wZXNcIjogW1xuICAgICAgICBcInJlcG86cmVhZFwiXG4gICAgICBdLFxuICAgICAgXCJ0b2tlblwiOiBcIioqKlwiLFxuICAgICAgXCJ0b2tlbl9sYWJlbFwiOiBcIk15IHJlYWQgb25seSB0b2tlblwiLFxuICAgICAgXCJ1dWlkXCI6IFwiYjMwYmJmOTctNTA2Yy00ZWNkLWFhYmMtODQyZjNjYjQ4NGZiXCJcbiAgICB9XG4gIF1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSJd"></template>

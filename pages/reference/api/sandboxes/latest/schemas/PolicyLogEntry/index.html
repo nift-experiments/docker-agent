@@ -1,0 +1,116 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/PolicyLogEntry.md>Markdown</a></div><meta data-pagefind-meta="title:PolicyLogEntry — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>PolicyLogEntry</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">PolicyLogEntry is an aggregated observed policy decision.</div><details class=api-field open><summary><code>count</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">count is the number of coalesced observations.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "count is the number of coalesced observations.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>decision</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PolicyDecision/><code>PolicyDecision</code></a></p><div class="prose dark:prose-invert">decision is the observed allow or block outcome.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/PolicyDecision",
+  "description": "decision is the observed allow or block outcome."
+}</code></pre></details></details><details class=api-field open><summary><code>domain</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PolicyDomain/><code>PolicyDomain</code></a></p><div class="prose dark:prose-invert">domain is the policy domain that emitted the entry.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/PolicyDomain",
+  "description": "domain is the policy domain that emitted the entry."
+}</code></pre></details></details><details class=api-field open><summary><code>firstSeen</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">first_seen is the first observation timestamp.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "first_seen is the first observation timestamp."
+}</code></pre></details></details><details class=api-field open><summary><code>lastSeen</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">last_seen is the most recent observation timestamp.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "last_seen is the most recent observation timestamp."
+}</code></pre></details></details><details class=api-field open><summary><code>proxyType</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">proxy_type is the proxy or enforcement path that observed the decision.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "proxy_type is the proxy or enforcement path that observed the decision.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>reason</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">reason is backend-readable context.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "reason is backend-readable context.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>resource</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">resource is the requested destination or resource.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "resource is the requested destination or resource.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>rule</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">rule is the matching rule when available.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "rule is the matching rule when available.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>sandbox</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">sandbox is the resource name recorded for this reference.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "sandbox is the resource name recorded for this reference.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>sandboxUid</code>
+· response only</summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">sandbox_uid retains the observed backing incarnation when the backend provides one.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "sandbox_uid retains the observed backing incarnation when the backend provides one.",
+  "readOnly": true,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "PolicyLogEntry is an aggregated observed policy decision.",
+  "properties": {
+    "count": {
+      "description": "count is the number of coalesced observations.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "decision": {
+      "$ref": "#/components/schemas/PolicyDecision",
+      "description": "decision is the observed allow or block outcome."
+    },
+    "domain": {
+      "$ref": "#/components/schemas/PolicyDomain",
+      "description": "domain is the policy domain that emitted the entry."
+    },
+    "firstSeen": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "first_seen is the first observation timestamp."
+    },
+    "lastSeen": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "last_seen is the most recent observation timestamp."
+    },
+    "proxyType": {
+      "description": "proxy_type is the proxy or enforcement path that observed the decision.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "reason is backend-readable context.",
+      "type": "string"
+    },
+    "resource": {
+      "description": "resource is the requested destination or resource.",
+      "type": "string"
+    },
+    "rule": {
+      "description": "rule is the matching rule when available.",
+      "type": "string"
+    },
+    "sandbox": {
+      "description": "sandbox is the resource name recorded for this reference.",
+      "type": "string"
+    },
+    "sandboxUid": {
+      "description": "sandbox_uid retains the observed backing incarnation when the backend provides one.",
+      "readOnly": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "title": "PolicyLogEntry",
+  "type": "object"
+}</code></pre></details></article>

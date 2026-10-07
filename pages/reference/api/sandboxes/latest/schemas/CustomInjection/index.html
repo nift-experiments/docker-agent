@@ -1,0 +1,87 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/CustomInjection.md>Markdown</a></div><meta data-pagefind-meta="title:CustomInjection — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>CustomInjection</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">CustomInjection is caller-authored, non-secret metadata for a custom
+secret: which exact hosts receive the value, in which header and format,
+and how the placeholder is shaped and delivered. Unlike secret material,
+reads return it.</div><details class=api-field open><summary><code>envVar</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">env_var optionally names a sandbox environment variable that carries the
+secret's placeholder (never the value) as a delivery convenience.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "env_var optionally names a sandbox environment variable that carries the\nsecret's placeholder (never the value) as a delivery convenience.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>format</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">format renders the value with exactly one %s; %% escapes a literal
+percent, and any other % sequence is rejected. Empty means "%s".</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "format renders the value with exactly one %s; %% escapes a literal\npercent, and any other % sequence is rejected. Empty means \"%s\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>header</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">header is the HTTP header the value is written to. Routing, framing,
+and cookie headers are rejected.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "header is the HTTP header the value is written to. Routing, framing,\nand cookie headers are rejected.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>hosts</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">hosts are exact lowercase DNS names. Wildcards, IP literals, ports,
+schemes, paths, and hosts a managed integration already serves are
+rejected.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "hosts are exact lowercase DNS names. Wildcards, IP literals, ports,\nschemes, paths, and hosts a managed integration already serves are\nrejected.",
+  "items": {
+    "minLength": 1,
+    "type": "string"
+  },
+  "maxItems": 10,
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>placeholderTemplate</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">placeholder_template optionally shapes the placeholder for clients that
+validate credential shape before sending (e.g. "sk-corp-{rand}"). Each
+{rand} token is expanded server-side; {rand} is the only token. Empty
+uses the backend default ("sbx-cs-{rand}").</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "placeholder_template optionally shapes the placeholder for clients that\nvalidate credential shape before sending (e.g. \"sk-corp-{rand}\"). Each\n{rand} token is expanded server-side; {rand} is the only token. Empty\nuses the backend default (\"sbx-cs-{rand}\").",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "CustomInjection is caller-authored, non-secret metadata for a custom\nsecret: which exact hosts receive the value, in which header and format,\nand how the placeholder is shaped and delivered. Unlike secret material,\nreads return it.",
+  "properties": {
+    "envVar": {
+      "description": "env_var optionally names a sandbox environment variable that carries the\nsecret's placeholder (never the value) as a delivery convenience.",
+      "type": "string"
+    },
+    "format": {
+      "description": "format renders the value with exactly one %s; %% escapes a literal\npercent, and any other % sequence is rejected. Empty means \"%s\".",
+      "type": "string"
+    },
+    "header": {
+      "description": "header is the HTTP header the value is written to. Routing, framing,\nand cookie headers are rejected.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "hosts": {
+      "description": "hosts are exact lowercase DNS names. Wildcards, IP literals, ports,\nschemes, paths, and hosts a managed integration already serves are\nrejected.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 10,
+      "minItems": 1,
+      "type": "array"
+    },
+    "placeholderTemplate": {
+      "description": "placeholder_template optionally shapes the placeholder for clients that\nvalidate credential shape before sending (e.g. \"sk-corp-{rand}\"). Each\n{rand} token is expanded server-side; {rand} is the only token. Empty\nuses the backend default (\"sbx-cs-{rand}\").",
+      "type": "string"
+    }
+  },
+  "required": [
+    "hosts",
+    "header"
+  ],
+  "title": "CustomInjection",
+  "type": "object"
+}</code></pre></details></article>

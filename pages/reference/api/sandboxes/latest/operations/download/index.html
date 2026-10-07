@@ -1,0 +1,215 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/download.md>Markdown</a></div><meta data-pagefind-meta="title:Download streams file headers, bytes, and per-file errors. — Docker Sandboxes API v1"><h1>Download streams file headers, bytes, and per-file errors.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/files<wbr>/download</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Download streams file headers, bytes, and per-file errors. A path that
+leaves the jail through a symlink, or names a non-regular object, reports
+a FileError with a error reason instead of reading through it.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=paths><h3><code>paths</code>
+<small>query</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">paths naming stable regular files or absent entries at canonical absolute paths
+yield contiguous results in request order, including duplicates.</div><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "type": "string"
+  },
+  "minItems": 1,
+  "title": "paths",
+  "type": "array"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option><option value=multipart/mixed>multipart/mixed</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1files~1download/get/responses/200/content/multipart~1mixed data-api-media=multipart/mixed><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"><p>Success</p><p>Read metadata followed by one continuous raw content part. JSON controls are separate parts with Content-Type application/json; binary content uses application/octet-stream. A final stream-error part carries the shared Error for a whole-stream failure. A clean closing delimiter with no stream-error is required for success; aborted connections are failures.</p></div><p class=api-media><code>multipart/mixed</code></p><h4>Stream item</h4><details class=api-field open><summary>One or more alternatives must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileHeader/><code>FileHeader</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "contentMediaType": "application/octet-stream"
+}</code></pre></details><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileError/><code>FileError</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "anyOf": [
+    {
+      "$ref": "#/components/schemas/FileHeader"
+    },
+    {
+      "contentMediaType": "application/octet-stream"
+    },
+    {
+      "$ref": "#/components/schemas/FileError"
+    },
+    {
+      "$ref": "#/components/schemas/Error"
+    }
+  ]
+}</code></pre></details><details><summary>itemEncoding: content types and part headers</summary><pre><code>{
+  "contentType": "application/json, application/octet-stream",
+  "headers": {
+    "Content-Disposition": {
+      "required": true,
+      "schema": {
+        "enum": [
+          "attachment; name=metadata",
+          "attachment; name=content",
+          "attachment; name=error",
+          "attachment; name=stream-error"
+        ],
+        "type": "string"
+      }
+    }
+  }
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1download/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FileError/>#/components/schemas/FileError</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FileHeader/>#/components/schemas/FileHeader</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesDownloadRequest/>#/components/schemas/FilesDownloadRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesDownloadResponse/>#/components/schemas/FilesDownloadResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Download streams file headers, bytes, and per-file errors. A path that\nleaves the jail through a symlink, or names a non-regular object, reports\na FileError with a error reason instead of reading through it.",
+  "operationId": "download",
+  "parameters": [
+    {
+      "description": "paths naming stable regular files or absent entries at canonical absolute paths\nyield contiguous results in request order, including duplicates.",
+      "in": "query",
+      "name": "paths",
+      "required": true,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "title": "paths",
+        "type": "array"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "multipart/mixed": {
+          "itemEncoding": {
+            "contentType": "application/json, application/octet-stream",
+            "headers": {
+              "Content-Disposition": {
+                "required": true,
+                "schema": {
+                  "enum": [
+                    "attachment; name=metadata",
+                    "attachment; name=content",
+                    "attachment; name=error",
+                    "attachment; name=stream-error"
+                  ],
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "itemSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FileHeader"
+              },
+              {
+                "contentMediaType": "application/octet-stream"
+              },
+              {
+                "$ref": "#/components/schemas/FileError"
+              },
+              {
+                "$ref": "#/components/schemas/Error"
+              }
+            ]
+          },
+          "x-sbx-framing": {
+            "description": "Read metadata followed by one continuous raw content part. JSON controls are separate parts with Content-Type application/json; binary content uses application/octet-stream. A final stream-error part carries the shared Error for a whole-stream failure. A clean closing delimiter with no stream-error is required for success; aborted connections are failures.",
+            "parts": {
+              "content": {
+                "contentType": "application/octet-stream",
+                "schema": {
+                  "contentMediaType": "application/octet-stream"
+                }
+              },
+              "error": {
+                "contentType": "application/json",
+                "schema": {
+                  "$ref": "#/components/schemas/FileError"
+                }
+              },
+              "metadata": {
+                "contentType": "application/json",
+                "schema": {
+                  "$ref": "#/components/schemas/FileHeader"
+                }
+              },
+              "stream-error": {
+                "contentType": "application/json",
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "repeatedItems": true,
+            "requiresClosingDelimiter": true,
+            "requiresTerminal": false
+          }
+        }
+      },
+      "description": "Success\n\nRead metadata followed by one continuous raw content part. JSON controls are separate parts with Content-Type application/json; binary content uses application/octet-stream. A final stream-error part carries the shared Error for a whole-stream failure. A clean closing delimiter with no stream-error is required for success; aborted connections are failures."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "Download streams file headers, bytes, and per-file errors.",
+  "tags": [
+    "Files"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-http-transfer": {
+    "response": {
+      "bytesField": "data",
+      "errorField": "error",
+      "mediaType": "multipart/mixed",
+      "metadataField": "header",
+      "repeatedItems": true
+    }
+  },
+  "x-sbx-plane": "data",
+  "x-sbx-request-schema": {
+    "$ref": "#/components/schemas/FilesDownloadRequest"
+  },
+  "x-sbx-required-permissions": [
+    "sandboxesFilesRead"
+  ],
+  "x-sbx-response-schema": {
+    "$ref": "#/components/schemas/FilesDownloadResponse"
+  },
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: multipart/mixed&#39; \
+  &#39;https://sandbox.invalid/v1/files/download?paths=%3CPATHS%3E&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJwYXRocyBuYW1pbmcgc3RhYmxlIHJlZ3VsYXIgZmlsZXMgb3IgYWJzZW50IGVudHJpZXMgYXQgY2Fub25pY2FsIGFic29sdXRlIHBhdGhzXFxueWllbGQgY29udGlndW91cyByZXN1bHRzIGluIHJlcXVlc3Qgb3JkZXIsIGluY2x1ZGluZyBkdXBsaWNhdGVzLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGF0aHNcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MWZpbGVzfjFkb3dubG9hZC9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiaXRlbXNcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9LFxuICAgIFwibWluSXRlbXNcIjogMSxcbiAgICBcInRpdGxlXCI6IFwicGF0aHNcIixcbiAgICBcInR5cGVcIjogXCJhcnJheVwiXG4gIH1cbn0iLCAie1xuICBcImFueU9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9GaWxlSGVhZGVyXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwiY29udGVudE1lZGlhVHlwZVwiOiBcImFwcGxpY2F0aW9uL29jdGV0LXN0cmVhbVwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9GaWxlRXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiY29udGVudFR5cGVcIjogXCJhcHBsaWNhdGlvbi9qc29uLCBhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW1cIixcbiAgXCJoZWFkZXJzXCI6IHtcbiAgICBcIkNvbnRlbnQtRGlzcG9zaXRpb25cIjoge1xuICAgICAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICAgICAgXCJzY2hlbWFcIjoge1xuICAgICAgICBcImVudW1cIjogW1xuICAgICAgICAgIFwiYXR0YWNobWVudDsgbmFtZT1tZXRhZGF0YVwiLFxuICAgICAgICAgIFwiYXR0YWNobWVudDsgbmFtZT1jb250ZW50XCIsXG4gICAgICAgICAgXCJhdHRhY2htZW50OyBuYW1lPWVycm9yXCIsXG4gICAgICAgICAgXCJhdHRhY2htZW50OyBuYW1lPXN0cmVhbS1lcnJvclwiXG4gICAgICAgIF0sXG4gICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICB9XG4gICAgfVxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

@@ -1,0 +1,86 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ErrorDetail.md>Markdown</a></div><meta data-pagefind-meta="title:ErrorDetail — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ErrorDetail</h1><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/BadRequestErrorDetail/><code>BadRequestErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/DebugInfoErrorDetail/><code>DebugInfoErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ErrorInfoErrorDetail/><code>ErrorInfoErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/HelpErrorDetail/><code>HelpErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/LocalizedMessageErrorDetail/><code>LocalizedMessageErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PreconditionFailureErrorDetail/><code>PreconditionFailureErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/QuotaFailureErrorDetail/><code>QuotaFailureErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/RequestInfoErrorDetail/><code>RequestInfoErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ResourceInfoErrorDetail/><code>ResourceInfoErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/RetryInfoErrorDetail/><code>RetryInfoErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ValidationViolationsErrorDetail/><code>ValidationViolationsErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EtagMismatchErrorDetail/><code>EtagMismatchErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/KitFieldOutcomeReportErrorDetail/><code>KitFieldOutcomeReportErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpConfigurationReportErrorDetail/><code>McpConfigurationReportErrorDetail</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/UnknownErrorDetail/><code>UnknownErrorDetail</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "discriminator": {
+    "mapping": {
+      "type.googleapis.com/buf.validate.Violations": "#/components/schemas/ValidationViolationsErrorDetail",
+      "type.googleapis.com/docker.sandboxes.v1.EtagMismatch": "#/components/schemas/EtagMismatchErrorDetail",
+      "type.googleapis.com/docker.sandboxes.v1.KitFieldOutcomeReport": "#/components/schemas/KitFieldOutcomeReportErrorDetail",
+      "type.googleapis.com/docker.sandboxes.v1.McpConfigurationReport": "#/components/schemas/McpConfigurationReportErrorDetail",
+      "type.googleapis.com/google.rpc.BadRequest": "#/components/schemas/BadRequestErrorDetail",
+      "type.googleapis.com/google.rpc.DebugInfo": "#/components/schemas/DebugInfoErrorDetail",
+      "type.googleapis.com/google.rpc.ErrorInfo": "#/components/schemas/ErrorInfoErrorDetail",
+      "type.googleapis.com/google.rpc.Help": "#/components/schemas/HelpErrorDetail",
+      "type.googleapis.com/google.rpc.LocalizedMessage": "#/components/schemas/LocalizedMessageErrorDetail",
+      "type.googleapis.com/google.rpc.PreconditionFailure": "#/components/schemas/PreconditionFailureErrorDetail",
+      "type.googleapis.com/google.rpc.QuotaFailure": "#/components/schemas/QuotaFailureErrorDetail",
+      "type.googleapis.com/google.rpc.RequestInfo": "#/components/schemas/RequestInfoErrorDetail",
+      "type.googleapis.com/google.rpc.ResourceInfo": "#/components/schemas/ResourceInfoErrorDetail",
+      "type.googleapis.com/google.rpc.RetryInfo": "#/components/schemas/RetryInfoErrorDetail"
+    },
+    "propertyName": "@type"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/BadRequestErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/DebugInfoErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/ErrorInfoErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/HelpErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/LocalizedMessageErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/PreconditionFailureErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/QuotaFailureErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/RequestInfoErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/ResourceInfoErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/RetryInfoErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/ValidationViolationsErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/EtagMismatchErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/KitFieldOutcomeReportErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/McpConfigurationReportErrorDetail"
+    },
+    {
+      "$ref": "#/components/schemas/UnknownErrorDetail"
+    }
+  ]
+}</code></pre></details></article>

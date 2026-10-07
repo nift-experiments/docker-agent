@@ -1,0 +1,75 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FileInfo.md>Markdown</a></div><meta data-pagefind-meta="title:FileInfo — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FileInfo</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">FileInfo is file metadata.</div><details class=api-field open><summary><code>isDir</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">is_dir reports whether the path is a directory and stays populated on
+every backend and every caller. type is the richer authority, and
+type == directory iff is_dir.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "is_dir reports whether the path is a directory and stays populated on\nevery backend and every caller. type is the richer authority, and\ntype == directory iff is_dir.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>linkTarget</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">link_target is the literal readlink() text when type is symlink,
+since that is the only case where nothing else lets the caller learn what
+the link names; empty otherwise.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "link_target is the literal readlink() text when type is symlink,\nsince that is the only case where nothing else lets the caller learn what\nthe link names; empty otherwise.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>mode</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">mode is the stored Unix permission bits (0777), without type or special bits.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "mode is the stored Unix permission bits (0777), without type or special bits.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>path</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">path is the sandbox path.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "path is the sandbox path.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>size</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">size is the file size in bytes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "size is the file size in bytes.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>type</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileType/><code>FileType</code></a></p><div class="prose dark:prose-invert">type classifies the object, and Stat and List populate it for every
+caller. Stat and List resolve an in-jail symlink and report
+the resolved target's type; a link that cannot be resolved in-jail
+(dangling, looping, or escaping) reports symlink for itself
+rather than disclosing an out-of-jail target.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/FileType",
+  "description": "type classifies the object, and Stat and List populate it for every\ncaller. Stat and List resolve an in-jail symlink and report\nthe resolved target's type; a link that cannot be resolved in-jail\n(dangling, looping, or escaping) reports symlink for itself\nrather than disclosing an out-of-jail target."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "FileInfo is file metadata.",
+  "properties": {
+    "isDir": {
+      "description": "is_dir reports whether the path is a directory and stays populated on\nevery backend and every caller. type is the richer authority, and\ntype == directory iff is_dir.",
+      "type": "boolean"
+    },
+    "linkTarget": {
+      "description": "link_target is the literal readlink() text when type is symlink,\nsince that is the only case where nothing else lets the caller learn what\nthe link names; empty otherwise.",
+      "type": "string"
+    },
+    "mode": {
+      "description": "mode is the stored Unix permission bits (0777), without type or special bits.",
+      "type": "integer"
+    },
+    "path": {
+      "description": "path is the sandbox path.",
+      "type": "string"
+    },
+    "size": {
+      "description": "size is the file size in bytes.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "type": {
+      "$ref": "#/components/schemas/FileType",
+      "description": "type classifies the object, and Stat and List populate it for every\ncaller. Stat and List resolve an in-jail symlink and report\nthe resolved target's type; a link that cannot be resolved in-jail\n(dangling, looping, or escaping) reports symlink for itself\nrather than disclosing an out-of-jail target."
+    }
+  },
+  "title": "FileInfo",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,27 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/RetryInfo.md>Markdown</a></div><meta data-pagefind-meta="title:RetryInfo — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>RetryInfo</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert"><p>Describes when the clients can retry a failed request. Clients could ignore
+the recommendation here or retry when this information is missing from error
+responses.</p><p>It's always recommended that clients should use exponential backoff when
+retrying.</p><p>Clients should wait until <code>retry_delay</code> amount of time has passed since
+receiving the error response before retrying. If retrying requests also
+fail, clients should use an exponential backoff scheme to gradually increase
+the delay between retries based on <code>retry_delay</code>, until either a maximum
+number of retries have been reached or a maximum retry delay cap has been
+reached.</p></div><details class=api-field open><summary><code>retryDelay</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">Clients should wait at least this long between retrying the same request.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "Clients should wait at least this long between retrying the same request."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes when the clients can retry a failed request. Clients could ignore\nthe recommendation here or retry when this information is missing from error\nresponses.\n\nIt's always recommended that clients should use exponential backoff when\nretrying.\n\nClients should wait until `retry_delay` amount of time has passed since\nreceiving the error response before retrying.  If retrying requests also\nfail, clients should use an exponential backoff scheme to gradually increase\nthe delay between retries based on `retry_delay`, until either a maximum\nnumber of retries have been reached or a maximum retry delay cap has been\nreached.",
+  "properties": {
+    "retryDelay": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "Clients should wait at least this long between retrying the same request."
+    }
+  },
+  "title": "RetryInfo",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,137 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Display system-wide information</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker system info [OPTIONS]</code></td></tr><tr><th class="text-left w-32 flex items-center gap-2"><span>Aliases</span><div data-tooltip-wrapper><div data-tooltip-button class="icon-svg text-blue-light flex items-center dark:text-blue-700"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm11.378-3.917c-.89-.777-2.366-.777-3.255.0a.75.75.0 01-.988-1.129c1.454-1.272 3.776-1.272 5.23.0 1.513 1.324 1.513 3.518.0 4.842a3.75 3.75.0 01-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75.0 01-1.5.0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857.0-2.584zM12 18a.75.75.0 100-1.5.75.75.0 000 1.5z" clip-rule="evenodd"/></svg></div><div data-tooltip-body class="absolute top-0 left-0 hidden max-w-56 rounded-sm bg-gray-700 p-2 text-white dark:text-gray-800 dark:bg-gray-300" role=tooltip>An alias is a short or memorable alternative for a longer command.<div data-tooltip-arrow class="absolute h-2 w-2 rotate-45 bg-gray-700 dark:bg-gray-300"></div></div></div></th><td><div class="flex gap-3"><code>docker info</code></div></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>This command displays system wide information regarding the Docker installation.
+Information displayed includes the kernel version, number of containers and images.
+The number of images shown is the number of unique images. The same image tagged
+under different names is counted only once.</p><p>If a format is specified, the given template will be executed instead of the
+default format. Go's <a class=link href=https://pkg.go.dev/text/template rel=noopener>text/template</a> package
+describes all the details of the format.</p><p>Depending on the storage driver in use, additional information can be shown, such
+as pool name, data file, metadata file, data space used, total data space, metadata
+space used, and total metadata space.</p><p>The data file is where the images are stored and the metadata file is where the
+meta data regarding those images are stored. When run for the first time Docker
+allocates a certain amount of data space and meta data space from the space
+available on the volume where <code>/var/lib/docker</code> is mounted.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><a class=link href=#format><code>-f, --format</code></a></td><td></td><td>Format output using a custom template:<br>'json': Print in JSON format<br>'TEMPLATE': Print output using the given Go template.<br>Refer to <a class=link href=https://docs.docker.com/go/formatting/ rel=noopener>https://docs.docker.com/go/formatting/</a> for more information about formatting output with templates</td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=show-output><a class="text-black dark:text-white no-underline hover:underline" href=#show-output>Show output</a></h3><p>The example below shows the output for a daemon running on Ubuntu Linux,
+using the <code>overlay2</code> storage driver. As can be seen in the output, additional
+information about the <code>overlay2</code> storage driver is shown:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgaW5mbwoKQ2xpZW50OgogVmVyc2lvbjogICAgMjUuMC4wCiBDb250ZXh0OiAgICBkZWZhdWx0CiBEZWJ1ZyBNb2RlOiBmYWxzZQogUGx1Z2luczoKICBidWlsZHg6IERvY2tlciBCdWlsZHggKERvY2tlciBJbmMuKQogICAgVmVyc2lvbjogIHYwLjEyLjEKICAgIFBhdGg6ICAgICAvdXNyL2xvY2FsL2xpYmV4ZWMvZG9ja2VyL2NsaS1wbHVnaW5zL2RvY2tlci1idWlsZHgKICBjb21wb3NlOiBEb2NrZXIgQ29tcG9zZSAoRG9ja2VyIEluYy4pCiAgICBWZXJzaW9uOiAgdjIuMjQuMQogICAgUGF0aDogICAgIC91c3IvbG9jYWwvbGliZXhlYy9kb2NrZXIvY2xpLXBsdWdpbnMvZG9ja2VyLWNvbXBvc2UKClNlcnZlcjoKIENvbnRhaW5lcnM6IDE0CiAgUnVubmluZzogMwogIFBhdXNlZDogMQogIFN0b3BwZWQ6IDEwCiBJbWFnZXM6IDUyCiBTZXJ2ZXIgVmVyc2lvbjogMjUuMC4wCiBTdG9yYWdlIERyaXZlcjogb3ZlcmxheWZzCiAgZHJpdmVyLXR5cGU6IGlvLmNvbnRhaW5lcmQuc25hcHNob3R0ZXIudjEKIExvZ2dpbmcgRHJpdmVyOiBqc29uLWZpbGUKIENncm91cCBEcml2ZXI6IGNncm91cGZzCiBDZ3JvdXAgVmVyc2lvbjogMgogUGx1Z2luczoKICBWb2x1bWU6IGxvY2FsCiAgTmV0d29yazogYnJpZGdlIGhvc3QgaXB2bGFuIG1hY3ZsYW4gbnVsbCBvdmVybGF5CiAgTG9nOiBhd3Nsb2dzIGZsdWVudGQgZ2NwbG9ncyBnZWxmIGpvdXJuYWxkIGpzb24tZmlsZSBsb2NhbCBzcGx1bmsgc3lzbG9nCiBDREkgc3BlYyBkaXJlY3RvcmllczoKICAvZXRjL2NkaQogIC92YXIvcnVuL2NkaQogU3dhcm06IGluYWN0aXZlCiBSdW50aW1lczogcnVuYyBpby5jb250YWluZXJkLnJ1bmMudjIKIERlZmF1bHQgUnVudGltZTogcnVuYwogSW5pdCBCaW5hcnk6IGRvY2tlci1pbml0CiBjb250YWluZXJkIHZlcnNpb246IDcxOTA5YzE4MTRjNTQ0YWM0N2FiOTFkMmU4Yjg0NzE4ZTUxN2JiOTkKIHJ1bmMgdmVyc2lvbjogdjEuMS4xMS0wLWc0YmNjYjM4CiBpbml0IHZlcnNpb246IGRlNDBhZDAKIFNlY3VyaXR5IE9wdGlvbnM6CiAgc2VjY29tcAogICBQcm9maWxlOiBidWlsdGluCiAgY2dyb3VwbnMKIEtlcm5lbCBWZXJzaW9uOiA2LjUuMTEtbGludXhraXQKIE9wZXJhdGluZyBTeXN0ZW06IEFscGluZSBMaW51eCB2My4xOQogT1NUeXBlOiBsaW51eAogQXJjaGl0ZWN0dXJlOiBhYXJjaDY0CiBDUFVzOiAxMAogVG90YWwgTWVtb3J5OiA3LjY2M0dpQgogTmFtZTogNGE3ZWQyMDZhNzBkCiBJRDogYzIwZjcyMzAtNTlhMi00ODI0LWEyZjQtZmRhNzFjOTgyZWU2CiBEb2NrZXIgUm9vdCBEaXI6IC92YXIvbGliL2RvY2tlcgogRGVidWcgTW9kZTogZmFsc2UKIEV4cGVyaW1lbnRhbDogZmFsc2UKIEluc2VjdXJlIFJlZ2lzdHJpZXM6CiAgMTI3LjAuMC4wLzgKIExpdmUgUmVzdG9yZSBFbmFibGVkOiBmYWxzZQogUHJvZHVjdCBMaWNlbnNlOiBDb21tdW5pdHkgRW5naW5l', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker info
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Client:
+</span></span></span><span class=line><span class=cl><span class=go> Version:    25.0.0
+</span></span></span><span class=line><span class=cl><span class=go> Context:    default
+</span></span></span><span class=line><span class=cl><span class=go> Debug Mode: false
+</span></span></span><span class=line><span class=cl><span class=go> Plugins:
+</span></span></span><span class=line><span class=cl><span class=go>  buildx: Docker Buildx (Docker Inc.)
+</span></span></span><span class=line><span class=cl><span class=go>    Version:  v0.12.1
+</span></span></span><span class=line><span class=cl><span class=go>    Path:     /usr/local/libexec/docker/cli-plugins/docker-buildx
+</span></span></span><span class=line><span class=cl><span class=go>  compose: Docker Compose (Docker Inc.)
+</span></span></span><span class=line><span class=cl><span class=go>    Version:  v2.24.1
+</span></span></span><span class=line><span class=cl><span class=go>    Path:     /usr/local/libexec/docker/cli-plugins/docker-compose
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Server:
+</span></span></span><span class=line><span class=cl><span class=go> Containers: 14
+</span></span></span><span class=line><span class=cl><span class=go>  Running: 3
+</span></span></span><span class=line><span class=cl><span class=go>  Paused: 1
+</span></span></span><span class=line><span class=cl><span class=go>  Stopped: 10
+</span></span></span><span class=line><span class=cl><span class=go> Images: 52
+</span></span></span><span class=line><span class=cl><span class=go> Server Version: 25.0.0
+</span></span></span><span class=line><span class=cl><span class=go> Storage Driver: overlayfs
+</span></span></span><span class=line><span class=cl><span class=go>  driver-type: io.containerd.snapshotter.v1
+</span></span></span><span class=line><span class=cl><span class=go> Logging Driver: json-file
+</span></span></span><span class=line><span class=cl><span class=go> Cgroup Driver: cgroupfs
+</span></span></span><span class=line><span class=cl><span class=go> Cgroup Version: 2
+</span></span></span><span class=line><span class=cl><span class=go> Plugins:
+</span></span></span><span class=line><span class=cl><span class=go>  Volume: local
+</span></span></span><span class=line><span class=cl><span class=go>  Network: bridge host ipvlan macvlan null overlay
+</span></span></span><span class=line><span class=cl><span class=go>  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+</span></span></span><span class=line><span class=cl><span class=go> CDI spec directories:
+</span></span></span><span class=line><span class=cl><span class=go>  /etc/cdi
+</span></span></span><span class=line><span class=cl><span class=go>  /var/run/cdi
+</span></span></span><span class=line><span class=cl><span class=go> Swarm: inactive
+</span></span></span><span class=line><span class=cl><span class=go> Runtimes: runc io.containerd.runc.v2
+</span></span></span><span class=line><span class=cl><span class=go> Default Runtime: runc
+</span></span></span><span class=line><span class=cl><span class=go> Init Binary: docker-init
+</span></span></span><span class=line><span class=cl><span class=go> containerd version: 71909c1814c544ac47ab91d2e8b84718e517bb99
+</span></span></span><span class=line><span class=cl><span class=go> runc version: v1.1.11-0-g4bccb38
+</span></span></span><span class=line><span class=cl><span class=go> init version: de40ad0
+</span></span></span><span class=line><span class=cl><span class=go> Security Options:
+</span></span></span><span class=line><span class=cl><span class=go>  seccomp
+</span></span></span><span class=line><span class=cl><span class=go>   Profile: builtin
+</span></span></span><span class=line><span class=cl><span class=go>  cgroupns
+</span></span></span><span class=line><span class=cl><span class=go> Kernel Version: 6.5.11-linuxkit
+</span></span></span><span class=line><span class=cl><span class=go> Operating System: Alpine Linux v3.19
+</span></span></span><span class=line><span class=cl><span class=go> OSType: linux
+</span></span></span><span class=line><span class=cl><span class=go> Architecture: aarch64
+</span></span></span><span class=line><span class=cl><span class=go> CPUs: 10
+</span></span></span><span class=line><span class=cl><span class=go> Total Memory: 7.663GiB
+</span></span></span><span class=line><span class=cl><span class=go> Name: 4a7ed206a70d
+</span></span></span><span class=line><span class=cl><span class=go> ID: c20f7230-59a2-4824-a2f4-fda71c982ee6
+</span></span></span><span class=line><span class=cl><span class=go> Docker Root Dir: /var/lib/docker
+</span></span></span><span class=line><span class=cl><span class=go> Debug Mode: false
+</span></span></span><span class=line><span class=cl><span class=go> Experimental: false
+</span></span></span><span class=line><span class=cl><span class=go> Insecure Registries:
+</span></span></span><span class=line><span class=cl><span class=go>  127.0.0.0/8
+</span></span></span><span class=line><span class=cl><span class=go> Live Restore Enabled: false
+</span></span></span><span class=line><span class=cl><span class=go> Product License: Community Engine
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=format><a class="text-black dark:text-white no-underline hover:underline" href=#format>Format the output (--format)</a></h3><p>You can also specify the output format:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgaW5mbyAtLWZvcm1hdCAne3tqc29uIC59fScKCnsiSUQiOiI0Y2VlNDQwOC0xMGQyLTRlMTctODkxYy1hNDE3MzZhYzQ1MzYiLCJDb250YWluZXJzIjoxNCwgLi4ufQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker info --format <span class=s1>&#39;{{json .}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>{&#34;ID&#34;:&#34;4cee4408-10d2-4e17-891c-a41736ac4536&#34;,&#34;Containers&#34;:14, ...}
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=run-docker-info-on-windows><a class="text-black dark:text-white no-underline hover:underline" href=#run-docker-info-on-windows>Run <code>docker info</code> on Windows</a></h3><p>Here is a sample output for a daemon running on Windows Server:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'QzpcPiBkb2NrZXIgaW5mbwoKQ2xpZW50OiBEb2NrZXIgRW5naW5lIC0gQ29tbXVuaXR5CiBWZXJzaW9uOiAgICAyNC4wLjAKIENvbnRleHQ6ICAgIGRlZmF1bHQKIERlYnVnIE1vZGU6IGZhbHNlCiBQbHVnaW5zOgogIGJ1aWxkeDogRG9ja2VyIEJ1aWxkeCAoRG9ja2VyIEluYy4pCiAgICBWZXJzaW9uOiAgdjAuMTAuNAogICAgUGF0aDogICAgIEM6XFByb2dyYW0gRmlsZXNcRG9ja2VyXGNsaS1wbHVnaW5zXGRvY2tlci1idWlsZHguZXhlCiAgY29tcG9zZTogRG9ja2VyIENvbXBvc2UgKERvY2tlciBJbmMuKQogICAgVmVyc2lvbjogIHYyLjE3LjIKICAgIFBhdGg6ICAgICBDOlxQcm9ncmFtIEZpbGVzXERvY2tlclxjbGktcGx1Z2luc1xkb2NrZXItY29tcG9zZS5leGUKClNlcnZlcjoKIENvbnRhaW5lcnM6IDEKICBSdW5uaW5nOiAwCiAgUGF1c2VkOiAwCiAgU3RvcHBlZDogMQogSW1hZ2VzOiAxNwogU2VydmVyIFZlcnNpb246IDIzLjAuMwogU3RvcmFnZSBEcml2ZXI6IHdpbmRvd3NmaWx0ZXIKIExvZ2dpbmcgRHJpdmVyOiBqc29uLWZpbGUKIFBsdWdpbnM6CiAgVm9sdW1lOiBsb2NhbAogIE5ldHdvcms6IGljcyBpbnRlcm5hbCBsMmJyaWRnZSBsMnR1bm5lbCBuYXQgbnVsbCBvdmVybGF5IHByaXZhdGUgdHJhbnNwYXJlbnQKICBMb2c6IGF3c2xvZ3MgZXR3bG9ncyBmbHVlbnRkIGdjcGxvZ3MgZ2VsZiBqc29uLWZpbGUgbG9jYWwgc3BsdW5rIHN5c2xvZwogU3dhcm06IGluYWN0aXZlCiBEZWZhdWx0IElzb2xhdGlvbjogcHJvY2VzcwogS2VybmVsIFZlcnNpb246IDEwLjAgMjAzNDggKDIwMzQ4LjEuYW1kNjRmcmUuZmVfcmVsZWFzZS4yMTA1MDctMTUwMCkKIE9wZXJhdGluZyBTeXN0ZW06IE1pY3Jvc29mdCBXaW5kb3dzIFNlcnZlciBWZXJzaW9uIDIxSDIgKE9TIEJ1aWxkIDIwMzQ4LjcwNykKIE9TVHlwZTogd2luZG93cwogQXJjaGl0ZWN0dXJlOiB4ODZfNjQKIENQVXM6IDgKIFRvdGFsIE1lbW9yeTogMy45OTkgR2lCCiBOYW1lOiBXSU4tVjBWNzBDMExVNVAKIElEOiAyODgwZDM4ZC00NjRlLTRkMDEtOTFiZC1jNzZmMzNiYTM5ODEKIERvY2tlciBSb290IERpcjogQzpcUHJvZ3JhbURhdGFcZG9ja2VyCiBEZWJ1ZyBNb2RlOiBmYWxzZQogRXhwZXJpbWVudGFsOiB0cnVlCiBJbnNlY3VyZSBSZWdpc3RyaWVzOgogIG15cmVnaXN0cnk6NTAwMAogIDEyNy4wLjAuMC84CiBSZWdpc3RyeSBNaXJyb3JzOgogICBodHRwOi8vMTkyLjE2OC4xLjIvCiAgIGh0dHA6Ly9yZWdpc3RyeS1taXJyb3IuZXhhbXBsZS5jb206NTAwMC8KIExpdmUgUmVzdG9yZSBFbmFibGVkOiBmYWxzZQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>C:\&gt; docker info
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Client: Docker Engine - Community
+</span></span></span><span class=line><span class=cl><span class=go> Version:    24.0.0
+</span></span></span><span class=line><span class=cl><span class=go> Context:    default
+</span></span></span><span class=line><span class=cl><span class=go> Debug Mode: false
+</span></span></span><span class=line><span class=cl><span class=go> Plugins:
+</span></span></span><span class=line><span class=cl><span class=go>  buildx: Docker Buildx (Docker Inc.)
+</span></span></span><span class=line><span class=cl><span class=go>    Version:  v0.10.4
+</span></span></span><span class=line><span class=cl><span class=go>    Path:     C:\Program Files\Docker\cli-plugins\docker-buildx.exe
+</span></span></span><span class=line><span class=cl><span class=go>  compose: Docker Compose (Docker Inc.)
+</span></span></span><span class=line><span class=cl><span class=go>    Version:  v2.17.2
+</span></span></span><span class=line><span class=cl><span class=go>    Path:     C:\Program Files\Docker\cli-plugins\docker-compose.exe
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Server:
+</span></span></span><span class=line><span class=cl><span class=go> Containers: 1
+</span></span></span><span class=line><span class=cl><span class=go>  Running: 0
+</span></span></span><span class=line><span class=cl><span class=go>  Paused: 0
+</span></span></span><span class=line><span class=cl><span class=go>  Stopped: 1
+</span></span></span><span class=line><span class=cl><span class=go> Images: 17
+</span></span></span><span class=line><span class=cl><span class=go> Server Version: 23.0.3
+</span></span></span><span class=line><span class=cl><span class=go> Storage Driver: windowsfilter
+</span></span></span><span class=line><span class=cl><span class=go> Logging Driver: json-file
+</span></span></span><span class=line><span class=cl><span class=go> Plugins:
+</span></span></span><span class=line><span class=cl><span class=go>  Volume: local
+</span></span></span><span class=line><span class=cl><span class=go>  Network: ics internal l2bridge l2tunnel nat null overlay private transparent
+</span></span></span><span class=line><span class=cl><span class=go>  Log: awslogs etwlogs fluentd gcplogs gelf json-file local splunk syslog
+</span></span></span><span class=line><span class=cl><span class=go> Swarm: inactive
+</span></span></span><span class=line><span class=cl><span class=go> Default Isolation: process
+</span></span></span><span class=line><span class=cl><span class=go> Kernel Version: 10.0 20348 (20348.1.amd64fre.fe_release.210507-1500)
+</span></span></span><span class=line><span class=cl><span class=go> Operating System: Microsoft Windows Server Version 21H2 (OS Build 20348.707)
+</span></span></span><span class=line><span class=cl><span class=go> OSType: windows
+</span></span></span><span class=line><span class=cl><span class=go> Architecture: x86_64
+</span></span></span><span class=line><span class=cl><span class=go> CPUs: 8
+</span></span></span><span class=line><span class=cl><span class=go> Total Memory: 3.999 GiB
+</span></span></span><span class=line><span class=cl><span class=go> Name: WIN-V0V70C0LU5P
+</span></span></span><span class=line><span class=cl><span class=go> ID: 2880d38d-464e-4d01-91bd-c76f33ba3981
+</span></span></span><span class=line><span class=cl><span class=go> Docker Root Dir: C:\ProgramData\docker
+</span></span></span><span class=line><span class=cl><span class=go> Debug Mode: false
+</span></span></span><span class=line><span class=cl><span class=go> Experimental: true
+</span></span></span><span class=line><span class=cl><span class=go> Insecure Registries:
+</span></span></span><span class=line><span class=cl><span class=go>  myregistry:5000
+</span></span></span><span class=line><span class=cl><span class=go>  127.0.0.0/8
+</span></span></span><span class=line><span class=cl><span class=go> Registry Mirrors:
+</span></span></span><span class=line><span class=cl><span class=go>   http://192.168.1.2/
+</span></span></span><span class=line><span class=cl><span class=go>   http://registry-mirror.example.com:5000/
+</span></span></span><span class=line><span class=cl><span class=go> Live Restore Enabled: false
+</span></span></span></code></pre></div></div></div></div>

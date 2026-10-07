@@ -1,0 +1,131 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/HeadImageManifest.md>Markdown</a></div><meta data-pagefind-meta="title:Check if manifest exists — Registry API 2"><h1>Check if manifest exists</h1><div class=api-signature><span class=api-method data-method=HEAD>HEAD</span><code><wbr>/v2<wbr>/{name}<wbr>/manifests<wbr>/{reference}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Use this endpoint to verify whether a manifest exists by tag or digest.</p><p>This is a lightweight operation that returns only headers (no body). It is useful for:</p><ul><li>Checking for the existence of a specific image version</li><li>Determining the digest or size of a manifest before downloading or deleting</li></ul><p>This endpoint requires authentication with pull scope.</p><p>Use the <code>Accept</code> header to select the manifest representation. Supported media types:</p><ul><li><code>application/vnd.docker.distribution.manifest.v2+json</code></li><li><code>application/vnd.docker.distribution.manifest.list.v2+json</code></li><li><code>application/vnd.oci.image.manifest.v1+json</code></li><li><code>application/vnd.oci.image.index.v1+json</code></li></ul></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the Repository</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=reference><h3><code>reference</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Tag or digest to check</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/head/responses/200 data-api-media><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Manifest exists.</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Size of the manifest in bytes</p><pre><code>{
+  "description": "Size of the manifest in bytes",
+  "example": 7082,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div><div class=api-field><code>Content-Type</code><p>Media type of the manifest</p><pre><code>{
+  "description": "Media type of the manifest",
+  "example": "application/vnd.docker.distribution.manifest.v2+json",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Docker-Content-Digest</code><p>Digest of the manifest</p><pre><code>{
+  "description": "Digest of the manifest",
+  "example": "sha256:abc123...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/head/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/head/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/head/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Manifest not found.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/head/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests.</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Use this endpoint to verify whether a manifest exists by tag or digest.\n\nThis is a lightweight operation that returns only headers (no body). It is useful for:\n- Checking for the existence of a specific image version\n- Determining the digest or size of a manifest before downloading or deleting\n\nThis endpoint requires authentication with pull scope.\n\nUse the `Accept` header to select the manifest representation. Supported media types:\n\n- `application/vnd.docker.distribution.manifest.v2+json`\n- `application/vnd.docker.distribution.manifest.list.v2+json`\n- `application/vnd.oci.image.manifest.v1+json`\n- `application/vnd.oci.image.index.v1+json`\n",
+  "operationId": "HeadImageManifest",
+  "parameters": [
+    {
+      "description": "Name of the Repository",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Tag or digest to check",
+      "examples": {
+        "by-digest": {
+          "summary": "Digest",
+          "value": "sha256:abc123def456..."
+        },
+        "by-tag": {
+          "summary": "Tag",
+          "value": "latest"
+        }
+      },
+      "in": "path",
+      "name": "reference",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Manifest exists.",
+      "headers": {
+        "Content-Length": {
+          "description": "Size of the manifest in bytes",
+          "example": 7082,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "Content-Type": {
+          "description": "Media type of the manifest",
+          "example": "application/vnd.docker.distribution.manifest.v2+json",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Docker-Content-Digest": {
+          "description": "Digest of the manifest",
+          "example": "sha256:abc123...",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Authentication required."
+    },
+    "403": {
+      "description": "Access denied."
+    },
+    "404": {
+      "description": "Manifest not found."
+    },
+    "429": {
+      "description": "Too many requests."
+    }
+  },
+  "summary": "Check if manifest exists",
+  "tags": [
+    "Manifests"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# HEAD /v2/{name}/manifests/{reference}\ncurl -I \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  -H \"Accept: application/vnd.docker.distribution.manifest.v2+json\" \\\n  https://registry-1.docker.io/v2/library/ubuntu/manifests/latest\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --head \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  --header &#39;Accept: application/vnd.docker.distribution.manifest.v2&#43;json&#39; \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/manifests/&lt;REFERENCE&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBSZXBvc2l0b3J5XCIsXG4gIFwiZXhhbXBsZVwiOiBcImxpYnJhcnkvdWJ1bnR1XCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm5hbWVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXtuYW1lfX4xbWFuaWZlc3RzfjF7cmVmZXJlbmNlfS9oZWFkL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRhZyBvciBkaWdlc3QgdG8gY2hlY2tcIixcbiAgXCJleGFtcGxlc1wiOiB7XG4gICAgXCJieS1kaWdlc3RcIjoge1xuICAgICAgXCJzdW1tYXJ5XCI6IFwiRGlnZXN0XCIsXG4gICAgICBcInZhbHVlXCI6IFwic2hhMjU2OmFiYzEyM2RlZjQ1Ni4uLlwiXG4gICAgfSxcbiAgICBcImJ5LXRhZ1wiOiB7XG4gICAgICBcInN1bW1hcnlcIjogXCJUYWdcIixcbiAgICAgIFwidmFsdWVcIjogXCJsYXRlc3RcIlxuICAgIH1cbiAgfSxcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwicmVmZXJlbmNlXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjF7bmFtZX1+MW1hbmlmZXN0c34xe3JlZmVyZW5jZX0vaGVhZC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiQ29udGVudC1MZW5ndGhcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJTaXplIG9mIHRoZSBtYW5pZmVzdCBpbiBieXRlc1wiLFxuICAgIFwiZXhhbXBsZVwiOiA3MDgyLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICAgIH1cbiAgfSxcbiAgXCJDb250ZW50LVR5cGVcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJNZWRpYSB0eXBlIG9mIHRoZSBtYW5pZmVzdFwiLFxuICAgIFwiZXhhbXBsZVwiOiBcImFwcGxpY2F0aW9uL3ZuZC5kb2NrZXIuZGlzdHJpYnV0aW9uLm1hbmlmZXN0LnYyK2pzb25cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJEb2NrZXItQ29udGVudC1EaWdlc3RcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJEaWdlc3Qgb2YgdGhlIG1hbmlmZXN0XCIsXG4gICAgXCJleGFtcGxlXCI6IFwic2hhMjU2OmFiYzEyMy4uLlwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9XG59Il0="></template>

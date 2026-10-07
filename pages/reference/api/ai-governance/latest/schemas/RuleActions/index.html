@@ -1,0 +1,51 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/RuleActions.md>Markdown</a></div><meta data-pagefind-meta="title:RuleActions — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>RuleActions</h1><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">Network actions: <code>connect:tcp</code>, <code>connect:udp</code>. Filesystem actions: <code>read</code>, <code>write</code>. HTTP actions: <code>request:get</code>, <code>request:post</code>, <code>request:put</code>, <code>request:delete</code>, <code>request:patch</code>, <code>request:head</code>, <code>request:options</code>, <code>request:connect</code>, <code>request:trace</code>. All actions in a rule must belong to the same layer; mixing HTTP, network, or filesystem actions in one rule is rejected.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "connect:tcp",
+    "connect:udp",
+    "read",
+    "write",
+    "request:get",
+    "request:post",
+    "request:put",
+    "request:delete",
+    "request:patch",
+    "request:head",
+    "request:options",
+    "request:connect",
+    "request:trace"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Network actions: `connect:tcp`, `connect:udp`. Filesystem actions: `read`, `write`. HTTP actions: `request:get`, `request:post`, `request:put`, `request:delete`, `request:patch`, `request:head`, `request:options`, `request:connect`, `request:trace`. All actions in a rule must belong to the same layer; mixing HTTP, network, or filesystem actions in one rule is rejected.\n",
+  "examples": [
+    [
+      "connect:tcp",
+      "connect:udp"
+    ]
+  ],
+  "items": {
+    "enum": [
+      "connect:tcp",
+      "connect:udp",
+      "read",
+      "write",
+      "request:get",
+      "request:post",
+      "request:put",
+      "request:delete",
+      "request:patch",
+      "request:head",
+      "request:options",
+      "request:connect",
+      "request:trace"
+    ],
+    "type": "string"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></article>

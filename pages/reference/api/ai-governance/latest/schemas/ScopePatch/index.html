@@ -1,0 +1,35 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/ScopePatch.md>Markdown</a></div><meta data-pagefind-meta="title:ScopePatch — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>ScopePatch</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Per-sub-field patch of a policy's scope. An omitted sub-field is left unchanged; a present list replaces that dimension, and an empty list clears it (making the policy org-wide for that dimension).</div><details class=api-field open><summary><code>teams</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    [
+      "d290f1ee-6c54-4b01-90e6-d701748f0851"
+    ]
+  ],
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Per-sub-field patch of a policy's scope. An omitted sub-field is left unchanged; a present list replaces that dimension, and an empty list clears it (making the policy org-wide for that dimension).\n",
+  "properties": {
+    "teams": {
+      "examples": [
+        [
+          "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

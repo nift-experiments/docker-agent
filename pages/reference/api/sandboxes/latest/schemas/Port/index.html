@@ -1,0 +1,85 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/Port.md>Markdown</a></div><meta data-pagefind-meta="title:Port — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>Port</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Port is one sandbox port made reachable from outside the sandbox. The same
+facts appear inline on SandboxCore.ports for a caller reading the sandbox.</div><details class=api-field open><summary><code>etag</code>
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag identifies the observed version of this port.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag identifies the observed version of this port.",
+  "readOnly": true,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>name</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IDENTIFIER) name identifies the published port number under its sandbox resource name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IDENTIFIER) name identifies the published port number under its sandbox resource name.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>number</code>
+· required</summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">(IMMUTABLE) number is immutable and unique within the sandbox; duplicates refuse ALREADY_EXISTS.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) number is immutable and unique within the sandbox; duplicates refuse ALREADY_EXISTS.",
+  "format": "int32",
+  "maximum": 65535,
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>protocol</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Protocol/><code>Protocol</code></a></p><div class="prose dark:prose-invert">(IMMUTABLE) protocol defaults to TCP when unspecified.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Protocol",
+  "description": "(IMMUTABLE) protocol defaults to TCP when unspecified."
+}</code></pre></details></details><details class=api-field open><summary><code>uid</code>
+· response only</summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">(IMMUTABLE) uid is the durable publication incarnation when the backend provides one.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) uid is the durable publication incarnation when the backend provides one.",
+  "readOnly": true,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>url</code>
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">url is the required externally reachable address, including host-local addresses.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "url is the required externally reachable address, including host-local addresses.",
+  "readOnly": true,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Port is one sandbox port made reachable from outside the sandbox. The same\nfacts appear inline on SandboxCore.ports for a caller reading the sandbox.",
+  "properties": {
+    "etag": {
+      "description": "etag identifies the observed version of this port.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "name": {
+      "description": "(IDENTIFIER) name identifies the published port number under its sandbox resource name.",
+      "type": "string"
+    },
+    "number": {
+      "description": "(IMMUTABLE) number is immutable and unique within the sandbox; duplicates refuse ALREADY_EXISTS.",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "protocol": {
+      "$ref": "#/components/schemas/Protocol",
+      "description": "(IMMUTABLE) protocol defaults to TCP when unspecified."
+    },
+    "uid": {
+      "description": "(IMMUTABLE) uid is the durable publication incarnation when the backend provides one.",
+      "readOnly": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "url": {
+      "description": "url is the required externally reachable address, including host-local addresses.",
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "required": [
+    "number"
+  ],
+  "title": "Port",
+  "type": "object"
+}</code></pre></details></article>

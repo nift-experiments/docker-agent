@@ -1,0 +1,327 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/SandboxCore.md>Markdown</a></div><meta data-pagefind-meta="title:SandboxCore — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>SandboxCore</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">SandboxCore is the backend-neutral sandbox view. At most one of image, imageRef is set.</div><details class=api-field open><summary>All constraints apply</summary><details class=api-field><summary><code>agent</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">agent is the named agent profile, empty for raw image/start-command sandboxes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "agent is the named agent profile, empty for raw image/start-command sandboxes.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>appliedKits</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">applied_kits records kits active in the sandbox.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/AppliedKit/><code>AppliedKit</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/AppliedKit"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "applied_kits records kits active in the sandbox.",
+  "items": {
+    "$ref": "#/components/schemas/AppliedKit"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field><summary><code>createdAt</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">created_at is the creation time.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "created_at is the creation time."
+}</code></pre></details></details><details class=api-field><summary><code>endpoint</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/SandboxEndpoint/><code>SandboxEndpoint</code></a></p><div class="prose dark:prose-invert">endpoint is where process and file services are served for this sandbox.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/SandboxEndpoint",
+  "description": "endpoint is where process and file services are served for this sandbox."
+}</code></pre></details></details><details class=api-field><summary><code>environment</code></summary><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">environment is non-secret environment metadata.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": {
+    "title": "value",
+    "type": "string"
+  },
+  "description": "environment is non-secret environment metadata.",
+  "type": "object"
+}</code></pre></details></details><details class=api-field><summary><code>etag</code>
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag identifies the observed version of this resource. It is opaque and strong,
+changes on every visible change, and is what a mutation sends as its precondition.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag identifies the observed version of this resource. It is opaque and strong,\nchanges on every visible change, and is what a mutation sends as its precondition.",
+  "minLength": 1,
+  "pattern": "^\"[^\"\\x00-\\x20\\x7f]*\"$",
+  "readOnly": true,
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>labels</code></summary><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">labels are non-secret caller-assigned key/value metadata.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": {
+    "title": "value",
+    "type": "string"
+  },
+  "description": "labels are non-secret caller-assigned key/value metadata.",
+  "type": "object"
+}</code></pre></details></details><details class=api-field><summary><code>origin</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">origin is set by merged views to identify the backend that owns this sandbox.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "origin is set by merged views to identify the backend that owns this sandbox.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>platform</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Platform/><code>Platform</code></a></p><div class="prose dark:prose-invert">platform is the canonical placed platform.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Platform",
+  "description": "platform is the canonical placed platform."
+}</code></pre></details></details><details class=api-field><summary><code>ports</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">ports are the currently published ports.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PublishedPort/><code>PublishedPort</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/PublishedPort"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ports are the currently published ports.",
+  "items": {
+    "$ref": "#/components/schemas/PublishedPort"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field><summary><code>resources</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Resources/><code>Resources</code></a></p><div class="prose dark:prose-invert">resources are the sandbox resources.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Resources",
+  "description": "resources are the sandbox resources."
+}</code></pre></details></details><details class=api-field><summary><code>status</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/SandboxStatus/><code>SandboxStatus</code></a></p><div class="prose dark:prose-invert">status is the coarse lifecycle state.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/SandboxStatus",
+  "description": "status is the coarse lifecycle state.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  },
+  "readOnly": true
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "agent": {
+      "description": "agent is the named agent profile, empty for raw image/start-command sandboxes.",
+      "type": "string"
+    },
+    "appliedKits": {
+      "description": "applied_kits records kits active in the sandbox.",
+      "items": {
+        "$ref": "#/components/schemas/AppliedKit"
+      },
+      "type": "array"
+    },
+    "createdAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "created_at is the creation time."
+    },
+    "endpoint": {
+      "$ref": "#/components/schemas/SandboxEndpoint",
+      "description": "endpoint is where process and file services are served for this sandbox."
+    },
+    "environment": {
+      "additionalProperties": {
+        "title": "value",
+        "type": "string"
+      },
+      "description": "environment is non-secret environment metadata.",
+      "type": "object"
+    },
+    "etag": {
+      "description": "etag identifies the observed version of this resource. It is opaque and strong,\nchanges on every visible change, and is what a mutation sends as its precondition.",
+      "minLength": 1,
+      "pattern": "^\"[^\"\\x00-\\x20\\x7f]*\"$",
+      "readOnly": true,
+      "type": "string"
+    },
+    "labels": {
+      "additionalProperties": {
+        "title": "value",
+        "type": "string"
+      },
+      "description": "labels are non-secret caller-assigned key/value metadata.",
+      "type": "object"
+    },
+    "origin": {
+      "description": "origin is set by merged views to identify the backend that owns this sandbox.",
+      "type": "string"
+    },
+    "platform": {
+      "$ref": "#/components/schemas/Platform",
+      "description": "platform is the canonical placed platform."
+    },
+    "ports": {
+      "description": "ports are the currently published ports.",
+      "items": {
+        "$ref": "#/components/schemas/PublishedPort"
+      },
+      "type": "array"
+    },
+    "resources": {
+      "$ref": "#/components/schemas/Resources",
+      "description": "resources are the sandbox resources."
+    },
+    "status": {
+      "$ref": "#/components/schemas/SandboxStatus",
+      "description": "status is the coarse lifecycle state.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      },
+      "readOnly": true
+    }
+  }
+}</code></pre></details><details class=api-field><summary><code>image</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">image is the managed Image resource name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "image is the managed Image resource name.",
+  "pattern": "^images/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>imageRef</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">image_ref is an external OCI reference, with the existing backend validation.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "image_ref is an external OCI reference, with the existing backend validation.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "dependentSchemas": {
+    "image": {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "imageRef"
+            ]
+          }
+        ]
+      }
+    },
+    "imageRef": {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "image"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "properties": {
+    "image": {
+      "description": "image is the managed Image resource name.",
+      "pattern": "^images/[^/]+$",
+      "type": "string"
+    },
+    "imageRef": {
+      "description": "image_ref is an external OCI reference, with the existing backend validation.",
+      "type": "string"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "properties": {
+        "agent": {
+          "description": "agent is the named agent profile, empty for raw image/start-command sandboxes.",
+          "type": "string"
+        },
+        "appliedKits": {
+          "description": "applied_kits records kits active in the sandbox.",
+          "items": {
+            "$ref": "#/components/schemas/AppliedKit"
+          },
+          "type": "array"
+        },
+        "createdAt": {
+          "$ref": "#/components/schemas/Timestamp",
+          "description": "created_at is the creation time."
+        },
+        "endpoint": {
+          "$ref": "#/components/schemas/SandboxEndpoint",
+          "description": "endpoint is where process and file services are served for this sandbox."
+        },
+        "environment": {
+          "additionalProperties": {
+            "title": "value",
+            "type": "string"
+          },
+          "description": "environment is non-secret environment metadata.",
+          "type": "object"
+        },
+        "etag": {
+          "description": "etag identifies the observed version of this resource. It is opaque and strong,\nchanges on every visible change, and is what a mutation sends as its precondition.",
+          "minLength": 1,
+          "pattern": "^\"[^\"\\x00-\\x20\\x7f]*\"$",
+          "readOnly": true,
+          "type": "string"
+        },
+        "labels": {
+          "additionalProperties": {
+            "title": "value",
+            "type": "string"
+          },
+          "description": "labels are non-secret caller-assigned key/value metadata.",
+          "type": "object"
+        },
+        "origin": {
+          "description": "origin is set by merged views to identify the backend that owns this sandbox.",
+          "type": "string"
+        },
+        "platform": {
+          "$ref": "#/components/schemas/Platform",
+          "description": "platform is the canonical placed platform."
+        },
+        "ports": {
+          "description": "ports are the currently published ports.",
+          "items": {
+            "$ref": "#/components/schemas/PublishedPort"
+          },
+          "type": "array"
+        },
+        "resources": {
+          "$ref": "#/components/schemas/Resources",
+          "description": "resources are the sandbox resources."
+        },
+        "status": {
+          "$ref": "#/components/schemas/SandboxStatus",
+          "description": "status is the coarse lifecycle state.",
+          "not": {
+            "enum": [
+              "unspecified"
+            ]
+          },
+          "readOnly": true
+        }
+      }
+    },
+    {
+      "dependentSchemas": {
+        "image": {
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "imageRef"
+                ]
+              }
+            ]
+          }
+        },
+        "imageRef": {
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "image"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "properties": {
+        "image": {
+          "description": "image is the managed Image resource name.",
+          "pattern": "^images/[^/]+$",
+          "type": "string"
+        },
+        "imageRef": {
+          "description": "image_ref is an external OCI reference, with the existing backend validation.",
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "description": "SandboxCore is the backend-neutral sandbox view. At most one of image, imageRef is set.",
+  "required": [
+    "status",
+    "createdAt",
+    "etag"
+  ],
+  "title": "SandboxCore",
+  "type": "object"
+}</code></pre></details></article>

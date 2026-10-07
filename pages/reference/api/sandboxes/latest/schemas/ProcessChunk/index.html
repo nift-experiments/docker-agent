@@ -1,0 +1,45 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ProcessChunk.md>Markdown</a></div><meta data-pagefind-meta="title:ProcessChunk — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ProcessChunk</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Chunk carries process output.</div><details class=api-field open><summary><code>data</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">data is output bytes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "data is output bytes.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>stream</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/StreamType/><code>StreamType</code></a></p><div class="prose dark:prose-invert">stream identifies stdout, stderr, or PTY output.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/StreamType",
+  "description": "stream identifies stdout, stderr, or PTY output."
+}</code></pre></details></details><details class=api-field open><summary><code>streamSequence</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">stream_sequence is one-based and strictly increases per process output stream.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "stream_sequence is one-based and strictly increases per process output stream.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Chunk carries process output.",
+  "properties": {
+    "data": {
+      "description": "data is output bytes.",
+      "format": "byte",
+      "type": "string"
+    },
+    "stream": {
+      "$ref": "#/components/schemas/StreamType",
+      "description": "stream identifies stdout, stderr, or PTY output."
+    },
+    "streamSequence": {
+      "description": "stream_sequence is one-based and strictly increases per process output stream.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    }
+  },
+  "title": "Chunk",
+  "type": "object"
+}</code></pre></details></article>

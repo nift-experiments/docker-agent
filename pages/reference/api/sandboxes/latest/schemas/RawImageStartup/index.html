@@ -1,0 +1,20 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/RawImageStartup.md>Markdown</a></div><meta data-pagefind-meta="title:RawImageStartup — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>RawImageStartup</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">RawImageStartup resolves identity and working directory from the pinned image.</div><details class=api-field open><summary><code>start</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/StartupArgv/><code>StartupArgv</code></a></p><div class="prose dark:prose-invert">start replaces the complete launch argv; omission uses the image command.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/StartupArgv",
+  "description": "start replaces the complete launch argv; omission uses the image command."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "RawImageStartup resolves identity and working directory from the pinned image.",
+  "properties": {
+    "start": {
+      "$ref": "#/components/schemas/StartupArgv",
+      "description": "start replaces the complete launch argv; omission uses the image command."
+    }
+  },
+  "title": "RawImageStartup",
+  "type": "object"
+}</code></pre></details></article>

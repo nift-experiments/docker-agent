@@ -1,0 +1,38 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/error.md>Markdown</a></div><meta data-pagefind-meta="title:error — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>error</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Error details vary by endpoint. The message describes the failure; errinfo can contain additional context.</div><details class=api-field open><summary><code>detail</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>errinfo</code></summary><p class=api-type>Type:
+<code>object | null</code></p><div class="prose dark:prose-invert">Additional error context, when available.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": true,
+  "description": "Additional error context, when available.",
+  "type": [
+    "object",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>message</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Error details vary by endpoint. The message describes the failure; errinfo can contain additional context.",
+  "properties": {
+    "detail": {
+      "type": "string"
+    },
+    "errinfo": {
+      "additionalProperties": true,
+      "description": "Additional error context, when available.",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

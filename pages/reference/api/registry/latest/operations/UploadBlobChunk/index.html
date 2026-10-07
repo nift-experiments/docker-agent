@@ -1,0 +1,167 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/UploadBlobChunk.md>Markdown</a></div><meta data-pagefind-meta="title:Upload blob chunk — Registry API 2"><h1>Upload blob chunk</h1><div class=api-signature><span class=api-method data-method=PATCH>PATCH</span><code><wbr>/v2<wbr>/{name}<wbr>/blobs<wbr>/uploads<wbr>/{uuid}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Upload a chunk of a blob to an active upload session.</p><p>Use this method for <strong>chunked uploads</strong>, especially for large blobs or when resuming interrupted uploads.</p><p>The client sends binary data using <code>PATCH</code>, optionally including a <code>Content-Range</code> header.</p><p>After each chunk is accepted, the registry returns a <code>202 Accepted</code> response with:</p><ul><li><code>Range</code>: current byte range stored</li><li><code>Docker-Upload-UUID</code>: identifier for the upload session</li><li><code>Location</code>: URL to continue the upload or finalize with <code>PUT</code></li></ul></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Repository name</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=uuid><h3><code>uuid</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Upload session UUID</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=Content-Range><h3><code>Content-Range</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Optional. Byte range of the chunk being sent</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/octet-stream>application/octet-stream</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/requestBody/content/application~1octet-stream data-api-media=application/octet-stream><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/octet-stream</code></p><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "format": "binary",
+  "type": "string"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>chunk-0</h4><pre><code>&lt;binary data not shown&gt;</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/202 data-api-media><h3><span>Response</span>
+<code class=api-status>202</code></h3><div class="prose dark:prose-invert">Chunk accepted and stored</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Docker-Upload-UUID</code><p>Upload session UUID</p><pre><code>{
+  "description": "Upload session UUID",
+  "example": "abc123",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Location</code><p>URL to continue or finalize the upload</p><pre><code>{
+  "description": "URL to continue or finalize the upload",
+  "example": "/v2/library/ubuntu/blobs/uploads/abc123",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Range</code><p>Byte range uploaded so far (inclusive)</p><pre><code>{
+  "description": "Byte range uploaded so far (inclusive)",
+  "example": "0-65535",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/400 data-api-media><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Malformed content or range</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Upload session not found</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/416 data-api-media><h3><span>Response</span>
+<code class=api-status>416</code></h3><div class="prose dark:prose-invert">Range error (e.g., chunk out of order)</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/patch/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Upload a chunk of a blob to an active upload session.\n\nUse this method for **chunked uploads**, especially for large blobs or when resuming interrupted uploads.\n\nThe client sends binary data using `PATCH`, optionally including a `Content-Range` header.\n\nAfter each chunk is accepted, the registry returns a `202 Accepted` response with:\n- `Range`: current byte range stored\n- `Docker-Upload-UUID`: identifier for the upload session\n- `Location`: URL to continue the upload or finalize with `PUT`\n",
+  "operationId": "UploadBlobChunk",
+  "parameters": [
+    {
+      "description": "Repository name",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Upload session UUID",
+      "example": "abc123",
+      "in": "path",
+      "name": "uuid",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Optional. Byte range of the chunk being sent",
+      "example": "bytes 0-65535",
+      "in": "header",
+      "name": "Content-Range",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/octet-stream": {
+        "examples": {
+          "chunk-0": {
+            "summary": "Upload chunk 0 of a blob",
+            "value": "\u003cbinary data not shown\u003e"
+          }
+        },
+        "schema": {
+          "format": "binary",
+          "type": "string"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "202": {
+      "description": "Chunk accepted and stored",
+      "headers": {
+        "Docker-Upload-UUID": {
+          "description": "Upload session UUID",
+          "example": "abc123",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Location": {
+          "description": "URL to continue or finalize the upload",
+          "example": "/v2/library/ubuntu/blobs/uploads/abc123",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Range": {
+          "description": "Byte range uploaded so far (inclusive)",
+          "example": "0-65535",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "400": {
+      "description": "Malformed content or range"
+    },
+    "401": {
+      "description": "Authentication required"
+    },
+    "403": {
+      "description": "Access denied"
+    },
+    "404": {
+      "description": "Upload session not found"
+    },
+    "416": {
+      "description": "Range error (e.g., chunk out of order)"
+    },
+    "429": {
+      "description": "Too many requests"
+    }
+  },
+  "summary": "Upload blob chunk",
+  "tags": [
+    "Blobs"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# PATCH – upload a chunk (first 64 KiB)\ncurl -X PATCH \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  -H \"Content-Type: application/octet-stream\" \\\n  --data-binary @chunk-0.bin \\\n  \"https://registry-1.docker.io/v2/library/ubuntu/blobs/uploads/abc123\"\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PATCH \
+  --header &#39;Content-Range: bytes 0-65535&#39; \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  --header &#39;Content-Type: application/octet-stream&#39; \
+  --data-binary @request-body \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/blobs/uploads/abc123&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBvc2l0b3J5IG5hbWVcIixcbiAgXCJleGFtcGxlXCI6IFwibGlicmFyeS91YnVudHVcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xe3V1aWR9L3BhdGNoL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlVwbG9hZCBzZXNzaW9uIFVVSURcIixcbiAgXCJleGFtcGxlXCI6IFwiYWJjMTIzXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInV1aWRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXtuYW1lfX4xYmxvYnN+MXVwbG9hZHN+MXt1dWlkfS9wYXRjaC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJPcHRpb25hbC4gQnl0ZSByYW5nZSBvZiB0aGUgY2h1bmsgYmVpbmcgc2VudFwiLFxuICBcImV4YW1wbGVcIjogXCJieXRlcyAwLTY1NTM1XCIsXG4gIFwiaW5cIjogXCJoZWFkZXJcIixcbiAgXCJuYW1lXCI6IFwiQ29udGVudC1SYW5nZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xe3V1aWR9L3BhdGNoL3BhcmFtZXRlcnMvMlwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZm9ybWF0XCI6IFwiYmluYXJ5XCIsXG4gIFwidHlwZVwiOiBcInN0cmluZ1wiXG59IiwgIntcbiAgXCJEb2NrZXItVXBsb2FkLVVVSURcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJVcGxvYWQgc2Vzc2lvbiBVVUlEXCIsXG4gICAgXCJleGFtcGxlXCI6IFwiYWJjMTIzXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwiTG9jYXRpb25cIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJVUkwgdG8gY29udGludWUgb3IgZmluYWxpemUgdGhlIHVwbG9hZFwiLFxuICAgIFwiZXhhbXBsZVwiOiBcIi92Mi9saWJyYXJ5L3VidW50dS9ibG9icy91cGxvYWRzL2FiYzEyM1wiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9LFxuICBcIlJhbmdlXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiQnl0ZSByYW5nZSB1cGxvYWRlZCBzbyBmYXIgKGluY2x1c2l2ZSlcIixcbiAgICBcImV4YW1wbGVcIjogXCIwLTY1NTM1XCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iXQ=="></template>

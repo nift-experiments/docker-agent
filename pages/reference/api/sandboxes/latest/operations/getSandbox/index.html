@@ -1,0 +1,137 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/getSandbox.md>Markdown</a></div><meta data-pagefind-meta="title:GetSandbox reads one sandbox by its resource name. — Docker Sandboxes API v1"><h1>GetSandbox reads one sandbox by its resource name.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/sandboxes<wbr>/{sandbox}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">GetSandbox reads one sandbox by its resource name.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=sandbox><h3><code>sandbox</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The sandbox id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-None-Match><h3><code>If-None-Match</code>
+<small>header</small></h3><div class="prose dark:prose-invert">A quoted entity-tag or comma-separated list, compared weakly with the current resource etag. A match, including a weak form or wildcard *, answers 304 without a body after authorization. Malformed input is treated as no match.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Sandbox/><code>Sandbox</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}/get/responses/304 data-api-media><h3><span>Response</span>
+<code class=api-status>304</code></h3><div class="prose dark:prose-invert">The resource's etag equals the If-None-Match value, so this response carries no body.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">The target is absent or not visible within the caller's scope.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>notFound</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;message&#34;: &#34;The target is absent or not visible within the caller&#39;s scope.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Sandbox/>#/components/schemas/Sandbox</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "GetSandbox reads one sandbox by its resource name.",
+  "operationId": "getSandbox",
+  "parameters": [
+    {
+      "description": "The sandbox id.",
+      "in": "path",
+      "name": "sandbox",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A quoted entity-tag or comma-separated list, compared weakly with the current resource etag. A match, including a weak form or wildcard *, answers 304 without a body after authorization. Malformed input is treated as no match.",
+      "in": "header",
+      "name": "If-None-Match",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Sandbox"
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "304": {
+      "description": "The resource's etag equals the If-None-Match value, so this response carries no body."
+    },
+    "404": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "notFound": {
+              "summary": "The target is absent or not visible within the caller's scope.",
+              "value": {
+                "code": "notFound",
+                "message": "The target is absent or not visible within the caller's scope."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The target is absent or not visible within the caller's scope."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "GetSandbox reads one sandbox by its resource name.",
+  "tags": [
+    "Sandboxes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "NOT_FOUND",
+      "description": "The target is absent or not visible within the caller's scope."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "sandboxesRead"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://connect.docker.com/sandboxes/v1/sandboxes/&lt;SANDBOX&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzYW5kYm94IGlkLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJzYW5kYm94XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzYW5kYm94ZXN+MXtzYW5kYm94fS9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiQSBxdW90ZWQgZW50aXR5LXRhZyBvciBjb21tYS1zZXBhcmF0ZWQgbGlzdCwgY29tcGFyZWQgd2Vha2x5IHdpdGggdGhlIGN1cnJlbnQgcmVzb3VyY2UgZXRhZy4gQSBtYXRjaCwgaW5jbHVkaW5nIGEgd2VhayBmb3JtIG9yIHdpbGRjYXJkICosIGFuc3dlcnMgMzA0IHdpdGhvdXQgYSBib2R5IGFmdGVyIGF1dGhvcml6YXRpb24uIE1hbGZvcm1lZCBpbnB1dCBpcyB0cmVhdGVkIGFzIG5vIG1hdGNoLlwiLFxuICBcImluXCI6IFwiaGVhZGVyXCIsXG4gIFwibmFtZVwiOiBcIklmLU5vbmUtTWF0Y2hcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNhbmRib3hlc34xe3NhbmRib3h9L2dldC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9TYW5kYm94XCJcbn0iLCAie1xuICBcIkVUYWdcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgZXRhZyBvZiB0aGUgcmVzb3VyY2UgdGhpcyByZXNwb25zZSBjYXJyaWVzLCB3aGljaCB0aGUgbmV4dCBtdXRhdGlvbiBvZiBpdCBzZW5kcyBhcyBJZi1NYXRjaC5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59Il0="></template>

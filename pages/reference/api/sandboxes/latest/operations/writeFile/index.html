@@ -1,0 +1,134 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/writeFile.md>Markdown</a></div><meta data-pagefind-meta="title:WriteFile accepts raw content with path and mode query parameters. — Docker Sandboxes API v1"><h1>WriteFile accepts raw content with path and mode query parameters.</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v1<wbr>/files<wbr>/content</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">WriteFile accepts raw content with path and mode query parameters.
+It replaces the complete target state and carries no request_id.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=path><h3><code>path</code>
+<small>query</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">path is the sandbox path.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "minLength": 1,
+  "title": "path",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=mode><h3><code>mode</code>
+<small>query</small></h3><div class="prose dark:prose-invert">mode carries Unix permission bits. Upload applies mode & 0777, or 0644 when
+that value is zero, without subtracting umask; Download reports stored bits.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "mode",
+  "type": "integer"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option><option value=application/octet-stream>application/octet-stream</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1files~1content/put/requestBody/content/application~1octet-stream data-api-media=application/octet-stream><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/octet-stream</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "contentMediaType": "application/octet-stream"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1content/put/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FilesWriteFileResponse/><code>FilesWriteFileResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1content/put/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesWriteFileRequest/>#/components/schemas/FilesWriteFileRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesWriteFileResponse/>#/components/schemas/FilesWriteFileResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "WriteFile accepts raw content with path and mode query parameters.\nIt replaces the complete target state and carries no request_id.",
+  "operationId": "writeFile",
+  "parameters": [
+    {
+      "description": "path is the sandbox path.",
+      "in": "query",
+      "name": "path",
+      "required": true,
+      "schema": {
+        "minLength": 1,
+        "title": "path",
+        "type": "string"
+      }
+    },
+    {
+      "description": "mode carries Unix permission bits. Upload applies mode \u0026 0777, or 0644 when\nthat value is zero, without subtracting umask; Download reports stored bits.",
+      "in": "query",
+      "name": "mode",
+      "required": false,
+      "schema": {
+        "title": "mode",
+        "type": "integer"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/octet-stream": {
+        "schema": {
+          "contentMediaType": "application/octet-stream"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/FilesWriteFileResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "WriteFile accepts raw content with path and mode query parameters.",
+  "tags": [
+    "Files"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-http-transfer": {
+    "request": {
+      "bytesField": "data",
+      "mediaType": "application/octet-stream"
+    }
+  },
+  "x-sbx-plane": "data",
+  "x-sbx-request-schema": {
+    "$ref": "#/components/schemas/FilesWriteFileRequest"
+  },
+  "x-sbx-required-permissions": [
+    "sandboxesFilesWrite"
+  ],
+  "x-sbx-response-schema": {
+    "$ref": "#/components/schemas/FilesWriteFileResponse"
+  },
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/octet-stream&#39; \
+  --data-binary @request-body \
+  &#39;https://sandbox.invalid/v1/files/content?path=%3CPATH%3E&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJwYXRoIGlzIHRoZSBzYW5kYm94IHBhdGguXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJwYXRoXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFmaWxlc34xY29udGVudC9wdXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwibWluTGVuZ3RoXCI6IDEsXG4gICAgXCJ0aXRsZVwiOiBcInBhdGhcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIm1vZGUgY2FycmllcyBVbml4IHBlcm1pc3Npb24gYml0cy4gVXBsb2FkIGFwcGxpZXMgbW9kZSBcXHUwMDI2IDA3NzcsIG9yIDA2NDQgd2hlblxcbnRoYXQgdmFsdWUgaXMgemVybywgd2l0aG91dCBzdWJ0cmFjdGluZyB1bWFzazsgRG93bmxvYWQgcmVwb3J0cyBzdG9yZWQgYml0cy5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcIm1vZGVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MWZpbGVzfjFjb250ZW50L3B1dC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidGl0bGVcIjogXCJtb2RlXCIsXG4gICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gIH1cbn0iLCAie1xuICBcImNvbnRlbnRNZWRpYVR5cGVcIjogXCJhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW1cIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0ZpbGVzV3JpdGVGaWxlUmVzcG9uc2VcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iXQ=="></template>

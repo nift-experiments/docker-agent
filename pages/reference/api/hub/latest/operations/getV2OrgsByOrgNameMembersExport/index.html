@@ -1,0 +1,96 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/getV2OrgsByOrgNameMembersExport.md>Markdown</a></div><meta data-pagefind-meta="title:Export org members CSV — Docker Hub API 2-beta"><h1>Export org members CSV</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/orgs<wbr>/{org_name}<wbr>/members<wbr>/export</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Export members of an organization as a CSV</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the organization (namespace).</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option><option value=text/csv>text/csv</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1export/get/responses/200/content/text~1csv data-api-media=text/csv><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Exported members</div><p class=api-media><code>text/csv</code></p><h4>Headers</h4><div class=api-field><code>Content-Disposition</code><p></p><pre><code>{
+  "example": "attachment;filename=\"{org_name}-members-{timestamp}.csv\"",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">CSV columns: Name, Username, Email, Type, Role, Teams, and Date Joined. The Role column contains the assigned role label. When administrative insights are available, the export also includes Last Logged-in Date, Docker Desktop Version, Last Seen Date, and Opted Out Analytics.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "CSV columns: Name, Username, Email, Type, Role, Teams, and Date Joined. The Role column contains the assigned role label. When administrative insights are available, the export also includes Last Logged-in Date, Docker Desktop Version, Last Seen Date, and Opted Out Analytics.",
+  "type": "string"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Example</h4><pre><code>Name,Username,Email,Type,Role,Teams,Date Joined
+Jon Snow,dockeruser,example@docker.com,User,Owner,owners,2021-01-05 21:06:53.5064 &#43;0000 UTC
+</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1export/get/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;bad request&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1export/get/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1export/get/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1export/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Export members of an organization as a CSV\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "getV2OrgsByOrgNameMembersExport",
+  "responses": {
+    "200": {
+      "content": {
+        "text/csv": {
+          "example": "Name,Username,Email,Type,Role,Teams,Date Joined\nJon Snow,dockeruser,example@docker.com,User,Owner,owners,2021-01-05 21:06:53.5064 +0000 UTC\n",
+          "schema": {
+            "description": "CSV columns: Name, Username, Email, Type, Role, Teams, and Date Joined. The Role column contains the assigned role label. When administrative insights are available, the export also includes Last Logged-in Date, Docker Desktop Version, Last Seen Date, and Opted Out Analytics.",
+            "type": "string"
+          }
+        }
+      },
+      "description": "Exported members",
+      "headers": {
+        "Content-Disposition": {
+          "example": "attachment;filename=\"{org_name}-members-{timestamp}.csv\"",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "400": {
+      "$ref": "#/components/responses/bad_request"
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/not_found"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Export org members CSV",
+  "tags": [
+    "orgs"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: text/csv&#39; \
+  &#39;https://hub.docker.com/v2/orgs/myorganization/members/export&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBvcmdhbml6YXRpb24gKG5hbWVzcGFjZSkuXCIsXG4gIFwiZXhhbXBsZVwiOiBcIm15b3JnYW5pemF0aW9uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm9yZ19uYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFvcmdzfjF7b3JnX25hbWV9fjFtZW1iZXJzfjFleHBvcnQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiQ1NWIGNvbHVtbnM6IE5hbWUsIFVzZXJuYW1lLCBFbWFpbCwgVHlwZSwgUm9sZSwgVGVhbXMsIGFuZCBEYXRlIEpvaW5lZC4gVGhlIFJvbGUgY29sdW1uIGNvbnRhaW5zIHRoZSBhc3NpZ25lZCByb2xlIGxhYmVsLiBXaGVuIGFkbWluaXN0cmF0aXZlIGluc2lnaHRzIGFyZSBhdmFpbGFibGUsIHRoZSBleHBvcnQgYWxzbyBpbmNsdWRlcyBMYXN0IExvZ2dlZC1pbiBEYXRlLCBEb2NrZXIgRGVza3RvcCBWZXJzaW9uLCBMYXN0IFNlZW4gRGF0ZSwgYW5kIE9wdGVkIE91dCBBbmFseXRpY3MuXCIsXG4gIFwidHlwZVwiOiBcInN0cmluZ1wiXG59IiwgIntcbiAgXCJDb250ZW50LURpc3Bvc2l0aW9uXCI6IHtcbiAgICBcImV4YW1wbGVcIjogXCJhdHRhY2htZW50O2ZpbGVuYW1lPVxcXCJ7b3JnX25hbWV9LW1lbWJlcnMte3RpbWVzdGFtcH0uY3N2XFxcIlwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSJd"></template>

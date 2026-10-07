@@ -1,0 +1,99 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/CreateProcessRequest.md>Markdown</a></div><meta data-pagefind-meta="title:CreateProcessRequest — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>CreateProcessRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">CreateProcessRequest starts an interactive process.</div><details class=api-field open><summary><code>cmd</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">cmd is the argv vector.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "cmd is the argv vector.",
+  "items": {
+    "type": "string"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>env</code></summary><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">env adds environment variables.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": {
+    "title": "value",
+    "type": "string"
+  },
+  "description": "env adds environment variables.",
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>label</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">(OPTIONAL) label is unique within the sandbox; omission retains the server-generated default.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(OPTIONAL) label is unique within the sandbox; omission retains the server-generated default.",
+  "minLength": 1,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>pty</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PtyConfig/><code>PtyConfig</code></a></p><div class="prose dark:prose-invert">pty requests a pseudo-terminal; absence uses separate stdin/stdout/stderr pipes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/PtyConfig",
+  "description": "pty requests a pseudo-terminal; absence uses separate stdin/stdout/stderr pipes."
+}</code></pre></details></details><details class=api-field open><summary><code>session</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">session is an optional opaque session tag stored verbatim; empty means untagged.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "session is an optional opaque session tag stored verbatim; empty means untagged.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>user</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">user is the user to run as.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "user is the user to run as.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>workingDir</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">working_dir is the process working directory.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "working_dir is the process working directory.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "CreateProcessRequest starts an interactive process.",
+  "properties": {
+    "cmd": {
+      "description": "cmd is the argv vector.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "env": {
+      "additionalProperties": {
+        "title": "value",
+        "type": "string"
+      },
+      "description": "env adds environment variables.",
+      "type": "object"
+    },
+    "label": {
+      "description": "(OPTIONAL) label is unique within the sandbox; omission retains the server-generated default.",
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pty": {
+      "$ref": "#/components/schemas/PtyConfig",
+      "description": "pty requests a pseudo-terminal; absence uses separate stdin/stdout/stderr pipes."
+    },
+    "session": {
+      "description": "session is an optional opaque session tag stored verbatim; empty means untagged.",
+      "type": "string"
+    },
+    "user": {
+      "description": "user is the user to run as.",
+      "type": "string"
+    },
+    "workingDir": {
+      "description": "working_dir is the process working directory.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "cmd"
+  ],
+  "title": "CreateProcessRequest",
+  "type": "object"
+}</code></pre></details></article>

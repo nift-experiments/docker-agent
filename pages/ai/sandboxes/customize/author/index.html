@@ -1,0 +1,128 @@
+<div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Availability:</span>
+<span>Early Access
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75.0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75.0 019.75 22.5.75.75.0 019 21.75v-4.131A15.838 15.838.0 016.382 15H2.25a.75.75.0 01-.75-.75 6.75 6.75.0 017.815-6.666zM15 6.75a2.25 2.25.0 100 4.5 2.25 2.25.0 000-4.5z" clip-rule="evenodd"/><path d="M5.26 17.242a.75.75.0 10-.897-1.203 5.243 5.243.0 00-2.05 5.022.75.75.0 00.625.627 5.243 5.243.0 005.022-2.051.75.75.0 10-1.202-.897A3.744 3.744.0 013.75 20.25c0-1.23.592-2.323 1.51-3.008z"/></svg></span></span></div></div><p>Build a kit to give your team a repeatable sandbox environment. You can
+package an agent, add a tool to use with different agents, or combine existing
+kits into one kit your team can run. The guides in this section walk through
+each approach.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Select a v3 workload and v3 mixins together.
+Built-in shortcuts such as <code>claude</code> and <code>codex</code> use v2 and can't be combined
+with v3 mixins. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/#version-compatibility>Version compatibility</a>
+or the
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/kits-v2/>v2 reference</a>.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-what-to-author><a class="text-black dark:text-white no-underline hover:underline" href=#choose-what-to-author>Choose what to author</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/kit-sets/>Compose a kit set</a> to combine
+kits you've published or chosen from a registry. A set can also add network
+access, setup commands, and agent instructions, and let users choose settings
+such as which model to use.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/tool-mixins/>Build a tool mixin</a> to
+package a reusable tool with its network access and credentials.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/build-an-agent/>Build an agent workload</a>
+to control the base environment, agent installation, and launch command.
+You can also
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/base-images/#use-an-image-in-a-v3-workload>use an existing agent image</a>.</li></ul><p>For complete kits you can study and adapt, see
+<a class=link href=https://github.com/docker/sandbox-kit-spec/tree/main/examples rel=noopener>Kit examples</a>
+in the Docker Sandbox Kit Specification repository.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=directory-and-build-layout><a class="text-black dark:text-white no-underline hover:underline" href=#directory-and-build-layout>Directory and build layout</a></h2><p>Keep each kit's source in its own directory. A kit usually starts with two
+files:</p><ul><li>A YAML descriptor identifies the kit as a workload, mixin, or set and
+declares its settings and requirements.</li><li>A Dockerfile installs software and copies files into the image.</li></ul><p>Use the kit's name for the directory and descriptor. If the kit has a
+Dockerfile, use the same filename stem as the descriptor: <code>my-kit.yaml</code>
+pairs with <code>my-kit.dockerfile</code>.</p><p>For example:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'bXkta2l0LwrilJzilIDilIAgbXkta2l0LnlhbWwK4pSc4pSA4pSAIG15LWtpdC5kb2NrZXJmaWxlCuKUnOKUgOKUgCBjb250ZXh0Lm1kCuKUlOKUgOKUgCBmaWxlcy8KICAgIOKUlOKUgOKUgCBzZXR0aW5ncy5qc29u', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>my-kit/
+</span></span><span class=line><span class=cl>├── my-kit.yaml
+</span></span><span class=line><span class=cl>├── my-kit.dockerfile
+</span></span><span class=line><span class=cl>├── context.md
+</span></span><span class=line><span class=cl>└── files/
+</span></span><span class=line><span class=cl>    └── settings.json</span></span></code></pre></div></div></div></div><p>Organize supporting files in whatever way suits your kit. This example keeps
+agent instructions in <code>context.md</code> and configuration files under <code>files/</code>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=how-the-files-work-together><a class="text-black dark:text-white no-underline hover:underline" href=#how-the-files-work-together>How the files work together</a></h3><p>The Dockerfile defines what goes into the image, such as installed tools
+and configuration files. For a workload, it also sets the command to launch.
+The YAML descriptor defines the kit's settings and requirements, such as
+network access, credentials, and agent instructions.</p><p>The descriptor starts with a syntax declaration:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBzeW50YXg9ZG9ja2VyL3NhbmRib3gta2l0OjM=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># syntax=docker/sandbox-kit:3</span></span></span></code></pre></div></div></div></div><p>This selects the kit build frontend, which reads the descriptor and its
+matching Dockerfile. The build produces a container image containing the
+software, supporting files, and validated descriptor.</p><p>A kit set uses the descriptor's <code>kits:</code> list to combine published kits.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=build-and-use-the-kit><a class="text-black dark:text-white no-underline hover:underline" href=#build-and-use-the-kit>Build and use the kit</a></h3><p>When building with Docker Buildx, pass the YAML descriptor to <code>-f</code> and
+the source directory as the build context:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgYnVpbGR4IGJ1aWxkIC1mIG15LWtpdC9teS1raXQueWFtbCAtdCBteS1raXQ6ZGV2IG15LWtpdC8=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker buildx build -f my-kit/my-kit.yaml -t my-kit:dev my-kit/
+</span></span></code></pre></div></div></div></div><p>You can also give <code>sbx</code> a reference to a local kit directory. It builds the kit
+when creating the sandbox. After publishing the image to a registry, you can
+use its image reference instead.</p><p>For build options and publishing instructions, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/distribute/>Build and distribute kits</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=other-source-layouts><a class="text-black dark:text-white no-underline hover:underline" href=#other-source-layouts>Other source layouts</a></h3><p>The separate descriptor and Dockerfile are one way to organize a kit.
+You can also write a Dockerfile inline under <code>build: |</code>, select one with
+<code>dockerfile:</code>, or embed the descriptor in a Dockerfile comment.</p><p>See <a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/SPEC-v3.md#3-authoring-forms rel=noopener>Authoring forms</a>
+for the syntax.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=capabilities><a class="text-black dark:text-white no-underline hover:underline" href=#capabilities>Capabilities</a></h2><p>Installing a tool is often only part of the job. The tool might also need to
+reach an API, authenticate with a credential, or run a setup command before
+the agent starts. Describe those needs in the descriptor's <code>capabilities</code>
+list. Each entry asks Docker Sandboxes to provide one of these features.</p><p>A kit's Dockerfile defines how its image is built. Its capabilities describe
+what Docker Sandboxes needs to do when preparing and running the sandbox.
+For example, a tool mixin can install an API client through its Dockerfile
+and use a network capability to request access to that API. Building or
+running the image with Docker alone doesn't apply these capability settings.</p><p>You can add capabilities to a workload, mixin, or set. Keep each request with
+the kit that needs it, so a tool's access rules follow it when you use it with
+another agent.</p><p>Each capability entry identifies the feature in <code>type</code>. Capabilities that
+need settings take them in <code>config</code>. For example, <code>com.docker.sandbox/network-policy@1</code>
+requests network access, and its <code>config</code> lists the domains to allow.</p><p>The <code>@1</code> identifies the capability's version. It is independent of the kit
+format version and the <code>sbx</code> release. The
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/SPEC-v3.md#72-well-known-types rel=noopener>upstream capability definitions</a>
+describe the available capabilities and their settings.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p><code>sbx</code> doesn't apply <code>usb-device@1</code>, <code>privileged@1</code>, or <code>agent-sessions@1</code>
+requests. Its capability enforcement can let sandbox creation succeed even
+when a required capability is unsupported. Don't rely on this behavior:
+choose capabilities supported by the runtime where your kit will run.
+The <code>kit-registry@1</code> capability is restricted to approved OCI builder kits;
+local and Git kit sources don't receive it.</p></div></blockquote><p>The guides here show how to use capabilities with Docker Sandboxes. For all
+descriptor fields and the rules for combining kits, see the
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/SPEC-v3.md rel=noopener>upstream v3 specification</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-when-setup-runs><a class="text-black dark:text-white no-underline hover:underline" href=#choose-when-setup-runs>Choose when setup runs</a></h2><p>Install tools and copy static files during the image build so you can reuse
+them in every sandbox. Some setup needs to wait until the sandbox exists. For
+example, a mixin can bring a CA certificate, but it needs the workload's tools
+to register that certificate. Use a lifecycle capability to run commands or
+generate files at the right point:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Where to put the work</th><th class=p-2>When it runs in <code>sbx</code></th><th class=p-2>Example</th></tr></thead><tbody><tr><td class=p-2>Dockerfile <code>RUN</code> and <code>COPY</code></td><td class=p-2>Image build</td><td class=p-2>Install a tool and copy its default configuration</td></tr><tr><td class=p-2>Lifecycle <code>install</code> hooks</td><td class=p-2>Once during sandbox creation, before the agent launches</td><td class=p-2>Register a CA or populate a mounted directory</td></tr><tr><td class=p-2>Lifecycle <code>files</code></td><td class=p-2>During creation, after install hooks and before the agent launches</td><td class=p-2>Generate settings from kit arguments</td></tr><tr><td class=p-2>Lifecycle <code>startup</code> hooks</td><td class=p-2>Every sandbox start, alongside the agent</td><td class=p-2>Start a background service or refresh state after a restart</td></tr></tbody></table></div><p>Lifecycle hooks are commands that run during sandbox creation or startup.
+Make startup hooks safe to run more than once. In <code>sbx</code>, they run alongside
+the agent, so the agent might start before they finish. If a command must
+finish before every agent launch, put it in the workload's entrypoint instead.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=pass-environment-variables-to-hooks><a class="text-black dark:text-white no-underline hover:underline" href=#pass-environment-variables-to-hooks>Pass environment variables to hooks</a></h3><p>In <code>sbx</code>, install hooks receive a limited set of environment variables:
+basic process variables, proxy settings, and certificate paths. If your command needs another
+variable, name it in the hook's <code>env</code> list. For example, <code>env: [WORKSPACE_DIR]</code>
+gives the command the mounted workspace's path. In <code>sbx</code>, startup hooks receive
+the sandbox's environment without this filtering.</p><p>See
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/patterns/#run-setup-after-combining-kits>Kit authoring patterns</a>
+for setup examples and the upstream
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/capabilities/com.docker.sandbox/lifecycle@1.md rel=noopener>lifecycle definition</a>
+for the fields.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=generated-files><a class="text-black dark:text-white no-underline hover:underline" href=#generated-files>Generated files</a></h3><p>In lifecycle <code>files</code> content, write <code>${{ kit.env.NAME }}</code> to insert a
+container environment variable. For example, write
+<code>${{ kit.env.WORKSPACE_DIR }}</code> for the workspace path. Plain <code>$VAR</code> and
+<code>${VAR}</code> are written unchanged, without substituting their values. In hook
+commands, use shell syntax such as <code>$WORKSPACE_DIR</code> instead.</p><p>Docker Sandboxes substitutes <code>${{ kit.env.NAME }}</code> once, when it creates the
+sandbox. <code>kit.env</code> reads the final container environment, independently of a
+hook's <code>env</code> list.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=set-workload-compute-requirements><a class="text-black dark:text-white no-underline hover:underline" href=#set-workload-compute-requirements>Set workload compute requirements</a></h2><p>Set the workload's default CPU and memory allocation with the
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/capabilities/com.docker.sandbox/resources@1.md rel=noopener><code>resources@1</code> capability</a>
+in its descriptor. Use a whole number of CPU cores. Anyone running the kit
+can override these defaults with <code>--cpus</code> and <code>--memory</code> when creating a sandbox.</p><p>Put these settings on the workload. <code>sbx</code> ignores resource settings on
+mixins added separately, and it doesn't use the capability's <code>gpu</code> field
+to select GPUs.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=keep-the-sandbox-running-after-sessions-end><a class="text-black dark:text-white no-underline hover:underline" href=#keep-the-sandbox-running-after-sessions-end>Keep the sandbox running after sessions end</a></h2><p>By default, a local sandbox stops automatically shortly after its last session
+disconnects. A kit that runs a service, such as a development server on a
+published port, can ask the sandbox to keep running instead. Declare the
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/capabilities/com.docker.sandbox/long-running@1.md rel=noopener><code>long-running@1</code> capability</a>,
+which takes no <code>config</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Y2FwYWJpbGl0aWVzOgogIC0gdHlwZTogY29tLmRvY2tlci5zYW5kYm94L2xvbmctcnVubmluZ0Ax', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>capabilities</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>com.docker.sandbox/long-running@1</span></span></span></code></pre></div></div></div></div><p>A sandbox created with this kit behaves like one started with
+<a class=link href=https://docs.docker.com/ai/sandboxes/usage/#keep-a-sandbox-running-in-the-background><code>sbx run --detached</code></a>:
+it keeps running until someone stops or removes it, including after you attach
+to it and disconnect. When a workload, mixin, or set declares the capability,
+it applies to the whole sandbox.</p><p>A kit that declares the capability runs only where the runtime can provide it.
+If the kit also works when the sandbox stops after its sessions end, set
+<code>optional: true</code> on the entry. A runtime that can't provide the capability
+then skips it instead of refusing the kit. In <code>sbx</code>, two cases can't provide
+it:</p><ul><li>Cloud sandboxes can't provide this capability. <code>sbx --cloud</code> refuses a kit
+that requires it and skips an optional entry.</li><li><code>sbx kit add</code> can't apply the capability to a running sandbox. A required
+entry fails, and an optional entry is skipped with a warning. Recreate the
+sandbox with the kit to apply it.</li></ul>

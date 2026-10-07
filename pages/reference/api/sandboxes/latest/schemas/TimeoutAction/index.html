@@ -1,0 +1,21 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/TimeoutAction.md>Markdown</a></div><meta data-pagefind-meta="title:TimeoutAction — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>TimeoutAction</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>TimeoutAction selects the lifecycle action taken at the reported deadline.</p><p>Values:
+unspecified: unspecified is invalid when explicitly supplied.
+delete: delete deletes the sandbox at expiry.
+stop: stop applies the sandbox's persisted stop guarantee at expiry.
+keep: Deprecated alias for the restart action, still accepted on input and output. New clients should use the canonical restart action.
+restart: Preserves memory through backend-managed stop/resume cycles at expiry. Requires memory preservation and the always-on entitlement.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "TimeoutAction selects the lifecycle action taken at the reported deadline.\n\nValues:\nunspecified: unspecified is invalid when explicitly supplied.\ndelete: delete deletes the sandbox at expiry.\nstop: stop applies the sandbox's persisted stop guarantee at expiry.\nkeep: Deprecated alias for the restart action, still accepted on input and output. New clients should use the canonical restart action.\nrestart: Preserves memory through backend-managed stop/resume cycles at expiry. Requires memory preservation and the always-on entitlement.",
+  "enum": [
+    "unspecified",
+    "delete",
+    "stop",
+    "keep",
+    "restart"
+  ],
+  "title": "TimeoutAction",
+  "type": "string"
+}</code></pre></details></article>

@@ -1,0 +1,42 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/UsersLoginRequest.md>Markdown</a></div><meta data-pagefind-meta="title:UsersLoginRequest — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>UsersLoginRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">User login details</div><details class=api-field open><summary><code>password</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The password or personal access token (PAT) of the Docker Hub account to authenticate with.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The password or personal access token (PAT) of the Docker Hub account to authenticate with.\n",
+  "example": "p@ssw0rd",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>username</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The username of the Docker Hub account to authenticate with.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The username of the Docker Hub account to authenticate with.",
+  "example": "myusername",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "User login details",
+  "examples": [
+    {
+      "password": "p@ssw0rd",
+      "username": "myusername"
+    }
+  ],
+  "properties": {
+    "password": {
+      "description": "The password or personal access token (PAT) of the Docker Hub account to authenticate with.\n",
+      "example": "p@ssw0rd",
+      "type": "string"
+    },
+    "username": {
+      "description": "The username of the Docker Hub account to authenticate with.",
+      "example": "myusername",
+      "type": "string"
+    }
+  },
+  "required": [
+    "username",
+    "password"
+  ],
+  "type": "object"
+}</code></pre></details></article>

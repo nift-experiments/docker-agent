@@ -1,0 +1,18 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ReceiptKind.md>Markdown</a></div><meta data-pagefind-meta="title:ReceiptKind — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ReceiptKind</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>ReceiptKind classifies whether a CreateProcess response was freshly assembled or
+is the retained receipt of an earlier accepted request.</p><p>Values:
+unspecified: unspecified is not a concrete classification; a backend or a client generated before this field existed reports or reads this. It asserts neither freshness nor replay.
+fresh: fresh means this Process was assembled for this specific accepted request; last_stream_sequence reflects live state as of that acceptance.
+replay: replay means the backend returned the retained result of an earlier accepted request under the synchronous mutation replay rule; last_stream_sequence is frozen at the value observed during that original acceptance.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ReceiptKind classifies whether a CreateProcess response was freshly assembled or\nis the retained receipt of an earlier accepted request.\n\nValues:\nunspecified: unspecified is not a concrete classification; a backend or a client generated before this field existed reports or reads this. It asserts neither freshness nor replay.\nfresh: fresh means this Process was assembled for this specific accepted request; last_stream_sequence reflects live state as of that acceptance.\nreplay: replay means the backend returned the retained result of an earlier accepted request under the synchronous mutation replay rule; last_stream_sequence is frozen at the value observed during that original acceptance.",
+  "enum": [
+    "unspecified",
+    "fresh",
+    "replay"
+  ],
+  "title": "ReceiptKind",
+  "type": "string"
+}</code></pre></details></article>

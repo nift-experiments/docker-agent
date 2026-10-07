@@ -1,0 +1,27 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/McpServer.md>Markdown</a></div><meta data-pagefind-meta="title:McpServer — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>McpServer</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">McpServer projects one external server key configured on a gateway.</div><details class=api-field open><summary><code>name</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">name is the external configured server key, not an API resource name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "name is the external configured server key, not an API resource name.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>type</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpServerType/><code>McpServerType</code></a></p><div class="prose dark:prose-invert">type is the configured server type.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/McpServerType",
+  "description": "type is the configured server type."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "McpServer projects one external server key configured on a gateway.",
+  "properties": {
+    "name": {
+      "description": "name is the external configured server key, not an API resource name.",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/components/schemas/McpServerType",
+      "description": "type is the configured server type."
+    }
+  },
+  "title": "McpServer",
+  "type": "object"
+}</code></pre></details></article>

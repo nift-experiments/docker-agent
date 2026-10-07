@@ -1,0 +1,40 @@
+<div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Subscription:</span>
+<span>AI Governance</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M12.516 2.17a.75.75.0 00-1.032.0A11.209 11.209.0 013.607 5.25a.75.75.0 00-.722.515A12.74 12.74.0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749.0 00.374.0c5.499-1.415 9.563-6.406 9.563-12.348.0-1.39-.223-2.73-.635-3.985a.75.75.0 00-.722-.516l-.143.001c-2.996.0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></div><div class="flex flex-wrap gap-1"><span class=font-bold>Requires:</span>
+<span>Docker Sandboxes
+<a class=link href=https://docs.docker.com/ai/sandboxes/release-notes/>0.39.0</a> or later</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M12 2.25c-5.385.0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-.53 14.03a.75.75.0 001.06.0l3-3a.75.75.0 10-1.06-1.06l-1.72 1.72V8.25a.75.75.0 00-1.5.0v5.69l-1.72-1.72a.75.75.0 00-1.06 1.06l3 3z" clip-rule="evenodd"/></svg></span></div></div><p>The Docker Sandboxes coverage on this page applies to local sandboxes.
+Docker Cloud delivery stores their audit records in the cloud; it does not add
+cloud sandbox coverage. For cloud network decisions, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/network-policy/#inspect-network-policy>Cloud policy logs</a>.</p><p>AI Governance Audit Logs record Docker AI Governance activity for your
+organization. Each record captures the principal, action, target, decision, and
+time for a governance event. Records contain metadata only. They don't contain
+prompt content, agent output, or parameter values.</p><p>Audit logs are exposed when AI Governance is enabled for your organization.
+Docker Sandboxes send audit records only for signed-in users who have an AI
+Governance license and are governed by an enforced centralized <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>organization
+policy</a>. Docker Sandboxes users without both
+don't send audit data to audit logs.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>AI Governance Audit Logs are part of Docker AI Governance and require a
+separate paid subscription.
+<a class=link href=https://www.docker.com/products/ai-governance/#contact-sales rel=noopener>Contact Docker Sales</a>
+to request access.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=requirements><a class="text-black dark:text-white no-underline hover:underline" href=#requirements>Requirements</a></h2><p>To use AI Governance Audit Logs, your organization needs:</p><ul><li>A Docker
+<a class=link href=https://docs.docker.com/subscription-billing/plans/ai-governance/>AI Governance plan</a></li><li>An enforced organization governance policy</li><li>A Docker organization account</li><li>An organization owner, or a user with a
+<a class=link href=https://docs.docker.com/security/roles-and-permissions/custom-roles/>custom role</a> that includes AI Governance audit permissions, to configure delivery and view hosted events</li></ul><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Other Docker subscriptions are not sufficient on their own to use AI Governance
+Audit Logs. Users without an AI Governance license and an enforced organization
+policy will not generate audit data and will not appear in audit events or SIEM
+forwarding output. Personal accounts are not supported.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=coverage><a class="text-black dark:text-white no-underline hover:underline" href=#coverage>Coverage</a></h2><p>AI Governance Audit Logs cover Docker Sandboxes policy decisions and sandbox
+session events. Other Docker AI sources can emit records through the same schema
+as they become available.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=delivery-modes><a class="text-black dark:text-white no-underline hover:underline" href=#delivery-modes>Delivery modes</a></h2><p>Docker supports two delivery modes for audit records:</p><ul><li><strong>Local disk</strong>: the sandbox daemon writes JSON Lines (<code>.jsonl</code>)
+files on each host. Use this mode for host-local retention, air-gapped
+collection, or collection through your own log shipper.</li><li><strong>Docker Cloud</strong>: Docker stores audit records in Docker Cloud. Cloud
+delivery powers the hosted audit log view, CSV export, and SIEM streaming from
+app.docker.com. Cloud delivery is on by default when AI Governance is enabled.
+Organization owners can disable it in <a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/configure/>audit delivery settings</a>.</li></ul><p>Organization owners and users with a
+<a class=link href=https://docs.docker.com/security/roles-and-permissions/custom-roles/>custom role</a> that includes AI Governance audit permissions can configure local disk, Docker Cloud, or both.</p><p>The hosted audit log view, CSV export, and SIEM forwarding all require Docker Cloud delivery to be enabled. Local delivery alone does not power these features.</p><p>Organizations that used local audit logging before hosted audit logs were
+available start with cloud delivery off until an owner opts in from
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/configure/>audit delivery settings</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=data-handling><a class="text-black dark:text-white no-underline hover:underline" href=#data-handling>Data handling</a></h2><p>When Docker Cloud delivery is enabled, Docker stores audit records in Docker
+Cloud for the retention window configured by your organization. For legal and
+privacy terms that govern Docker services, see Docker's <a class=link href=https://www.docker.com/legal/docker-terms-service/ rel=noopener>Terms of
+Service</a> and <a class=link href=https://www.docker.com/legal/privacy/ rel=noopener>Privacy
+Policy</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=learn-more><a class="text-black dark:text-white no-underline hover:underline" href=#learn-more>Learn more</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/local/>Local audit logs</a></li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/configure/>Configure audit delivery</a></li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/view-export/>View and export audit events</a></li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/siem/>SIEM forwarding</a></li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/record-reference/>Audit record reference</a></li></ul>

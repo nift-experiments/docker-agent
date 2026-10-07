@@ -1,0 +1,15 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/RuleDecision.md>Markdown</a></div><meta data-pagefind-meta="title:RuleDecision — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>RuleDecision</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Outcome applied when this rule matches a request. <code>deny</code> always wins: if any rule in the policy matches with <code>decision: deny</code>, the request is denied even if other rules match with <code>decision: allow</code>.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Outcome applied when this rule matches a request. `deny` always wins: if any rule in the policy matches with `decision: deny`, the request is denied even if other rules match with `decision: allow`.\n",
+  "enum": [
+    "allow",
+    "deny"
+  ],
+  "examples": [
+    "allow"
+  ],
+  "type": "string"
+}</code></pre></details></article>

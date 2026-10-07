@@ -1,0 +1,115 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/McpAuthorization.md>Markdown</a></div><meta data-pagefind-meta="title:McpAuthorization — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>McpAuthorization</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">McpAuthorization is the current authorization incarnation for one named upstream.</div><details class=api-field open><summary><code>authorizationUrl</code>
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">authorization_url is present only while interaction is pending.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "authorization_url is present only while interaction is pending.",
+  "readOnly": true,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>createdAt</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "readOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>etag</code>
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag identifies this incarnation and changes with every visible authorization update.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag identifies this incarnation and changes with every visible authorization update.",
+  "readOnly": true,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>expiresAt</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">expires_at bounds the pending flow; expiry records FAILED on this incarnation.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "expires_at bounds the pending flow; expiry records FAILED on this incarnation.",
+  "readOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>failure</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Error",
+  "readOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>name</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IDENTIFIER) name is the complete singleton resource name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IDENTIFIER) name is the complete singleton resource name.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>server</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(OPTIONAL) server is the complete resource name, in the form mcp-servers/{server}.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(OPTIONAL) server is the complete resource name, in the form mcp-servers/{server}.",
+  "pattern": "^(?:mcp-servers/[^/]+)?$",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>status</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpAuthorizationStatus/><code>McpAuthorizationStatus</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/McpAuthorizationStatus",
+  "readOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>uid</code>
+· response only</summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">(IMMUTABLE) uid is the existing immutable backing identity, omitted when none is available.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) uid is the existing immutable backing identity, omitted when none is available.",
+  "readOnly": true,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>updatedAt</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "readOnly": true
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "McpAuthorization is the current authorization incarnation for one named upstream.",
+  "properties": {
+    "authorizationUrl": {
+      "description": "authorization_url is present only while interaction is pending.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "createdAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "readOnly": true
+    },
+    "etag": {
+      "description": "etag identifies this incarnation and changes with every visible authorization update.",
+      "readOnly": true,
+      "type": "string"
+    },
+    "expiresAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "expires_at bounds the pending flow; expiry records FAILED on this incarnation.",
+      "readOnly": true
+    },
+    "failure": {
+      "$ref": "#/components/schemas/Error",
+      "readOnly": true
+    },
+    "name": {
+      "description": "(IDENTIFIER) name is the complete singleton resource name.",
+      "type": "string"
+    },
+    "server": {
+      "description": "(OPTIONAL) server is the complete resource name, in the form mcp-servers/{server}.",
+      "pattern": "^(?:mcp-servers/[^/]+)?$",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/components/schemas/McpAuthorizationStatus",
+      "readOnly": true
+    },
+    "uid": {
+      "description": "(IMMUTABLE) uid is the existing immutable backing identity, omitted when none is available.",
+      "readOnly": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updatedAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "readOnly": true
+    }
+  },
+  "title": "McpAuthorization",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,210 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Register an MCP server</td></tr><tr><th class="text-left w-32">Usage</th><td><code>sbx mcp add &lt;name> (--url &lt;url> | --command &lt;cmd>) [flags]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Register an MCP server by name. The server is validated and its
+specification is stored for use with sbx create/run --static-mcp.</p><p>This command only registers the server. To attach an already-registered
+server to a running sandbox, use 'sbx mcp load'.</p><p>The --url flag accepts four input formats; the type is auto-detected:</p><ul><li>Remote MCP endpoint URL (https://host/mcp — talks MCP at the URL;
+OAuth metadata is discovered via RFC 9728/8414).</li><li>MCP community-registry URL (<a class=link href=https://registry.modelcontextprotocol.io/v0/servers/ rel=noopener>https://registry.modelcontextprotocol.io/v0/servers/</a><name>...)
+— fetches the registry envelope and resolves the OCI image.</li><li>Server-manifest URL (any URL returning a server.json or server.yaml
+body shaped like the MCP community-registry schema — GitHub raw URLs,
+internal HTTP servers, ad-hoc CDN links all work).</li><li>Docker Hardened Images (DHI) image ref (dhi.io/<name>:<tag> or
+dhi.io/<name>@sha256:... — the server.json manifest is extracted
+from the image's in-toto attestation via the OCI Referrers API).</li></ul><p>Other image refs (inputs without "://" that are not dhi.io, e.g.
+docker.io/foo:tag) are no longer accepted. Use a server manifest instead.</p><p>SSRF guard and --skip-ssrf-check:
+A --url whose host resolves to a private/RFC1918, loopback, link-local, or
+cloud-metadata address is fetched anyway, but flagged: the add proceeds and
+a warning naming the resolved address is printed (this protects against
+manifest URLs that reach internal services, cloud metadata, or
+DNS-rebinding targets by making them visible, not by blocking them). Some
+legitimate servers live on private networks (split-horizon DNS, internal
+load balancers, VPN-only endpoints, PrivateLink), so their public hostname
+resolves to a private address and the warning is expected noise for them.
+OAuth authorization-server metadata has a separate SSRF guard with the same
+warn-and-proceed posture: a disallowed address is logged, not blocked. Pass
+--skip-ssrf-check to disable both checks for this add, including OAuth
+metadata redirects (silencing the warning too), when you trust the provider
+and its discovery destinations; use it only for URLs you control.</p><p>OAuth for remote endpoints (--oauth-authorization-server / --client-id):
+Two related options configure OAuth for a remote --url server (both are
+only valid with --url):</p><p>--oauth-authorization-server hand-supplies the authorization-server
+metadata for a server that publishes no well-known RFC 9728/8414 metadata
+(e.g. Gmail). It is a local file path or an http(s) URL to a JSON document
+conforming to the RFC 8414 oauth-authorization-server shape
+(authorization_endpoint and token_endpoint are required). --client-id is
+required alongside it UNLESS the metadata document itself advertises a
+registration_endpoint, in which case a client is registered dynamically
+(RFC 7591) and --client-id may be omitted.</p><p>--client-id supplies a PRE-REGISTERED OAuth client. It may be given WITHOUT
+--oauth-authorization-server: the server's authorization metadata is then
+discovered normally and the supplied client is attached to it. This is the
+right mode for a server whose discoverable metadata exposes no
+registration_endpoint (so Dynamic Client Registration is impossible) but
+which accepts a client id the operator registered ahead of time.</p><p>Client secrets (confidential clients):
+There is no --client-secret flag. The secret for a confidential client
+lives in the secret store in the global scope under the
+service name "mcp:<server>:client_secret", and is read from there
+whenever the server is used:</p><pre><code>  sbx secret set mcp:&lt;server&gt;:client_secret
+
+Run it with no -t so the value is read from stdin instead of landing in
+your shell history. The secret is never written to the MCP registration
+on disk. Remove it later with 'sbx secret rm mcp:&lt;server&gt;:client_secret'.
+
+The stored secret is bound to the OAuth identity (client id, issuer and
+token endpoint) that first used it. Re-registering the same server name
+against a different client or authorization server therefore does NOT
+reuse it — store the secret again for the new client. To let a new
+identity claim the existing secret, drop the recorded binding with
+'sbx secret rm mcp:&lt;server&gt;:client_secret:identity'.
+</code></pre><p>Two rules apply on the discovered path (they do not affect a server that
+advertises a registration_endpoint, the hand-supplied
+--oauth-authorization-server path, or --command servers):</p><pre><code>- If the discovered authorization metadata has NO registration_endpoint,
+  Dynamic Client Registration is impossible, so --client-id is REQUIRED;
+  the add fails without it. This is the Slack shape (discoverable metadata,
+  no DCR, a pre-registered client).
+- A stored client secret is REQUIRED when the server's advertised
+  token_endpoint_auth_methods_supported (RFC 8414) does NOT include &quot;none&quot;
+  — i.e. it accepts only confidential clients (client_secret_basic /
+  client_secret_post). Registration still succeeds without one, but the
+  add-time authorization is skipped; store the secret and run
+  'sbx mcp auth &lt;server&gt;' to finish. When the list includes &quot;none&quot; a
+  public/PKCE client is allowed and --client-id alone is enough. If the
+  server advertises no token_endpoint_auth_methods_supported at all (the
+  field is optional in RFC 8414), the requirement cannot be determined and
+  the add proceeds as usual.
+</code></pre><p>Default OAuth scopes (--scope / --no-scope):
+--scope records the DEFAULT set of scopes to request at consent time for a
+remote --url OAuth server (repeatable). Precedence at authorization time is
+--no-scope > an explicit 'sbx mcp auth --scope' > the set recorded here > the
+scope set the RESOURCE itself says it requires (from its RFC 9728
+protected-resource metadata or its WWW-Authenticate challenge) > whichever of
+openid, email, profile, and offline_access are advertised. Other advertised
+scopes are excluded from this fallback. If no scopes are selected, the scope
+parameter is omitted so the authorization server can apply its own default
+grant (RFC 6749 §3.3).</p><p>A resource that publishes a required set therefore gets it requested with no
+flag at all, and the consent block marks that set as derived rather than
+chosen. --no-scope suppresses all scope fallbacks and requests the server's
+default grant.</p><p>When using recorded defaults or resource scopes, sbx also requests offline_access
+if the authorization server advertises it, allowing refresh tokens. To request
+an exact set without this addition, use 'sbx mcp auth <server>--scope ...'.</p><p>Scopes you name are checked against the union of two documents a server can
+publish: the authorization server's RFC 8414 scopes_supported and the
+resource's own RFC 9728 protected-resource metadata (some servers, e.g.
+GitHub, document their real scopes on the resource and advertise almost
+nothing over RFC 8414). A scope in neither prints a warning naming the
+offender but is still requested — a mismatch is often the server's own
+documentation gap, not a typo, and either document is allowed to be
+non-exhaustive. This is a recognition check, not a promise: a recognized
+scope can still be refused at consent time.</p><p>Scope values may be URN-shaped (urn:ietf:params:oauth:scope:mail) or
+URL-shaped (<a class=link href=https://www.fastmail.com/dev/mcp%29 rel=noopener>https://www.fastmail.com/dev/mcp)</a>. Neither needs quoting — a scope
+token cannot contain a space or a quote — and both are percent-encoded
+normally on the wire. --scope applies both to a hand-supplied override and to
+a plain --url server whose OAuth metadata is discovered.</p><p>RFC 8707 resource indicator (--resource):
+Every authorization request, code exchange and token refresh names the server
+the token is for, in the 'resource' parameter the MCP authorization
+specification requires (RFC 8707). That value is normally DERIVED, and you do
+not need this flag: it comes from the server's own RFC 9728 protected-resource
+metadata when it publishes some, and otherwise from the --url endpoint
+(lowercased scheme/host, path kept, fragment dropped).</p><p>--resource replaces that derivation with a value you supply. Use it when the
+derived one is wrong — most often a server whose published identifier is its
+bare origin (<a class=link href=https://api.example.com rel=noopener>https://api.example.com</a>) while its endpoint has a path
+(<a class=link href=https://api.example.com/mcp%29 rel=noopener>https://api.example.com/mcp)</a>, which is indistinguishable from publishing
+nothing, so the endpoint URL is what gets sent. An authorization server
+entitled to reject an unknown target answers 'invalid_target'.</p><p>The value must be an absolute URI with a scheme and a host, and RFC 8707 §2
+forbids a fragment; a bad value fails the add rather than being repaired or
+dropped later. It is sent VERBATIM — nothing is lowercased and no path or
+trailing slash is adjusted, because the string names a server and changing it
+could name a different one. Only one value is accepted: a gateway backend
+connects to exactly one MCP endpoint.</p><p>It outranks both the published value and the URL derivation, and also an
+authorization server advertising resource_indicators_supported=false (the add
+says so when that happens). It is recorded on the registration, so there is no
+'sbx mcp auth --resource': one value is used by the add-time authorization,
+every later 'sbx mcp auth', and every token refresh — a resource that differed
+between them is the audience mismatch this parameter exists to prevent. To
+change it, 'sbx mcp rm' the server and add it again; the existing token was
+minted for the old resource anyway.</p><p>Not 'audience': RFC 8707 'resource' is what the MCP specification requires, and
+an 'audience' parameter on an authorization-code request is an Auth0/Okta
+vendor extension that sbx does not send. See 'sbx mcp inspect <name>' for the
+effective value and where it came from.</p><p>Scope limit: this governs the OAuth flow sbx itself runs — a local data plane
+(SBX_MCP_URL=none), and any server registered with
+--oauth-authorization-server/--client-id. For a plain remote in hosted mode the
+control-plane gateway is the OAuth client and does not carry the field yet, so
+the value is recorded and the add warns that it is not sent for that server.</p><p>Custom request headers for remote endpoints (--header):
+--header adds an HTTP header to every request sent to a remote --url
+endpoint, written in the curl convention 'Header-Name: header value'.
+Repeat the flag for more headers; each header name may be given once.
+Headers the transport owns (Host, Content-Length, Connection, Proxy-*, …)
+are rejected.</p><p>Only a remote endpoint can carry them: --header is refused with --command
+and --local, and an add whose --url resolves to a stdio server (a registry
+or manifest URL naming an OCI image) fails rather than dropping them.</p><p>A header value may reference a secret with ${placeholder}. The placeholder is
+stored in the registration exactly as typed and the secret itself never is;
+the value is read from the encrypted secret store and substituted when a
+sandbox connects to the server. Store it with:</p><pre><code>sbx secret set mcp:&lt;server&gt;:&lt;placeholder&gt;
+</code></pre><p>For example:</p><pre><code>sbx mcp add acme --url https://mcp.acme.com/mcp --header 'Authorization: Bearer ${api-key}'
+sbx secret set mcp:acme:api-key
+</code></pre><p>On an OAuth-protected server an explicit Authorization header takes
+precedence over the OAuth access token.</p><p>Header secrets are read from the LOCAL secret store, so a header-bearing
+server only works where this host connects it. Adding one while your MCP
+gateway is the hosted (SaaS) one is rejected rather than registered with
+headers that would be silently dropped — unless the server carries a
+hand-supplied OAuth override (--oauth-authorization-server), which this
+host connects directly in every gateway mode.</p><p>Alternative input — local stdio command (--command + --args):
+The command runs as a subprocess on the HOST, outside the sandbox.</p><p>WARNING: Local servers are for ad-hoc development only. They have
+no identity, no verifiable supply chain, and no sandboxing. The
+process runs with your host user's full permissions — it can read
+your filesystem, access your network, and call any API your user
+can. Do not use --command with untrusted executables.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>--args</code></td><td></td><td><span class="inline-flex items-center gap-2">Command-line arguments for the command</span></td></tr><tr><td><code>--callback-port</code></td><td><code>0</code></td><td><span class="inline-flex items-center gap-2">Local port to bind the OAuth callback listener to during add-time authorization (default: OS-assigned ephemeral port). Useful when the port must be pre-registered in an OAuth app's allowed redirect URIs. Applies to --url remote OAuth servers; ignored with a warning if the server turns out not to need OAuth.</span></td></tr><tr><td><code>--client-id</code></td><td></td><td><span class="inline-flex items-center gap-2">OAuth client id for a pre-registered client (with --url; may be used with or without --oauth-authorization-server). A confidential client's secret comes from 'sbx secret set mcp:&lt;server>:client_secret'</span></td></tr><tr><td><code>--command</code></td><td></td><td><span class="inline-flex items-center gap-2">Executable to run for a local stdio server</span></td></tr><tr><td><code>--dir</code></td><td></td><td><span class="inline-flex items-center gap-2">Working directory (cwd) for a --command host server</span></td></tr><tr><td><code>--disable-http2</code></td><td></td><td><span class="inline-flex items-center gap-2">Do not negotiate HTTP/2 for this remote server, leaving HTTP/1.1. Applies to --url servers.</span></td></tr><tr><td><code>--header</code></td><td></td><td><span class="inline-flex items-center gap-2">Custom HTTP header to send to a remote --url endpoint, in curl form 'Name: value' (repeatable). A ${placeholder} in the value is substituted at connect time from 'sbx secret set mcp:&lt;server>:&lt;placeholder>'</span></td></tr><tr><td><code>--local</code></td><td></td><td><span class="inline-flex items-center gap-2">Run registry OCI server locally via docker run</span></td></tr><tr><td><code>--no-scope</code></td><td></td><td><span class="inline-flex items-center gap-2">Request no scopes during add-time authorization, so the authorization server applies its own default grant. Suppresses required and OIDC fallback scopes; cannot be combined with --scope. Applies to --url remote OAuth servers.</span></td></tr><tr><td><code>--oauth-authorization-server</code></td><td></td><td><span class="inline-flex items-center gap-2">Path or http(s) URL to an RFC 8414 oauth-authorization-server metadata JSON document</span></td></tr><tr><td><code>--resource</code></td><td></td><td><span class="inline-flex items-center gap-2">RFC 8707 resource indicator to send during OAuth: an absolute URI (scheme and host, no fragment) naming the server the token is for. Overrides the value the server publishes in its RFC 9728 metadata and the one derived from --url; set it only when that derived value is wrong. Not honoured by the hosted gateway for a plain remote yet. Applies to --url remote OAuth servers.</span></td></tr><tr><td><code>--scope</code></td><td></td><td><span class="inline-flex items-center gap-2">Default OAuth scope to request at consent time (repeatable; a scope the server's advertised metadata does not recognize prints a warning but is still requested, since advertising a scope never promised the server would grant it either). With no --scope, the scope set the resource itself requires is requested; with neither, whichever of openid, email, profile, and offline_access are advertised are requested; other advertised scopes are excluded from this fallback. Applies to --url remote OAuth servers.</span></td></tr><tr><td><code>--skip-auth</code></td><td></td><td><span class="inline-flex items-center gap-2">Register an OAuth server without starting the hosted OAuth flow</span></td></tr><tr><td><code>--skip-ssrf-check</code></td><td></td><td><span class="inline-flex items-center gap-2">Skip SSRF checks for this add, including OAuth authorization-server metadata and redirects (operator asserts the provider is trusted)</span></td></tr><tr><td><code>--url</code></td><td></td><td><span class="inline-flex items-center gap-2">MCP server manifest URL, remote endpoint URL, or dhi.io image ref</span></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=global-options><a class="text-black dark:text-white no-underline hover:underline" href=#global-options>Global options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>--cloud</code></td><td></td><td><span class="inline-flex items-center gap-2">Dispatch to Docker Cloud Sandboxes API instead of local sandboxd (supported by a growing set of verbs — run 'sbx --cloud --help' for the current list)</span></td></tr><tr><td><code>-D, --debug</code></td><td></td><td><span class="inline-flex items-center gap-2">Enable debug logging</span></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBSZW1vdGUgTUNQIGVuZHBvaW50IChPQXV0aCBhdXRvLWRldGVjdGVkKQpzYnggbWNwIGFkZCBub3Rpb24gLS11cmwgaHR0cHM6Ly9tY3Aubm90aW9uLmNvbS9tY3AKc2J4IG1jcCBhZGQgbGluZWFyIC0tdXJsIGh0dHBzOi8vbWNwLmxpbmVhci5hcHAvbWNwCgojIE1DUCBjb21tdW5pdHktcmVnaXN0cnkgVVJMCnNieCBtY3AgYWRkIGZldGNoIC0tdXJsIGh0dHBzOi8vcmVnaXN0cnkubW9kZWxjb250ZXh0cHJvdG9jb2wuaW8vdjAvc2VydmVycy9mZXRjaC1tY3AvdmVyc2lvbnMvbGF0ZXN0CgojIFBsYWluIHNlcnZlci1tYW5pZmVzdCBVUkwgKHNlcnZlci5qc29uIC8gc2VydmVyLnlhbWwpCnNieCBtY3AgYWRkIG9waW5lIC0tdXJsIGh0dHBzOi8vZXhhbXBsZS5jb20vbWNwL29waW5lL3NlcnZlci55YW1sCgojIERvY2tlciBIYXJkZW5lZCBJbWFnZSAobWFuaWZlc3QgaXMgZXh0cmFjdGVkIGZyb20gdGhlIGltYWdlIGF0dGVzdGF0aW9uKQpzYnggbWNwIGFkZCBmZXRjaCAtLXVybCBkaGkuaW8vZmV0Y2gtbWNwOmxhdGVzdAoKIyBSZWdpc3RyeSBVUkwsIGxvY2FsIG1vZGUgKHJ1bnMgb24gaG9zdCB2aWEgZG9ja2VyIHJ1bjsgc3RkaW8gcGFja2FnZXMgb25seSkKc2J4IG1jcCBhZGQgZmV0Y2ggLS1sb2NhbCAtLXVybCBodHRwczovL3JlZ2lzdHJ5Lm1vZGVsY29udGV4dHByb3RvY29sLmlvL3YwL3NlcnZlcnMvZmV0Y2gtbWNwL3ZlcnNpb25zL2xhdGVzdAoKIyBQcml2YXRlLW5ldHdvcmsgZW5kcG9pbnQgKGhvc3QgcmVzb2x2ZXMgdG8gYSBwcml2YXRlIGFkZHJlc3MpIOKAlCBvcHQgb3V0IG9mIHRoZSBTU1JGIGd1YXJkCnNieCBtY3AgYWRkIGludGVybmFsIC0tdXJsIGh0dHBzOi8vcHJpdmF0ZS5leGFtcGxlLmNvbS9tY3AgLS1za2lwLXNzcmYtY2hlY2sKCiMgUmVtb3RlIGVuZHBvaW50IHdpdGggYSBoYW5kLXN1cHBsaWVkIE9BdXRoIG92ZXJyaWRlIChzZXJ2ZXIgcHVibGlzaGVzIG5vCiMgd2VsbC1rbm93biBPQXV0aCBtZXRhZGF0YSk6IC0tb2F1dGgtYXV0aG9yaXphdGlvbi1zZXJ2ZXIgaXMgYSBwYXRoIG9yCiMgaHR0cChzKSBVUkwgdG8gYW4gUkZDIDg0MTQgbWV0YWRhdGEgZG9jdW1lbnQsIC0tY2xpZW50LWlkIHRoZSBPQXV0aCBjbGllbnQgaWQKc2J4IG1jcCBhZGQgYWNtZSAtLXVybCBodHRwczovL21jcC5hY21lLmNvbS9tY3AgLS1vYXV0aC1hdXRob3JpemF0aW9uLXNlcnZlciAuL2FjbWUtYXMuanNvbiAtLWNsaWVudC1pZCBteS1jbGllbnQKCiMgUHJlLXJlZ2lzdGVyZWQgY2xpZW50IG9uIGEgRElTQ09WRVJBQkxFIHNlcnZlciB0aGF0IGhhcyBubyByZWdpc3RyYXRpb24KIyBlbmRwb2ludCDigJQgbm8gLS1vYXV0aC1hdXRob3JpemF0aW9uLXNlcnZlciBuZWVkZWQgKG1ldGFkYXRhIGlzIGRpc2NvdmVyZWQpCnNieCBtY3AgYWRkIHNsYWNrIC0tdXJsIGh0dHBzOi8vc2xhY2suZXhhbXBsZS5jb20vbWNwIC0tY2xpZW50LWlkIG15LXByZXJlZ2lzdGVyZWQtY2xpZW50CgojIENvbmZpZGVudGlhbCBjbGllbnQg4oCUIHN0b3JlIHRoZSBzZWNyZXQgZmlyc3QgKHByb21wdGVkLCBuZXZlciBpbiBhcmd2IG9yCiMgc2hlbGwgaGlzdG9yeSksIHRoZW4gcmVnaXN0ZXI7IHRoZSBzZWNyZXQgaXMgcmVhZCBmcm9tIHRoZSBzZWNyZXQgc3RvcmUKc2J4IHNlY3JldCBzZXQgbWNwOnNsYWNrOmNsaWVudF9zZWNyZXQKc2J4IG1jcCBhZGQgc2xhY2sgLS11cmwgaHR0cHM6Ly9zbGFjay5leGFtcGxlLmNvbS9tY3AgLS1jbGllbnQtaWQgbXktcHJlcmVnaXN0ZXJlZC1jbGllbnQKCiMgUmVjb3JkIGRlZmF1bHQgT0F1dGggc2NvcGVzIHRvIHJlcXVlc3QgYXQgY29uc2VudCB0aW1lIChhIHNjb3BlIHRoZQojIHNlcnZlcidzIGF1dGhvcml6YXRpb24gbWV0YWRhdGEgZG9lcyBub3QgYWR2ZXJ0aXNlIHdhcm5zIGJ1dCBpcyBzdGlsbAojIHJlcXVlc3RlZDsgcmVwZWF0IC0tc2NvcGUgZm9yIGVhY2ggb25lKQpzYnggbWNwIGFkZCBhY21lIC0tdXJsIGh0dHBzOi8vbWNwLmFjbWUuY29tL21jcCAtLXNjb3BlIHJlYWQgLS1zY29wZSB3cml0ZQoKIyBVUk4tIGFuZCBVUkwtc2hhcGVkIHNjb3BlIHZhbHVlcyBhcmUgb3JkaW5hcnkgc2NvcGVzIGFuZCBuZWVkIG5vIHF1b3RpbmcKc2J4IG1jcCBhZGQgZmFzdG1haWwgLS11cmwgaHR0cHM6Ly9hcGkuZmFzdG1haWwuY29tL21jcCAtLXNjb3BlIGh0dHBzOi8vd3d3LmZhc3RtYWlsLmNvbS9kZXYvbWNwIC0tc2NvcGUgb2ZmbGluZV9hY2Nlc3MKCiMgQ29ycmVjdCB0aGUgUkZDIDg3MDcgJ3Jlc291cmNlJyBpbmRpY2F0b3Igd2hlbiB0aGUgZGVyaXZlZCBvbmUgaXMgd3JvbmcgKGEKIyBzZXJ2ZXIgd2hvc2UgcHVibGlzaGVkIGlkZW50aWZpZXIgaXMgbm90IGl0cyBlbmRwb2ludCBVUkwpCnNieCBtY3AgYWRkIGFjbWUgLS11cmwgaHR0cHM6Ly9tY3AuYWNtZS5jb20vbWNwIC0tcmVzb3VyY2UgaHR0cHM6Ly9hcGkuYWNtZS5jb20vbWNwCgojIFJlbW90ZSBlbmRwb2ludCB3aXRoIGN1c3RvbSBoZWFkZXJzIChjdXJsIGNvbnZlbnRpb247IHJlcGVhdGFibGUpLiBUaGUKIyAke2FwaS1rZXl9IHZhbHVlIGlzIHJlYWQgZnJvbSB0aGUgc2VjcmV0IHN0b3JlIHdoZW4gYSBzYW5kYm94IGNvbm5lY3RzCnNieCBtY3AgYWRkIGFjbWUgLS11cmwgaHR0cHM6Ly9tY3AuYWNtZS5jb20vbWNwIC0taGVhZGVyICdBdXRob3JpemF0aW9uOiBCZWFyZXIgJHthcGkta2V5fScgLS1oZWFkZXIgJ0FjY2VwdDogYXBwbGljYXRpb24vanNvbiwgdGV4dC9ldmVudC1zdHJlYW0nCnNieCBzZWNyZXQgc2V0IG1jcDphY21lOmFwaS1rZXkKCiMgTG9jYWwgc3RkaW8gY29tbWFuZCAocnVucyBvbiBob3N0IOKAlCBkZXZlbG9wbWVudCBvbmx5KQpzYnggbWNwIGFkZCBnaXRodWIgLS1jb21tYW5kIG5weCAtLWFyZ3MgQG1vZGVsY29udGV4dHByb3RvY29sL3NlcnZlci1naXRodWIKc2J4IG1jcCBhZGQgcG9zdGdyZXMgLS1jb21tYW5kIGRvY2tlciAtLWFyZ3MgInJ1biwtaSwtLXJtLG1jcC9wb3N0Z3JlcyIKCiMgTG9jYWwgc3RkaW8gY29tbWFuZCB3aXRoIGEgd29ya2luZyBkaXJlY3RvcnkgKGN3ZCkgZm9yIHRoZSBob3N0IHByb2Nlc3MKc2J4IG1jcCBhZGQgbG9jYWwtZnMgLS1jb21tYW5kIG5vZGUgLS1hcmdzIHNlcnZlci5qcyAtLWRpciAvc3J2L2RhdGE=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>#</span> Remote MCP endpoint <span class=o>(</span>OAuth auto-detected<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add notion --url https://mcp.notion.com/mcp
+</span></span></span><span class=line><span class=cl><span class=go>sbx mcp add linear --url https://mcp.linear.app/mcp
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> MCP community-registry URL
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add fetch --url https://registry.modelcontextprotocol.io/v0/servers/fetch-mcp/versions/latest
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Plain server-manifest URL <span class=o>(</span>server.json / server.yaml<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add opine --url https://example.com/mcp/opine/server.yaml
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Docker Hardened Image <span class=o>(</span>manifest is extracted from the image attestation<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add fetch --url dhi.io/fetch-mcp:latest
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Registry URL, <span class=nb>local</span> mode <span class=o>(</span>runs on host via docker run<span class=p>;</span> stdio packages only<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add fetch --local --url https://registry.modelcontextprotocol.io/v0/servers/fetch-mcp/versions/latest
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Private-network endpoint <span class=o>(</span>host resolves to a private address<span class=o>)</span> — opt out of the SSRF guard
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add internal --url https://private.example.com/mcp --skip-ssrf-check
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Remote endpoint with a hand-supplied OAuth override <span class=o>(</span>server publishes no
+</span></span><span class=line><span class=cl><span class=gp>#</span> well-known OAuth metadata<span class=o>)</span>: --oauth-authorization-server is a path or
+</span></span><span class=line><span class=cl><span class=gp>#</span> http<span class=o>(</span>s<span class=o>)</span> URL to an RFC <span class=m>8414</span> metadata document, --client-id the OAuth client id
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add acme --url https://mcp.acme.com/mcp --oauth-authorization-server ./acme-as.json --client-id my-client
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Pre-registered client on a DISCOVERABLE server that has no registration
+</span></span><span class=line><span class=cl><span class=gp>#</span> endpoint — no --oauth-authorization-server needed <span class=o>(</span>metadata is discovered<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add slack --url https://slack.example.com/mcp --client-id my-preregistered-client
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Confidential client — store the secret first <span class=o>(</span>prompted, never in argv or
+</span></span><span class=line><span class=cl><span class=gp>#</span> shell <span class=nb>history</span><span class=o>)</span>, <span class=k>then</span> register<span class=p>;</span> the secret is <span class=nb>read</span> from the secret store
+</span></span><span class=line><span class=cl><span class=go>sbx secret set mcp:slack:client_secret
+</span></span></span><span class=line><span class=cl><span class=go>sbx mcp add slack --url https://slack.example.com/mcp --client-id my-preregistered-client
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Record default OAuth scopes to request at consent <span class=nb>time</span> <span class=o>(</span>a scope the
+</span></span><span class=line><span class=cl><span class=gp>#</span> server<span class=err>&#39;</span>s authorization metadata does not advertise warns but is still
+</span></span><span class=line><span class=cl><span class=gp>#</span> requested<span class=p>;</span> repeat --scope <span class=k>for</span> each one<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add acme --url https://mcp.acme.com/mcp --scope read --scope write
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> URN- and URL-shaped scope values are ordinary scopes and need no quoting
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add fastmail --url https://api.fastmail.com/mcp --scope https://www.fastmail.com/dev/mcp --scope offline_access
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Correct the RFC <span class=m>8707</span> <span class=s1>&#39;resource&#39;</span> indicator when the derived one is wrong <span class=o>(</span>a
+</span></span><span class=line><span class=cl><span class=gp>#</span> server whose published identifier is not its endpoint URL<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add acme --url https://mcp.acme.com/mcp --resource https://api.acme.com/mcp
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Remote endpoint with custom headers <span class=o>(</span>curl convention<span class=p>;</span> repeatable<span class=o>)</span>. The
+</span></span><span class=line><span class=cl><span class=gp>#</span> <span class=si>${</span><span class=nv>api</span><span class=p>-key</span><span class=si>}</span> value is <span class=nb>read</span> from the secret store when a sandbox connects
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add acme --url https://mcp.acme.com/mcp --header &#39;Authorization: Bearer ${api-key}&#39; --header &#39;Accept: application/json, text/event-stream&#39;
+</span></span></span><span class=line><span class=cl><span class=go>sbx secret set mcp:acme:api-key
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Local stdio <span class=nb>command</span> <span class=o>(</span>runs on host — development only<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add github --command npx --args @modelcontextprotocol/server-github
+</span></span></span><span class=line><span class=cl><span class=go>sbx mcp add postgres --command docker --args &#34;run,-i,--rm,mcp/postgres&#34;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Local stdio <span class=nb>command</span> with a working directory <span class=o>(</span>cwd<span class=o>)</span> <span class=k>for</span> the host process
+</span></span><span class=line><span class=cl><span class=go>sbx mcp add local-fs --command node --args server.js --dir /srv/data
+</span></span></span></code></pre></div></div></div></div>

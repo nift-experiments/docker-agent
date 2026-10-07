@@ -1,0 +1,36 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/CreatePolicyRequest.md>Markdown</a></div><meta data-pagefind-meta="title:CreatePolicyRequest — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>CreatePolicyRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Fields required to create a new policy. Omitting <code>cedar_v1</code> creates an <code>allowlist_v0</code> policy with an empty rule set. Supplying <code>cedar_v1</code> creates a Cedar:V1 policy; rules are embedded in the Cedar text rather than managed via the rules sub-resource.</div><details class=api-field open><summary><code>cedar_v1</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/CedarV1Policy/><code>CedarV1Policy</code></a></p></details><details class=api-field open><summary><code>name</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Policy name, unique within the organization.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Policy name, unique within the organization.",
+  "examples": [
+    "Security Research — hardened"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>scope</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Scope/><code>Scope</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Fields required to create a new policy. Omitting `cedar_v1` creates an `allowlist_v0` policy with an empty rule set. Supplying `cedar_v1` creates a Cedar:V1 policy; rules are embedded in the Cedar text rather than managed via the rules sub-resource.\n",
+  "properties": {
+    "cedar_v1": {
+      "$ref": "#/components/schemas/CedarV1Policy"
+    },
+    "name": {
+      "description": "Policy name, unique within the organization.",
+      "examples": [
+        "Security Research — hardened"
+      ],
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/components/schemas/Scope"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,40 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/PreconditionFailureErrorDetail.md>Markdown</a></div><meta data-pagefind-meta="title:PreconditionFailureErrorDetail — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>PreconditionFailureErrorDetail</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert"><p>Describes what preconditions have failed.</p><p>For example, if an operation failed because it required the Terms of Service to be
+acknowledged, it could list the terms of service violation in the
+PreconditionFailure message.</p></div><details class=api-field open><summary><code>@type</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "const": "type.googleapis.com/google.rpc.PreconditionFailure",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>violations</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">Describes all precondition violations.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PreconditionFailureViolation/><code>PreconditionFailureViolation</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes all precondition violations.",
+  "items": {
+    "$ref": "#/components/schemas/PreconditionFailureViolation"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes what preconditions have failed.\n\nFor example, if an operation failed because it required the Terms of Service to be\nacknowledged, it could list the terms of service violation in the\nPreconditionFailure message.",
+  "properties": {
+    "@type": {
+      "const": "type.googleapis.com/google.rpc.PreconditionFailure",
+      "type": "string"
+    },
+    "violations": {
+      "description": "Describes all precondition violations.",
+      "items": {
+        "$ref": "#/components/schemas/PreconditionFailureViolation"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "@type"
+  ],
+  "title": "PreconditionFailureErrorDetail",
+  "type": "object"
+}</code></pre></details></article>

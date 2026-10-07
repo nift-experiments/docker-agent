@@ -1,0 +1,201 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/postV2InvitesBulk.md>Markdown</a></div><meta data-pagefind-meta="title:Bulk create invites — Docker Hub API 2-beta"><h1>Bulk create invites</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v2<wbr>/invites<wbr>/bulk</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Create multiple invites by emails or DockerIDs. Only a team owner can create invites.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=X-Analytics-Client-Feature><h3><code>X-Analytics-Client-Feature</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Optional string that indicates the feature used to submit the bulk invites (e.g.'file', 'web')</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1invites~1bulk/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>dry_run</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">Optional, run through validation but don't actually change data.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Optional, run through validation but don't actually change data.",
+  "example": true,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>invitees</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">list of invitees emails or Docker Ids</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">invitee email or Docker ID</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "invitee email or Docker ID",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "list of invitees emails or Docker Ids",
+  "example": [
+    "invitee1DockerId",
+    "invitee2@docker.com",
+    "invitee3@docker.com"
+  ],
+  "items": {
+    "description": "invitee email or Docker ID",
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>org</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">organization name</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "organization name",
+  "example": "docker",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>role</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">role for invitees</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "role for invitees",
+  "example": "member",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>team</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">team name</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "team name",
+  "example": "owners",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "dry_run": true,
+      "invitees": [
+        "invitee1DockerId",
+        "invitee2@docker.com",
+        "invitee3@docker.com"
+      ],
+      "org": "docker",
+      "role": "member",
+      "team": "owners"
+    }
+  ],
+  "properties": {
+    "dry_run": {
+      "description": "Optional, run through validation but don't actually change data.",
+      "example": true,
+      "type": "boolean"
+    },
+    "invitees": {
+      "description": "list of invitees emails or Docker Ids",
+      "example": [
+        "invitee1DockerId",
+        "invitee2@docker.com",
+        "invitee3@docker.com"
+      ],
+      "items": {
+        "description": "invitee email or Docker ID",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "org": {
+      "description": "organization name",
+      "example": "docker",
+      "type": "string"
+    },
+    "role": {
+      "description": "role for invitees",
+      "example": "member",
+      "type": "string"
+    },
+    "team": {
+      "description": "team name",
+      "example": "owners",
+      "type": "string"
+    }
+  },
+  "required": [
+    "org",
+    "invitees"
+  ],
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;dry_run&#34;: true,
+  &#34;invitees&#34;: [
+    &#34;invitee1DockerId&#34;,
+    &#34;invitee2@docker.com&#34;,
+    &#34;invitee3@docker.com&#34;
+  ],
+  &#34;org&#34;: &#34;docker&#34;,
+  &#34;role&#34;: &#34;member&#34;,
+  &#34;team&#34;: &#34;owners&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1invites~1bulk/post/responses/202/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>202</code></h3><div class="prose dark:prose-invert">Accepted</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/bulk_invite/><code>bulk_invite</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;invitees&#34;: [
+    {
+      &#34;invite&#34;: {
+        &#34;created_at&#34;: &#34;2021-10-28T18:30:19.520861Z&#34;,
+        &#34;id&#34;: &#34;e36eca69-4cc8-4f17-9845-ae8c2b832691&#34;,
+        &#34;invitee&#34;: &#34;invitee@docker.com&#34;,
+        &#34;inviter_username&#34;: &#34;moby&#34;,
+        &#34;org&#34;: &#34;docker&#34;,
+        &#34;team&#34;: &#34;owners&#34;
+      },
+      &#34;invitee&#34;: &#34;invitee@docker.com&#34;,
+      &#34;status&#34;: &#34;invited&#34;
+    },
+    {
+      &#34;invitee&#34;: &#34;invitee2@docker.com&#34;,
+      &#34;status&#34;: &#34;existing_org_member&#34;
+    },
+    {
+      &#34;invitee&#34;: &#34;invitee3@docker.com&#34;,
+      &#34;status&#34;: &#34;invalid_email_or_docker_id&#34;
+    }
+  ]
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1invites~1bulk/post/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;bad request&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1invites~1bulk/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert">Conflict</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;conflict&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/bulk_invite/>#/components/schemas/bulk_invite</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Create multiple invites by emails or DockerIDs. Only a team owner can create invites.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "postV2InvitesBulk",
+  "requestBody": {
+    "$ref": "#/components/requestBodies/bulk_invite_request"
+  },
+  "responses": {
+    "202": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/bulk_invite"
+          }
+        }
+      },
+      "description": "Accepted"
+    },
+    "400": {
+      "$ref": "#/components/responses/bad_request"
+    },
+    "409": {
+      "$ref": "#/components/responses/conflict"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Bulk create invites",
+  "tags": [
+    "invites"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;dry_run&#34;: true,
+  &#34;invitees&#34;: [
+    &#34;invitee1DockerId&#34;,
+    &#34;invitee2@docker.com&#34;,
+    &#34;invitee3@docker.com&#34;
+  ],
+  &#34;org&#34;: &#34;docker&#34;,
+  &#34;role&#34;: &#34;member&#34;,
+  &#34;team&#34;: &#34;owners&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/invites/bulk&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJPcHRpb25hbCBzdHJpbmcgdGhhdCBpbmRpY2F0ZXMgdGhlIGZlYXR1cmUgdXNlZCB0byBzdWJtaXQgdGhlIGJ1bGsgaW52aXRlcyAoZS5nLidmaWxlJywgJ3dlYicpXCIsXG4gIFwiaW5cIjogXCJoZWFkZXJcIixcbiAgXCJuYW1lXCI6IFwiWC1BbmFseXRpY3MtQ2xpZW50LUZlYXR1cmVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWludml0ZXN+MWJ1bGsvcGFyYW1ldGVycy8wXCIsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJleGFtcGxlc1wiOiBbXG4gICAge1xuICAgICAgXCJkcnlfcnVuXCI6IHRydWUsXG4gICAgICBcImludml0ZWVzXCI6IFtcbiAgICAgICAgXCJpbnZpdGVlMURvY2tlcklkXCIsXG4gICAgICAgIFwiaW52aXRlZTJAZG9ja2VyLmNvbVwiLFxuICAgICAgICBcImludml0ZWUzQGRvY2tlci5jb21cIlxuICAgICAgXSxcbiAgICAgIFwib3JnXCI6IFwiZG9ja2VyXCIsXG4gICAgICBcInJvbGVcIjogXCJtZW1iZXJcIixcbiAgICAgIFwidGVhbVwiOiBcIm93bmVyc1wiXG4gICAgfVxuICBdLFxuICBcInByb3BlcnRpZXNcIjoge1xuICAgIFwiZHJ5X3J1blwiOiB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwiT3B0aW9uYWwsIHJ1biB0aHJvdWdoIHZhbGlkYXRpb24gYnV0IGRvbid0IGFjdHVhbGx5IGNoYW5nZSBkYXRhLlwiLFxuICAgICAgXCJleGFtcGxlXCI6IHRydWUsXG4gICAgICBcInR5cGVcIjogXCJib29sZWFuXCJcbiAgICB9LFxuICAgIFwiaW52aXRlZXNcIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcImxpc3Qgb2YgaW52aXRlZXMgZW1haWxzIG9yIERvY2tlciBJZHNcIixcbiAgICAgIFwiZXhhbXBsZVwiOiBbXG4gICAgICAgIFwiaW52aXRlZTFEb2NrZXJJZFwiLFxuICAgICAgICBcImludml0ZWUyQGRvY2tlci5jb21cIixcbiAgICAgICAgXCJpbnZpdGVlM0Bkb2NrZXIuY29tXCJcbiAgICAgIF0sXG4gICAgICBcIml0ZW1zXCI6IHtcbiAgICAgICAgXCJkZXNjcmlwdGlvblwiOiBcImludml0ZWUgZW1haWwgb3IgRG9ja2VyIElEXCIsXG4gICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICB9LFxuICAgICAgXCJ0eXBlXCI6IFwiYXJyYXlcIlxuICAgIH0sXG4gICAgXCJvcmdcIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIm9yZ2FuaXphdGlvbiBuYW1lXCIsXG4gICAgICBcImV4YW1wbGVcIjogXCJkb2NrZXJcIixcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfSxcbiAgICBcInJvbGVcIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcInJvbGUgZm9yIGludml0ZWVzXCIsXG4gICAgICBcImV4YW1wbGVcIjogXCJtZW1iZXJcIixcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfSxcbiAgICBcInRlYW1cIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcInRlYW0gbmFtZVwiLFxuICAgICAgXCJleGFtcGxlXCI6IFwib3duZXJzXCIsXG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJyZXF1aXJlZFwiOiBbXG4gICAgXCJvcmdcIixcbiAgICBcImludml0ZWVzXCJcbiAgXSxcbiAgXCJ0eXBlXCI6IFwib2JqZWN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9idWxrX2ludml0ZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iXQ=="></template>

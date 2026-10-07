@@ -1,0 +1,143 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/listSnapshots.md>Markdown</a></div><meta data-pagefind-meta="title:ListSnapshots lists snapshots in the caller's owner scope. — Docker Sandboxes API v1"><h1>ListSnapshots lists snapshots in the caller's owner scope.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/snapshots</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">ListSnapshots lists snapshots in the caller's owner scope.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=sandbox><h3><code>sandbox</code>
+<small>query</small></h3><div class="prose dark:prose-invert">(OPTIONAL) sandbox is the complete resource name, in the form sandboxes/{sandbox}.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "pattern": "^(?:sandboxes/[^/]+)?$",
+  "title": "sandbox",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=pageSize><h3><code>pageSize</code>
+<small>query</small></h3><div class="prose dark:prose-invert"><p>page_size is an optional page size.</p><p>Omitted or zero uses the backend default. Unless the operation states otherwise, page-size limits and handling of larger requests are backend-specific; use the backend support guide. Continue with nextPageToken until it is empty.</p></div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "page_size",
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=pageToken><h3><code>pageToken</code>
+<small>query</small></h3><div class="prose dark:prose-invert">page_token is an opaque continuation token.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "page_token",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=filter><h3><code>filter</code>
+<small>query</small></h3><div class="prose dark:prose-invert">filter is comma-separated exact-match field=value terms; the portable fields are
+name, display_name and uid.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "filter",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=orderBy><h3><code>orderBy</code>
+<small>query</small></h3><div class="prose dark:prose-invert">order_by is a single order field with optional direction; the portable fields are
+created_at and name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "order_by",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1snapshots/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ListSnapshotsResponse/><code>ListSnapshotsResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1snapshots/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/ListSnapshotsResponse/>#/components/schemas/ListSnapshotsResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "ListSnapshots lists snapshots in the caller's owner scope.",
+  "operationId": "listSnapshots",
+  "parameters": [
+    {
+      "description": "(OPTIONAL) sandbox is the complete resource name, in the form sandboxes/{sandbox}.",
+      "in": "query",
+      "name": "sandbox",
+      "required": false,
+      "schema": {
+        "pattern": "^(?:sandboxes/[^/]+)?$",
+        "title": "sandbox",
+        "type": "string"
+      }
+    },
+    {
+      "description": "page_size is an optional page size.\n\nOmitted or zero uses the backend default. Unless the operation states otherwise, page-size limits and handling of larger requests are backend-specific; use the backend support guide. Continue with nextPageToken until it is empty.",
+      "in": "query",
+      "name": "pageSize",
+      "required": false,
+      "schema": {
+        "title": "page_size",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "page_token is an opaque continuation token.",
+      "in": "query",
+      "name": "pageToken",
+      "required": false,
+      "schema": {
+        "title": "page_token",
+        "type": "string"
+      }
+    },
+    {
+      "description": "filter is comma-separated exact-match field=value terms; the portable fields are\nname, display_name and uid.",
+      "in": "query",
+      "name": "filter",
+      "required": false,
+      "schema": {
+        "title": "filter",
+        "type": "string"
+      }
+    },
+    {
+      "description": "order_by is a single order field with optional direction; the portable fields are\ncreated_at and name.",
+      "in": "query",
+      "name": "orderBy",
+      "required": false,
+      "schema": {
+        "title": "order_by",
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ListSnapshotsResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "ListSnapshots lists snapshots in the caller's owner scope.",
+  "tags": [
+    "Snapshots"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "snapshotsRead"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://connect.docker.com/sandboxes/v1/snapshots&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIihPUFRJT05BTCkgc2FuZGJveCBpcyB0aGUgY29tcGxldGUgcmVzb3VyY2UgbmFtZSwgaW4gdGhlIGZvcm0gc2FuZGJveGVzL3tzYW5kYm94fS5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInNhbmRib3hcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNuYXBzaG90cy9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInBhdHRlcm5cIjogXCJeKD86c2FuZGJveGVzL1teL10rKT8kXCIsXG4gICAgXCJ0aXRsZVwiOiBcInNhbmRib3hcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcInBhZ2Vfc2l6ZSBpcyBhbiBvcHRpb25hbCBwYWdlIHNpemUuXFxuXFxuT21pdHRlZCBvciB6ZXJvIHVzZXMgdGhlIGJhY2tlbmQgZGVmYXVsdC4gVW5sZXNzIHRoZSBvcGVyYXRpb24gc3RhdGVzIG90aGVyd2lzZSwgcGFnZS1zaXplIGxpbWl0cyBhbmQgaGFuZGxpbmcgb2YgbGFyZ2VyIHJlcXVlc3RzIGFyZSBiYWNrZW5kLXNwZWNpZmljOyB1c2UgdGhlIGJhY2tlbmQgc3VwcG9ydCBndWlkZS4gQ29udGludWUgd2l0aCBuZXh0UGFnZVRva2VuIHVudGlsIGl0IGlzIGVtcHR5LlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGFnZVNpemVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNuYXBzaG90cy9nZXQvcGFyYW1ldGVycy8xXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInRpdGxlXCI6IFwicGFnZV9zaXplXCIsXG4gICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwicGFnZV90b2tlbiBpcyBhbiBvcGFxdWUgY29udGludWF0aW9uIHRva2VuLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGFnZVRva2VuXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzbmFwc2hvdHMvZ2V0L3BhcmFtZXRlcnMvMlwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0aXRsZVwiOiBcInBhZ2VfdG9rZW5cIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcImZpbHRlciBpcyBjb21tYS1zZXBhcmF0ZWQgZXhhY3QtbWF0Y2ggZmllbGQ9dmFsdWUgdGVybXM7IHRoZSBwb3J0YWJsZSBmaWVsZHMgYXJlXFxubmFtZSwgZGlzcGxheV9uYW1lIGFuZCB1aWQuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJmaWx0ZXJcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNuYXBzaG90cy9nZXQvcGFyYW1ldGVycy8zXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInRpdGxlXCI6IFwiZmlsdGVyXCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJvcmRlcl9ieSBpcyBhIHNpbmdsZSBvcmRlciBmaWVsZCB3aXRoIG9wdGlvbmFsIGRpcmVjdGlvbjsgdGhlIHBvcnRhYmxlIGZpZWxkcyBhcmVcXG5jcmVhdGVkX2F0IGFuZCBuYW1lLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwib3JkZXJCeVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xc25hcHNob3RzL2dldC9wYXJhbWV0ZXJzLzRcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidGl0bGVcIjogXCJvcmRlcl9ieVwiLFxuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9MaXN0U25hcHNob3RzUmVzcG9uc2VcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iXQ=="></template>

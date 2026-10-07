@@ -1,0 +1,19 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/KitFieldReason.md>Markdown</a></div><meta data-pagefind-meta="title:KitFieldReason — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>KitFieldReason</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>KitFieldReason provides stable, nonsecret diagnostic categories.</p><p>Values:
+unspecified: unspecified is invalid in a report.
+unsupported: unsupported means the backend cannot honor the declaration.
+unknownField: unknownField means the pinned schema does not recognize the declaration.
+credentialUnavailable: credentialUnavailable means the declared credential cannot be injected.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "KitFieldReason provides stable, nonsecret diagnostic categories.\n\nValues:\nunspecified: unspecified is invalid in a report.\nunsupported: unsupported means the backend cannot honor the declaration.\nunknownField: unknownField means the pinned schema does not recognize the declaration.\ncredentialUnavailable: credentialUnavailable means the declared credential cannot be injected.",
+  "enum": [
+    "unspecified",
+    "unsupported",
+    "unknownField",
+    "credentialUnavailable"
+  ],
+  "title": "KitFieldReason",
+  "type": "string"
+}</code></pre></details></article>

@@ -1,0 +1,27 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ProcessSignal.md>Markdown</a></div><meta data-pagefind-meta="title:ProcessSignal — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ProcessSignal</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>Signal is a process signal.</p><p>Values:
+unspecified: unspecified is invalid.
+term: term requests graceful termination.
+kill: kill requests immediate termination.
+int: int requests interrupt.
+hup: hup requests hangup.
+quit: quit requests quit.
+usr1: usr1 requests user signal 1.
+usr2: usr2 requests user signal 2.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Signal is a process signal.\n\nValues:\nunspecified: unspecified is invalid.\nterm: term requests graceful termination.\nkill: kill requests immediate termination.\nint: int requests interrupt.\nhup: hup requests hangup.\nquit: quit requests quit.\nusr1: usr1 requests user signal 1.\nusr2: usr2 requests user signal 2.",
+  "enum": [
+    "unspecified",
+    "term",
+    "kill",
+    "int",
+    "hup",
+    "quit",
+    "usr1",
+    "usr2"
+  ],
+  "title": "Signal",
+  "type": "string"
+}</code></pre></details></article>

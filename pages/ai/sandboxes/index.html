@@ -1,0 +1,23 @@
+<p>Docker Sandboxes run AI coding agents in isolated environments on your machine
+or on Docker-managed cloud infrastructure. Use the <code>sbx</code> CLI to create and
+manage either kind of sandbox.</p><p>The <code>sbx</code> CLI and local sandbox compute are free to use, including for commercial
+work. Cloud compute uses a
+<a class=link href=https://docs.docker.com/agentic-platform/signup/#billing>pay-as-you-go subscription</a>.
+Model-provider charges are separate.</p><p>Organization admins can
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>centrally manage sandbox network, filesystem, and MCP policies</a>,
+for local sandboxes across developer machines.
+Available on a separate paid subscription.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=get-started><a class="text-black dark:text-white no-underline hover:underline" href=#get-started>Get started</a></h2><p><a class=link href=https://docs.docker.com/ai/sandboxes/install/>Install the <code>sbx</code> CLI</a> and sign in, then choose where to run your
+agent:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Environment</th><th class=p-2>Use it for</th><th class=p-2>Start here</th></tr></thead><tbody><tr><td class=p-2>Local sandboxes</td><td class=p-2>Work with files and supported hardware on your machine</td><td class=p-2><a class=link href=https://docs.docker.com/ai/sandboxes/get-started/>Get started locally</a></td></tr><tr><td class=p-2>Cloud sandboxes</td><td class=p-2>Run on Docker-managed compute without local virtualization</td><td class=p-2><a class=link href=https://docs.docker.com/ai/sandboxes/cloud/#get-started>Get started in the cloud</a></td></tr></tbody></table></div><p>The two environments have separate credentials, network policies, and lifecycle
+controls. See <a class=link href=https://docs.docker.com/ai/sandboxes/cloud/local-vs-cloud/>Compare local and cloud sandboxes</a>
+before adapting a workflow.</p><p>To create and manage cloud sandboxes from your application, see
+<a class=link href=https://docs.docker.com/ai/sandboxes-api/>Sandboxes API and SDK</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=learn-more><a class="text-black dark:text-white no-underline hover:underline" href=#learn-more>Learn more</a></h2><p>The following guides describe local sandbox workflows. For cloud workflows,
+see <a class=link href=https://docs.docker.com/ai/sandboxes/cloud/>Cloud sandboxes</a>.</p><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/agents/>Agents</a> — supported agents and per-agent configuration</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/workflows/>Workflows</a> — patterns for Git, local development,
+authentication, agent skills, and automation</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/configuration/>Configuration</a> — manage credentials, declare project
+environments, turn on GPU passthrough, and configure an upstream proxy</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/integrations/>Integrations</a> — connect editors and apps like VS Code and
+Cursor to a sandbox over SSH</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/mcp-gateway/>MCP gateway</a> — register MCP servers and connect them to
+sandboxed agents</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/customize/>Kits</a> — package tools and configuration into reusable
+sandbox environments</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/architecture/>Architecture</a> — microVM isolation, workspace mounting,
+networking</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/security/>Security</a> — isolation model, credential handling, and
+network policies</li><li><a class=link href=/reference/cli/sbx/>CLI reference</a> — full list of <code>sbx</code> commands and options</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/troubleshooting/>Troubleshooting</a> — common issues and fixes</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/faq/>FAQ</a> — login requirements, telemetry, etc</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=feedback><a class="text-black dark:text-white no-underline hover:underline" href=#feedback>Feedback</a></h2><p>Your feedback shapes what gets built next. If you run into a bug, hit a
+missing feature, or have a suggestion, open an issue at
+<a class=link href=https://github.com/docker/sbx-releases/issues rel=noopener>github.com/docker/sbx-releases/issues</a>.</p>

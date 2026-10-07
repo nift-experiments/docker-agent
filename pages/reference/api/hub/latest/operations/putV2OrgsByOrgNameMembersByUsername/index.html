@@ -1,0 +1,150 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/putV2OrgsByOrgNameMembersByUsername.md>Markdown</a></div><meta data-pagefind-meta="title:Update org member (role) — Docker Hub API 2-beta"><h1>Update org member (role)</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v2<wbr>/orgs<wbr>/{org_name}<wbr>/members<wbr>/{username}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Updates the role of a member in the organization.
+<em><strong>Only users in the "owners" group of the organization can use this endpoint.</strong></em></p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the organization (namespace).</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=username><h3><code>username</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Username, identifier for the user (namespace, DockerID).</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "jonsnow",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1{username}/put/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><details class=api-field open><summary><code>role</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Role of the member. Valid values are the core roles
+<code>owner</code>, <code>editor</code>, and <code>member</code>, or the name of an
+existing <a class=link href=https://docs.docker.com/security/roles-and-permissions/custom-roles/manage/ rel=noopener>custom role</a>.
+Use the custom role's name identifier, not its label or UUID.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Role of the member. Valid values are the core roles\n`owner`, `editor`, and `member`, or the name of an\nexisting [custom role](https://docs.docker.com/security/roles-and-permissions/custom-roles/manage/).\nUse the custom role's name identifier, not its label or UUID.\n",
+  "example": "owner",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "role": "owner"
+    }
+  ],
+  "properties": {
+    "role": {
+      "description": "Role of the member. Valid values are the core roles\n`owner`, `editor`, and `member`, or the name of an\nexisting [custom role](https://docs.docker.com/security/roles-and-permissions/custom-roles/manage/).\nUse the custom role's name identifier, not its label or UUID.\n",
+      "example": "owner",
+      "type": "string"
+    }
+  },
+  "required": [
+    "role"
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;role&#34;: &#34;owner&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1{username}/put/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Member role updated</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/org_member/><code>org_member</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;date_joined&#34;: &#34;2021-01-05T21:06:53.506400Z&#34;,
+  &#34;email&#34;: &#34;example@docker.com&#34;,
+  &#34;full_name&#34;: &#34;Jon Snow&#34;,
+  &#34;groups&#34;: [
+    &#34;owners&#34;
+  ],
+  &#34;id&#34;: &#34;0ab70deb065a43fcacd55d48caa945d8&#34;,
+  &#34;is_guest&#34;: false,
+  &#34;role&#34;: &#34;Owner&#34;,
+  &#34;type&#34;: &#34;User&#34;,
+  &#34;username&#34;: &#34;dockeruser&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1{username}/put/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;bad request&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1{username}/put/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1{username}/put/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1members~1{username}/put/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/org_member/>#/components/schemas/org_member</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Updates the role of a member in the organization.\n***Only users in the \"owners\" group of the organization can use this endpoint.***\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "putV2OrgsByOrgNameMembersByUsername",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "examples": [
+            {
+              "role": "owner"
+            }
+          ],
+          "properties": {
+            "role": {
+              "description": "Role of the member. Valid values are the core roles\n`owner`, `editor`, and `member`, or the name of an\nexisting [custom role](https://docs.docker.com/security/roles-and-permissions/custom-roles/manage/).\nUse the custom role's name identifier, not its label or UUID.\n",
+              "example": "owner",
+              "type": "string"
+            }
+          },
+          "required": [
+            "role"
+          ]
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/org_member"
+          }
+        }
+      },
+      "description": "Member role updated"
+    },
+    "400": {
+      "$ref": "#/components/responses/bad_request"
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/not_found"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Update org member (role)",
+  "tags": [
+    "orgs"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;role&#34;: &#34;owner&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/orgs/myorganization/members/jonsnow&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBvcmdhbml6YXRpb24gKG5hbWVzcGFjZSkuXCIsXG4gIFwiZXhhbXBsZVwiOiBcIm15b3JnYW5pemF0aW9uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm9yZ19uYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFvcmdzfjF7b3JnX25hbWV9fjFtZW1iZXJzfjF7dXNlcm5hbWV9L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlVzZXJuYW1lLCBpZGVudGlmaWVyIGZvciB0aGUgdXNlciAobmFtZXNwYWNlLCBEb2NrZXJJRCkuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInVzZXJuYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFvcmdzfjF7b3JnX25hbWV9fjFtZW1iZXJzfjF7dXNlcm5hbWV9L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImV4YW1wbGVcIjogXCJqb25zbm93XCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZXhhbXBsZXNcIjogW1xuICAgIHtcbiAgICAgIFwicm9sZVwiOiBcIm93bmVyXCJcbiAgICB9XG4gIF0sXG4gIFwicHJvcGVydGllc1wiOiB7XG4gICAgXCJyb2xlXCI6IHtcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJSb2xlIG9mIHRoZSBtZW1iZXIuIFZhbGlkIHZhbHVlcyBhcmUgdGhlIGNvcmUgcm9sZXNcXG5gb3duZXJgLCBgZWRpdG9yYCwgYW5kIGBtZW1iZXJgLCBvciB0aGUgbmFtZSBvZiBhblxcbmV4aXN0aW5nIFtjdXN0b20gcm9sZV0oaHR0cHM6Ly9kb2NzLmRvY2tlci5jb20vc2VjdXJpdHkvcm9sZXMtYW5kLXBlcm1pc3Npb25zL2N1c3RvbS1yb2xlcy9tYW5hZ2UvKS5cXG5Vc2UgdGhlIGN1c3RvbSByb2xlJ3MgbmFtZSBpZGVudGlmaWVyLCBub3QgaXRzIGxhYmVsIG9yIFVVSUQuXFxuXCIsXG4gICAgICBcImV4YW1wbGVcIjogXCJvd25lclwiLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwicmVxdWlyZWRcIjogW1xuICAgIFwicm9sZVwiXG4gIF1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9vcmdfbWVtYmVyXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59Il0="></template>

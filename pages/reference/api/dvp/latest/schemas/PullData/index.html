@@ -1,0 +1,53 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/schemas/PullData.md>Markdown</a></div><meta data-pagefind-meta="title:PullData — Publisher analytics API 1.0.0"><p class=api-eyebrow>Schema</p><h1>PullData</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>pulls</code></summary><p class=api-type>Type:
+<code>array | null</code></p><div class="prose dark:prose-invert">Pull statistics for the selected interval. Null when no records are returned.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/PullModel/><code>PullModel</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Pull statistics for the selected interval. Null when no records are returned.",
+  "items": {
+    "$ref": "#/components/schemas/PullModel"
+  },
+  "type": [
+    "array",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "pulls": [
+        {
+          "end": "2022-08-07T00:00:00Z",
+          "ipCount": 10,
+          "pullCount": 11,
+          "repo": "neo4j-admin",
+          "start": "2022-08-01T00:00:00Z"
+        },
+        {
+          "end": "2022-08-14T00:00:00Z",
+          "ipCount": 10,
+          "pullCount": 11,
+          "repo": "neo4j-admin",
+          "start": "2022-08-08T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "pulls": null
+    }
+  ],
+  "properties": {
+    "pulls": {
+      "description": "Pull statistics for the selected interval. Null when no records are returned.",
+      "items": {
+        "$ref": "#/components/schemas/PullModel"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

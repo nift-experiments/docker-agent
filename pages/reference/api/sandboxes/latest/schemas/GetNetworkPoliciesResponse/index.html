@@ -1,0 +1,25 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/GetNetworkPoliciesResponse.md>Markdown</a></div><meta data-pagefind-meta="title:GetNetworkPoliciesResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>GetNetworkPoliciesResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">GetNetworkPoliciesResponse binds both views to exact.revision; a partial read fails.</div><details class=api-field open><summary><code>effective</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EffectiveNetworkPolicy/><code>EffectiveNetworkPolicy</code></a></p></details><details class=api-field open><summary><code>exact</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactNetworkPolicy/><code>ExactNetworkPolicy</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "GetNetworkPoliciesResponse binds both views to exact.revision; a partial read fails.",
+  "properties": {
+    "effective": {
+      "$ref": "#/components/schemas/EffectiveNetworkPolicy"
+    },
+    "exact": {
+      "$ref": "#/components/schemas/ExactNetworkPolicy"
+    }
+  },
+  "required": [
+    "effective",
+    "exact"
+  ],
+  "title": "GetNetworkPoliciesResponse",
+  "type": "object"
+}</code></pre></details></article>

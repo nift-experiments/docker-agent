@@ -1,0 +1,144 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/getAccessTokensResponse.md>Markdown</a></div><meta data-pagefind-meta="title:getAccessTokensResponse — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>getAccessTokensResponse</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>active_count</code></summary><p class=api-type>Type:
+<code>number</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 1,
+  "type": "number"
+}</code></pre></details></details><details class=api-field open><summary><code>count</code></summary><p class=api-type>Type:
+<code>number</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 1,
+  "type": "number"
+}</code></pre></details></details><details class=api-field open><summary><code>next</code></summary><p class=api-type>Type:
+<code>string | null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": null,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>previous</code></summary><p class=api-type>Type:
+<code>string | null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": null,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>results</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/accessToken/><code>accessToken</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/accessToken"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "token": {
+      "example": "***",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/accessToken"
+    },
+    {
+      "properties": {
+        "token": {
+          "example": "***",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "allOf": [
+      {
+        "$ref": "#/components/schemas/accessToken"
+      },
+      {
+        "properties": {
+          "token": {
+            "example": "***",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    ]
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "active_count": 1,
+      "count": 1,
+      "next": null,
+      "previous": null,
+      "results": [
+        {
+          "client_id": "HUB",
+          "created_at": "2021-07-20T12:00:00.000000Z",
+          "creator_ip": "127.0.0.1",
+          "creator_ua": "some user agent",
+          "expires_at": "2021-10-28T18:30:19.520861Z",
+          "generated_by": "manual",
+          "is_active": true,
+          "last_used": null,
+          "scopes": [
+            "repo:read"
+          ],
+          "token": "***",
+          "token_label": "My read only token",
+          "uuid": "b30bbf97-506c-4ecd-aabc-842f3cb484fb"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "active_count": {
+      "example": 1,
+      "type": "number"
+    },
+    "count": {
+      "example": 1,
+      "type": "number"
+    },
+    "next": {
+      "example": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "previous": {
+      "example": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "results": {
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/accessToken"
+          },
+          {
+            "properties": {
+              "token": {
+                "example": "***",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

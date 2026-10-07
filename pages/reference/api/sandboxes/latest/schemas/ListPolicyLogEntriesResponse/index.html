@@ -1,0 +1,34 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ListPolicyLogEntriesResponse.md>Markdown</a></div><meta data-pagefind-meta="title:ListPolicyLogEntriesResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ListPolicyLogEntriesResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ListPolicyLogEntriesResponse returns policy log entries and a next-page token.</div><details class=api-field open><summary><code>entries</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">entries is the current page.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/PolicyLogEntry/><code>PolicyLogEntry</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "entries is the current page.",
+  "items": {
+    "$ref": "#/components/schemas/PolicyLogEntry"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>nextPageToken</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">next_page_token is empty when there are no more pages.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "next_page_token is empty when there are no more pages.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ListPolicyLogEntriesResponse returns policy log entries and a next-page token.",
+  "properties": {
+    "entries": {
+      "description": "entries is the current page.",
+      "items": {
+        "$ref": "#/components/schemas/PolicyLogEntry"
+      },
+      "type": "array"
+    },
+    "nextPageToken": {
+      "description": "next_page_token is empty when there are no more pages.",
+      "type": "string"
+    }
+  },
+  "title": "ListPolicyLogEntriesResponse",
+  "type": "object"
+}</code></pre></details></article>

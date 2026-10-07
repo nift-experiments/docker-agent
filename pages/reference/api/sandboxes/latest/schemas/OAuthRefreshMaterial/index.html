@@ -1,0 +1,91 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/OAuthRefreshMaterial.md>Markdown</a></div><meta data-pagefind-meta="title:OAuthRefreshMaterial — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>OAuthRefreshMaterial</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">OAuthRefreshMaterial is OAuth secret material. Unlike OAuthRefreshMaterialV2 it pairs
+no bootstrap token with an expiry and stores client_id as the caller supplied it.</div><details class=api-field open><summary><code>clientId</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">client_id is the OAuth client id.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "client_id is the OAuth client id.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>expiresAt</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">expires_at is the access token expiry when supplied.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "expires_at is the access token expiry when supplied."
+}</code></pre></details></details><details class=api-field open><summary><code>idToken</code>· request only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">id_token is an optional OpenID Connect id token.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "id_token is an optional OpenID Connect id token.",
+  "type": "string",
+  "writeOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>initialAccessToken</code>· request only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">initial_access_token is an optional bootstrap access token.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "initial_access_token is an optional bootstrap access token.",
+  "type": "string",
+  "writeOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>providerAccountId</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">provider_account_id identifies the provider account.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "provider_account_id identifies the provider account.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>refreshToken</code>
+· required
+· request only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">refresh_token is the OAuth refresh token.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "refresh_token is the OAuth refresh token.",
+  "minLength": 1,
+  "type": "string",
+  "writeOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>scopes</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">scopes are requested OAuth scopes.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "scopes are requested OAuth scopes.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "OAuthRefreshMaterial is OAuth secret material. Unlike OAuthRefreshMaterialV2 it pairs\nno bootstrap token with an expiry and stores client_id as the caller supplied it.",
+  "properties": {
+    "clientId": {
+      "description": "client_id is the OAuth client id.",
+      "type": "string"
+    },
+    "expiresAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "expires_at is the access token expiry when supplied."
+    },
+    "idToken": {
+      "description": "id_token is an optional OpenID Connect id token.",
+      "type": "string",
+      "writeOnly": true
+    },
+    "initialAccessToken": {
+      "description": "initial_access_token is an optional bootstrap access token.",
+      "type": "string",
+      "writeOnly": true
+    },
+    "providerAccountId": {
+      "description": "provider_account_id identifies the provider account.",
+      "type": "string"
+    },
+    "refreshToken": {
+      "description": "refresh_token is the OAuth refresh token.",
+      "minLength": 1,
+      "type": "string",
+      "writeOnly": true
+    },
+    "scopes": {
+      "description": "scopes are requested OAuth scopes.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "refreshToken"
+  ],
+  "title": "OAuthRefreshMaterial",
+  "type": "object"
+}</code></pre></details></article>

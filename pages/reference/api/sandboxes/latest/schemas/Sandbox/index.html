@@ -1,0 +1,82 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/Sandbox.md>Markdown</a></div><meta data-pagefind-meta="title:Sandbox — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>Sandbox</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Sandbox carries shared core state and the effective state of its selected features.
+uid must equal the immutable resource ID in name</div><details class=api-field open><summary><code>core</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/SandboxCore/><code>SandboxCore</code></a></p><div class="prose dark:prose-invert">core is the backend-neutral sandbox view.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/SandboxCore",
+  "description": "core is the backend-neutral sandbox view."
+}</code></pre></details></details><details class=api-field open><summary><code>displayName</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">display_name is the scoped label; UpdateSandbox changes it without changing identity.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "display_name is the scoped label; UpdateSandbox changes it without changing identity.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>effectiveFeatures</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EffectiveFeatures/><code>EffectiveFeatures</code></a></p><div class="prose dark:prose-invert">effective_features is emitted only by the composition contract projection.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/EffectiveFeatures",
+  "description": "effective_features is emitted only by the composition contract projection."
+}</code></pre></details></details><details class=api-field open><summary><code>failure</code>
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div class="prose dark:prose-invert">failure is present only while status is FAILED and clears on recovery.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Error",
+  "description": "failure is present only while status is FAILED and clears on recovery.",
+  "readOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>name</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IDENTIFIER) name ends in the immutable backing ID and never changes with display_name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IDENTIFIER) name ends in the immutable backing ID and never changes with display_name.",
+  "pattern": "^sandboxes/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>uid</code>
+· required
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.",
+  "minLength": 1,
+  "readOnly": true,
+  "type": [
+    "string"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Sandbox carries shared core state and the effective state of its selected features.\nuid must equal the immutable resource ID in name",
+  "properties": {
+    "core": {
+      "$ref": "#/components/schemas/SandboxCore",
+      "description": "core is the backend-neutral sandbox view."
+    },
+    "displayName": {
+      "description": "display_name is the scoped label; UpdateSandbox changes it without changing identity.",
+      "type": "string"
+    },
+    "effectiveFeatures": {
+      "$ref": "#/components/schemas/EffectiveFeatures",
+      "description": "effective_features is emitted only by the composition contract projection."
+    },
+    "failure": {
+      "$ref": "#/components/schemas/Error",
+      "description": "failure is present only while status is FAILED and clears on recovery.",
+      "readOnly": true
+    },
+    "name": {
+      "description": "(IDENTIFIER) name ends in the immutable backing ID and never changes with display_name.",
+      "pattern": "^sandboxes/[^/]+$",
+      "type": "string"
+    },
+    "uid": {
+      "description": "(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.",
+      "minLength": 1,
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "required": [
+    "core",
+    "name",
+    "uid"
+  ],
+  "title": "Sandbox",
+  "type": "object"
+}</code></pre></details></article>

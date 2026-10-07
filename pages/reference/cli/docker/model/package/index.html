@@ -1,0 +1,20 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Package a model into a Docker Model OCI artifact</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker model package (--gguf &lt;path> | --safetensors-dir &lt;path> | --dduf &lt;path> | --from &lt;model>) [--license &lt;path>...] [--mmproj &lt;path>] [--context-size &lt;tokens>] [--push] MODEL</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Package a model into a Docker Model OCI artifact.</p><p>The model source must be one of:
+--gguf A GGUF file (single file or first shard of a sharded model)
+--safetensors-dir A directory containing .safetensors and configuration files
+--dduf A .dduf (Diffusers Unified Format) archive
+--from An existing packaged model reference</p><p>By default, the packaged artifact is loaded into the local Model Runner content store.
+Use --push to publish the model to a registry instead.</p><p>MODEL specifies the target model reference (for example: myorg/llama3:8b).
+When using --push, MODEL must be a registry-qualified reference.</p><p>Packaging behavior:</p><p>GGUF
+--gguf must point to a .gguf file.
+For sharded models, point to the first shard. All shards must:
+• reside in the same directory
+• follow an indexed naming convention (e.g. model-00001-of-00015.gguf)
+All shards are automatically discovered and packaged together.</p><p>Safetensors
+--safetensors-dir must point to a directory containing .safetensors files
+and required configuration files (e.g. model config, tokenizer files).
+All files under the directory (including nested subdirectories) are
+automatically discovered. Each file is packaged as a separate OCI layer.</p><p>DDUF
+--dduf must point to a .dduf archive file.</p><p>Repackaging
+--from repackages an existing model. You may override selected properties
+such as --context-size to create a variant of the original model.</p><p>Multimodal models
+Use --mmproj to include a multimodal projector file.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><code>--chat-template</code></td><td></td><td>absolute path to chat template file (must be Jinja format)</td></tr><tr class=p-2><td><code>--context-size</code></td><td></td><td>context size in tokens</td></tr><tr class=p-2><td><code>--dduf</code></td><td></td><td>absolute path to DDUF archive file (Diffusers Unified Format)</td></tr><tr class=p-2><td><code>--format</code></td><td><code>docker</code></td><td>output artifact format: "docker" (default) or "cncf" (CNCF ModelPack spec)<br></td></tr><tr class=p-2><td><code>--from</code></td><td></td><td>reference to an existing model to repackage</td></tr><tr class=p-2><td><code>--gguf</code></td><td></td><td>absolute path to gguf file</td></tr><tr class=p-2><td><code>-l, --license</code></td><td></td><td>absolute path to a license file</td></tr><tr class=p-2><td><code>--mmproj</code></td><td></td><td>absolute path to multimodal projector file</td></tr><tr class=p-2><td><code>--push</code></td><td></td><td>push to registry (if not set, the model is loaded into the Model Runner content store)<br></td></tr><tr class=p-2><td><code>--safetensors-dir</code></td><td></td><td>absolute path to directory containing safetensors files and config</td></tr></tbody></table></div>

@@ -1,0 +1,70 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/TimeoutOptions.md>Markdown</a></div><meta data-pagefind-meta="title:TimeoutOptions — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>TimeoutOptions</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">TimeoutOptions selects deadline behavior; presence enables this feature for the sandbox.
+an explicit RESTART (or its deprecated alias KEEP) initial timeout must be at least one hour</div><details class=api-field open><summary><code>autoResume</code></summary><p class=api-type>Type:
+<code>boolean | null</code></p><div class="prose dark:prose-invert">Omission selects the advertised default; false does not disable RESTART or KEEP cycles.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Omission selects the advertised default; false does not disable RESTART or KEEP cycles.",
+  "type": [
+    "boolean",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>onTimeout</code></summary><div class="prose dark:prose-invert">on_timeout defaults to DELETE; an explicit UNSPECIFIED is invalid.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/TimeoutAction/><code>TimeoutAction</code></a></p><p class=api-type>Type:
+<code>null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "null"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "on_timeout defaults to DELETE; an explicit UNSPECIFIED is invalid.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  },
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/TimeoutAction"
+    },
+    {
+      "type": "null"
+    }
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>timeout</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">timeout is the initial TTL; omission selects the advertised action default.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "timeout is the initial TTL; omission selects the advertised action default."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "TimeoutOptions selects deadline behavior; presence enables this feature for the sandbox.\nan explicit RESTART (or its deprecated alias KEEP) initial timeout must be at least one hour",
+  "properties": {
+    "autoResume": {
+      "description": "Omission selects the advertised default; false does not disable RESTART or KEEP cycles.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "onTimeout": {
+      "description": "on_timeout defaults to DELETE; an explicit UNSPECIFIED is invalid.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      },
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/TimeoutAction"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "timeout": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "timeout is the initial TTL; omission selects the advertised action default."
+    }
+  },
+  "title": "TimeoutOptions",
+  "type": "object"
+}</code></pre></details></article>

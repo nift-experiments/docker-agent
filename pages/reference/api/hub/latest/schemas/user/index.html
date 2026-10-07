@@ -1,0 +1,91 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/user.md>Markdown</a></div><meta data-pagefind-meta="title:user — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>user</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>company</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "Docker Inc",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>date_joined</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "2021-01-05T21:06:53.506400Z",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>full_name</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "Jon Snow",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>gravatar_email</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>gravatar_url</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>id</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The UUID trimmed</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The UUID trimmed",
+  "example": "0ab70deb065a43fcacd55d48caa945d8",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>location</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>profile_url</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>type</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "User",
+    "Org"
+  ],
+  "example": "User",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>username</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "dockeruser",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "company": {
+      "example": "Docker Inc",
+      "type": "string"
+    },
+    "date_joined": {
+      "example": "2021-01-05T21:06:53.506400Z",
+      "type": "string"
+    },
+    "full_name": {
+      "example": "Jon Snow",
+      "type": "string"
+    },
+    "gravatar_email": {
+      "type": "string"
+    },
+    "gravatar_url": {
+      "type": "string"
+    },
+    "id": {
+      "description": "The UUID trimmed",
+      "example": "0ab70deb065a43fcacd55d48caa945d8",
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "profile_url": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "User",
+        "Org"
+      ],
+      "example": "User",
+      "type": "string"
+    },
+    "username": {
+      "example": "dockeruser",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

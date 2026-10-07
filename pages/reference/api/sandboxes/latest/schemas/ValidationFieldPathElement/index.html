@@ -1,0 +1,456 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ValidationFieldPathElement.md>Markdown</a></div><meta data-pagefind-meta="title:ValidationFieldPathElement — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ValidationFieldPathElement</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">One field in a validation path. For a map or list, the subscript identifies the selected element.</div><details class=api-field open><summary>All constraints apply</summary><details class=api-field><summary><code>fieldName</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert"><code>field_name</code> contains the field name this path element refers to.
+This can be used to display a human-readable path even if the field number is unknown.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`field_name` contains the field name this path element refers to.\nThis can be used to display a human-readable path even if the field number is unknown.",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field><summary><code>fieldNumber</code></summary><p class=api-type>Type:
+<code>integer | null</code></p><div class="prose dark:prose-invert"><code>field_number</code> is the field number this path element refers to.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`field_number` is the field number this path element refers to.",
+  "format": "int32",
+  "type": [
+    "integer",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field><summary><code>fieldType</code></summary><div class="prose dark:prose-invert">The type of the field that failed validation.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ValidationFieldType/><code>ValidationFieldType</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ValidationFieldType"
+}</code></pre></details><p class=api-type>Type:
+<code>null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "null"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The type of the field that failed validation.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ValidationFieldType"
+    },
+    {
+      "type": "null"
+    }
+  ]
+}</code></pre></details></details><details class=api-field><summary><code>keyType</code></summary><div class="prose dark:prose-invert"><code>key_type</code> specifies the map key type of this field. This value is useful when traversing
+unknown fields through wire data: specifically, it allows handling the differences between
+different integer encodings.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ValidationFieldType/><code>ValidationFieldType</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ValidationFieldType"
+}</code></pre></details><p class=api-type>Type:
+<code>null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "null"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`key_type` specifies the map key type of this field. This value is useful when traversing\nunknown fields through wire data: specifically, it allows handling the differences between\ndifferent integer encodings.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ValidationFieldType"
+    },
+    {
+      "type": "null"
+    }
+  ]
+}</code></pre></details></details><details class=api-field><summary><code>valueType</code></summary><div class="prose dark:prose-invert"><code>value_type</code> specifies map value type of this field. This is useful if you want to display a
+value inside unknown fields through wire data.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ValidationFieldType/><code>ValidationFieldType</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ValidationFieldType"
+}</code></pre></details><p class=api-type>Type:
+<code>null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "null"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`value_type` specifies map value type of this field. This is useful if you want to display a\nvalue inside unknown fields through wire data.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ValidationFieldType"
+    },
+    {
+      "type": "null"
+    }
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "fieldName": {
+      "description": "`field_name` contains the field name this path element refers to.\nThis can be used to display a human-readable path even if the field number is unknown.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fieldNumber": {
+      "description": "`field_number` is the field number this path element refers to.",
+      "format": "int32",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "fieldType": {
+      "description": "The type of the field that failed validation.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/ValidationFieldType"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "keyType": {
+      "description": "`key_type` specifies the map key type of this field. This value is useful when traversing\nunknown fields through wire data: specifically, it allows handling the differences between\ndifferent integer encodings.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/ValidationFieldType"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "valueType": {
+      "description": "`value_type` specifies map value type of this field. This is useful if you want to display a\nvalue inside unknown fields through wire data.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/ValidationFieldType"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}</code></pre></details><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>boolKey</code>
+· required</summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert"><code>bool_key</code> specifies a map key of type bool.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`bool_key` specifies a map key of type bool.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "boolKey": {
+      "description": "`bool_key` specifies a map key of type bool.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "boolKey"
+  ],
+  "title": "bool_key",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>index</code>
+· required</summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert"><code>index</code> specifies a 0-based index into a repeated field.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`index` specifies a 0-based index into a repeated field.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "index": {
+      "description": "`index` specifies a 0-based index into a repeated field.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    }
+  },
+  "required": [
+    "index"
+  ],
+  "title": "index",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>intKey</code>
+· required</summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert"><code>int_key</code> specifies a map key of type int32, int64, sint32, sint64, sfixed32 or sfixed64.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`int_key` specifies a map key of type int32, int64, sint32, sint64, sfixed32 or sfixed64.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "intKey": {
+      "description": "`int_key` specifies a map key of type int32, int64, sint32, sint64, sfixed32 or sfixed64.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    }
+  },
+  "required": [
+    "intKey"
+  ],
+  "title": "int_key",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>stringKey</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><code>string_key</code> specifies a map key of type string.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`string_key` specifies a map key of type string.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "stringKey": {
+      "description": "`string_key` specifies a map key of type string.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "stringKey"
+  ],
+  "title": "string_key",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>uintKey</code>
+· required</summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert"><code>uint_key</code> specifies a map key of type uint32, uint64, fixed32 or fixed64.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`uint_key` specifies a map key of type uint32, uint64, fixed32 or fixed64.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "uintKey": {
+      "description": "`uint_key` specifies a map key of type uint32, uint64, fixed32 or fixed64.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    }
+  },
+  "required": [
+    "uintKey"
+  ],
+  "title": "uint_key",
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "oneOf": [
+    {
+      "properties": {
+        "boolKey": {
+          "description": "`bool_key` specifies a map key of type bool.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "boolKey"
+      ],
+      "title": "bool_key",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "index": {
+          "description": "`index` specifies a 0-based index into a repeated field.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "index"
+      ],
+      "title": "index",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "intKey": {
+          "description": "`int_key` specifies a map key of type int32, int64, sint32, sint64, sfixed32 or sfixed64.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "intKey"
+      ],
+      "title": "int_key",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "stringKey": {
+          "description": "`string_key` specifies a map key of type string.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stringKey"
+      ],
+      "title": "string_key",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "uintKey": {
+          "description": "`uint_key` specifies a map key of type uint32, uint64, fixed32 or fixed64.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "uintKey"
+      ],
+      "title": "uint_key",
+      "type": "object"
+    }
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "properties": {
+        "fieldName": {
+          "description": "`field_name` contains the field name this path element refers to.\nThis can be used to display a human-readable path even if the field number is unknown.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fieldNumber": {
+          "description": "`field_number` is the field number this path element refers to.",
+          "format": "int32",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "fieldType": {
+          "description": "The type of the field that failed validation.",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ValidationFieldType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keyType": {
+          "description": "`key_type` specifies the map key type of this field. This value is useful when traversing\nunknown fields through wire data: specifically, it allows handling the differences between\ndifferent integer encodings.",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ValidationFieldType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "valueType": {
+          "description": "`value_type` specifies map value type of this field. This is useful if you want to display a\nvalue inside unknown fields through wire data.",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ValidationFieldType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "boolKey": {
+              "description": "`bool_key` specifies a map key of type bool.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "boolKey"
+          ],
+          "title": "bool_key",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "index": {
+              "description": "`index` specifies a 0-based index into a repeated field.",
+              "format": "int64",
+              "type": [
+                "integer",
+                "string"
+              ]
+            }
+          },
+          "required": [
+            "index"
+          ],
+          "title": "index",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "intKey": {
+              "description": "`int_key` specifies a map key of type int32, int64, sint32, sint64, sfixed32 or sfixed64.",
+              "format": "int64",
+              "type": [
+                "integer",
+                "string"
+              ]
+            }
+          },
+          "required": [
+            "intKey"
+          ],
+          "title": "int_key",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "stringKey": {
+              "description": "`string_key` specifies a map key of type string.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stringKey"
+          ],
+          "title": "string_key",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "uintKey": {
+              "description": "`uint_key` specifies a map key of type uint32, uint64, fixed32 or fixed64.",
+              "format": "int64",
+              "type": [
+                "integer",
+                "string"
+              ]
+            }
+          },
+          "required": [
+            "uintKey"
+          ],
+          "title": "uint_key",
+          "type": "object"
+        }
+      ]
+    }
+  ],
+  "description": "One field in a validation path. For a map or list, the subscript identifies the selected element.",
+  "title": "FieldPathElement",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,17 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/CaptureMode.md>Markdown</a></div><meta data-pagefind-meta="title:CaptureMode — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>CaptureMode</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>CaptureMode selects whether captured images include memory.</p><p>Values:
+unspecified: unspecified means disk-only capture.
+all: all captures memory and disk and requires memory-capture support.
+disk: disk captures disk only.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "CaptureMode selects whether captured images include memory.\n\nValues:\nunspecified: unspecified means disk-only capture.\nall: all captures memory and disk and requires memory-capture support.\ndisk: disk captures disk only.",
+  "enum": [
+    "unspecified",
+    "all",
+    "disk"
+  ],
+  "title": "CaptureMode",
+  "type": "string"
+}</code></pre></details></article>

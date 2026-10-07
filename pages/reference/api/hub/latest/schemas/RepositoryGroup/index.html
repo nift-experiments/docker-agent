@@ -1,0 +1,51 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/RepositoryGroup.md>Markdown</a></div><meta data-pagefind-meta="title:RepositoryGroup — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>RepositoryGroup</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>group_id</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">The ID of the group</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The ID of the group",
+  "example": 12345,
+  "format": "int64",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>group_name</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The name of the group</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The name of the group",
+  "example": "developers",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>permission</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The permission level granted to the group</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The permission level granted to the group",
+  "enum": [
+    "read",
+    "write",
+    "admin"
+  ],
+  "example": "write",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "group_id": {
+      "description": "The ID of the group",
+      "example": 12345,
+      "format": "int64",
+      "type": "integer"
+    },
+    "group_name": {
+      "description": "The name of the group",
+      "example": "developers",
+      "type": "string"
+    },
+    "permission": {
+      "description": "The permission level granted to the group",
+      "enum": [
+        "read",
+        "write",
+        "admin"
+      ],
+      "example": "write",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,45 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/schemas/PostUsersLoginErrorResponse.md>Markdown</a></div><meta data-pagefind-meta="title:PostUsersLoginErrorResponse — Publisher analytics API 1.0.0"><p class=api-eyebrow>Schema</p><h1>PostUsersLoginErrorResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">failed user login response or second factor required</div><details class=api-field open><summary><code>detail</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Description of the error.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Description of the error.",
+  "example": "Incorrect authentication credentials",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>login_2fa_token</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">Short-lived token to be used on <code>/v2/users/2fa-login</code> to complete the authentication. This field is present only if 2FA is enabled.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Short-lived token to be used on `/v2/users/2fa-login` to complete the authentication. This field is present only if 2FA is enabled.",
+  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "failed user login response or second factor required",
+  "examples": [
+    {
+      "detail": "Incorrect authentication credentials"
+    }
+  ],
+  "properties": {
+    "detail": {
+      "description": "Description of the error.",
+      "example": "Incorrect authentication credentials",
+      "type": "string"
+    },
+    "login_2fa_token": {
+      "description": "Short-lived token to be used on `/v2/users/2fa-login` to complete the authentication. This field is present only if 2FA is enabled.",
+      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "detail"
+  ],
+  "type": "object"
+}</code></pre></details></article>

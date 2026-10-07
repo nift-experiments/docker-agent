@@ -1,0 +1,55 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/AppliedKit.md>Markdown</a></div><meta data-pagefind-meta="title:AppliedKit — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>AppliedKit</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">AppliedKit records kit content that was applied to a sandbox.</div><details class=api-field open><summary><code>appliedAt</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">applied_at is when the kit became active.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "applied_at is when the kit became active."
+}</code></pre></details></details><details class=api-field open><summary><code>digest</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">digest identifies the exact applied content.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "digest identifies the exact applied content.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>kind</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">kind is normalized to "sandbox" or "mixin".</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "kind is normalized to \"sandbox\" or \"mixin\".",
+  "enum": [
+    "sandbox",
+    "mixin"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>ref</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">ref is the kit reference supplied or resolved by the backend.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ref is the kit reference supplied or resolved by the backend.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "AppliedKit records kit content that was applied to a sandbox.",
+  "properties": {
+    "appliedAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "applied_at is when the kit became active."
+    },
+    "digest": {
+      "description": "digest identifies the exact applied content.",
+      "type": "string"
+    },
+    "kind": {
+      "description": "kind is normalized to \"sandbox\" or \"mixin\".",
+      "enum": [
+        "sandbox",
+        "mixin"
+      ],
+      "type": "string"
+    },
+    "ref": {
+      "description": "ref is the kit reference supplied or resolved by the backend.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind"
+  ],
+  "title": "AppliedKit",
+  "type": "object"
+}</code></pre></details></article>

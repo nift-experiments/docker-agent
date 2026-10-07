@@ -1,0 +1,90 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/GetRepositoryTag.md>Markdown</a></div><meta data-pagefind-meta="title:Read repository tag — Docker Hub API 2-beta"><h1>Read repository tag</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/namespaces<wbr>/{namespace}<wbr>/repositories<wbr>/{repository}<wbr>/tags<wbr>/{tag}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Returns details for a specific tag in the specified repository.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=namespace><h3><code>namespace</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Namespace of the repository, such as a user or organization name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=repository><h3><code>repository</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the repository within the namespace.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=tag><h3><code>tag</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the image tag.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories~1{repository}~1tags~1{tag}/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">repository tag</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/tag/><code>tag</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;creator&#34;: 1234,
+  &#34;full_size&#34;: 123456,
+  &#34;id&#34;: 12345,
+  &#34;images&#34;: [
+    {
+      &#34;architecture&#34;: &#34;amd64&#34;,
+      &#34;features&#34;: null,
+      &#34;last_pulled&#34;: null,
+      &#34;last_pushed&#34;: &#34;2021-01-05T21:06:53.506400Z&#34;,
+      &#34;os&#34;: &#34;linux&#34;,
+      &#34;os_features&#34;: null,
+      &#34;os_version&#34;: null,
+      &#34;size&#34;: 123456,
+      &#34;status&#34;: &#34;active&#34;,
+      &#34;variant&#34;: null
+    }
+  ],
+  &#34;last_updated&#34;: &#34;2021-01-05T21:06:53.506400Z&#34;,
+  &#34;last_updater&#34;: 1234,
+  &#34;last_updater_username&#34;: &#34;dockeruser&#34;,
+  &#34;name&#34;: &#34;latest&#34;,
+  &#34;repository&#34;: 5678,
+  &#34;tag_last_pulled&#34;: null,
+  &#34;tag_last_pushed&#34;: &#34;2021-01-05T21:06:53.506400Z&#34;,
+  &#34;tag_status&#34;: &#34;active&#34;,
+  &#34;v2&#34;: true
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories~1{repository}~1tags~1{tag}/get/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories~1{repository}~1tags~1{tag}/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns details for a specific tag in the specified repository.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "GetRepositoryTag",
+  "responses": {
+    "200": {
+      "$ref": "#/components/responses/get_tag"
+    },
+    "403": {
+      "$ref": "#/components/responses/Forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Read repository tag",
+  "tags": [
+    "repositories"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/v2/namespaces/&lt;NAMESPACE&gt;/repositories/&lt;REPOSITORY&gt;/tags/&lt;TAG&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lc3BhY2Ugb2YgdGhlIHJlcG9zaXRvcnksIHN1Y2ggYXMgYSB1c2VyIG9yIG9yZ2FuaXphdGlvbiBuYW1lLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJuYW1lc3BhY2VcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFyZXBvc2l0b3JpZXN+MXtyZXBvc2l0b3J5fX4xdGFnc34xe3RhZ30vcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiTmFtZSBvZiB0aGUgcmVwb3NpdG9yeSB3aXRoaW4gdGhlIG5hbWVzcGFjZS5cIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwicmVwb3NpdG9yeVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xbmFtZXNwYWNlc34xe25hbWVzcGFjZX1+MXJlcG9zaXRvcmllc34xe3JlcG9zaXRvcnl9fjF0YWdzfjF7dGFnfS9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBpbWFnZSB0YWcuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInRhZ1wiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xbmFtZXNwYWNlc34xe25hbWVzcGFjZX1+MXJlcG9zaXRvcmllc34xe3JlcG9zaXRvcnl9fjF0YWdzfjF7dGFnfS9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3RhZ1wiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iXQ=="></template>

@@ -1,0 +1,320 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/scim_service_provider_config.md>Markdown</a></div><meta data-pagefind-meta="title:scim_service_provider_config — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>scim_service_provider_config</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>authenticationSchemes</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "The OAuth 2.0 Bearer Token Authentication scheme. OAuth enables clients to access protected resources by obtaining an access token, which is defined in RFC 6750 as \"a string representing an access authorization issued to the client\", rather than using the resource owner's credentials directly.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>name</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "OAuth 2.0 Bearer Token",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>specUri</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "http://tools.ietf.org/html/rfc6750",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>type</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "oauthbearertoken",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "description": {
+      "example": "The OAuth 2.0 Bearer Token Authentication scheme. OAuth enables clients to access protected resources by obtaining an access token, which is defined in RFC 6750 as \"a string representing an access authorization issued to the client\", rather than using the resource owner's credentials directly.",
+      "type": "string"
+    },
+    "name": {
+      "example": "OAuth 2.0 Bearer Token",
+      "type": "string"
+    },
+    "specUri": {
+      "example": "http://tools.ietf.org/html/rfc6750",
+      "type": "string"
+    },
+    "type": {
+      "example": "oauthbearertoken",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "properties": {
+      "description": {
+        "example": "The OAuth 2.0 Bearer Token Authentication scheme. OAuth enables clients to access protected resources by obtaining an access token, which is defined in RFC 6750 as \"a string representing an access authorization issued to the client\", rather than using the resource owner's credentials directly.",
+        "type": "string"
+      },
+      "name": {
+        "example": "OAuth 2.0 Bearer Token",
+        "type": "string"
+      },
+      "specUri": {
+        "example": "http://tools.ietf.org/html/rfc6750",
+        "type": "string"
+      },
+      "type": {
+        "example": "oauthbearertoken",
+        "type": "string"
+      }
+    },
+    "type": "object"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>bulk</code></summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>maxOperations</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "integer"
+}</code></pre></details></details><details class=api-field><summary><code>maxPayloadSize</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "integer"
+}</code></pre></details></details><details class=api-field><summary><code>supported</code></summary><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": false,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "maxOperations": {
+      "type": "integer"
+    },
+    "maxPayloadSize": {
+      "type": "integer"
+    },
+    "supported": {
+      "example": false,
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>changePassword</code></summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>supported</code></summary><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": false,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "supported": {
+      "example": false,
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>documentationUri</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>etag</code></summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>supported</code></summary><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": false,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "supported": {
+      "example": false,
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>filter</code></summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>maxResults</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 200,
+  "type": "integer"
+}</code></pre></details></details><details class=api-field><summary><code>supported</code></summary><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": true,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "maxResults": {
+      "example": 200,
+      "type": "integer"
+    },
+    "supported": {
+      "example": true,
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>patch</code></summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>supported</code></summary><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": true,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "supported": {
+      "example": true,
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>schemas</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": [
+    "urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"
+  ],
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>sort</code></summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>supported</code></summary><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": true,
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "supported": {
+      "example": true,
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "authenticationSchemes": [
+        {
+          "name": "OAuth 2.0 Bearer Token",
+          "specUri": "http://tools.ietf.org/html/rfc6750",
+          "type": "oauthbearertoken"
+        }
+      ],
+      "bulk": {
+        "maxOperations": 0,
+        "maxPayloadSize": 0,
+        "supported": false
+      },
+      "changePassword": {
+        "supported": false
+      },
+      "etag": {
+        "supported": false
+      },
+      "filter": {
+        "maxResults": 200,
+        "supported": true
+      },
+      "patch": {
+        "supported": true
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"
+      ],
+      "sort": {
+        "supported": true
+      }
+    }
+  ],
+  "properties": {
+    "authenticationSchemes": {
+      "items": {
+        "properties": {
+          "description": {
+            "example": "The OAuth 2.0 Bearer Token Authentication scheme. OAuth enables clients to access protected resources by obtaining an access token, which is defined in RFC 6750 as \"a string representing an access authorization issued to the client\", rather than using the resource owner's credentials directly.",
+            "type": "string"
+          },
+          "name": {
+            "example": "OAuth 2.0 Bearer Token",
+            "type": "string"
+          },
+          "specUri": {
+            "example": "http://tools.ietf.org/html/rfc6750",
+            "type": "string"
+          },
+          "type": {
+            "example": "oauthbearertoken",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "bulk": {
+      "properties": {
+        "maxOperations": {
+          "type": "integer"
+        },
+        "maxPayloadSize": {
+          "type": "integer"
+        },
+        "supported": {
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "changePassword": {
+      "properties": {
+        "supported": {
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "documentationUri": {
+      "example": "",
+      "type": "string"
+    },
+    "etag": {
+      "properties": {
+        "supported": {
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "filter": {
+      "properties": {
+        "maxResults": {
+          "example": 200,
+          "type": "integer"
+        },
+        "supported": {
+          "example": true,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "patch": {
+      "properties": {
+        "supported": {
+          "example": true,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "schemas": {
+      "example": [
+        "urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "sort": {
+      "properties": {
+        "supported": {
+          "example": true,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,52 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Move a sandbox between local and cloud</td></tr><tr><th class="text-left w-32">Usage</th><td><code>sbx move SANDBOX [flags]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Move a sandbox between the local host and Docker's hosted Sandboxes service.</p><p>Move captures the sandbox's filesystem as a container image and starts a new
+sandbox from it on the destination. Running processes and in-memory state do
+not travel. The destination sandbox gets a new ID; name it with --name.</p><p>Neither direction deletes the source. Moving to cloud stops the local
+sandbox; restart it with 'sbx run --name <name>'. Moving to local asks the
+cloud source to stop; a refused or unconfirmed stop warns without failing
+the move, and the stop may still be finishing when the move returns.
+'sbx --cloud ls' shows it. A cloud sandbox with no agent is left running.
+A stopped cloud source keeps its ID and state: 'sbx --cloud run <id>'
+resumes it, 'sbx --cloud rm <id>' deletes it.</p><p>A failed or cancelled move restores what it can. It restarts a local source
+that was running and removes the transfer templates it created. The restart
+re-runs the entrypoint; processes you started by hand are not revived. If a
+cleanup step fails, the output names what is left and the command that
+recovers it.</p><p>What does not travel:</p><ul><li>The workspace bind mount and other host mounts. Files moved to local
+stay inside the sandbox at the image's working directory; copy them out
+with 'sbx cp'.</li><li>Secrets managed by sbx. The destination picks its own secrets, so
+you may need to sign in again. Credentials saved in copied files
+still travel.</li><li>Volumes and environment variables attached to a cloud sandbox, when
+moving to local. A local sandbox's environment is part of its image
+and travels to the cloud.</li><li>Network rules you added locally. The sandbox's kit network rules do
+travel: moving to cloud applies them, as 'sbx create --cloud' does. If
+the kit can't be resolved, move warns and the account's cloud policy
+applies. Moving to local starts with the host's default policy. Active
+local L7 (HTTP) rules prompt before a move to cloud; --force skips the
+prompt but keeps the warning.</li><li>Cloud URLs and host port bindings. Moving to cloud republishes TCP
+ports under new cloud URLs; a port the cloud refuses is skipped with a
+warning. Moving to local saves the published TCP ports and binds them
+on loopback while the sandbox runs. Host ports can change on restart;
+'sbx ports SANDBOX' shows them. A cloud port published with an
+explicit host binding stops a move to local.</li></ul><p>Sizing and disk:</p><ul><li>Moving to cloud rounds recorded CPU and memory limits up to a cloud
+shape. Missing limits use cloud defaults with a warning. Limits above
+the largest shape stop the move before anything is captured. Moving to
+local uses local defaults.</li><li>Moving to local stages downloaded layers in the host's temporary
+directory. Reusing local layers can take up to 32 GiB in addition to
+the local runtime's image storage. If reuse fails, the layers are
+downloaded. If staging runs out of space, the move falls back to the
+export stream.</li></ul><p>The cloud sandbox a move creates expires. The default is the server's TTL,
+typically 1h: stopped in place on expiry when the account and sandbox
+support it, deleted otherwise. Choose with --ttl and --on-timeout.
+Extend later with 'sbx --cloud ttl'.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>-f, --force</code></td><td></td><td><span class="inline-flex items-center gap-2">Skip the move confirmation prompt</span></td></tr><tr><td><code>--name</code></td><td></td><td><span class="inline-flex items-center gap-2">Name for the destination sandbox (default: 'moved-' + the source name; a cloud destination always adds a short unique suffix, a local one only when that name is already taken)</span></td></tr><tr><td><code>--on-timeout</code></td><td></td><td><span class="inline-flex items-center gap-2">What happens to the destination cloud sandbox when its TTL lapses: 'stop' stops it in place so it can be started again later, or 'delete' removes it. Not every sandbox supports 'stop', and an explicit request the server refuses fails the move. Default: stop when the sandbox supports it, else the server default (delete). Only with --to cloud</span></td></tr><tr><td><code>--to</code></td><td></td><td><span class="inline-flex items-center gap-2">Destination of the move: 'local' (cloud to local) or 'cloud' (local to cloud)</span></td></tr><tr><td><code>--ttl</code></td><td><code>0s</code></td><td><span class="inline-flex items-center gap-2">Time-to-live for the destination cloud sandbox (15s to 24h, e.g. 30m, 2h; only with --to cloud; default: server-side)</span></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=global-options><a class="text-black dark:text-white no-underline hover:underline" href=#global-options>Global options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>--cloud</code></td><td></td><td><span class="inline-flex items-center gap-2">Dispatch to Docker Cloud Sandboxes API instead of local sandboxd (supported by a growing set of verbs — run 'sbx --cloud --help' for the current list)</span></td></tr><tr><td><code>-D, --debug</code></td><td></td><td><span class="inline-flex items-center gap-2">Enable debug logging</span></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBNb3ZlIGEgY2xvdWQgc2FuZGJveCBkb3duIHRvIHRoZSBsb2NhbCBob3N0CnNieCBtb3ZlIHNieF9hYmMxMjMgLS10byBsb2NhbAoKIyBNb3ZlIGEgbG9jYWwgc2FuZGJveCB1cCB0byB0aGUgY2xvdWQKc2J4IG1vdmUgbXktc2FuZGJveCAtLXRvIGNsb3VkCgojIEdpdmUgdGhlIGRlc3RpbmF0aW9uIHNhbmRib3ggYSBjdXN0b20gbmFtZQpzYnggbW92ZSBzYnhfYWJjMTIzIC0tdG8gbG9jYWwgLS1uYW1lIGJpZy1yZWZhY3Rvcg==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>#</span> Move a cloud sandbox down to the <span class=nb>local</span> host
+</span></span><span class=line><span class=cl><span class=go>sbx move sbx_abc123 --to local
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Move a <span class=nb>local</span> sandbox up to the cloud
+</span></span><span class=line><span class=cl><span class=go>sbx move my-sandbox --to cloud
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Give the destination sandbox a custom name
+</span></span><span class=line><span class=cl><span class=go>sbx move sbx_abc123 --to local --name big-refactor
+</span></span></span></code></pre></div></div></div></div>

@@ -1,0 +1,160 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Inspect a build record attachment</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker buildx history inspect attachment [OPTIONS] [REF [DIGEST]]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Inspect a specific attachment from a build record, such as a provenance file or
+SBOM. Attachments are optional artifacts stored with the build and may be
+platform-specific.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><a class=link href=#platform><code>--platform</code></a></td><td></td><td>Platform of attachment</td></tr><tr class=p-2><td><a class=link href=#type><code>--type</code></a></td><td></td><td>Type of attachment</td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=platform><a class="text-black dark:text-white no-underline hover:underline" href=#platform>Inspect an attachment by platform (--platform)</a></h3><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgYnVpbGR4IGhpc3RvcnkgaW5zcGVjdCBhdHRhY2htZW50IC0tcGxhdGZvcm0gbGludXgvYW1kNjQKewogICJzY2hlbWFWZXJzaW9uIjogMiwKICAibWVkaWFUeXBlIjogImFwcGxpY2F0aW9uL3ZuZC5vY2kuaW1hZ2UubWFuaWZlc3QudjEranNvbiIsCiAgImNvbmZpZyI6IHsKICAgICJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5jb25maWcudjEranNvbiIsCiAgICAiZGlnZXN0IjogInNoYTI1Njo4MTRlNjNmMDY0NjViYzc4MTIzNzc1NzE0ZTRkZjFlYmRkYTM3ZTY0MDNlMGI0ZjQ4MWRmNzQ5NDdjMDQ3MTYzIiwKICAgICJzaXplIjogNjAwCiAgfSwKICAibGF5ZXJzIjogWwogICAgewogICAgICAibWVkaWFUeXBlIjogImFwcGxpY2F0aW9uL3ZuZC5vY2kuaW1hZ2UubGF5ZXIudjEudGFyK2d6aXAiLAogICAgICAiZGlnZXN0IjogInNoYTI1NjozNjUzN2YzOTIwYWU5NDhjZTNlMTJiNGFlMzRjMjExOTAyODBlNmU3ZDU4ZWVhYmRlMGRmZjNmZGZiNDNiNmIwIiwKICAgICAgInNpemUiOiAyMTY2NDEzNwogICAgfQogIF0KfQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker buildx <span class=nb>history</span> inspect attachment --platform linux/amd64
+</span></span><span class=line><span class=cl><span class=go>{
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;schemaVersion&#34;: 2,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;mediaType&#34;: &#34;application/vnd.oci.image.manifest.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;config&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;mediaType&#34;: &#34;application/vnd.oci.image.config.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;digest&#34;: &#34;sha256:814e63f06465bc78123775714e4df1ebdda37e6403e0b4f481df74947c047163&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;size&#34;: 600
+</span></span></span><span class=line><span class=cl><span class=go>  },
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;layers&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>    {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;mediaType&#34;: &#34;application/vnd.oci.image.layer.v1.tar+gzip&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;digest&#34;: &#34;sha256:36537f3920ae948ce3e12b4ae34c21190280e6e7d58eeabde0dff3fdfb43b6b0&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;size&#34;: 21664137
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  ]
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=type><a class="text-black dark:text-white no-underline hover:underline" href=#type>Inspect an attachment by type (--type)</a></h3><p>Supported types include:</p><ul><li><code>index</code></li><li><code>manifest</code></li><li><code>image</code></li><li><code>provenance</code></li><li><code>sbom</code></li></ul><h4 class="scroll-mt-20 flex items-center gap-2" id=index><a class="text-black dark:text-white no-underline hover:underline" href=#index>Index</a></h4><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgYnVpbGR4IGhpc3RvcnkgaW5zcGVjdCBhdHRhY2htZW50IC0tdHlwZSBpbmRleAp7CiAgInNjaGVtYVZlcnNpb24iOiAyLAogICJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5pbmRleC52MStqc29uIiwKICAibWFuaWZlc3RzIjogWwogICAgewogICAgICAibWVkaWFUeXBlIjogImFwcGxpY2F0aW9uL3ZuZC5vY2kuaW1hZ2UubWFuaWZlc3QudjEranNvbiIsCiAgICAgICJkaWdlc3QiOiAic2hhMjU2OmExOTRlMjRmNDdkYzZkMGU2NTk5MmMwOTU3N2I5YmM0ZTdiZDBjZDVjYzRmODFlNzczODkxOGY4NjhhYTM5N2IiLAogICAgICAic2l6ZSI6IDQ4MSwKICAgICAgInBsYXRmb3JtIjogewogICAgICAgICJhcmNoaXRlY3R1cmUiOiAiYW1kNjQiLAogICAgICAgICJvcyI6ICJsaW51eCIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgIm1lZGlhVHlwZSI6ICJhcHBsaWNhdGlvbi92bmQub2NpLmltYWdlLm1hbmlmZXN0LnYxK2pzb24iLAogICAgICAiZGlnZXN0IjogInNoYTI1Njo0OWU0MDIyM2Q2YTk2ZWEwNjY3YTEyNzM3ZmQzZGRlMDA0Y2YyMTdlYjQ4Y2IyOGM5MTkxMjg4Y2Q0NGM2YWNlIiwKICAgICAgInNpemUiOiA4MzksCiAgICAgICJhbm5vdGF0aW9ucyI6IHsKICAgICAgICAidm5kLmRvY2tlci5yZWZlcmVuY2UuZGlnZXN0IjogInNoYTI1NjphMTk0ZTI0ZjQ3ZGM2ZDBlNjU5OTJjMDk1NzdiOWJjNGU3YmQwY2Q1Y2M0ZjgxZTc3Mzg5MThmODY4YWEzOTdiIiwKICAgICAgICAidm5kLmRvY2tlci5yZWZlcmVuY2UudHlwZSI6ICJhdHRlc3RhdGlvbi1tYW5pZmVzdCIKICAgICAgfSwKICAgICAgInBsYXRmb3JtIjogewogICAgICAgICJhcmNoaXRlY3R1cmUiOiAidW5rbm93biIsCiAgICAgICAgIm9zIjogInVua25vd24iCiAgICAgIH0KICAgIH0KICBdCn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker buildx <span class=nb>history</span> inspect attachment --type index
+</span></span><span class=line><span class=cl><span class=go>{
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;schemaVersion&#34;: 2,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;mediaType&#34;: &#34;application/vnd.oci.image.index.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;manifests&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>    {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;mediaType&#34;: &#34;application/vnd.oci.image.manifest.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;digest&#34;: &#34;sha256:a194e24f47dc6d0e65992c09577b9bc4e7bd0cd5cc4f81e7738918f868aa397b&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;size&#34;: 481,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;platform&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;architecture&#34;: &#34;amd64&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;os&#34;: &#34;linux&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;mediaType&#34;: &#34;application/vnd.oci.image.manifest.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;digest&#34;: &#34;sha256:49e40223d6a96ea0667a12737fd3dde004cf217eb48cb28c9191288cd44c6ace&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;size&#34;: 839,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;annotations&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;vnd.docker.reference.digest&#34;: &#34;sha256:a194e24f47dc6d0e65992c09577b9bc4e7bd0cd5cc4f81e7738918f868aa397b&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;vnd.docker.reference.type&#34;: &#34;attestation-manifest&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      },
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;platform&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;architecture&#34;: &#34;unknown&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;os&#34;: &#34;unknown&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  ]
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><h4 class="scroll-mt-20 flex items-center gap-2" id=manifest><a class="text-black dark:text-white no-underline hover:underline" href=#manifest>Manifest</a></h4><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgYnVpbGR4IGhpc3RvcnkgaW5zcGVjdCBhdHRhY2htZW50IC0tdHlwZSBtYW5pZmVzdAp7CiAgInNjaGVtYVZlcnNpb24iOiAyLAogICJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5tYW5pZmVzdC52MStqc29uIiwKICAiY29uZmlnIjogewogICAgIm1lZGlhVHlwZSI6ICJhcHBsaWNhdGlvbi92bmQub2NpLmltYWdlLmNvbmZpZy52MStqc29uIiwKICAgICJkaWdlc3QiOiAic2hhMjU2OjgxNGU2M2YwNjQ2NWJjNzgxMjM3NzU3MTRlNGRmMWViZGRhMzdlNjQwM2UwYjRmNDgxZGY3NDk0N2MwNDcxNjMiLAogICAgInNpemUiOiA2MDAKICB9LAogICJsYXllcnMiOiBbCiAgICB7CiAgICAgICJtZWRpYVR5cGUiOiAiYXBwbGljYXRpb24vdm5kLm9jaS5pbWFnZS5sYXllci52MS50YXIrZ3ppcCIsCiAgICAgICJkaWdlc3QiOiAic2hhMjU2OjM2NTM3ZjM5MjBhZTk0OGNlM2UxMmI0YWUzNGMyMTE5MDI4MGU2ZTdkNThlZWFiZGUwZGZmM2ZkZmI0M2I2YjAiLAogICAgICAic2l6ZSI6IDIxNjY0MTM3CiAgICB9CiAgXQp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker buildx <span class=nb>history</span> inspect attachment --type manifest
+</span></span><span class=line><span class=cl><span class=go>{
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;schemaVersion&#34;: 2,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;mediaType&#34;: &#34;application/vnd.oci.image.manifest.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;config&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;mediaType&#34;: &#34;application/vnd.oci.image.config.v1+json&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;digest&#34;: &#34;sha256:814e63f06465bc78123775714e4df1ebdda37e6403e0b4f481df74947c047163&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;size&#34;: 600
+</span></span></span><span class=line><span class=cl><span class=go>  },
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;layers&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>    {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;mediaType&#34;: &#34;application/vnd.oci.image.layer.v1.tar+gzip&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;digest&#34;: &#34;sha256:36537f3920ae948ce3e12b4ae34c21190280e6e7d58eeabde0dff3fdfb43b6b0&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;size&#34;: 21664137
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  ]
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><h4 class="scroll-mt-20 flex items-center gap-2" id=provenance><a class="text-black dark:text-white no-underline hover:underline" href=#provenance>Provenance</a></h4><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgYnVpbGR4IGhpc3RvcnkgaW5zcGVjdCBhdHRhY2htZW50IC0tdHlwZSBwcm92ZW5hbmNlCnsKICAiYnVpbGRlciI6IHsKICAgICJpZCI6ICIiCiAgfSwKICAiYnVpbGRUeXBlIjogImh0dHBzOi8vbW9ieXByb2plY3Qub3JnL2J1aWxka2l0QHYxIiwKICAibWF0ZXJpYWxzIjogWwogICAgewogICAgICAidXJpIjogInBrZzpkb2NrZXIvZG9ja2VyL2RvY2tlcmZpbGVAMSIsCiAgICAgICJkaWdlc3QiOiB7CiAgICAgICAgInNoYTI1NiI6ICI5YmE3NTMxYmQ4MGZiMGE4NTg2MzI3MjdjZjdhMTEyZmJmZDE5YjE3ZTk0YzRlODRjZWQ4MWUyNGVmMWEwZGJjIgogICAgICB9CiAgICB9LAogICAgewogICAgICAidXJpIjogInBrZzpkb2NrZXIvZ29sYW5nQDEuMTkuNC1hbHBpbmU/cGxhdGZvcm09bGludXglMkZhcm02NCIsCiAgICAgICJkaWdlc3QiOiB7CiAgICAgICAgInNoYTI1NiI6ICJhOWIyNGI2N2RjODNiMzM4M2QyMmExNDk0MWMyYjJiMmNhNmExMDNkODA1Y2FjNjgyMGZkMTM1NTk0M2JlYWYxIgogICAgICB9CiAgICB9CiAgXSwKICAiaW52b2NhdGlvbiI6IHsKICAgICJjb25maWdTb3VyY2UiOiB7CiAgICAgICJlbnRyeVBvaW50IjogIkRvY2tlcmZpbGUiCiAgICB9LAogICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICJmcm9udGVuZCI6ICJnYXRld2F5LnYwIiwKICAgICAgImFyZ3MiOiB7CiAgICAgICAgImNtZGxpbmUiOiAiZG9ja2VyL2RvY2tlcmZpbGU6MSIsCiAgICAgICAgInNvdXJjZSI6ICJkb2NrZXIvZG9ja2VyZmlsZToxIiwKICAgICAgICAidGFyZ2V0IjogImJpbmFyaWVzIgogICAgICB9LAogICAgICAibG9jYWxzIjogWwogICAgICAgIHsKICAgICAgICAgICJuYW1lIjogImNvbnRleHQiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAibmFtZSI6ICJkb2NrZXJmaWxlIgogICAgICAgIH0KICAgICAgXQogICAgfSwKICAgICJlbnZpcm9ubWVudCI6IHsKICAgICAgInBsYXRmb3JtIjogImxpbnV4L2FybTY0IgogICAgfQogIH0sCiAgIm1ldGFkYXRhIjogewogICAgImJ1aWxkSW52b2NhdGlvbklEIjogImM0YTg3djBzeGhsaXVld2lnMTBnbnNiNnYiLAogICAgImJ1aWxkU3RhcnRlZE9uIjogIjIwMjItMTItMTZUMDg6MjY6MjguNjUxMzU5Nzk0WiIsCiAgICAiYnVpbGRGaW5pc2hlZE9uIjogIjIwMjItMTItMTZUMDg6MjY6MjkuNjI1NDgzMjUzWiIsCiAgICAicmVwcm9kdWNpYmxlIjogZmFsc2UsCiAgICAiY29tcGxldGVuZXNzIjogewogICAgICAicGFyYW1ldGVycyI6IHRydWUsCiAgICAgICJlbnZpcm9ubWVudCI6IHRydWUsCiAgICAgICJtYXRlcmlhbHMiOiBmYWxzZQogICAgfSwKICAgICJodHRwczovL21vYnlwcm9qZWN0Lm9yZy9idWlsZGtpdEB2MSNtZXRhZGF0YSI6IHsKICAgICAgInZjcyI6IHsKICAgICAgICAicmV2aXNpb24iOiAiYTliYTg0NjQ4NjQyMGUwN2QzMGRiMTEwNzQxMWFjMzY5N2VjYWI2OCIsCiAgICAgICAgInNvdXJjZSI6ICJnaXRAZ2l0aHViLmNvbTo8b3JnPi88cmVwbz4uZ2l0IgogICAgICB9CiAgICB9CiAgfQp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker buildx <span class=nb>history</span> inspect attachment --type provenance
+</span></span><span class=line><span class=cl><span class=go>{
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;builder&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;id&#34;: &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=go>  },
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;buildType&#34;: &#34;https://mobyproject.org/buildkit@v1&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;materials&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>    {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;uri&#34;: &#34;pkg:docker/docker/dockerfile@1&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;digest&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;sha256&#34;: &#34;9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;uri&#34;: &#34;pkg:docker/golang@1.19.4-alpine?platform=linux%2Farm64&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;digest&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;sha256&#34;: &#34;a9b24b67dc83b3383d22a14941c2b2b2ca6a103d805cac6820fd1355943beaf1&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  ],
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;invocation&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;configSource&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;entryPoint&#34;: &#34;Dockerfile&#34;
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;parameters&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;frontend&#34;: &#34;gateway.v0&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;args&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;cmdline&#34;: &#34;docker/dockerfile:1&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;source&#34;: &#34;docker/dockerfile:1&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;target&#34;: &#34;binaries&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      },
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;locals&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>        {
+</span></span></span><span class=line><span class=cl><span class=go>          &#34;name&#34;: &#34;context&#34;
+</span></span></span><span class=line><span class=cl><span class=go>        },
+</span></span></span><span class=line><span class=cl><span class=go>        {
+</span></span></span><span class=line><span class=cl><span class=go>          &#34;name&#34;: &#34;dockerfile&#34;
+</span></span></span><span class=line><span class=cl><span class=go>        }
+</span></span></span><span class=line><span class=cl><span class=go>      ]
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;environment&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;platform&#34;: &#34;linux/arm64&#34;
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  },
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;metadata&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;buildInvocationID&#34;: &#34;c4a87v0sxhliuewig10gnsb6v&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;buildStartedOn&#34;: &#34;2022-12-16T08:26:28.651359794Z&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;buildFinishedOn&#34;: &#34;2022-12-16T08:26:29.625483253Z&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;reproducible&#34;: false,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;completeness&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;parameters&#34;: true,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;environment&#34;: true,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;materials&#34;: false
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;https://mobyproject.org/buildkit@v1#metadata&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;vcs&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;revision&#34;: &#34;a9ba846486420e07d30db1107411ac3697ecab68&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;source&#34;: &#34;git@github.com:&lt;org&gt;/&lt;repo&gt;.git&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  }
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=inspect-an-attachment-by-digest><a class="text-black dark:text-white no-underline hover:underline" href=#inspect-an-attachment-by-digest>Inspect an attachment by digest</a></h3><p>You can inspect an attachment directly using its digest, which you can get from
+the <code>inspect</code> output:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBVc2luZyBhIGJ1aWxkIElECmRvY2tlciBidWlsZHggaGlzdG9yeSBpbnNwZWN0IGF0dGFjaG1lbnQgcXUyZ3N1bzhlanFyd2RmaWkyM3hra2NrdCBzaGEyNTY6YWJjZGVmMTIzNDU2Li4uCgojIE9yIHVzaW5nIGEgcmVsYXRpdmUgb2Zmc2V0CmRvY2tlciBidWlsZHggaGlzdG9yeSBpbnNwZWN0IGF0dGFjaG1lbnQgXjAgc2hhMjU2OmFiY2RlZjEyMzQ1Ni4uLg==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>#</span> Using a build ID
+</span></span><span class=line><span class=cl><span class=go>docker buildx history inspect attachment qu2gsuo8ejqrwdfii23xkkckt sha256:abcdef123456...
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Or using a relative offset
+</span></span><span class=line><span class=cl><span class=go>docker buildx history inspect attachment ^0 sha256:abcdef123456...
+</span></span></span></code></pre></div></div></div></div><p>Use <code>--type sbom</code> or <code>--type provenance</code> to filter attachments by type. To
+inspect a specific attachment by digest, omit the <code>--type</code> flag.</p>

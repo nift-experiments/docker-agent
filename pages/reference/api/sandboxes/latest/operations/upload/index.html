@@ -1,0 +1,243 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/upload.md>Markdown</a></div><meta data-pagefind-meta="title:Upload streams one or more files. — Docker Sandboxes API v1"><h1>Upload streams one or more files.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/files<wbr>/upload</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Upload streams one or more files. The first frame must be FileHeader.
+Writing through a symlink that leaves the jail, or onto an existing
+non-regular object, refuses with FAILED_PRECONDITION and a error reason.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option><option value=multipart/form-data>multipart/form-data</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1files~1upload/post/requestBody/content/multipart~1form-data data-api-media=multipart/form-data><h3><span>Request</span></h3><div class="prose dark:prose-invert">Send ordered metadata/content pairs. Each metadata part is application/json; the following content part is application/octet-stream containing raw bytes, including an empty file. Content-Disposition is form-data with the corresponding part name. Content-Transfer-Encoding is refused. A clean closing multipart delimiter is required; truncated content never completes the current item. Malformed occurrences report invalidArgument with a BadRequest detail identifying the occurrence index and path.</div><p class=api-media><code>multipart/form-data</code></p><h4>Stream item</h4><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>metadata</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileHeader/><code>FileHeader</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "$ref": "#/components/schemas/FileHeader"
+    }
+  },
+  "required": [
+    "metadata"
+  ],
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>content</code>
+· required</summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "contentMediaType": "application/octet-stream"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "properties": {
+    "content": {
+      "contentMediaType": "application/octet-stream"
+    }
+  },
+  "required": [
+    "content"
+  ],
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/components/schemas/FileHeader"
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "contentMediaType": "application/octet-stream"
+        }
+      },
+      "required": [
+        "content"
+      ],
+      "type": "object"
+    }
+  ]
+}</code></pre></details><details><summary>itemEncoding: content types and part headers</summary><pre><code>{
+  "contentType": "application/json, application/octet-stream"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1upload/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FilesUploadResponse/><code>FilesUploadResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1upload/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert"><p>The path resolves through a symlink that does not resolve to a target inside the sandbox jail.</p><p>The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.</p></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>path_authority_nonregular_object</option><option value=1>path_authority_symlink_escape</option></select></label><div data-api-example=0><h4>path_authority_nonregular_object</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;path_authority_nonregular_object: The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.&#34;
+}</code></pre></div><div data-api-example=1><h4>path_authority_symlink_escape</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;path_authority_symlink_escape: The path resolves through a symlink that does not resolve to a target inside the sandbox jail.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1upload/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FileHeader/>#/components/schemas/FileHeader</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesUploadRequest/>#/components/schemas/FilesUploadRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesUploadResponse/>#/components/schemas/FilesUploadResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Upload streams one or more files. The first frame must be FileHeader.\nWriting through a symlink that leaves the jail, or onto an existing\nnon-regular object, refuses with FAILED_PRECONDITION and a error reason.",
+  "operationId": "upload",
+  "requestBody": {
+    "content": {
+      "multipart/form-data": {
+        "itemEncoding": {
+          "contentType": "application/json, application/octet-stream"
+        },
+        "itemSchema": {
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "metadata": {
+                  "$ref": "#/components/schemas/FileHeader"
+                }
+              },
+              "required": [
+                "metadata"
+              ],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "content": {
+                  "contentMediaType": "application/octet-stream"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "x-sbx-framing": {
+          "description": "Send ordered metadata/content pairs. Each metadata part is application/json; the following content part is application/octet-stream containing raw bytes, including an empty file. Content-Disposition is form-data with the corresponding part name. Content-Transfer-Encoding is refused. A clean closing multipart delimiter is required; truncated content never completes the current item. Malformed occurrences report invalidArgument with a BadRequest detail identifying the occurrence index and path.",
+          "partOrder": [
+            "metadata",
+            "content"
+          ],
+          "repeatedItems": true,
+          "requiresClosingDelimiter": true
+        }
+      }
+    },
+    "description": "Send ordered metadata/content pairs. Each metadata part is application/json; the following content part is application/octet-stream containing raw bytes, including an empty file. Content-Disposition is form-data with the corresponding part name. Content-Transfer-Encoding is refused. A clean closing multipart delimiter is required; truncated content never completes the current item. Malformed occurrences report invalidArgument with a BadRequest detail identifying the occurrence index and path.",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/FilesUploadResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "path_authority_nonregular_object": {
+              "summary": "The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "path_authority_nonregular_object: The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required."
+              }
+            },
+            "path_authority_symlink_escape": {
+              "summary": "The path resolves through a symlink that does not resolve to a target inside the sandbox jail.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "path_authority_symlink_escape: The path resolves through a symlink that does not resolve to a target inside the sandbox jail."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The path resolves through a symlink that does not resolve to a target inside the sandbox jail.\n\nThe path names an existing socket, FIFO, device, or other non-regular object where a regular file is required."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "Upload streams one or more files.",
+  "tags": [
+    "Files"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The path resolves through a symlink that does not resolve to a target inside the sandbox jail.",
+      "reason": "path_authority_symlink_escape"
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.",
+      "reason": "path_authority_nonregular_object"
+    }
+  ],
+  "x-sbx-http-transfer": {
+    "request": {
+      "bytesField": "data",
+      "itemPathField": "header.path",
+      "mediaType": "multipart/form-data",
+      "metadataField": "header",
+      "repeatedItems": true
+    }
+  },
+  "x-sbx-plane": "data",
+  "x-sbx-request-schema": {
+    "$ref": "#/components/schemas/FilesUploadRequest"
+  },
+  "x-sbx-required-permissions": [
+    "sandboxesFilesWrite"
+  ],
+  "x-sbx-response-schema": {
+    "$ref": "#/components/schemas/FilesUploadResponse"
+  },
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: multipart/form-data&#39; \
+  --data-binary @request-body \
+  &#39;https://sandbox.invalid/v1/files/upload&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwib25lT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiYWRkaXRpb25hbFByb3BlcnRpZXNcIjogZmFsc2UsXG4gICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICBcIm1ldGFkYXRhXCI6IHtcbiAgICAgICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9GaWxlSGVhZGVyXCJcbiAgICAgICAgfVxuICAgICAgfSxcbiAgICAgIFwicmVxdWlyZWRcIjogW1xuICAgICAgICBcIm1ldGFkYXRhXCJcbiAgICAgIF0sXG4gICAgICBcInR5cGVcIjogXCJvYmplY3RcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJhZGRpdGlvbmFsUHJvcGVydGllc1wiOiBmYWxzZSxcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwiY29udGVudFwiOiB7XG4gICAgICAgICAgXCJjb250ZW50TWVkaWFUeXBlXCI6IFwiYXBwbGljYXRpb24vb2N0ZXQtc3RyZWFtXCJcbiAgICAgICAgfVxuICAgICAgfSxcbiAgICAgIFwicmVxdWlyZWRcIjogW1xuICAgICAgICBcImNvbnRlbnRcIlxuICAgICAgXSxcbiAgICAgIFwidHlwZVwiOiBcIm9iamVjdFwiXG4gICAgfVxuICBdXG59IiwgIntcbiAgXCJjb250ZW50VHlwZVwiOiBcImFwcGxpY2F0aW9uL2pzb24sIGFwcGxpY2F0aW9uL29jdGV0LXN0cmVhbVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRmlsZXNVcGxvYWRSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iXQ=="></template>

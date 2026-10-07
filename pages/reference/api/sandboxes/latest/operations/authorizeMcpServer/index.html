@@ -1,0 +1,335 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/authorizeMcpServer.md>Markdown</a></div><meta data-pagefind-meta="title:AuthorizeMcpServer authorizes credentials for one named upstream. — Docker Sandboxes API v1"><h1>AuthorizeMcpServer authorizes credentials for one named upstream.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/mcp-servers<wbr>/{mcpServer}<wbr>/authorization<wbr>/authorize</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">AuthorizeMcpServer authorizes credentials for one named upstream.
+Action: authorization runs an interactive grant whose result is not the request body.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=mcpServer><h3><code>mcpServer</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The mcpServer id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-Match><h3><code>If-Match</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Optional current authorization etag. A supplied stale value answers 412 with failedPrecondition; omission permits create or convergence, including forced reauthorization.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(OPTIONAL) etag optionally pins the current authorization; a supplied stale value refuses.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(OPTIONAL) etag optionally pins the current authorization; a supplied stale value refuses.",
+  "title": "If-Match",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1mcp-servers~1{mcpServer}~1authorization~1authorize/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">AuthorizeMcpServerRequest starts or refreshes MCP upstream authorization.</div><details class=api-field open><summary><code>forceReauth</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">force_reauth starts a fresh flow while existing credentials serve until completion.
+Repeating a pending flow converges without reminting.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "force_reauth starts a fresh flow while existing credentials serve until completion.\nRepeating a pending flow converges without reminting.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>remoteUrl</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">remote_url binds authorization to a concrete upstream URL when supplied.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "remote_url binds authorization to a concrete upstream URL when supplied.",
+  "format": "uri",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "AuthorizeMcpServerRequest starts or refreshes MCP upstream authorization.",
+  "properties": {
+    "forceReauth": {
+      "description": "force_reauth starts a fresh flow while existing credentials serve until completion.\nRepeating a pending flow converges without reminting.",
+      "type": "boolean"
+    },
+    "remoteUrl": {
+      "description": "remote_url binds authorization to a concrete upstream URL when supplied.",
+      "format": "uri",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "title": "AuthorizeMcpServerRequest",
+  "type": "object"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1mcp-servers~1{mcpServer}~1authorization~1authorize/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpAuthorization/><code>McpAuthorization</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "not": {
+    "properties": {
+      "status": {
+        "enum": [
+          "pending"
+        ]
+      }
+    },
+    "required": [
+      "status"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/McpAuthorization"
+    },
+    {
+      "not": {
+        "properties": {
+          "status": {
+            "enum": [
+              "pending"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    }
+  ]
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1mcp-servers~1{mcpServer}~1authorization~1authorize/post/responses/202/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>202</code></h3><div class="prose dark:prose-invert">Accepted. The resource is still progressing; read it or follow its events until completion.</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpAuthorization/><code>McpAuthorization</code></a></p><details class=api-field><summary><code>status</code>
+· required</summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "pending"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "enum": [
+        "pending"
+      ]
+    }
+  },
+  "required": [
+    "status"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/McpAuthorization"
+    },
+    {
+      "properties": {
+        "status": {
+          "enum": [
+            "pending"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ]
+    }
+  ]
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1mcp-servers~1{mcpServer}~1authorization~1authorize/post/responses/412/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>412</code></h3><div class="prose dark:prose-invert">The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_mismatch</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;details&#34;: [
+    {
+      &#34;@type&#34;: &#34;type.googleapis.com/docker.sandboxes.v1.EtagMismatch&#34;,
+      &#34;currentEtag&#34;: &#34;v2&#34;
+    }
+  ],
+  &#34;message&#34;: &#34;etag_mismatch: The precondition is not the resource&#39;s current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1mcp-servers~1{mcpServer}~1authorization~1authorize/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/McpAuthorization/>#/components/schemas/McpAuthorization</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "AuthorizeMcpServer authorizes credentials for one named upstream.\nAction: authorization runs an interactive grant whose result is not the request body.",
+  "operationId": "authorizeMcpServer",
+  "parameters": [
+    {
+      "description": "The mcpServer id.",
+      "in": "path",
+      "name": "mcpServer",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Optional current authorization etag. A supplied stale value answers 412 with failedPrecondition; omission permits create or convergence, including forced reauthorization.",
+      "in": "header",
+      "name": "If-Match",
+      "schema": {
+        "description": "(OPTIONAL) etag optionally pins the current authorization; a supplied stale value refuses.",
+        "title": "If-Match",
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "additionalProperties": false,
+          "description": "AuthorizeMcpServerRequest starts or refreshes MCP upstream authorization.",
+          "properties": {
+            "forceReauth": {
+              "description": "force_reauth starts a fresh flow while existing credentials serve until completion.\nRepeating a pending flow converges without reminting.",
+              "type": "boolean"
+            },
+            "remoteUrl": {
+              "description": "remote_url binds authorization to a concrete upstream URL when supplied.",
+              "format": "uri",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "title": "AuthorizeMcpServerRequest",
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/McpAuthorization"
+              },
+              {
+                "not": {
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "pending"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "202": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/McpAuthorization"
+              },
+              {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pending"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "description": "Accepted. The resource is still progressing; read it or follow its events until completion.",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "412": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_mismatch": {
+              "summary": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.",
+              "value": {
+                "code": "failedPrecondition",
+                "details": [
+                  {
+                    "@type": "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+                    "currentEtag": "v2"
+                  }
+                ],
+                "message": "etag_mismatch: The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "AuthorizeMcpServer authorizes credentials for one named upstream.",
+  "tags": [
+    "MCP gateways"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "mcpWrite"
+  ],
+  "x-sbx-resource-response": {
+    "$ref": "#/components/schemas/McpAuthorization"
+  },
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/mcp-servers/&lt;MCPSERVER&gt;/authorization/authorize&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBtY3BTZXJ2ZXIgaWQuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm1jcFNlcnZlclwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xbWNwLXNlcnZlcnN+MXttY3BTZXJ2ZXJ9fjFhdXRob3JpemF0aW9ufjFhdXRob3JpemUvcG9zdC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJPcHRpb25hbCBjdXJyZW50IGF1dGhvcml6YXRpb24gZXRhZy4gQSBzdXBwbGllZCBzdGFsZSB2YWx1ZSBhbnN3ZXJzIDQxMiB3aXRoIGZhaWxlZFByZWNvbmRpdGlvbjsgb21pc3Npb24gcGVybWl0cyBjcmVhdGUgb3IgY29udmVyZ2VuY2UsIGluY2x1ZGluZyBmb3JjZWQgcmVhdXRob3JpemF0aW9uLlwiLFxuICBcImluXCI6IFwiaGVhZGVyXCIsXG4gIFwibmFtZVwiOiBcIklmLU1hdGNoXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFtY3Atc2VydmVyc34xe21jcFNlcnZlcn1+MWF1dGhvcml6YXRpb25+MWF1dGhvcml6ZS9wb3N0L3BhcmFtZXRlcnMvMVwiLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIihPUFRJT05BTCkgZXRhZyBvcHRpb25hbGx5IHBpbnMgdGhlIGN1cnJlbnQgYXV0aG9yaXphdGlvbjsgYSBzdXBwbGllZCBzdGFsZSB2YWx1ZSByZWZ1c2VzLlwiLFxuICAgIFwidGl0bGVcIjogXCJJZi1NYXRjaFwiLFxuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImFkZGl0aW9uYWxQcm9wZXJ0aWVzXCI6IGZhbHNlLFxuICBcImRlc2NyaXB0aW9uXCI6IFwiQXV0aG9yaXplTWNwU2VydmVyUmVxdWVzdCBzdGFydHMgb3IgcmVmcmVzaGVzIE1DUCB1cHN0cmVhbSBhdXRob3JpemF0aW9uLlwiLFxuICBcInByb3BlcnRpZXNcIjoge1xuICAgIFwiZm9yY2VSZWF1dGhcIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcImZvcmNlX3JlYXV0aCBzdGFydHMgYSBmcmVzaCBmbG93IHdoaWxlIGV4aXN0aW5nIGNyZWRlbnRpYWxzIHNlcnZlIHVudGlsIGNvbXBsZXRpb24uXFxuUmVwZWF0aW5nIGEgcGVuZGluZyBmbG93IGNvbnZlcmdlcyB3aXRob3V0IHJlbWludGluZy5cIixcbiAgICAgIFwidHlwZVwiOiBcImJvb2xlYW5cIlxuICAgIH0sXG4gICAgXCJyZW1vdGVVcmxcIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcInJlbW90ZV91cmwgYmluZHMgYXV0aG9yaXphdGlvbiB0byBhIGNvbmNyZXRlIHVwc3RyZWFtIFVSTCB3aGVuIHN1cHBsaWVkLlwiLFxuICAgICAgXCJmb3JtYXRcIjogXCJ1cmlcIixcbiAgICAgIFwidHlwZVwiOiBbXG4gICAgICAgIFwic3RyaW5nXCIsXG4gICAgICAgIFwibnVsbFwiXG4gICAgICBdXG4gICAgfVxuICB9LFxuICBcInRpdGxlXCI6IFwiQXV0aG9yaXplTWNwU2VydmVyUmVxdWVzdFwiLFxuICBcInR5cGVcIjogXCJvYmplY3RcIlxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL01jcEF1dGhvcml6YXRpb25cIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJub3RcIjoge1xuICAgICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICAgIFwic3RhdHVzXCI6IHtcbiAgICAgICAgICAgIFwiZW51bVwiOiBbXG4gICAgICAgICAgICAgIFwicGVuZGluZ1wiXG4gICAgICAgICAgICBdXG4gICAgICAgICAgfVxuICAgICAgICB9LFxuICAgICAgICBcInJlcXVpcmVkXCI6IFtcbiAgICAgICAgICBcInN0YXR1c1wiXG4gICAgICAgIF1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iLCAie1xuICBcIkVUYWdcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgZXRhZyBvZiB0aGUgcmVzb3VyY2UgdGhpcyByZXNwb25zZSBjYXJyaWVzLCB3aGljaCB0aGUgbmV4dCBtdXRhdGlvbiBvZiBpdCBzZW5kcyBhcyBJZi1NYXRjaC5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL01jcEF1dGhvcml6YXRpb25cIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZW51bVwiOiBbXG4gICAgICAgICAgICBcInBlbmRpbmdcIlxuICAgICAgICAgIF1cbiAgICAgICAgfVxuICAgICAgfSxcbiAgICAgIFwicmVxdWlyZWRcIjogW1xuICAgICAgICBcInN0YXR1c1wiXG4gICAgICBdXG4gICAgfVxuICBdXG59IiwgIntcbiAgXCJFVGFnXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiVGhlIGV0YWcgb2YgdGhlIHJlc291cmNlIHRoaXMgcmVzcG9uc2UgY2Fycmllcywgd2hpY2ggdGhlIG5leHQgbXV0YXRpb24gb2YgaXQgc2VuZHMgYXMgSWYtTWF0Y2guXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

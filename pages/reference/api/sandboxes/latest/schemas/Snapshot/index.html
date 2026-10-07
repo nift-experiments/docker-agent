@@ -1,0 +1,185 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/Snapshot.md>Markdown</a></div><meta data-pagefind-meta="title:Snapshot — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>Snapshot</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Snapshot is the detailed snapshot view.
+uid must equal the immutable resource ID in name</div><details class=api-field open><summary><code>captureMode</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/CaptureMode/><code>CaptureMode</code></a></p><div class="prose dark:prose-invert">capture_mode is the mode the snapshot was captured with.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/CaptureMode",
+  "description": "capture_mode is the mode the snapshot was captured with."
+}</code></pre></details></details><details class=api-field open><summary><code>createdAt</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">created_at is the creation timestamp.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "created_at is the creation timestamp."
+}</code></pre></details></details><details class=api-field open><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">description is caller-supplied text.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "description is caller-supplied text.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>displayName</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">display_name is a scoped label and never selects the resource.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "display_name is a scoped label and never selects the resource.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>etag</code>
+· required
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag identifies the observed version of this resource. It is opaque and strong,
+changes on every visible change, and is what a mutation sends as its precondition.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag identifies the observed version of this resource. It is opaque and strong,\nchanges on every visible change, and is what a mutation sends as its precondition.",
+  "minLength": 1,
+  "pattern": "^\"[^\"\\x00-\\x20\\x7f]*\"$",
+  "readOnly": true,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>failure</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div class="prose dark:prose-invert">failure is set when status is FAILED.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Error",
+  "description": "failure is set when status is FAILED."
+}</code></pre></details></details><details class=api-field open><summary><code>name</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IDENTIFIER) name ends in the immutable backing ID and never changes with display_name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IDENTIFIER) name ends in the immutable backing ID and never changes with display_name.",
+  "pattern": "^snapshots/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>platform</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Platform/><code>Platform</code></a></p><div class="prose dark:prose-invert">platform is the captured sandbox platform.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Platform",
+  "description": "platform is the captured sandbox platform."
+}</code></pre></details></details><details class=api-field open><summary><code>resources</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Resources/><code>Resources</code></a></p><div class="prose dark:prose-invert">resources describes the captured sandbox resources.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Resources",
+  "description": "resources describes the captured sandbox resources."
+}</code></pre></details></details><details class=api-field open><summary><code>sandbox</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">sandbox is the resource name recorded for this reference.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "sandbox is the resource name recorded for this reference.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>sandboxUid</code>
+· response only</summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">sandbox_uid retains the observed backing incarnation when the backend provides one.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "sandbox_uid retains the observed backing incarnation when the backend provides one.",
+  "readOnly": true,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>status</code>
+· required
+· response only</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/SnapshotStatus/><code>SnapshotStatus</code></a></p><div class="prose dark:prose-invert">status is the snapshot readiness state.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/SnapshotStatus",
+  "description": "status is the snapshot readiness state.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  },
+  "readOnly": true
+}</code></pre></details></details><details class=api-field open><summary><code>totalSizeBytes</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">total_size_bytes is the approximate stored snapshot size.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "total_size_bytes is the approximate stored snapshot size.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>uid</code>
+· required
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.",
+  "minLength": 1,
+  "readOnly": true,
+  "type": [
+    "string"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Snapshot is the detailed snapshot view.\nuid must equal the immutable resource ID in name",
+  "properties": {
+    "captureMode": {
+      "$ref": "#/components/schemas/CaptureMode",
+      "description": "capture_mode is the mode the snapshot was captured with."
+    },
+    "createdAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "created_at is the creation timestamp."
+    },
+    "description": {
+      "description": "description is caller-supplied text.",
+      "type": "string"
+    },
+    "displayName": {
+      "description": "display_name is a scoped label and never selects the resource.",
+      "type": "string"
+    },
+    "etag": {
+      "description": "etag identifies the observed version of this resource. It is opaque and strong,\nchanges on every visible change, and is what a mutation sends as its precondition.",
+      "minLength": 1,
+      "pattern": "^\"[^\"\\x00-\\x20\\x7f]*\"$",
+      "readOnly": true,
+      "type": "string"
+    },
+    "failure": {
+      "$ref": "#/components/schemas/Error",
+      "description": "failure is set when status is FAILED."
+    },
+    "name": {
+      "description": "(IDENTIFIER) name ends in the immutable backing ID and never changes with display_name.",
+      "pattern": "^snapshots/[^/]+$",
+      "type": "string"
+    },
+    "platform": {
+      "$ref": "#/components/schemas/Platform",
+      "description": "platform is the captured sandbox platform."
+    },
+    "resources": {
+      "$ref": "#/components/schemas/Resources",
+      "description": "resources describes the captured sandbox resources."
+    },
+    "sandbox": {
+      "description": "sandbox is the resource name recorded for this reference.",
+      "type": "string"
+    },
+    "sandboxUid": {
+      "description": "sandbox_uid retains the observed backing incarnation when the backend provides one.",
+      "readOnly": true,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "$ref": "#/components/schemas/SnapshotStatus",
+      "description": "status is the snapshot readiness state.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      },
+      "readOnly": true
+    },
+    "totalSizeBytes": {
+      "description": "total_size_bytes is the approximate stored snapshot size.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "uid": {
+      "description": "(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.",
+      "minLength": 1,
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "required": [
+    "uid",
+    "name",
+    "status",
+    "createdAt",
+    "etag"
+  ],
+  "title": "Snapshot",
+  "type": "object"
+}</code></pre></details></article>

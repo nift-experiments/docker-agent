@@ -1,0 +1,98 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/getNetworkPoliciesInOwnerScope.md>Markdown</a></div><meta data-pagefind-meta="title:GetNetworkPolicies returns effective and exact views of the same installed generation. — Docker Sandboxes API v1"><h1>GetNetworkPolicies returns effective and exact views of the same installed generation.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/network-policies</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">GetNetworkPolicies returns effective and exact views of the same installed generation.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=acceptedSelectorVersions><h3><code>acceptedSelectorVersions</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Omitted versions accept only destination.v1; an unsupported representation fails closed.</div><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "description": "",
+    "minLength": 1,
+    "type": "string"
+  },
+  "maxItems": 8,
+  "title": "accepted_selector_versions",
+  "type": "array",
+  "uniqueItems": true
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1network-policies/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/GetNetworkPoliciesResponse/><code>GetNetworkPoliciesResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1network-policies/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/GetNetworkPoliciesResponse/>#/components/schemas/GetNetworkPoliciesResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "GetNetworkPolicies returns effective and exact views of the same installed generation.",
+  "operationId": "getNetworkPoliciesInOwnerScope",
+  "parameters": [
+    {
+      "description": "Omitted versions accept only destination.v1; an unsupported representation fails closed.",
+      "in": "query",
+      "name": "acceptedSelectorVersions",
+      "required": false,
+      "schema": {
+        "items": {
+          "description": "",
+          "minLength": 1,
+          "type": "string"
+        },
+        "maxItems": 8,
+        "title": "accepted_selector_versions",
+        "type": "array",
+        "uniqueItems": true
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/GetNetworkPoliciesResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "GetNetworkPolicies returns effective and exact views of the same installed generation.",
+  "tags": [
+    "Network policies"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "networkPoliciesRead"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://connect.docker.com/sandboxes/v1/network-policies&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIk9taXR0ZWQgdmVyc2lvbnMgYWNjZXB0IG9ubHkgZGVzdGluYXRpb24udjE7IGFuIHVuc3VwcG9ydGVkIHJlcHJlc2VudGF0aW9uIGZhaWxzIGNsb3NlZC5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcImFjY2VwdGVkU2VsZWN0b3JWZXJzaW9uc1wiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xbmV0d29yay1wb2xpY2llcy9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcIml0ZW1zXCI6IHtcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJcIixcbiAgICAgIFwibWluTGVuZ3RoXCI6IDEsXG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH0sXG4gICAgXCJtYXhJdGVtc1wiOiA4LFxuICAgIFwidGl0bGVcIjogXCJhY2NlcHRlZF9zZWxlY3Rvcl92ZXJzaW9uc1wiLFxuICAgIFwidHlwZVwiOiBcImFycmF5XCIsXG4gICAgXCJ1bmlxdWVJdGVtc1wiOiB0cnVlXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9HZXROZXR3b3JrUG9saWNpZXNSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

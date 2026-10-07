@@ -1,0 +1,106 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/exchangeDockerCredential.md>Markdown</a></div><meta data-pagefind-meta="title:ExchangeDockerCredential consumes an identity token once for the authenticated owner. — Docker Sandboxes API v1"><h1>ExchangeDockerCredential consumes an identity token once for the authenticated owner.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/identity<wbr>/exchange</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>ExchangeDockerCredential consumes an identity token once for the authenticated owner.
+The exchanged credential is stored for that owner; the response is empty.</p><p>Returns unimplemented when this operation is unavailable. Support does not grant permission.</p></div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1identity~1exchange/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/IdentityExchangeServiceExchangeDockerCredentialRequest/><code>IdentityExchangeServiceExchangeDockerCredentialRequest</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1identity~1exchange/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExchangeCompositionCredentialResponse/><code>ExchangeCompositionCredentialResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1identity~1exchange/post/responses/501/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>501</code></h3><div class="prose dark:prose-invert">This operation is not available on this service.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>unimplemented</h4><pre><code>{
+  &#34;code&#34;: &#34;unimplemented&#34;,
+  &#34;message&#34;: &#34;This operation is not available on this service.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1identity~1exchange/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/ExchangeCompositionCredentialResponse/>#/components/schemas/ExchangeCompositionCredentialResponse</a></p><p><a href=/reference/api/sandboxes/latest/schemas/IdentityExchangeServiceExchangeDockerCredentialRequest/>#/components/schemas/IdentityExchangeServiceExchangeDockerCredentialRequest</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "ExchangeDockerCredential consumes an identity token once for the authenticated owner.\nThe exchanged credential is stored for that owner; the response is empty.\n\nReturns unimplemented when this operation is unavailable. Support does not grant permission.",
+  "operationId": "exchangeDockerCredential",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/IdentityExchangeServiceExchangeDockerCredentialRequest"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ExchangeCompositionCredentialResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "501": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "unimplemented": {
+              "summary": "This operation is not available on this service.",
+              "value": {
+                "code": "unimplemented",
+                "message": "This operation is not available on this service."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "This operation is not available on this service."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "ExchangeDockerCredential consumes an identity token once for the authenticated owner.",
+  "tags": [
+    "Credentials"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "UNIMPLEMENTED",
+      "description": "This operation is not available on this service."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "credentialsExchange"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/identity/exchange&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvSWRlbnRpdHlFeGNoYW5nZVNlcnZpY2VFeGNoYW5nZURvY2tlckNyZWRlbnRpYWxSZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FeGNoYW5nZUNvbXBvc2l0aW9uQ3JlZGVudGlhbFJlc3BvbnNlXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

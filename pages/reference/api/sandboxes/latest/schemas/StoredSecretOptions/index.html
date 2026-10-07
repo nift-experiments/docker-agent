@@ -1,0 +1,38 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/StoredSecretOptions.md>Markdown</a></div><meta data-pagefind-meta="title:StoredSecretOptions — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>StoredSecretOptions</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">StoredSecretOptions resolves owner-scoped references before the workload can run.</div><details class=api-field open><summary><code>secrets</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">secrets are complete Secret resource names resolved once at admission.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "pattern": "^secrets/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "secrets are complete Secret resource names resolved once at admission.",
+  "items": {
+    "pattern": "^secrets/[^/]+$",
+    "type": "string"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "StoredSecretOptions resolves owner-scoped references before the workload can run.",
+  "properties": {
+    "secrets": {
+      "description": "secrets are complete Secret resource names resolved once at admission.",
+      "items": {
+        "pattern": "^secrets/[^/]+$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "secrets"
+  ],
+  "title": "StoredSecretOptions",
+  "type": "object"
+}</code></pre></details></article>

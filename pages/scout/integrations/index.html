@@ -1,0 +1,17 @@
+<p>By default, Docker Scout integrates with your Docker organization and your
+Docker Scout-enabled repositories on Docker Hub. You can integrate Docker Scout
+with additional third-party systems to get access to even more insights,
+including real-time information about you running workloads.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=integration-categories><a class="text-black dark:text-white no-underline hover:underline" href=#integration-categories>Integration categories</a></h2><p>You'll get different insights depending on where and how you choose to integrate
+Docker Scout.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=container-registries><a class="text-black dark:text-white no-underline hover:underline" href=#container-registries>Container registries</a></h3><p>Integrating Docker Scout with third-party container
+registries enables Docker Scout to run image analysis on those repositories,
+so that you can get insights into the composition of those images even if they
+aren't hosted on Docker Hub.</p><p>Docker Scout integrates with any Docker/OCI-compliant registry using
+<a class=link href=https://docs.docker.com/scout/integrations/registry/><code>docker scout watch</code></a>, including Amazon ECR, Azure
+Container Registry, JFrog Artifactory, Harbor, and Sonatype Nexus.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=continuous-integration><a class="text-black dark:text-white no-underline hover:underline" href=#continuous-integration>Continuous Integration</a></h3><p>Integrating Docker Scout with Continuous Integration (CI) systems is a great way
+to get instant, automatic feedback about your security posture in your inner
+loop. Analysis running in CI also gets the benefit of additional context that's
+useful for getting even more insights.</p><p>The following CI integrations are available:</p><ul><li><a class=link href=https://docs.docker.com/scout/integrations/ci/gha/>GitHub Actions</a></li><li><a class=link href=https://docs.docker.com/scout/integrations/ci/gitlab/>GitLab</a></li><li><a class=link href=https://docs.docker.com/scout/integrations/ci/azure/>Microsoft Azure DevOps Pipelines</a></li><li><a class=link href=https://docs.docker.com/scout/integrations/ci/circle-ci/>Circle CI</a></li><li><a class=link href=https://docs.docker.com/scout/integrations/ci/jenkins/>Jenkins</a></li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=environment-monitoring><a class="text-black dark:text-white no-underline hover:underline" href=#environment-monitoring>Environment monitoring</a></h3><p>Environment monitoring refers to integrating Docker Scout with your deployments.
+This can give you information in real-time about your running container workloads.</p><p>Integrating with environments lets you compare production workloads to other
+versions, in your image repositories or in your other environments.</p><p>The following environment monitoring integrations are available:</p><ul><li><a class=link href=https://docs.docker.com/scout/integrations/environment/>Docker Scout GitHub Action</a></li><li><a class=link href=https://docs.docker.com/scout/integrations/environment/cli/>Generic CLI integration</a>
+For more information about environment integrations, see
+<a class=link href=https://docs.docker.com/scout/integrations/environment/>Environments</a>.</li></ul>

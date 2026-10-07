@@ -1,0 +1,119 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/listProcesses.md>Markdown</a></div><meta data-pagefind-meta="title:ListProcesses lists processes in creation order. — Docker Sandboxes API v1"><h1>ListProcesses lists processes in creation order.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/processes</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">ListProcesses lists processes in creation order.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=pageSize><h3><code>pageSize</code>
+<small>query</small></h3><div class="prose dark:prose-invert"><p>page_size is an optional page size.</p><p>Omitted or zero uses the backend default. Unless the operation states otherwise, page-size limits and handling of larger requests are backend-specific; use the backend support guide. Continue with nextPageToken until it is empty.</p></div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "page_size",
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=pageToken><h3><code>pageToken</code>
+<small>query</small></h3><div class="prose dark:prose-invert">page_token is an optional continuation token.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "page_token",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=filter><h3><code>filter</code>
+<small>query</small></h3><div class="prose dark:prose-invert">filter is comma-separated exact-match field=value terms; the portable fields are
+session and state.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "filter",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1processes/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ListProcessesResponse/><code>ListProcessesResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1processes/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/ListProcessesResponse/>#/components/schemas/ListProcessesResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "ListProcesses lists processes in creation order.",
+  "operationId": "listProcesses",
+  "parameters": [
+    {
+      "description": "page_size is an optional page size.\n\nOmitted or zero uses the backend default. Unless the operation states otherwise, page-size limits and handling of larger requests are backend-specific; use the backend support guide. Continue with nextPageToken until it is empty.",
+      "in": "query",
+      "name": "pageSize",
+      "required": false,
+      "schema": {
+        "title": "page_size",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "page_token is an optional continuation token.",
+      "in": "query",
+      "name": "pageToken",
+      "required": false,
+      "schema": {
+        "title": "page_token",
+        "type": "string"
+      }
+    },
+    {
+      "description": "filter is comma-separated exact-match field=value terms; the portable fields are\nsession and state.",
+      "in": "query",
+      "name": "filter",
+      "required": false,
+      "schema": {
+        "title": "filter",
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ListProcessesResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "ListProcesses lists processes in creation order.",
+  "tags": [
+    "Processes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "data",
+  "x-sbx-required-permissions": [
+    "sandboxesExec"
+  ],
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://sandbox.invalid/v1/processes&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJwYWdlX3NpemUgaXMgYW4gb3B0aW9uYWwgcGFnZSBzaXplLlxcblxcbk9taXR0ZWQgb3IgemVybyB1c2VzIHRoZSBiYWNrZW5kIGRlZmF1bHQuIFVubGVzcyB0aGUgb3BlcmF0aW9uIHN0YXRlcyBvdGhlcndpc2UsIHBhZ2Utc2l6ZSBsaW1pdHMgYW5kIGhhbmRsaW5nIG9mIGxhcmdlciByZXF1ZXN0cyBhcmUgYmFja2VuZC1zcGVjaWZpYzsgdXNlIHRoZSBiYWNrZW5kIHN1cHBvcnQgZ3VpZGUuIENvbnRpbnVlIHdpdGggbmV4dFBhZ2VUb2tlbiB1bnRpbCBpdCBpcyBlbXB0eS5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInBhZ2VTaXplXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFwcm9jZXNzZXMvZ2V0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0aXRsZVwiOiBcInBhZ2Vfc2l6ZVwiLFxuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcInBhZ2VfdG9rZW4gaXMgYW4gb3B0aW9uYWwgY29udGludWF0aW9uIHRva2VuLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGFnZVRva2VuXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFwcm9jZXNzZXMvZ2V0L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0aXRsZVwiOiBcInBhZ2VfdG9rZW5cIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcImZpbHRlciBpcyBjb21tYS1zZXBhcmF0ZWQgZXhhY3QtbWF0Y2ggZmllbGQ9dmFsdWUgdGVybXM7IHRoZSBwb3J0YWJsZSBmaWVsZHMgYXJlXFxuc2Vzc2lvbiBhbmQgc3RhdGUuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJmaWx0ZXJcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXByb2Nlc3Nlcy9nZXQvcGFyYW1ldGVycy8yXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInRpdGxlXCI6IFwiZmlsdGVyXCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0xpc3RQcm9jZXNzZXNSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

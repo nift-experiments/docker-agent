@@ -1,0 +1,109 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/remove.md>Markdown</a></div><meta data-pagefind-meta="title:Remove deletes a path. — Docker Sandboxes API v1"><h1>Remove deletes a path.</h1><div class=api-signature><span class=api-method data-method=DELETE>DELETE</span><code><wbr>/v1<wbr>/files</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Remove deletes a path. Removing an absent path succeeds. A nonrecursive
+removal of a nonempty directory returns FAILED_PRECONDITION unchanged.
+A recursive removal that stops partway still answers OK: check
+RemoveResponse.failed_path, not the operation status. Removed paths stay removed.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=path><h3><code>path</code>
+<small>query</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">path is the sandbox path to remove.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "minLength": 1,
+  "title": "path",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=recursive><h3><code>recursive</code>
+<small>query</small></h3><div class="prose dark:prose-invert">recursive removes directory contents when true.</div><p class=api-type>Type:
+<code>boolean</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "recursive",
+  "type": "boolean"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1files/delete/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FilesRemoveResponse/><code>FilesRemoveResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1files/delete/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesRemoveResponse/>#/components/schemas/FilesRemoveResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Remove deletes a path. Removing an absent path succeeds. A nonrecursive\nremoval of a nonempty directory returns FAILED_PRECONDITION unchanged.\nA recursive removal that stops partway still answers OK: check\nRemoveResponse.failed_path, not the operation status. Removed paths stay removed.",
+  "operationId": "remove",
+  "parameters": [
+    {
+      "description": "path is the sandbox path to remove.",
+      "in": "query",
+      "name": "path",
+      "required": true,
+      "schema": {
+        "minLength": 1,
+        "title": "path",
+        "type": "string"
+      }
+    },
+    {
+      "description": "recursive removes directory contents when true.",
+      "in": "query",
+      "name": "recursive",
+      "required": false,
+      "schema": {
+        "title": "recursive",
+        "type": "boolean"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/FilesRemoveResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "Remove deletes a path.",
+  "tags": [
+    "Files"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "data",
+  "x-sbx-required-permissions": [
+    "sandboxesFilesWrite"
+  ],
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request DELETE \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://sandbox.invalid/v1/files?path=%3CPATH%3E&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJwYXRoIGlzIHRoZSBzYW5kYm94IHBhdGggdG8gcmVtb3ZlLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGF0aFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xZmlsZXMvZGVsZXRlL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcIm1pbkxlbmd0aFwiOiAxLFxuICAgIFwidGl0bGVcIjogXCJwYXRoXCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJyZWN1cnNpdmUgcmVtb3ZlcyBkaXJlY3RvcnkgY29udGVudHMgd2hlbiB0cnVlLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicmVjdXJzaXZlXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFmaWxlcy9kZWxldGUvcGFyYW1ldGVycy8xXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInRpdGxlXCI6IFwicmVjdXJzaXZlXCIsXG4gICAgXCJ0eXBlXCI6IFwiYm9vbGVhblwiXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9GaWxlc1JlbW92ZVJlc3BvbnNlXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59Il0="></template>

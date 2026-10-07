@@ -1,0 +1,26 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EtagMismatch.md>Markdown</a></div><meta data-pagefind-meta="title:EtagMismatch — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EtagMismatch</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EtagMismatch is the status detail a stale precondition carries, so a client learns the
+current version for an explicit conflict-resolution decision.</div><details class=api-field open><summary><code>currentEtag</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">current_etag is informational; clients must not silently retry with it.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "current_etag is informational; clients must not silently retry with it.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "EtagMismatch is the status detail a stale precondition carries, so a client learns the\ncurrent version for an explicit conflict-resolution decision.",
+  "properties": {
+    "currentEtag": {
+      "description": "current_etag is informational; clients must not silently retry with it.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "currentEtag"
+  ],
+  "title": "EtagMismatch",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,46 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/VolumeAttachment.md>Markdown</a></div><meta data-pagefind-meta="title:VolumeAttachment — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>VolumeAttachment</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">VolumeAttachment binds an existing owner-scoped volume before guest execution.</div><details class=api-field open><summary><code>mode</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/AttachmentMode/><code>AttachmentMode</code></a></p><div class="prose dark:prose-invert">mode defaults to exclusive; it never silently enables shared writers.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/AttachmentMode",
+  "description": "mode defaults to exclusive; it never silently enables shared writers."
+}</code></pre></details></details><details class=api-field open><summary><code>target</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">target is an absolute guest path and cannot overlap another mount target.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "target is an absolute guest path and cannot overlap another mount target.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>volume</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">volume is the complete resource name, in the form volumes/{volume}.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "volume is the complete resource name, in the form volumes/{volume}.",
+  "pattern": "^volumes/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "VolumeAttachment binds an existing owner-scoped volume before guest execution.",
+  "properties": {
+    "mode": {
+      "$ref": "#/components/schemas/AttachmentMode",
+      "description": "mode defaults to exclusive; it never silently enables shared writers."
+    },
+    "target": {
+      "description": "target is an absolute guest path and cannot overlap another mount target.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "volume": {
+      "description": "volume is the complete resource name, in the form volumes/{volume}.",
+      "pattern": "^volumes/[^/]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "volume",
+    "target"
+  ],
+  "title": "VolumeAttachment",
+  "type": "object"
+}</code></pre></details></article>

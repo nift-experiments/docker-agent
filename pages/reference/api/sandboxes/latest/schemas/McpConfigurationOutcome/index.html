@@ -1,0 +1,21 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/McpConfigurationOutcome.md>Markdown</a></div><meta data-pagefind-meta="title:McpConfigurationOutcome — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>McpConfigurationOutcome</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>McpConfigurationOutcome describes one requested server in the reported generation.</p><p>Values:
+unspecified: unspecified is not a concrete outcome.
+pending: pending has not settled and cannot establish completeness.
+applied: applied is confirmed membership, not upstream authorization.
+skipped: skipped requires an explicitly applicable compatibility rule.
+failed: failed retains intent that could not be provisioned.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "McpConfigurationOutcome describes one requested server in the reported generation.\n\nValues:\nunspecified: unspecified is not a concrete outcome.\npending: pending has not settled and cannot establish completeness.\napplied: applied is confirmed membership, not upstream authorization.\nskipped: skipped requires an explicitly applicable compatibility rule.\nfailed: failed retains intent that could not be provisioned.",
+  "enum": [
+    "unspecified",
+    "pending",
+    "applied",
+    "skipped",
+    "failed"
+  ],
+  "title": "McpConfigurationOutcome",
+  "type": "string"
+}</code></pre></details></article>

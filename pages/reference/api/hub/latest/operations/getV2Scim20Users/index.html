@@ -1,0 +1,433 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/getV2Scim20Users.md>Markdown</a></div><meta data-pagefind-meta="title:List users — Docker Hub API 2-beta"><h1>List users</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/scim<wbr>/2.0<wbr>/Users</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Returns paginated users for an organization. Use <code>startIndex</code> and <code>count</code> query parameters to receive paginated results.</p><p><strong>Sorting:</strong></p><p>Sorting allows you to specify the order in which resources are returned by specifying a combination of <code>sortBy</code> and <code>sortOrder</code> query parameters.</p><p>The <code>sortBy</code> parameter specifies the attribute whose value will be used to order the returned responses. The <code>sortOrder</code> parameter defines the order in which the <code>sortBy</code> parameter is applied. Allowed values are "ascending" and "descending".</p><p><strong>Filtering:</strong></p><p>You can request a subset of resources by specifying the <code>filter</code> query parameter containing a filter expression. Attribute names and attribute operators used in filters are case insensitive. The filter parameter must contain at least one valid expression. Each expression must contain an attribute name followed by an attribute operator and an optional value.</p><p>Supported operators are listed below.</p><ul><li><code>eq</code> equal</li><li><code>ne</code> not equal</li><li><code>co</code> contains</li><li><code>sw</code> starts with</li><li><code>and</code> Logical "and"</li><li><code>or</code> Logical "or"</li><li><code>not</code> "Not" function</li><li><code>()</code> Precedence grouping</li></ul></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>scimToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=startIndex><h3><code>startIndex</code>
+<small>query</small></h3><div class="prose dark:prose-invert">One-based index of the first result to return.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=count><h3><code>count</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Maximum number of results to return.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "maximum": 200,
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=filter><h3><code>filter</code>
+<small>query</small></h3><div class="prose dark:prose-invert">SCIM filter expression used to select users.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=attributes><h3><code>attributes</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Comma delimited list of attributes to limit to in the response.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=sortOrder><h3><code>sortOrder</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Sort direction applied to the attribute specified by sortBy.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "ascending",
+    "descending"
+  ],
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=sortBy><h3><code>sortBy</code>
+<small>query</small></h3><div class="prose dark:prose-invert">User attribute to sort by.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/scim+json>application/scim+json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users/get/responses/200/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/scim+json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>Resources</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_user/><code>scim_user</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/scim_user"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>itemsPerPage</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 10,
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>schemas</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": [
+    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+  ],
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>startIndex</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 1,
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>totalResults</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 1,
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "Resources": [
+        {
+          "active": true,
+          "displayName": "jonsnow",
+          "emails": [
+            {
+              "display": "jon.snow@docker.com",
+              "primary": true,
+              "value": "jon.snow@docker.com"
+            }
+          ],
+          "groups": [
+            {
+              "display": "nightswatch",
+              "value": "nightswatch"
+            }
+          ],
+          "id": "d80f7c79-7730-49d8-9a41-7c42fb622d9c",
+          "meta": {
+            "created": "2022-05-20T00:54:18Z",
+            "lastModified": "2022-05-20T00:54:18Z",
+            "location": "https://hub.docker.com/v2/scim/2.0/Users/d80f7c79-7730-49d8-9a41-7c42fb622d9c",
+            "resourceType": "User"
+          },
+          "name": {
+            "familyName": "Snow",
+            "givenName": "Jon"
+          },
+          "schemas": [
+            "urn:ietf:params:scim:schemas:core:2.0:User"
+          ],
+          "userName": "jon.snow@docker.com"
+        }
+      ],
+      "itemsPerPage": 1,
+      "schemas": [
+        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+      ],
+      "startIndex": 1,
+      "totalResults": 1
+    }
+  ],
+  "properties": {
+    "Resources": {
+      "items": {
+        "$ref": "#/components/schemas/scim_user"
+      },
+      "type": "array"
+    },
+    "itemsPerPage": {
+      "example": 10,
+      "type": "integer"
+    },
+    "schemas": {
+      "example": [
+        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "startIndex": {
+      "example": 1,
+      "type": "integer"
+    },
+    "totalResults": {
+      "example": 1,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;Resources&#34;: [
+    {
+      &#34;active&#34;: true,
+      &#34;displayName&#34;: &#34;jonsnow&#34;,
+      &#34;emails&#34;: [
+        {
+          &#34;display&#34;: &#34;jon.snow@docker.com&#34;,
+          &#34;primary&#34;: true,
+          &#34;value&#34;: &#34;jon.snow@docker.com&#34;
+        }
+      ],
+      &#34;groups&#34;: [
+        {
+          &#34;display&#34;: &#34;nightswatch&#34;,
+          &#34;value&#34;: &#34;nightswatch&#34;
+        }
+      ],
+      &#34;id&#34;: &#34;d80f7c79-7730-49d8-9a41-7c42fb622d9c&#34;,
+      &#34;meta&#34;: {
+        &#34;created&#34;: &#34;2022-05-20T00:54:18Z&#34;,
+        &#34;lastModified&#34;: &#34;2022-05-20T00:54:18Z&#34;,
+        &#34;location&#34;: &#34;https://hub.docker.com/v2/scim/2.0/Users/d80f7c79-7730-49d8-9a41-7c42fb622d9c&#34;,
+        &#34;resourceType&#34;: &#34;User&#34;
+      },
+      &#34;name&#34;: {
+        &#34;familyName&#34;: &#34;Snow&#34;,
+        &#34;givenName&#34;: &#34;Jon&#34;
+      },
+      &#34;schemas&#34;: [
+        &#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;
+      ],
+      &#34;userName&#34;: &#34;jon.snow@docker.com&#34;
+    }
+  ],
+  &#34;itemsPerPage&#34;: 1,
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:ListResponse&#34;
+  ],
+  &#34;startIndex&#34;: 1,
+  &#34;totalResults&#34;: 1
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users/get/responses/400/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>scimType</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Some types of errors will return this per the specification.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Some types of errors will return this per the specification.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "400"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "scimType": {
+      "description": "Some types of errors will return this per the specification.",
+      "type": "string"
+    },
+    "status": {
+      "example": "400"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "scimType": {
+          "description": "Some types of errors will return this per the specification.",
+          "type": "string"
+        },
+        "status": {
+          "example": "400"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;400&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users/get/responses/401/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "401"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "401"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "401"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;401&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users/get/responses/403/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "403"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "403"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "403"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;403&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users/get/responses/404/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "404"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "404"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "404"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;404&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users/get/responses/500/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal Error</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "500"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "500"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "500"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;500&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns paginated users for an organization. Use `startIndex` and `count` query parameters to receive paginated results.\n\n**Sorting:**\n\nSorting allows you to specify the order in which resources are returned by specifying a combination of `sortBy` and `sortOrder` query parameters.\n\nThe `sortBy` parameter specifies the attribute whose value will be used to order the returned responses. The `sortOrder` parameter defines the order in which the `sortBy` parameter is applied. Allowed values are \"ascending\" and \"descending\".\n\n**Filtering:**\n\nYou can request a subset of resources by specifying the `filter` query parameter containing a filter expression. Attribute names and attribute operators used in filters are case insensitive. The filter parameter must contain at least one valid expression. Each expression must contain an attribute name followed by an attribute operator and an optional value.\n\nSupported operators are listed below.\n\n- `eq` equal\n- `ne` not equal\n- `co` contains\n- `sw` starts with\n- `and` Logical \"and\"\n- `or` Logical \"or\"\n- `not` \"Not\" function\n- `()` Precedence grouping\n",
+  "operationId": "getV2Scim20Users",
+  "parameters": [
+    {
+      "description": "One-based index of the first result to return.",
+      "example": 1,
+      "in": "query",
+      "name": "startIndex",
+      "schema": {
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Maximum number of results to return.",
+      "example": 10,
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "maximum": 200,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "SCIM filter expression used to select users.",
+      "example": "userName eq \"jon.snow@docker.com\"",
+      "in": "query",
+      "name": "filter",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "$ref": "#/components/parameters/scim_attributes"
+    },
+    {
+      "description": "Sort direction applied to the attribute specified by sortBy.",
+      "in": "query",
+      "name": "sortOrder",
+      "schema": {
+        "enum": [
+          "ascending",
+          "descending"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "User attribute to sort by.",
+      "example": "userName",
+      "in": "query",
+      "name": "sortBy",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "$ref": "#/components/responses/scim_get_users_resp"
+    },
+    "400": {
+      "$ref": "#/components/responses/scim_bad_request"
+    },
+    "401": {
+      "$ref": "#/components/responses/scim_unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/scim_forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/scim_not_found"
+    },
+    "500": {
+      "$ref": "#/components/responses/scim_error"
+    }
+  },
+  "security": [
+    {
+      "scimToken": []
+    }
+  ],
+  "summary": "List users",
+  "tags": [
+    "scim"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${SCIM_TOKEN}&#34; \
+  --header &#39;Accept: application/scim&#43;json&#39; \
+  &#39;https://hub.docker.com/v2/scim/2.0/Users?startIndex=1&amp;count=10&amp;filter=userName&#43;eq&#43;%22jon.snow%40docker.com%22&amp;attributes=userName%2CdisplayName&amp;sortBy=userName&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNjaW1Ub2tlblwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIk9uZS1iYXNlZCBpbmRleCBvZiB0aGUgZmlyc3QgcmVzdWx0IHRvIHJldHVybi5cIixcbiAgXCJleGFtcGxlXCI6IDEsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJzdGFydEluZGV4XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFzY2ltfjEyLjB+MVVzZXJzL2dldC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwibWluaW11bVwiOiAxLFxuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIk1heGltdW0gbnVtYmVyIG9mIHJlc3VsdHMgdG8gcmV0dXJuLlwiLFxuICBcImV4YW1wbGVcIjogMTAsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJjb3VudFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xc2NpbX4xMi4wfjFVc2Vycy9nZXQvcGFyYW1ldGVycy8xXCIsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcIm1heGltdW1cIjogMjAwLFxuICAgIFwibWluaW11bVwiOiAxLFxuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlNDSU0gZmlsdGVyIGV4cHJlc3Npb24gdXNlZCB0byBzZWxlY3QgdXNlcnMuXCIsXG4gIFwiZXhhbXBsZVwiOiBcInVzZXJOYW1lIGVxIFxcXCJqb24uc25vd0Bkb2NrZXIuY29tXFxcIlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwiZmlsdGVyXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFzY2ltfjEyLjB+MVVzZXJzL2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiQ29tbWEgZGVsaW1pdGVkIGxpc3Qgb2YgYXR0cmlidXRlcyB0byBsaW1pdCB0byBpbiB0aGUgcmVzcG9uc2UuXCIsXG4gIFwiZXhhbXBsZVwiOiBcInVzZXJOYW1lLGRpc3BsYXlOYW1lXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJhdHRyaWJ1dGVzXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFzY2ltfjEyLjB+MVVzZXJzL2dldC9wYXJhbWV0ZXJzLzNcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiU29ydCBkaXJlY3Rpb24gYXBwbGllZCB0byB0aGUgYXR0cmlidXRlIHNwZWNpZmllZCBieSBzb3J0QnkuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJzb3J0T3JkZXJcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXNjaW1+MTIuMH4xVXNlcnMvZ2V0L3BhcmFtZXRlcnMvNFwiLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJlbnVtXCI6IFtcbiAgICAgIFwiYXNjZW5kaW5nXCIsXG4gICAgICBcImRlc2NlbmRpbmdcIlxuICAgIF0sXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJVc2VyIGF0dHJpYnV0ZSB0byBzb3J0IGJ5LlwiLFxuICBcImV4YW1wbGVcIjogXCJ1c2VyTmFtZVwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwic29ydEJ5XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFzY2ltfjEyLjB+MVVzZXJzL2dldC9wYXJhbWV0ZXJzLzVcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImV4YW1wbGVzXCI6IFtcbiAgICB7XG4gICAgICBcIlJlc291cmNlc1wiOiBbXG4gICAgICAgIHtcbiAgICAgICAgICBcImFjdGl2ZVwiOiB0cnVlLFxuICAgICAgICAgIFwiZGlzcGxheU5hbWVcIjogXCJqb25zbm93XCIsXG4gICAgICAgICAgXCJlbWFpbHNcIjogW1xuICAgICAgICAgICAge1xuICAgICAgICAgICAgICBcImRpc3BsYXlcIjogXCJqb24uc25vd0Bkb2NrZXIuY29tXCIsXG4gICAgICAgICAgICAgIFwicHJpbWFyeVwiOiB0cnVlLFxuICAgICAgICAgICAgICBcInZhbHVlXCI6IFwiam9uLnNub3dAZG9ja2VyLmNvbVwiXG4gICAgICAgICAgICB9XG4gICAgICAgICAgXSxcbiAgICAgICAgICBcImdyb3Vwc1wiOiBbXG4gICAgICAgICAgICB7XG4gICAgICAgICAgICAgIFwiZGlzcGxheVwiOiBcIm5pZ2h0c3dhdGNoXCIsXG4gICAgICAgICAgICAgIFwidmFsdWVcIjogXCJuaWdodHN3YXRjaFwiXG4gICAgICAgICAgICB9XG4gICAgICAgICAgXSxcbiAgICAgICAgICBcImlkXCI6IFwiZDgwZjdjNzktNzczMC00OWQ4LTlhNDEtN2M0MmZiNjIyZDljXCIsXG4gICAgICAgICAgXCJtZXRhXCI6IHtcbiAgICAgICAgICAgIFwiY3JlYXRlZFwiOiBcIjIwMjItMDUtMjBUMDA6NTQ6MThaXCIsXG4gICAgICAgICAgICBcImxhc3RNb2RpZmllZFwiOiBcIjIwMjItMDUtMjBUMDA6NTQ6MThaXCIsXG4gICAgICAgICAgICBcImxvY2F0aW9uXCI6IFwiaHR0cHM6Ly9odWIuZG9ja2VyLmNvbS92Mi9zY2ltLzIuMC9Vc2Vycy9kODBmN2M3OS03NzMwLTQ5ZDgtOWE0MS03YzQyZmI2MjJkOWNcIixcbiAgICAgICAgICAgIFwicmVzb3VyY2VUeXBlXCI6IFwiVXNlclwiXG4gICAgICAgICAgfSxcbiAgICAgICAgICBcIm5hbWVcIjoge1xuICAgICAgICAgICAgXCJmYW1pbHlOYW1lXCI6IFwiU25vd1wiLFxuICAgICAgICAgICAgXCJnaXZlbk5hbWVcIjogXCJKb25cIlxuICAgICAgICAgIH0sXG4gICAgICAgICAgXCJzY2hlbWFzXCI6IFtcbiAgICAgICAgICAgIFwidXJuOmlldGY6cGFyYW1zOnNjaW06c2NoZW1hczpjb3JlOjIuMDpVc2VyXCJcbiAgICAgICAgICBdLFxuICAgICAgICAgIFwidXNlck5hbWVcIjogXCJqb24uc25vd0Bkb2NrZXIuY29tXCJcbiAgICAgICAgfVxuICAgICAgXSxcbiAgICAgIFwiaXRlbXNQZXJQYWdlXCI6IDEsXG4gICAgICBcInNjaGVtYXNcIjogW1xuICAgICAgICBcInVybjppZXRmOnBhcmFtczpzY2ltOmFwaTptZXNzYWdlczoyLjA6TGlzdFJlc3BvbnNlXCJcbiAgICAgIF0sXG4gICAgICBcInN0YXJ0SW5kZXhcIjogMSxcbiAgICAgIFwidG90YWxSZXN1bHRzXCI6IDFcbiAgICB9XG4gIF0sXG4gIFwicHJvcGVydGllc1wiOiB7XG4gICAgXCJSZXNvdXJjZXNcIjoge1xuICAgICAgXCJpdGVtc1wiOiB7XG4gICAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fdXNlclwiXG4gICAgICB9LFxuICAgICAgXCJ0eXBlXCI6IFwiYXJyYXlcIlxuICAgIH0sXG4gICAgXCJpdGVtc1BlclBhZ2VcIjoge1xuICAgICAgXCJleGFtcGxlXCI6IDEwLFxuICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgfSxcbiAgICBcInNjaGVtYXNcIjoge1xuICAgICAgXCJleGFtcGxlXCI6IFtcbiAgICAgICAgXCJ1cm46aWV0ZjpwYXJhbXM6c2NpbTphcGk6bWVzc2FnZXM6Mi4wOkxpc3RSZXNwb25zZVwiXG4gICAgICBdLFxuICAgICAgXCJpdGVtc1wiOiB7XG4gICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICB9LFxuICAgICAgXCJ0eXBlXCI6IFwiYXJyYXlcIlxuICAgIH0sXG4gICAgXCJzdGFydEluZGV4XCI6IHtcbiAgICAgIFwiZXhhbXBsZVwiOiAxLFxuICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgfSxcbiAgICBcInRvdGFsUmVzdWx0c1wiOiB7XG4gICAgICBcImV4YW1wbGVcIjogMSxcbiAgICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICAgIH1cbiAgfSxcbiAgXCJ0eXBlXCI6IFwib2JqZWN0XCJcbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX2Vycm9yXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwic2NpbVR5cGVcIjoge1xuICAgICAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJTb21lIHR5cGVzIG9mIGVycm9ycyB3aWxsIHJldHVybiB0aGlzIHBlciB0aGUgc3BlY2lmaWNhdGlvbi5cIixcbiAgICAgICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgICAgICB9LFxuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiNDAwXCJcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fZXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIjQwMVwiXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX2Vycm9yXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwic3RhdHVzXCI6IHtcbiAgICAgICAgICBcImV4YW1wbGVcIjogXCI0MDNcIlxuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICBdXG59IiwgIntcbiAgXCJhbGxPZlwiOiBbXG4gICAge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV9lcnJvclwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiNDA0XCJcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fZXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIjUwMFwiXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iXQ=="></template>

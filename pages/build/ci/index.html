@@ -1,0 +1,25 @@
+<p>Continuous Integration (CI) is the part of the development process where you're
+looking to get your code changes merged with the main branch of the project. At
+this point, development teams run tests and builds to vet that the code changes
+don't cause any unwanted or unexpected behaviors.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/build/ci/images/continuous-integration.svg alt="Git branches about to get merged" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/build/ci/images/continuous-integration.svg alt="Git branches about to get merged"></div></template></figure><p>There are several uses for Docker at this stage of development, even if you
+don't end up packaging your application as a container image.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-as-a-build-environment><a class="text-black dark:text-white no-underline hover:underline" href=#docker-as-a-build-environment>Docker as a build environment</a></h2><p>Containers are reproducible, isolated environments that yield predictable
+results. Building and testing your application in a Docker container makes it
+easier to prevent unexpected behaviors from occurring. Using a Dockerfile, you
+define the exact requirements for the build environment, including programming
+runtimes, operating system, binaries, and more.</p><p>Using Docker to manage your build environment also eases maintenance. For
+example, updating to a new version of a programming runtime can be as simple as
+changing a tag or digest in a Dockerfile. No need to SSH into a pet VM to
+manually reinstall a newer version and update the related configuration files.</p><p>Additionally, just as you expect third-party open source packages to be secure,
+the same should go for your build environment. You can scan and index a builder
+image, just like you would for any other containerized application.</p><p>The following links provide instructions for how you can get started using
+Docker for building your applications in CI:</p><ul><li><a class=link href=https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action rel=noopener>GitHub Actions</a></li><li><a class=link href=https://docs.gitlab.com/runner/executors/docker.html rel=noopener>GitLab</a></li><li><a class=link href=https://circleci.com/docs/using-docker/ rel=noopener>Circle CI</a></li><li><a class=link href=https://render.com/docs/docker rel=noopener>Render</a></li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-in-docker><a class="text-black dark:text-white no-underline hover:underline" href=#docker-in-docker>Docker in Docker</a></h3><p>You can also use a Dockerized build environment to build container images using
+Docker. That is, your build environment runs inside a container which itself is
+equipped to run Docker builds. This method is referred to as "Docker in Docker".</p><p>Docker provides an official <a class=link href=https://hub.docker.com/_/docker rel=noopener>Docker image</a>
+that you can use for this purpose.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=whats-next><a class="text-black dark:text-white no-underline hover:underline" href=#whats-next>What's next</a></h2><p>Docker maintains a set of official GitHub Actions that you can use to build,
+annotate, and push container images on the GitHub Actions platform. See
+<a class=link href=https://docs.docker.com/build/ci/github-actions/>Introduction to GitHub Actions</a> to learn more and
+get started.</p>

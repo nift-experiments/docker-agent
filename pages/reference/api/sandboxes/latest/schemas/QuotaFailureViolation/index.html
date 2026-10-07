@@ -1,0 +1,138 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/QuotaFailureViolation.md>Markdown</a></div><meta data-pagefind-meta="title:QuotaFailureViolation — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>QuotaFailureViolation</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">A message type used to describe a single quota violation. For example, a
+daily quota or a custom quota that was exceeded.</div><details class=api-field open><summary><code>apiService</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>The API Service from which the <code>QuotaFailure.Violation</code> orginates. In
+some cases, Quota issues originate from an API Service other than the one
+that was called. In other words, a dependency of the called API Service
+could be the cause of the <code>QuotaFailure</code>, and this field would have the
+dependency API service name.</p><p>For example, if the called API is Kubernetes Engine API
+(container.googleapis.com), and a quota violation occurs in the
+Kubernetes Engine API itself, this field would be
+"container.googleapis.com". On the other hand, if the quota violation
+occurs when the Kubernetes Engine API creates VMs in the Compute Engine
+API (compute.googleapis.com), this field would be
+"compute.googleapis.com".</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The API Service from which the `QuotaFailure.Violation` orginates. In\nsome cases, Quota issues originate from an API Service other than the one\nthat was called. In other words, a dependency of the called API Service\ncould be the cause of the `QuotaFailure`, and this field would have the\ndependency API service name.\n\nFor example, if the called API is Kubernetes Engine API\n(container.googleapis.com), and a quota violation occurs in the\nKubernetes Engine API itself, this field would be\n\"container.googleapis.com\". On the other hand, if the quota violation\noccurs when the Kubernetes Engine API creates VMs in the Compute Engine\nAPI (compute.googleapis.com), this field would be\n\"compute.googleapis.com\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>A description of how the quota check failed. Clients can use this
+description to find more about the quota configuration in the service's
+public documentation, or find the relevant quota limit to adjust through
+developer console.</p><p>For example: "Service disabled" or "Daily Limit for read operations
+exceeded".</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A description of how the quota check failed. Clients can use this\ndescription to find more about the quota configuration in the service's\npublic documentation, or find the relevant quota limit to adjust through\ndeveloper console.\n\nFor example: \"Service disabled\" or \"Daily Limit for read operations\nexceeded\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>futureQuotaValue</code></summary><p class=api-type>Type:
+<code>integer | string | null</code></p><div class="prose dark:prose-invert"><p>The new quota value being rolled out at the time of the violation. At the
+completion of the rollout, this value will be enforced in place of
+quota_value. If no rollout is in progress at the time of the violation,
+this field is not set.</p><p>For example, if at the time of the violation a rollout is in progress
+changing the number of CPUs quota from 10 to 20, 20 would be the value of
+this field.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The new quota value being rolled out at the time of the violation. At the\ncompletion of the rollout, this value will be enforced in place of\nquota_value. If no rollout is in progress at the time of the violation,\nthis field is not set.\n\nFor example, if at the time of the violation a rollout is in progress\nchanging the number of CPUs quota from 10 to 20, 20 would be the value of\nthis field.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>quotaDimensions</code></summary><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert"><p>The dimensions of the violated quota. Every non-global quota is enforced
+on a set of dimensions. While quota metric defines what to count, the
+dimensions specify for what aspects the counter should be increased.</p><p>For example, the quota "CPUs per region per VM family" enforces a limit
+on the metric "compute.googleapis.com/cpus_per_vm_family" on dimensions
+"region" and "vm_family". And if the violation occurred in region
+"us-central1" and for VM family "n1", the quota_dimensions would be,</p><p>{
+"region": "us-central1",
+"vm_family": "n1",
+}</p><p>When a quota is enforced globally, the quota_dimensions would always be
+empty.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": {
+    "title": "value",
+    "type": "string"
+  },
+  "description": "The dimensions of the violated quota. Every non-global quota is enforced\non a set of dimensions. While quota metric defines what to count, the\ndimensions specify for what aspects the counter should be increased.\n\nFor example, the quota \"CPUs per region per VM family\" enforces a limit\non the metric \"compute.googleapis.com/cpus_per_vm_family\" on dimensions\n\"region\" and \"vm_family\". And if the violation occurred in region\n\"us-central1\" and for VM family \"n1\", the quota_dimensions would be,\n\n{\n\"region\": \"us-central1\",\n\"vm_family\": \"n1\",\n}\n\nWhen a quota is enforced globally, the quota_dimensions would always be\nempty.",
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>quotaId</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>The id of the violated quota. Also know as "limit name", this is the
+unique identifier of a quota in the context of an API service.</p><p>For example, "CPUS-PER-VM-FAMILY-per-project-region".</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The id of the violated quota. Also know as \"limit name\", this is the\nunique identifier of a quota in the context of an API service.\n\nFor example, \"CPUS-PER-VM-FAMILY-per-project-region\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>quotaMetric</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>The metric of the violated quota. A quota metric is a named counter to
+measure usage, such as API requests or CPUs. When an activity occurs in a
+service, such as Virtual Machine allocation, one or more quota metrics
+may be affected.</p><p>For example, "compute.googleapis.com/cpus_per_vm_family",
+"storage.googleapis.com/internet_egress_bandwidth".</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The metric of the violated quota. A quota metric is a named counter to\nmeasure usage, such as API requests or CPUs. When an activity occurs in a\nservice, such as Virtual Machine allocation, one or more quota metrics\nmay be affected.\n\nFor example, \"compute.googleapis.com/cpus_per_vm_family\",\n\"storage.googleapis.com/internet_egress_bandwidth\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>quotaValue</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert"><p>The enforced quota value at the time of the <code>QuotaFailure</code>.</p><p>For example, if the enforced quota value at the time of the
+<code>QuotaFailure</code> on the number of CPUs is "10", then the value of this
+field would reflect this quantity.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The enforced quota value at the time of the `QuotaFailure`.\n\nFor example, if the enforced quota value at the time of the\n`QuotaFailure` on the number of CPUs is \"10\", then the value of this\nfield would reflect this quantity.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>subject</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The subject on which the quota check failed.
+For example, "clientip:<ip address of client>" or "project:<google developer project id>".</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The subject on which the quota check failed.\nFor example, \"clientip:\u003cip address of client\u003e\" or \"project:\u003cGoogle\ndeveloper project id\u003e\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A message type used to describe a single quota violation.  For example, a\ndaily quota or a custom quota that was exceeded.",
+  "properties": {
+    "apiService": {
+      "description": "The API Service from which the `QuotaFailure.Violation` orginates. In\nsome cases, Quota issues originate from an API Service other than the one\nthat was called. In other words, a dependency of the called API Service\ncould be the cause of the `QuotaFailure`, and this field would have the\ndependency API service name.\n\nFor example, if the called API is Kubernetes Engine API\n(container.googleapis.com), and a quota violation occurs in the\nKubernetes Engine API itself, this field would be\n\"container.googleapis.com\". On the other hand, if the quota violation\noccurs when the Kubernetes Engine API creates VMs in the Compute Engine\nAPI (compute.googleapis.com), this field would be\n\"compute.googleapis.com\".",
+      "type": "string"
+    },
+    "description": {
+      "description": "A description of how the quota check failed. Clients can use this\ndescription to find more about the quota configuration in the service's\npublic documentation, or find the relevant quota limit to adjust through\ndeveloper console.\n\nFor example: \"Service disabled\" or \"Daily Limit for read operations\nexceeded\".",
+      "type": "string"
+    },
+    "futureQuotaValue": {
+      "description": "The new quota value being rolled out at the time of the violation. At the\ncompletion of the rollout, this value will be enforced in place of\nquota_value. If no rollout is in progress at the time of the violation,\nthis field is not set.\n\nFor example, if at the time of the violation a rollout is in progress\nchanging the number of CPUs quota from 10 to 20, 20 would be the value of\nthis field.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
+    "quotaDimensions": {
+      "additionalProperties": {
+        "title": "value",
+        "type": "string"
+      },
+      "description": "The dimensions of the violated quota. Every non-global quota is enforced\non a set of dimensions. While quota metric defines what to count, the\ndimensions specify for what aspects the counter should be increased.\n\nFor example, the quota \"CPUs per region per VM family\" enforces a limit\non the metric \"compute.googleapis.com/cpus_per_vm_family\" on dimensions\n\"region\" and \"vm_family\". And if the violation occurred in region\n\"us-central1\" and for VM family \"n1\", the quota_dimensions would be,\n\n{\n\"region\": \"us-central1\",\n\"vm_family\": \"n1\",\n}\n\nWhen a quota is enforced globally, the quota_dimensions would always be\nempty.",
+      "type": "object"
+    },
+    "quotaId": {
+      "description": "The id of the violated quota. Also know as \"limit name\", this is the\nunique identifier of a quota in the context of an API service.\n\nFor example, \"CPUS-PER-VM-FAMILY-per-project-region\".",
+      "type": "string"
+    },
+    "quotaMetric": {
+      "description": "The metric of the violated quota. A quota metric is a named counter to\nmeasure usage, such as API requests or CPUs. When an activity occurs in a\nservice, such as Virtual Machine allocation, one or more quota metrics\nmay be affected.\n\nFor example, \"compute.googleapis.com/cpus_per_vm_family\",\n\"storage.googleapis.com/internet_egress_bandwidth\".",
+      "type": "string"
+    },
+    "quotaValue": {
+      "description": "The enforced quota value at the time of the `QuotaFailure`.\n\nFor example, if the enforced quota value at the time of the\n`QuotaFailure` on the number of CPUs is \"10\", then the value of this\nfield would reflect this quantity.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "subject": {
+      "description": "The subject on which the quota check failed.\nFor example, \"clientip:\u003cip address of client\u003e\" or \"project:\u003cGoogle\ndeveloper project id\u003e\".",
+      "type": "string"
+    }
+  },
+  "title": "Violation",
+  "type": "object"
+}</code></pre></details></article>

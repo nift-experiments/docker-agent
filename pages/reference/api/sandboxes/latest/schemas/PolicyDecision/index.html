@@ -1,0 +1,17 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/PolicyDecision.md>Markdown</a></div><meta data-pagefind-meta="title:PolicyDecision — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>PolicyDecision</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>PolicyDecision is the outcome of an evaluated access attempt.</p><p>Values:
+unspecified: unspecified means the decision is unknown or not reported.
+allowed: allowed means the attempt was allowed.
+blocked: blocked means the attempt was blocked.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "PolicyDecision is the outcome of an evaluated access attempt.\n\nValues:\nunspecified: unspecified means the decision is unknown or not reported.\nallowed: allowed means the attempt was allowed.\nblocked: blocked means the attempt was blocked.",
+  "enum": [
+    "unspecified",
+    "allowed",
+    "blocked"
+  ],
+  "title": "PolicyDecision",
+  "type": "string"
+}</code></pre></details></article>

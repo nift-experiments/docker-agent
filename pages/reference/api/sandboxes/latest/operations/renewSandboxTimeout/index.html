@@ -1,0 +1,167 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/renewSandboxTimeout.md>Markdown</a></div><meta data-pagefind-meta="title:RenewSandboxTimeout sets a TTL when timeout renewal is supported. — Docker Sandboxes API v1"><h1>RenewSandboxTimeout sets a TTL when timeout renewal is supported.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/sandboxes<wbr>/{sandbox}<wbr>/renew-timeout</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>RenewSandboxTimeout sets a TTL when timeout renewal is supported. The TTL starts at acceptance, and the response returns the new expires_at with the sandbox's timeout configuration preserved.
+Action: the TTL restarts at acceptance, so the result is not a value the caller could
+PUT.</p><p>Returns unimplemented when this operation is unavailable. Support does not grant permission.</p></div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=sandbox><h3><code>sandbox</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The sandbox id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1renew-timeout/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">RenewSandboxTimeoutRequest sets a new remaining TTL.</div><details class=api-field open><summary><code>timeout</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">timeout is the new TTL relative to server acceptance time.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "timeout is the new TTL relative to server acceptance time."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "RenewSandboxTimeoutRequest sets a new remaining TTL.",
+  "properties": {
+    "timeout": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "timeout is the new TTL relative to server acceptance time."
+    }
+  },
+  "required": [
+    "timeout"
+  ],
+  "title": "RenewSandboxTimeoutRequest",
+  "type": "object"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1renew-timeout/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Sandbox/><code>Sandbox</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1renew-timeout/post/responses/501/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>501</code></h3><div class="prose dark:prose-invert">This operation is not available on this service.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>unimplemented</h4><pre><code>{
+  &#34;code&#34;: &#34;unimplemented&#34;,
+  &#34;message&#34;: &#34;This operation is not available on this service.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1renew-timeout/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Duration/>#/components/schemas/Duration</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Sandbox/>#/components/schemas/Sandbox</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "RenewSandboxTimeout sets a TTL when timeout renewal is supported. The TTL starts at acceptance, and the response returns the new expires_at with the sandbox's timeout configuration preserved.\nAction: the TTL restarts at acceptance, so the result is not a value the caller could\nPUT.\n\nReturns unimplemented when this operation is unavailable. Support does not grant permission.",
+  "operationId": "renewSandboxTimeout",
+  "parameters": [
+    {
+      "description": "The sandbox id.",
+      "in": "path",
+      "name": "sandbox",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "additionalProperties": false,
+          "description": "RenewSandboxTimeoutRequest sets a new remaining TTL.",
+          "properties": {
+            "timeout": {
+              "$ref": "#/components/schemas/Duration",
+              "description": "timeout is the new TTL relative to server acceptance time."
+            }
+          },
+          "required": [
+            "timeout"
+          ],
+          "title": "RenewSandboxTimeoutRequest",
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Sandbox"
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "501": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "unimplemented": {
+              "summary": "This operation is not available on this service.",
+              "value": {
+                "code": "unimplemented",
+                "message": "This operation is not available on this service."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "This operation is not available on this service."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "RenewSandboxTimeout sets a TTL when timeout renewal is supported.",
+  "tags": [
+    "Sandboxes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "UNIMPLEMENTED",
+      "description": "This operation is not available on this service."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "sandboxesLifecycle"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/sandboxes/&lt;SANDBOX&gt;/renew-timeout&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzYW5kYm94IGlkLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJzYW5kYm94XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzYW5kYm94ZXN+MXtzYW5kYm94fX4xcmVuZXctdGltZW91dC9wb3N0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJhZGRpdGlvbmFsUHJvcGVydGllc1wiOiBmYWxzZSxcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlJlbmV3U2FuZGJveFRpbWVvdXRSZXF1ZXN0IHNldHMgYSBuZXcgcmVtYWluaW5nIFRUTC5cIixcbiAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICBcInRpbWVvdXRcIjoge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRHVyYXRpb25cIixcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJ0aW1lb3V0IGlzIHRoZSBuZXcgVFRMIHJlbGF0aXZlIHRvIHNlcnZlciBhY2NlcHRhbmNlIHRpbWUuXCJcbiAgICB9XG4gIH0sXG4gIFwicmVxdWlyZWRcIjogW1xuICAgIFwidGltZW91dFwiXG4gIF0sXG4gIFwidGl0bGVcIjogXCJSZW5ld1NhbmRib3hUaW1lb3V0UmVxdWVzdFwiLFxuICBcInR5cGVcIjogXCJvYmplY3RcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1NhbmRib3hcIlxufSIsICJ7XG4gIFwiRVRhZ1wiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBldGFnIG9mIHRoZSByZXNvdXJjZSB0aGlzIHJlc3BvbnNlIGNhcnJpZXMsIHdoaWNoIHRoZSBuZXh0IG11dGF0aW9uIG9mIGl0IHNlbmRzIGFzIElmLU1hdGNoLlwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iXQ=="></template>

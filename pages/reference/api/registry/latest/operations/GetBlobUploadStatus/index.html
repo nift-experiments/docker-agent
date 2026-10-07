@@ -1,0 +1,121 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/GetBlobUploadStatus.md>Markdown</a></div><meta data-pagefind-meta="title:Get blob upload status — Registry API 2"><h1>Get blob upload status</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/{name}<wbr>/blobs<wbr>/uploads<wbr>/{uuid}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Retrieve the current status of an in-progress blob upload.</p><p>This is useful for:</p><ul><li>Resuming an interrupted upload</li><li>Determining how many bytes have been accepted so far</li><li>Retrying from the correct offset in chunked uploads</li></ul><p>The response includes the <code>Range</code> header indicating the byte range received so far, and a <code>Docker-Upload-UUID</code> for identifying the session.</p></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Repository Name</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=uuid><h3><code>uuid</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Upload session UUID</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/get/responses/204 data-api-media><h3><span>Response</span>
+<code class=api-status>204</code></h3><div class="prose dark:prose-invert">Upload in progress. No body is returned.</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Docker-Upload-UUID</code><p>UUID of the upload session</p><pre><code>{
+  "description": "UUID of the upload session",
+  "example": "abc123",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Location</code><p>URL to continue or complete the upload</p><pre><code>{
+  "description": "URL to continue or complete the upload",
+  "example": "/v2/library/ubuntu/blobs/uploads/abc123",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Range</code><p>Current byte range uploaded (inclusive)</p><pre><code>{
+  "description": "Current byte range uploaded (inclusive)",
+  "example": "0-16383",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/get/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/get/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/get/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Upload session not found</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/get/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Retrieve the current status of an in-progress blob upload.\n\nThis is useful for:\n- Resuming an interrupted upload\n- Determining how many bytes have been accepted so far\n- Retrying from the correct offset in chunked uploads\n\nThe response includes the `Range` header indicating the byte range received so far, and a `Docker-Upload-UUID` for identifying the session.\n",
+  "operationId": "GetBlobUploadStatus",
+  "parameters": [
+    {
+      "description": "Repository Name",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Upload session UUID",
+      "example": "abc123",
+      "in": "path",
+      "name": "uuid",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Upload in progress. No body is returned.",
+      "headers": {
+        "Docker-Upload-UUID": {
+          "description": "UUID of the upload session",
+          "example": "abc123",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Location": {
+          "description": "URL to continue or complete the upload",
+          "example": "/v2/library/ubuntu/blobs/uploads/abc123",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Range": {
+          "description": "Current byte range uploaded (inclusive)",
+          "example": "0-16383",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Authentication required"
+    },
+    "403": {
+      "description": "Access denied"
+    },
+    "404": {
+      "description": "Upload session not found"
+    },
+    "429": {
+      "description": "Too many requests"
+    }
+  },
+  "summary": "Get blob upload status",
+  "tags": [
+    "Blobs"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# GET upload status\ncurl --include --request GET \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  https://registry-1.docker.io/v2/library/ubuntu/blobs/uploads/abc123\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/blobs/uploads/abc123&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBvc2l0b3J5IE5hbWVcIixcbiAgXCJleGFtcGxlXCI6IFwibGlicmFyeS91YnVudHVcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xe3V1aWR9L2dldC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJVcGxvYWQgc2Vzc2lvbiBVVUlEXCIsXG4gIFwiZXhhbXBsZVwiOiBcImFiYzEyM1wiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJ1dWlkXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjF7bmFtZX1+MWJsb2JzfjF1cGxvYWRzfjF7dXVpZH0vZ2V0L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJEb2NrZXItVXBsb2FkLVVVSURcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJVVUlEIG9mIHRoZSB1cGxvYWQgc2Vzc2lvblwiLFxuICAgIFwiZXhhbXBsZVwiOiBcImFiYzEyM1wiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9LFxuICBcIkxvY2F0aW9uXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiVVJMIHRvIGNvbnRpbnVlIG9yIGNvbXBsZXRlIHRoZSB1cGxvYWRcIixcbiAgICBcImV4YW1wbGVcIjogXCIvdjIvbGlicmFyeS91YnVudHUvYmxvYnMvdXBsb2Fkcy9hYmMxMjNcIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJSYW5nZVwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIkN1cnJlbnQgYnl0ZSByYW5nZSB1cGxvYWRlZCAoaW5jbHVzaXZlKVwiLFxuICAgIFwiZXhhbXBsZVwiOiBcIjAtMTYzODNcIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSJd"></template>

@@ -1,0 +1,207 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/createEndpointCredential.md>Markdown</a></div><meta data-pagefind-meta="title:CreateEndpointCredential grants short-lived access to one sandbox endpoint. — Docker Sandboxes API v1"><h1>CreateEndpointCredential grants short-lived access to one sandbox endpoint.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/sandboxes<wbr>/{sandbox}<wbr>/endpoint-credentials</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">CreateEndpointCredential grants short-lived access to one sandbox endpoint.
+Issuance checks current authority and never stores a token in the replay ledger.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=sandbox><h3><code>sandbox</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The sandbox id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1endpoint-credentials/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">CreateEndpointCredentialRequest requests only endpoint permissions the caller holds.</div><details class=api-field open><summary><code>permissions</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">Allowed values: sandboxesExec, sandboxesFilesRead, sandboxesFilesWrite.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Permission/><code>Permission</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Permission",
+  "enum": [
+    "sandboxesExec",
+    "sandboxesFilesRead",
+    "sandboxesFilesWrite"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Allowed values: sandboxesExec, sandboxesFilesRead, sandboxesFilesWrite.",
+  "items": {
+    "$ref": "#/components/schemas/Permission",
+    "enum": [
+      "sandboxesExec",
+      "sandboxesFilesRead",
+      "sandboxesFilesWrite"
+    ]
+  },
+  "minItems": 1,
+  "type": "array",
+  "uniqueItems": true
+}</code></pre></details></details><details class=api-field open><summary><code>ttl</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">ttl defaults to five minutes; supplied durations are clamped to one second through five minutes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "ttl defaults to five minutes; supplied durations are clamped to one second through five minutes."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "CreateEndpointCredentialRequest requests only endpoint permissions the caller holds.",
+  "properties": {
+    "permissions": {
+      "description": "Allowed values: sandboxesExec, sandboxesFilesRead, sandboxesFilesWrite.",
+      "items": {
+        "$ref": "#/components/schemas/Permission",
+        "enum": [
+          "sandboxesExec",
+          "sandboxesFilesRead",
+          "sandboxesFilesWrite"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "ttl": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "ttl defaults to five minutes; supplied durations are clamped to one second through five minutes."
+    }
+  },
+  "required": [
+    "permissions"
+  ],
+  "title": "CreateEndpointCredentialRequest",
+  "type": "object"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1endpoint-credentials/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>Cache-Control</code><p></p><pre><code>{
+  "required": true,
+  "schema": {
+    "const": "no-store",
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EndpointCredential/><code>EndpointCredential</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1endpoint-credentials/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>Cache-Control</code><p></p><pre><code>{
+  "required": true,
+  "schema": {
+    "enum": [
+      "no-store"
+    ],
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Duration/>#/components/schemas/Duration</a></p><p><a href=/reference/api/sandboxes/latest/schemas/EndpointCredential/>#/components/schemas/EndpointCredential</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Permission/>#/components/schemas/Permission</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "CreateEndpointCredential grants short-lived access to one sandbox endpoint.\nIssuance checks current authority and never stores a token in the replay ledger.",
+  "operationId": "createEndpointCredential",
+  "parameters": [
+    {
+      "description": "The sandbox id.",
+      "in": "path",
+      "name": "sandbox",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "additionalProperties": false,
+          "description": "CreateEndpointCredentialRequest requests only endpoint permissions the caller holds.",
+          "properties": {
+            "permissions": {
+              "description": "Allowed values: sandboxesExec, sandboxesFilesRead, sandboxesFilesWrite.",
+              "items": {
+                "$ref": "#/components/schemas/Permission",
+                "enum": [
+                  "sandboxesExec",
+                  "sandboxesFilesRead",
+                  "sandboxesFilesWrite"
+                ]
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "ttl": {
+              "$ref": "#/components/schemas/Duration",
+              "description": "ttl defaults to five minutes; supplied durations are clamped to one second through five minutes."
+            }
+          },
+          "required": [
+            "permissions"
+          ],
+          "title": "CreateEndpointCredentialRequest",
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/EndpointCredential"
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "Cache-Control": {
+          "required": true,
+          "schema": {
+            "const": "no-store",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details.",
+      "headers": {
+        "Cache-Control": {
+          "required": true,
+          "schema": {
+            "enum": [
+              "no-store"
+            ],
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "CreateEndpointCredential grants short-lived access to one sandbox endpoint.",
+  "tags": [
+    "Sandboxes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "sandboxesCredential"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/sandboxes/&lt;SANDBOX&gt;/endpoint-credentials&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzYW5kYm94IGlkLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJzYW5kYm94XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzYW5kYm94ZXN+MXtzYW5kYm94fX4xZW5kcG9pbnQtY3JlZGVudGlhbHMvcG9zdC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiYWRkaXRpb25hbFByb3BlcnRpZXNcIjogZmFsc2UsXG4gIFwiZGVzY3JpcHRpb25cIjogXCJDcmVhdGVFbmRwb2ludENyZWRlbnRpYWxSZXF1ZXN0IHJlcXVlc3RzIG9ubHkgZW5kcG9pbnQgcGVybWlzc2lvbnMgdGhlIGNhbGxlciBob2xkcy5cIixcbiAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICBcInBlcm1pc3Npb25zXCI6IHtcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJBbGxvd2VkIHZhbHVlczogc2FuZGJveGVzRXhlYywgc2FuZGJveGVzRmlsZXNSZWFkLCBzYW5kYm94ZXNGaWxlc1dyaXRlLlwiLFxuICAgICAgXCJpdGVtc1wiOiB7XG4gICAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1Blcm1pc3Npb25cIixcbiAgICAgICAgXCJlbnVtXCI6IFtcbiAgICAgICAgICBcInNhbmRib3hlc0V4ZWNcIixcbiAgICAgICAgICBcInNhbmRib3hlc0ZpbGVzUmVhZFwiLFxuICAgICAgICAgIFwic2FuZGJveGVzRmlsZXNXcml0ZVwiXG4gICAgICAgIF1cbiAgICAgIH0sXG4gICAgICBcIm1pbkl0ZW1zXCI6IDEsXG4gICAgICBcInR5cGVcIjogXCJhcnJheVwiLFxuICAgICAgXCJ1bmlxdWVJdGVtc1wiOiB0cnVlXG4gICAgfSxcbiAgICBcInR0bFwiOiB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9EdXJhdGlvblwiLFxuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcInR0bCBkZWZhdWx0cyB0byBmaXZlIG1pbnV0ZXM7IHN1cHBsaWVkIGR1cmF0aW9ucyBhcmUgY2xhbXBlZCB0byBvbmUgc2Vjb25kIHRocm91Z2ggZml2ZSBtaW51dGVzLlwiXG4gICAgfVxuICB9LFxuICBcInJlcXVpcmVkXCI6IFtcbiAgICBcInBlcm1pc3Npb25zXCJcbiAgXSxcbiAgXCJ0aXRsZVwiOiBcIkNyZWF0ZUVuZHBvaW50Q3JlZGVudGlhbFJlcXVlc3RcIixcbiAgXCJ0eXBlXCI6IFwib2JqZWN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FbmRwb2ludENyZWRlbnRpYWxcIlxufSIsICJ7XG4gIFwiQ2FjaGUtQ29udHJvbFwiOiB7XG4gICAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwiY29uc3RcIjogXCJuby1zdG9yZVwiLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCJDYWNoZS1Db250cm9sXCI6IHtcbiAgICBcInJlcXVpcmVkXCI6IHRydWUsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJlbnVtXCI6IFtcbiAgICAgICAgXCJuby1zdG9yZVwiXG4gICAgICBdLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iXQ=="></template>

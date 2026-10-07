@@ -1,0 +1,126 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/getV2Scim20ServiceProviderConfig.md>Markdown</a></div><meta data-pagefind-meta="title:Get service provider config — Docker Hub API 2-beta"><h1>Get service provider config</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/scim<wbr>/2.0<wbr>/ServiceProviderConfig</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Returns a service provider config for Docker's configuration.</div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>scimToken</code></li></ul><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/scim+json>application/scim+json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1ServiceProviderConfig/get/responses/200/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/scim+json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_service_provider_config/><code>scim_service_provider_config</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;authenticationSchemes&#34;: [
+    {
+      &#34;name&#34;: &#34;OAuth 2.0 Bearer Token&#34;,
+      &#34;specUri&#34;: &#34;http://tools.ietf.org/html/rfc6750&#34;,
+      &#34;type&#34;: &#34;oauthbearertoken&#34;
+    }
+  ],
+  &#34;bulk&#34;: {
+    &#34;maxOperations&#34;: 0,
+    &#34;maxPayloadSize&#34;: 0,
+    &#34;supported&#34;: false
+  },
+  &#34;changePassword&#34;: {
+    &#34;supported&#34;: false
+  },
+  &#34;etag&#34;: {
+    &#34;supported&#34;: false
+  },
+  &#34;filter&#34;: {
+    &#34;maxResults&#34;: 200,
+    &#34;supported&#34;: true
+  },
+  &#34;patch&#34;: {
+    &#34;supported&#34;: true
+  },
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig&#34;
+  ],
+  &#34;sort&#34;: {
+    &#34;supported&#34;: true
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1ServiceProviderConfig/get/responses/401/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "401"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "401"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "401"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;401&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1ServiceProviderConfig/get/responses/500/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal Error</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "500"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "500"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "500"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;500&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns a service provider config for Docker's configuration.\n",
+  "operationId": "getV2Scim20ServiceProviderConfig",
+  "responses": {
+    "200": {
+      "$ref": "#/components/responses/scim_get_service_provider_config_resp"
+    },
+    "401": {
+      "$ref": "#/components/responses/scim_unauthorized"
+    },
+    "500": {
+      "$ref": "#/components/responses/scim_error"
+    }
+  },
+  "security": [
+    {
+      "scimToken": []
+    }
+  ],
+  "summary": "Get service provider config",
+  "tags": [
+    "scim"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${SCIM_TOKEN}&#34; \
+  --header &#39;Accept: application/scim&#43;json&#39; \
+  &#39;https://hub.docker.com/v2/scim/2.0/ServiceProviderConfig&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNjaW1Ub2tlblwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV9zZXJ2aWNlX3Byb3ZpZGVyX2NvbmZpZ1wiXG59IiwgIntcbiAgXCJhbGxPZlwiOiBbXG4gICAge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV9lcnJvclwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiNDAxXCJcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fZXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIjUwMFwiXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iXQ=="></template>

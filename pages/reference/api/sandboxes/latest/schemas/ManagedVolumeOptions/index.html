@@ -1,0 +1,33 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ManagedVolumeOptions.md>Markdown</a></div><meta data-pagefind-meta="title:ManagedVolumeOptions — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ManagedVolumeOptions</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ManagedVolumeOptions selects existing volumes; it does not create storage.</div><details class=api-field open><summary><code>attachments</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">attachments cannot repeat a volume identity or overlap another mount target.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/VolumeAttachment/><code>VolumeAttachment</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "attachments cannot repeat a volume identity or overlap another mount target.",
+  "items": {
+    "$ref": "#/components/schemas/VolumeAttachment"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "ManagedVolumeOptions selects existing volumes; it does not create storage.",
+  "properties": {
+    "attachments": {
+      "description": "attachments cannot repeat a volume identity or overlap another mount target.",
+      "items": {
+        "$ref": "#/components/schemas/VolumeAttachment"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "attachments"
+  ],
+  "title": "ManagedVolumeOptions",
+  "type": "object"
+}</code></pre></details></article>

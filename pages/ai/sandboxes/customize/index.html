@@ -1,0 +1,60 @@
+<div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Availability:</span>
+<span>Early Access
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75.0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75.0 019.75 22.5.75.75.0 019 21.75v-4.131A15.838 15.838.0 016.382 15H2.25a.75.75.0 01-.75-.75 6.75 6.75.0 017.815-6.666zM15 6.75a2.25 2.25.0 100 4.5 2.25 2.25.0 000-4.5z" clip-rule="evenodd"/><path d="M5.26 17.242a.75.75.0 10-.897-1.203 5.243 5.243.0 00-2.05 5.022.75.75.0 00.625.627 5.243 5.243.0 005.022-2.051.75.75.0 10-1.202-.897A3.744 3.744.0 013.75 20.25c0-1.23.592-2.323 1.51-3.008z"/></svg></span></span></div></div><p>Kits let you shape a sandbox around the way you work. Use a custom base image,
+add the tools your project needs, and give your agent instructions for using
+them. You also control which services the sandbox can access, how it
+authenticates, and what runs when the sandbox starts.</p><p>A kit can define the whole environment or add something to an existing one,
+such as a toolchain or your team's shared configuration. Package those choices
+once, then reuse them across projects and share them with your team.</p><p>This page covers v3 kits, which require <code>sbx</code> v0.45 or later. See
+<a class=link href=#version-compatibility>Version compatibility</a> for compatibility with earlier
+kit formats.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=what-is-a-kit><a class="text-black dark:text-white no-underline hover:underline" href=#what-is-a-kit>What is a kit?</a></h2><p>A kit packages software and configuration for a sandbox. A YAML file, called
+its descriptor, tells Docker Sandboxes what the kit needs: network access,
+credentials, setup commands, or instructions for the agent. You publish the
+kit as a container image containing its files and descriptor.</p><p>You identify a published kit by its container image reference, such as
+<code>me/my-kit:latest</code>. When you use the kit, <code>sbx</code> prepares its files and applies
+its settings. You can use one kit for a complete environment or combine kits
+that contribute different parts.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=what-kits-can-do><a class="text-black dark:text-white no-underline hover:underline" href=#what-kits-can-do>What kits can do</a></h2><p>Use kits to:</p><ul><li>Package a custom agent, or configure an existing agent for your team's
+projects.</li><li>Include the tools the agent needs, such as linters, language runtimes,
+test runners, and compilers.</li><li>Share linter rules, editor settings, helper scripts, and reference material.
+Give the agent instructions and skills for using them.</li><li>Connect the agent to services through network rules and credentials,
+including internal APIs and private package registries.</li><li>Initialize each sandbox and run supporting services when it starts, such
+as a development server for previewing the agent's work.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=workloads-and-mixins><a class="text-black dark:text-white no-underline hover:underline" href=#workloads-and-mixins>Workloads and mixins</a></h2><p>Kits have two roles in a sandbox: a workload supplies the base environment
+and launch command, and mixins add tools or behavior to it.</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Kind</th><th class=p-2>What it supplies</th><th class=p-2>How you use it</th></tr></thead><tbody><tr><td class=p-2><code>workload</code></td><td class=p-2>The environment and command to run, such as an agent or a shell</td><td class=p-2>Pass it to <code>sbx run</code> or <code>sbx create</code></td></tr><tr><td class=p-2><code>mixin</code></td><td class=p-2>Additional tools, configuration, or runtime behavior</td><td class=p-2>Add it with <code>--kit</code></td></tr></tbody></table></div><p>For example, this command runs a workload with a mixin:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBzYnggcnVuIG1lL215LWFnZW50LWtpdDpsYXRlc3QgLS1raXQgbWUvbXktbWl4aW46bGF0ZXN0', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> sbx run me/my-agent-kit:latest --kit me/my-mixin:latest
+</span></span></code></pre></div></div></div></div><p>The workload supplies the environment and launch command. The mixin adds its
+tools and configuration to that environment.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=kit-sets><a class="text-black dark:text-white no-underline hover:underline" href=#kit-sets>Kit sets</a></h2><p>A kit set combines kits into a single kit that you can publish and reuse.
+Use it to package a workload with the mixins you need, so you and your team
+can run the environment from one reference.</p><p>The set specifies which kits and versions to combine. It can also add setup
+commands, agent instructions, network access, and other settings for the
+combined environment.</p><p>If the set includes a workload, you run the published kit with <code>sbx run</code>.
+If it contains only mixins, you add it to a workload with <code>--kit</code>.</p><p>To share a combination without publishing another kit, list the workload and
+mixins in a
+<a class=link href=https://docs.docker.com/ai/sandboxes/configuration/environment-files/>sandbox environment file</a>.
+Docker Sandboxes composes those kits when it creates the sandbox. An environment
+file can also configure the workspace and host resources. Choose a set when you
+want one published reference with a fixed list of components; the set records
+their image digests when you build it. You can also use a set in an environment
+file.</p><p>See
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/use-kits/>Use kits</a> for how to run kits
+and add mixins. To customize and publish your own combination, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/kit-sets/>Compose a kit set</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=version-compatibility><a class="text-black dark:text-white no-underline hover:underline" href=#version-compatibility>Version compatibility</a></h2><p>V3 kits cannot be combined with v1 or v2 kits in the same sandbox. To use
+v3, select a v3 workload and use v3 for every mixin you add.</p><p>The built-in agent names, such as <code>claude</code> and <code>codex</code>, select v2 kits.
+You can't add a v3 mixin to these built-ins. For example,
+<code>sbx run claude --kit ./some-v3-mixin</code> fails because it mixes kit versions.
+Instead, select a v3 workload by its published image, local path, or Git
+reference, as shown in
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/use-kits/#run-a-kit>Run a kit</a>.</p><p>V2 remains supported, including the built-in agents and
+existing v2 customizations. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/kits-v2/>Kits v2</a> for maintenance
+and migration guidance.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-your-next-step><a class="text-black dark:text-white no-underline hover:underline" href=#choose-your-next-step>Choose your next step</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/customize/use-kits/>Use kits</a> to run a published environment or combine
+a workload with mixins.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/>Author kits</a> to build an agent environment,
+package a tool, or combine kits into a set to share with your team.</li><li>Explore the <a class=link href=https://github.com/docker/sandbox-kit-spec rel=noopener>sandbox-kit-spec repository</a>
+for the authoritative v3 specification, build frontend, and examples.</li></ul><p>For the earlier format used by built-in agents, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/kits-v2/>Kits v2</a>.
+To save an environment you've configured inside a sandbox,
+see
+<a class=link href=https://docs.docker.com/ai/sandboxes/usage/#saving-a-sandbox-as-a-template>Save a sandbox as a template</a>.</p>

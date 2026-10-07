@@ -1,0 +1,55 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Upgrade an existing plugin</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker plugin upgrade [OPTIONS] PLUGIN [REMOTE]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Upgrades an existing plugin to the specified remote plugin image. If no remote
+is specified, Docker will re-pull the current image and use the updated version.
+All existing references to the plugin will continue to work.
+The plugin must be disabled before running the upgrade.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><code>--grant-all-permissions</code></td><td></td><td>Grant all permissions necessary to run the plugin</td></tr><tr class=p-2><td><code>--skip-remote-check</code></td><td></td><td>Do not check if specified remote plugin matches existing plugin image<br></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><p>The following example installs <code>vieus/sshfs</code> plugin, uses it to create and use
+a volume, then upgrades the plugin.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgcGx1Z2luIGluc3RhbGwgdmlldXgvc3NoZnMgREVCVUc9MQoKUGx1Z2luICJ2aWV1eC9zc2hmczpuZXh0IiBpcyByZXF1ZXN0aW5nIHRoZSBmb2xsb3dpbmcgcHJpdmlsZWdlczoKIC0gbmV0d29yazogW2hvc3RdCiAtIGRldmljZTogWy9kZXYvZnVzZV0KIC0gY2FwYWJpbGl0aWVzOiBbQ0FQX1NZU19BRE1JTl0KRG8geW91IGdyYW50IHRoZSBhYm92ZSBwZXJtaXNzaW9ucz8gW3kvTl0geQp2aWV1eC9zc2hmczpuZXh0CgokIGRvY2tlciB2b2x1bWUgY3JlYXRlIC1kIHZpZXV4L3NzaGZzOm5leHQgLW8gc3NoY21kPXJvb3RAMS4yLjMuNDovdG1wL3NoYXJlZCAtbyBwYXNzd29yZD1YWFggc3Nodm9sdW1lCgpzc2h2b2x1bWUKCiQgZG9ja2VyIHJ1biAtaXQgLXYgc3Nodm9sdW1lOi9kYXRhIGFscGluZSBzaCAtYyAidG91Y2ggL2RhdGEvaGVsbG8iCgokIGRvY2tlciBwbHVnaW4gZGlzYWJsZSAtZiB2aWV1eC9zc2hmczpuZXh0Cgp2aWV4L3NzaGZzOm5leHQKCiMgSGVyZSBkb2NrZXIgdm9sdW1lIGxzIGRvZXNuJ3Qgc2hvdyAnc3NoZnN2b2x1bWUnLCBzaW5jZSB0aGUgcGx1Z2luIGlzIGRpc2FibGVkCiQgZG9ja2VyIHZvbHVtZSBscwoKRFJJVkVSICAgICAgICAgICAgICBWT0xVTUUgTkFNRQoKJCBkb2NrZXIgcGx1Z2luIHVwZ3JhZGUgdmlldXgvc3NoZnM6bmV4dCB2aWV1eC9zc2hmczpuZXh0CgpQbHVnaW4gInZpZXV4L3NzaGZzOm5leHQiIGlzIHJlcXVlc3RpbmcgdGhlIGZvbGxvd2luZyBwcml2aWxlZ2VzOgogLSBuZXR3b3JrOiBbaG9zdF0KIC0gZGV2aWNlOiBbL2Rldi9mdXNlXQogLSBjYXBhYmlsaXRpZXM6IFtDQVBfU1lTX0FETUlOXQpEbyB5b3UgZ3JhbnQgdGhlIGFib3ZlIHBlcm1pc3Npb25zPyBbeS9OXSB5ClVwZ3JhZGUgcGx1Z2luIHZpZXV4L3NzaGZzOm5leHQgdG8gdmlldXgvc3NoZnM6bmV4dAoKJCBkb2NrZXIgcGx1Z2luIGVuYWJsZSB2aWV1eC9zc2hmczpuZXh0Cgp2aWV4L3NzaGZzOm5leHQKCiQgZG9ja2VyIHZvbHVtZSBscwoKRFJJVkVSICAgICAgICAgICAgICBWT0xVTUUgTkFNRQp2aXVleC9zc2hmczpuZXh0ICAgIHNzaHZvbHVtZQoKJCBkb2NrZXIgcnVuIC1pdCAtdiBzc2h2b2x1bWU6L2RhdGEgYWxwaW5lIHNoIC1jICJscyAvZGF0YSIKCmhlbGxv', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker plugin install vieux/sshfs <span class=nv>DEBUG</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Plugin &#34;vieux/sshfs:next&#34; is requesting the following privileges:
+</span></span></span><span class=line><span class=cl><span class=go> - network: [host]
+</span></span></span><span class=line><span class=cl><span class=go> - device: [/dev/fuse]
+</span></span></span><span class=line><span class=cl><span class=go> - capabilities: [CAP_SYS_ADMIN]
+</span></span></span><span class=line><span class=cl><span class=go>Do you grant the above permissions? [y/N] y
+</span></span></span><span class=line><span class=cl><span class=go>vieux/sshfs:next
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker volume create -d vieux/sshfs:next -o <span class=nv>sshcmd</span><span class=o>=</span>root@1.2.3.4:/tmp/shared -o <span class=nv>password</span><span class=o>=</span>XXX sshvolume
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>sshvolume
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker run -it -v sshvolume:/data alpine sh -c <span class=s2>&#34;touch /data/hello&#34;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker plugin disable -f vieux/sshfs:next
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>viex/sshfs:next
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Here docker volume ls doesn<span class=s1>&#39;t show &#39;</span>sshfsvolume<span class=err>&#39;</span>, since the plugin is disabled
+</span></span><span class=line><span class=cl><span class=gp>$</span> docker volume ls
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>DRIVER              VOLUME NAME
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker plugin upgrade vieux/sshfs:next vieux/sshfs:next
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Plugin &#34;vieux/sshfs:next&#34; is requesting the following privileges:
+</span></span></span><span class=line><span class=cl><span class=go> - network: [host]
+</span></span></span><span class=line><span class=cl><span class=go> - device: [/dev/fuse]
+</span></span></span><span class=line><span class=cl><span class=go> - capabilities: [CAP_SYS_ADMIN]
+</span></span></span><span class=line><span class=cl><span class=go>Do you grant the above permissions? [y/N] y
+</span></span></span><span class=line><span class=cl><span class=go>Upgrade plugin vieux/sshfs:next to vieux/sshfs:next
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker plugin <span class=nb>enable</span> vieux/sshfs:next
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>viex/sshfs:next
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker volume ls
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>DRIVER              VOLUME NAME
+</span></span></span><span class=line><span class=cl><span class=go>viuex/sshfs:next    sshvolume
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker run -it -v sshvolume:/data alpine sh -c <span class=s2>&#34;ls /data&#34;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>hello
+</span></span></span></code></pre></div></div></div></div>

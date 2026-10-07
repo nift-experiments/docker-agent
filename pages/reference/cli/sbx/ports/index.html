@@ -1,0 +1,40 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Manage sandbox port publishing</td></tr><tr><th class="text-left w-32">Usage</th><td><code>sbx ports SANDBOX [flags]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Manage sandbox port publishing.</p><p>List, publish, or unpublish sandbox ports. Publishing a local port starts a
+stopped sandbox before creating the host binding. Without --publish or
+--unpublish flags, lists all published ports.</p><p>Port spec format: [[HOST_IP:]HOST_PORT:]SANDBOX_PORT[/PROTOCOL]
+If HOST_PORT is omitted, an ephemeral port is allocated automatically.
+If HOST_IP is omitted, the port is bound on loopback, expanded based on
+PROTOCOL and the sandbox's address families: tcp/udp binds both 127.0.0.1
+and ::1 (or only 127.0.0.1 if the sandbox is IPv4-only); tcp4/udp4 binds
+only 127.0.0.1; tcp6/udp6 binds only ::1.
+Supported protocols: tcp, tcp4, tcp6, udp, udp4, udp6.</p><p>When publishing without a PROTOCOL, tcp4 is used — so a sandbox service
+listening only on IPv4 is reachable without a host client having to avoid
+::1 — or tcp6 when HOST_IP is an IPv6 address. Publish tcp explicitly to
+bind both families.</p><p>When unpublishing without a PROTOCOL, the mapping is removed whether it was
+published with that same default or as dual-stack tcp. Name the protocol to
+remove a tcp6 or udp mapping; anything left behind is reported.</p><p>With --cloud:
+Manage the exposed ports of a cloud sandbox.</p><p>List, publish, or unpublish ports on a cloud sandbox given by ID (sbx_*) or
+name. Without --publish or --unpublish flags, lists the exposed ports.</p><p>A port is the sandbox port number alone or with a /tcp suffix; UDP and host
+bindings are refused. The cloud control plane assigns a publicly reachable URL
+for each exposed port.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>--json</code></td><td></td><td><span class="inline-flex items-center gap-2">Output in JSON format (for port listing)</span></td></tr><tr><td><code>--publish</code></td><td></td><td><span class="inline-flex items-center gap-2">Publish a port (can be repeated): [[HOST_IP:]HOST_PORT:]SANDBOX_PORT[/PROTOCOL] (local) or SANDBOX_PORT[/tcp] (cloud)</span></td></tr><tr><td><code>--unpublish</code></td><td></td><td><span class="inline-flex items-center gap-2">Unpublish a port (can be repeated): [HOST_IP:]HOST_PORT:SANDBOX_PORT[/PROTOCOL] (local) or SANDBOX_PORT[/tcp] (cloud)</span></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=global-options><a class="text-black dark:text-white no-underline hover:underline" href=#global-options>Global options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>--cloud</code></td><td></td><td><span class="inline-flex items-center gap-2">Dispatch to Docker Cloud Sandboxes API instead of local sandboxd (supported by a growing set of verbs — run 'sbx --cloud --help' for the current list)</span></td></tr><tr><td><code>-D, --debug</code></td><td></td><td><span class="inline-flex items-center gap-2">Enable debug logging</span></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBMaXN0IHB1Ymxpc2hlZCBwb3J0cwpzYnggcG9ydHMgbXktc2FuZGJveAoKIyBQdWJsaXNoIHNhbmRib3ggcG9ydCA4MDgwIHRvIGFuIGVwaGVtZXJhbCBob3N0IHBvcnQKc2J4IHBvcnRzIG15LXNhbmRib3ggLS1wdWJsaXNoIDgwODAKCiMgUHVibGlzaCB3aXRoIGEgc3BlY2lmaWMgaG9zdCBwb3J0CnNieCBwb3J0cyBteS1zYW5kYm94IC0tcHVibGlzaCAzMDAwOjgwODAKCiMgVW5wdWJsaXNoIGEgcG9ydApzYnggcG9ydHMgbXktc2FuZGJveCAtLXVucHVibGlzaCAzMDAwOjgwODAKCiMgRXhwb3NlIHBvcnQgODA4MCBvbiBhIGNsb3VkIHNhbmRib3gKc2J4IC0tY2xvdWQgcG9ydHMgc2J4X2FiYzEyMyAtLXB1Ymxpc2ggODA4MAoKIyBSZW1vdmUgYW4gZXhwb3NlZCBwb3J0IGZyb20gYSBjbG91ZCBzYW5kYm94CnNieCAtLWNsb3VkIHBvcnRzIHNieF9hYmMxMjMgLS11bnB1Ymxpc2ggODA4MA==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>#</span> List published ports
+</span></span><span class=line><span class=cl><span class=go>sbx ports my-sandbox
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Publish sandbox port <span class=m>8080</span> to an ephemeral host port
+</span></span><span class=line><span class=cl><span class=go>sbx ports my-sandbox --publish 8080
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Publish with a specific host port
+</span></span><span class=line><span class=cl><span class=go>sbx ports my-sandbox --publish 3000:8080
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Unpublish a port
+</span></span><span class=line><span class=cl><span class=go>sbx ports my-sandbox --unpublish 3000:8080
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Expose port <span class=m>8080</span> on a cloud sandbox
+</span></span><span class=line><span class=cl><span class=go>sbx --cloud ports sbx_abc123 --publish 8080
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>#</span> Remove an exposed port from a cloud sandbox
+</span></span><span class=line><span class=cl><span class=go>sbx --cloud ports sbx_abc123 --unpublish 8080
+</span></span></span></code></pre></div></div></div></div>

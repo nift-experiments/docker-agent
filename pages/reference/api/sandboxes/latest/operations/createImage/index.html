@@ -1,0 +1,343 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/createImage.md>Markdown</a></div><meta data-pagefind-meta="title:CreateImage registers pushed OCI content or disk content derived from a snapshot or sandbox. — Docker Sandboxes API v1"><h1>CreateImage registers pushed OCI content or disk content derived from a snapshot or sandbox.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/images</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">CreateImage registers pushed OCI content or disk content derived from a snapshot or sandbox.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=Idempotency-Key><h3><code>Idempotency-Key</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+  "title": "Idempotency-Key",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1images/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/CreateImageRequest/><code>CreateImageRequest</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1images/post/responses/201/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>201</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>Cache-Control</code><p></p><pre><code>{
+  "required": true,
+  "schema": {
+    "const": "no-store",
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Image/><code>Image</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "not": {
+    "properties": {
+      "status": {
+        "enum": [
+          "pending",
+          "waitingForPush",
+          "preparing"
+        ]
+      }
+    },
+    "required": [
+      "status"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Image"
+    },
+    {
+      "not": {
+        "properties": {
+          "status": {
+            "enum": [
+              "pending",
+              "waitingForPush",
+              "preparing"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    }
+  ]
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1images/post/responses/202/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>202</code></h3><div class="prose dark:prose-invert">Accepted. The resource is still progressing; read it or follow its events until completion.</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>Cache-Control</code><p></p><pre><code>{
+  "required": true,
+  "schema": {
+    "const": "no-store",
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Image/><code>Image</code></a></p><details class=api-field><summary><code>status</code>
+· required</summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "pending",
+    "waitingForPush",
+    "preparing"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "enum": [
+        "pending",
+        "waitingForPush",
+        "preparing"
+      ]
+    }
+  },
+  "required": [
+    "status"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Image"
+    },
+    {
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "waitingForPush",
+            "preparing"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ]
+    }
+  ]
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1images/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert"><p>Creation conflicts with an existing resource (ALREADY_EXISTS).</p><p>The Idempotency-Key was already used with a different payload.</p></div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>Cache-Control</code><p></p><pre><code>{
+  "required": true,
+  "schema": {
+    "enum": [
+      "no-store"
+    ],
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>failedPrecondition</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;The Idempotency-Key was already used with a different payload.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1images/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>Cache-Control</code><p></p><pre><code>{
+  "required": true,
+  "schema": {
+    "enum": [
+      "no-store"
+    ],
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/CreateImageRequest/>#/components/schemas/CreateImageRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Image/>#/components/schemas/Image</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "CreateImage registers pushed OCI content or disk content derived from a snapshot or sandbox.",
+  "operationId": "createImage",
+  "parameters": [
+    {
+      "description": "Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.",
+      "in": "header",
+      "name": "Idempotency-Key",
+      "schema": {
+        "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+        "title": "Idempotency-Key",
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/CreateImageRequest"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Image"
+              },
+              {
+                "not": {
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "pending",
+                        "waitingForPush",
+                        "preparing"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "Cache-Control": {
+          "required": true,
+          "schema": {
+            "const": "no-store",
+            "type": "string"
+          }
+        },
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "202": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Image"
+              },
+              {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pending",
+                      "waitingForPush",
+                      "preparing"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "description": "Accepted. The resource is still progressing; read it or follow its events until completion.",
+      "headers": {
+        "Cache-Control": {
+          "required": true,
+          "schema": {
+            "const": "no-store",
+            "type": "string"
+          }
+        },
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "failedPrecondition": {
+              "summary": "The Idempotency-Key was already used with a different payload.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "The Idempotency-Key was already used with a different payload."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "Creation conflicts with an existing resource (ALREADY_EXISTS).\n\nThe Idempotency-Key was already used with a different payload.",
+      "headers": {
+        "Cache-Control": {
+          "required": true,
+          "schema": {
+            "enum": [
+              "no-store"
+            ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details.",
+      "headers": {
+        "Cache-Control": {
+          "required": true,
+          "schema": {
+            "enum": [
+              "no-store"
+            ],
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "CreateImage registers pushed OCI content or disk content derived from a snapshot or sandbox.",
+  "tags": [
+    "Images"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The Idempotency-Key was already used with a different payload."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "imagesWrite"
+  ],
+  "x-sbx-resource-response": {
+    "$ref": "#/components/schemas/Image"
+  },
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/images&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlJlcGxheSBrZXkuIFJldXNpbmcgaXQgd2l0aCBhIGRpZmZlcmVudCBwYXlsb2FkIGZhaWxzIHdpdGggZmFpbGVkUHJlY29uZGl0aW9uOyBhY2NlcHRlZCBrZXlzIGFyZSByZXRhaW5lZCBmb3IgYXQgbGVhc3QgMjQgaG91cnMuXCIsXG4gIFwiaW5cIjogXCJoZWFkZXJcIixcbiAgXCJuYW1lXCI6IFwiSWRlbXBvdGVuY3ktS2V5XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFpbWFnZXMvcG9zdC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJJZGVtcG90ZW5jeSBrZXkuIEEgcmVwbGF5IHJldHVybnMgdGhlIGZpcnN0IHJlc3VsdDsgdGhlIHNhbWUga2V5IHdpdGggYSBkaWZmZXJlbnQgcGF5bG9hZCBmYWlscyB3aXRoIEZBSUxFRF9QUkVDT05ESVRJT047IHJldGFpbmVkIGF0IGxlYXN0IDI0IGhvdXJzLlwiLFxuICAgIFwidGl0bGVcIjogXCJJZGVtcG90ZW5jeS1LZXlcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvQ3JlYXRlSW1hZ2VSZXF1ZXN0XCJcbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9JbWFnZVwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcIm5vdFwiOiB7XG4gICAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgICAgXCJlbnVtXCI6IFtcbiAgICAgICAgICAgICAgXCJwZW5kaW5nXCIsXG4gICAgICAgICAgICAgIFwid2FpdGluZ0ZvclB1c2hcIixcbiAgICAgICAgICAgICAgXCJwcmVwYXJpbmdcIlxuICAgICAgICAgICAgXVxuICAgICAgICAgIH1cbiAgICAgICAgfSxcbiAgICAgICAgXCJyZXF1aXJlZFwiOiBbXG4gICAgICAgICAgXCJzdGF0dXNcIlxuICAgICAgICBdXG4gICAgICB9XG4gICAgfVxuICBdXG59IiwgIntcbiAgXCJDYWNoZS1Db250cm9sXCI6IHtcbiAgICBcInJlcXVpcmVkXCI6IHRydWUsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJjb25zdFwiOiBcIm5vLXN0b3JlXCIsXG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJFVGFnXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiVGhlIGV0YWcgb2YgdGhlIHJlc291cmNlIHRoaXMgcmVzcG9uc2UgY2Fycmllcywgd2hpY2ggdGhlIG5leHQgbXV0YXRpb24gb2YgaXQgc2VuZHMgYXMgSWYtTWF0Y2guXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9JbWFnZVwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJlbnVtXCI6IFtcbiAgICAgICAgICAgIFwicGVuZGluZ1wiLFxuICAgICAgICAgICAgXCJ3YWl0aW5nRm9yUHVzaFwiLFxuICAgICAgICAgICAgXCJwcmVwYXJpbmdcIlxuICAgICAgICAgIF1cbiAgICAgICAgfVxuICAgICAgfSxcbiAgICAgIFwicmVxdWlyZWRcIjogW1xuICAgICAgICBcInN0YXR1c1wiXG4gICAgICBdXG4gICAgfVxuICBdXG59IiwgIntcbiAgXCJDYWNoZS1Db250cm9sXCI6IHtcbiAgICBcInJlcXVpcmVkXCI6IHRydWUsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJjb25zdFwiOiBcIm5vLXN0b3JlXCIsXG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJFVGFnXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiVGhlIGV0YWcgb2YgdGhlIHJlc291cmNlIHRoaXMgcmVzcG9uc2UgY2Fycmllcywgd2hpY2ggdGhlIG5leHQgbXV0YXRpb24gb2YgaXQgc2VuZHMgYXMgSWYtTWF0Y2guXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCJDYWNoZS1Db250cm9sXCI6IHtcbiAgICBcInJlcXVpcmVkXCI6IHRydWUsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJlbnVtXCI6IFtcbiAgICAgICAgXCJuby1zdG9yZVwiXG4gICAgICBdLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCJDYWNoZS1Db250cm9sXCI6IHtcbiAgICBcInJlcXVpcmVkXCI6IHRydWUsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJlbnVtXCI6IFtcbiAgICAgICAgXCJuby1zdG9yZVwiXG4gICAgICBdLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iXQ=="></template>

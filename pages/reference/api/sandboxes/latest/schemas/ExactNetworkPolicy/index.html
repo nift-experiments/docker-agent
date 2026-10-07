@@ -1,0 +1,65 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ExactNetworkPolicy.md>Markdown</a></div><meta data-pagefind-meta="title:ExactNetworkPolicy — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ExactNetworkPolicy</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ExactNetworkPolicy is a complete consumer-installed generation; its last node is the root.
+dnsLabelPrefix requires destination.v2</div><details class=api-field open><summary><code>nodes</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">nodes are complete and topologically ordered; the final node is the root.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactPolicyNode/><code>ExactPolicyNode</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "nodes are complete and topologically ordered; the final node is the root.",
+  "items": {
+    "$ref": "#/components/schemas/ExactPolicyNode"
+  },
+  "maxItems": 256,
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>revision</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">revision binds authority, configuration and resolved conditions to the installed generation.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "revision binds authority, configuration and resolved conditions to the installed generation.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>selectorVersion</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">selector_version fixes matching semantics across implementations.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "selector_version fixes matching semantics across implementations.",
+  "enum": [
+    "destination.v1",
+    "destination.v2"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ExactNetworkPolicy is a complete consumer-installed generation; its last node is the root.\ndnsLabelPrefix requires destination.v2",
+  "properties": {
+    "nodes": {
+      "description": "nodes are complete and topologically ordered; the final node is the root.",
+      "items": {
+        "$ref": "#/components/schemas/ExactPolicyNode"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "revision": {
+      "description": "revision binds authority, configuration and resolved conditions to the installed generation.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "selectorVersion": {
+      "description": "selector_version fixes matching semantics across implementations.",
+      "enum": [
+        "destination.v1",
+        "destination.v2"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "revision",
+    "selectorVersion",
+    "nodes"
+  ],
+  "title": "ExactNetworkPolicy",
+  "type": "object"
+}</code></pre></details></article>

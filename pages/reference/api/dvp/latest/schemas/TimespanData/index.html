@@ -1,0 +1,37 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/schemas/TimespanData.md>Markdown</a></div><meta data-pagefind-meta="title:TimespanData — Publisher analytics API 1.0.0"><p class=api-eyebrow>Schema</p><h1>TimespanData</h1><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/MonthData/><code>MonthData</code></a></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/WeekData/><code>WeekData</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "months": [
+        {
+          "month": 5
+        },
+        {
+          "month": 7
+        }
+      ]
+    },
+    {
+      "weeks": [
+        {
+          "week": 31
+        },
+        {
+          "week": 32
+        }
+      ]
+    }
+  ],
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/MonthData"
+    },
+    {
+      "$ref": "#/components/schemas/WeekData"
+    }
+  ]
+}</code></pre></details></article>

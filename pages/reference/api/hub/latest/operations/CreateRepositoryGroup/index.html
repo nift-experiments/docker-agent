@@ -1,0 +1,129 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/CreateRepositoryGroup.md>Markdown</a></div><meta data-pagefind-meta="title:Assign a group (Team) to a repository for access — Docker Hub API 2-beta"><h1>Assign a group (Team) to a repository for access</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v2<wbr>/repositories<wbr>/{namespace}<wbr>/{repository}<wbr>/groups</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Assigns an organization group (team) to a repository with a specified permission level.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=namespace><h3><code>namespace</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Namespace of the repository, such as a user or organization name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=repository><h3><code>repository</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the repository within the namespace.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1repositories~1{namespace}~1{repository}~1groups/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/RepositoryGroupCreationRequest/><code>RepositoryGroupCreationRequest</code></a></p><div data-api-examples><div data-api-example=0><h4>Example</h4><pre><code>{
+  &#34;group_id&#34;: 12345,
+  &#34;permission&#34;: &#34;write&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1repositories~1{namespace}~1{repository}~1groups/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Repository group permission created successfully</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/RepositoryGroup/><code>RepositoryGroup</code></a></p><div data-api-examples><div data-api-example=0><h4>Example</h4><pre><code>{
+  &#34;group_id&#34;: 12345,
+  &#34;group_name&#34;: &#34;developers&#34;,
+  &#34;permission&#34;: &#34;write&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1repositories~1{namespace}~1{repository}~1groups/post/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request - Invalid request parameters</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;bad request&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1repositories~1{namespace}~1{repository}~1groups/post/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1repositories~1{namespace}~1{repository}~1groups/post/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1repositories~1{namespace}~1{repository}~1groups/post/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/RepositoryGroup/>#/components/schemas/RepositoryGroup</a></p><p><a href=/reference/api/hub/latest/schemas/RepositoryGroupCreationRequest/>#/components/schemas/RepositoryGroupCreationRequest</a></p><p><a href=/reference/api/hub/latest/schemas/error/>#/components/schemas/error</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Assigns an organization group (team) to a repository with a specified permission level.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "CreateRepositoryGroup",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "example": {
+          "group_id": 12345,
+          "permission": "write"
+        },
+        "schema": {
+          "$ref": "#/components/schemas/RepositoryGroupCreationRequest"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "example": {
+            "group_id": 12345,
+            "group_name": "developers",
+            "permission": "write"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/RepositoryGroup"
+          }
+        }
+      },
+      "description": "Repository group permission created successfully"
+    },
+    "400": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "error": {
+              "summary": "Example error response",
+              "value": {
+                "errinfo": null,
+                "message": "bad request"
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/error"
+          }
+        }
+      },
+      "description": "Bad Request - Invalid request parameters"
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Assign a group (Team) to a repository for access",
+  "tags": [
+    "repositories"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;group_id&#34;: 12345,
+  &#34;permission&#34;: &#34;write&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/repositories/&lt;NAMESPACE&gt;/&lt;REPOSITORY&gt;/groups&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lc3BhY2Ugb2YgdGhlIHJlcG9zaXRvcnksIHN1Y2ggYXMgYSB1c2VyIG9yIG9yZ2FuaXphdGlvbiBuYW1lLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJuYW1lc3BhY2VcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXJlcG9zaXRvcmllc34xe25hbWVzcGFjZX1+MXtyZXBvc2l0b3J5fX4xZ3JvdXBzL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIk5hbWUgb2YgdGhlIHJlcG9zaXRvcnkgd2l0aGluIHRoZSBuYW1lc3BhY2UuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInJlcG9zaXRvcnlcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXJlcG9zaXRvcmllc34xe25hbWVzcGFjZX1+MXtyZXBvc2l0b3J5fX4xZ3JvdXBzL3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvUmVwb3NpdG9yeUdyb3VwQ3JlYXRpb25SZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9SZXBvc2l0b3J5R3JvdXBcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iXQ=="></template>

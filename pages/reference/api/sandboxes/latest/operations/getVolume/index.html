@@ -1,0 +1,165 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/getVolume.md>Markdown</a></div><meta data-pagefind-meta="title:GetVolume reads one volume by its resource name. — Docker Sandboxes API v1"><h1>GetVolume reads one volume by its resource name.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/volumes<wbr>/{volume}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>GetVolume reads one volume by its resource name.</p><p>Returns unimplemented when this operation is unavailable. Support does not grant permission.</p></div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=volume><h3><code>volume</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The volume id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-None-Match><h3><code>If-None-Match</code>
+<small>header</small></h3><div class="prose dark:prose-invert">A quoted entity-tag or comma-separated list, compared weakly with the current resource etag. A match, including a weak form or wildcard *, answers 304 without a body after authorization. Malformed input is treated as no match.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Volume/><code>Volume</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/get/responses/304 data-api-media><h3><span>Response</span>
+<code class=api-status>304</code></h3><div class="prose dark:prose-invert">The resource's etag equals the If-None-Match value, so this response carries no body.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">The target is absent or not visible within the caller's scope.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>notFound</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;message&#34;: &#34;The target is absent or not visible within the caller&#39;s scope.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/get/responses/501/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>501</code></h3><div class="prose dark:prose-invert">This operation is not available on this service.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>unimplemented</h4><pre><code>{
+  &#34;code&#34;: &#34;unimplemented&#34;,
+  &#34;message&#34;: &#34;This operation is not available on this service.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Volume/>#/components/schemas/Volume</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "GetVolume reads one volume by its resource name.\n\nReturns unimplemented when this operation is unavailable. Support does not grant permission.",
+  "operationId": "getVolume",
+  "parameters": [
+    {
+      "description": "The volume id.",
+      "in": "path",
+      "name": "volume",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A quoted entity-tag or comma-separated list, compared weakly with the current resource etag. A match, including a weak form or wildcard *, answers 304 without a body after authorization. Malformed input is treated as no match.",
+      "in": "header",
+      "name": "If-None-Match",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Volume"
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "304": {
+      "description": "The resource's etag equals the If-None-Match value, so this response carries no body."
+    },
+    "404": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "notFound": {
+              "summary": "The target is absent or not visible within the caller's scope.",
+              "value": {
+                "code": "notFound",
+                "message": "The target is absent or not visible within the caller's scope."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The target is absent or not visible within the caller's scope."
+    },
+    "501": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "unimplemented": {
+              "summary": "This operation is not available on this service.",
+              "value": {
+                "code": "unimplemented",
+                "message": "This operation is not available on this service."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "This operation is not available on this service."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "GetVolume reads one volume by its resource name.",
+  "tags": [
+    "Volumes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "NOT_FOUND",
+      "description": "The target is absent or not visible within the caller's scope."
+    },
+    {
+      "code": "UNIMPLEMENTED",
+      "description": "This operation is not available on this service."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "volumesRead"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://connect.docker.com/sandboxes/v1/volumes/&lt;VOLUME&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSB2b2x1bWUgaWQuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInZvbHVtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xdm9sdW1lc34xe3ZvbHVtZX0vZ2V0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIkEgcXVvdGVkIGVudGl0eS10YWcgb3IgY29tbWEtc2VwYXJhdGVkIGxpc3QsIGNvbXBhcmVkIHdlYWtseSB3aXRoIHRoZSBjdXJyZW50IHJlc291cmNlIGV0YWcuIEEgbWF0Y2gsIGluY2x1ZGluZyBhIHdlYWsgZm9ybSBvciB3aWxkY2FyZCAqLCBhbnN3ZXJzIDMwNCB3aXRob3V0IGEgYm9keSBhZnRlciBhdXRob3JpemF0aW9uLiBNYWxmb3JtZWQgaW5wdXQgaXMgdHJlYXRlZCBhcyBubyBtYXRjaC5cIixcbiAgXCJpblwiOiBcImhlYWRlclwiLFxuICBcIm5hbWVcIjogXCJJZi1Ob25lLU1hdGNoXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjF2b2x1bWVzfjF7dm9sdW1lfS9nZXQvcGFyYW1ldGVycy8xXCIsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvVm9sdW1lXCJcbn0iLCAie1xuICBcIkVUYWdcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgZXRhZyBvZiB0aGUgcmVzb3VyY2UgdGhpcyByZXNwb25zZSBjYXJyaWVzLCB3aGljaCB0aGUgbmV4dCBtdXRhdGlvbiBvZiBpdCBzZW5kcyBhcyBJZi1NYXRjaC5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

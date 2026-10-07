@@ -1,0 +1,139 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/putV2OrgsByOrgNameGroupsByGroupName.md>Markdown</a></div><meta data-pagefind-meta="title:Update the details for an organization group — Docker Hub API 2-beta"><h1>Update the details for an organization group</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v2<wbr>/orgs<wbr>/{org_name}<wbr>/groups<wbr>/{group_name}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Update the details for an organization group.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the organization (namespace).</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=group_name><h3><code>group_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the group (team) in the organization.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "developers",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}/put/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><details class=api-field open><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>name</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "description": "Development team",
+      "name": "developers"
+    }
+  ],
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;description&#34;: &#34;Development team&#34;,
+  &#34;name&#34;: &#34;developers&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}/put/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/org_group/><code>org_group</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;description&#34;: &#34;Development team&#34;,
+  &#34;id&#34;: 10,
+  &#34;member_count&#34;: 1,
+  &#34;name&#34;: &#34;developers&#34;,
+  &#34;role&#34;: &#34;member&#34;,
+  &#34;uuid&#34;: &#34;e36eca69-4cc8-4f17-9845-ae8c2b832691&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}/put/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}/put/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}/put/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/org_group/>#/components/schemas/org_group</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Update the details for an organization group.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "putV2OrgsByOrgNameGroupsByGroupName",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "examples": [
+            {
+              "description": "Development team",
+              "name": "developers"
+            }
+          ],
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/org_group"
+          }
+        }
+      },
+      "description": ""
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/not_found"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Update the details for an organization group",
+  "tags": [
+    "groups"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;description&#34;: &#34;Development team&#34;,
+  &#34;name&#34;: &#34;developers&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/orgs/myorganization/groups/developers&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBvcmdhbml6YXRpb24gKG5hbWVzcGFjZSkuXCIsXG4gIFwiZXhhbXBsZVwiOiBcIm15b3JnYW5pemF0aW9uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm9yZ19uYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFvcmdzfjF7b3JnX25hbWV9fjFncm91cHN+MXtncm91cF9uYW1lfS9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBncm91cCAodGVhbSkgaW4gdGhlIG9yZ2FuaXphdGlvbi5cIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwiZ3JvdXBfbmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xb3Jnc34xe29yZ19uYW1lfX4xZ3JvdXBzfjF7Z3JvdXBfbmFtZX0vcGFyYW1ldGVycy8xXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiZXhhbXBsZVwiOiBcImRldmVsb3BlcnNcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJleGFtcGxlc1wiOiBbXG4gICAge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIkRldmVsb3BtZW50IHRlYW1cIixcbiAgICAgIFwibmFtZVwiOiBcImRldmVsb3BlcnNcIlxuICAgIH1cbiAgXSxcbiAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfSxcbiAgICBcIm5hbWVcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwicmVxdWlyZWRcIjogW1xuICAgIFwibmFtZVwiXG4gIF1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9vcmdfZ3JvdXBcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSJd"></template>

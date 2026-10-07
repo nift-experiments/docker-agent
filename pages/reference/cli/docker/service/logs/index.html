@@ -1,0 +1,32 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Fetch the logs of a service or task</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker service logs [OPTIONS] SERVICE|TASK</code></td></tr></tbody></table></div><p><span class="not-prose bg-blue-500 dark:bg-blue-400 rounded-sm px-1 text-xs text-white">Swarm
+</span>This command works with the Swarm orchestrator.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>The <code>docker service logs</code> command batch-retrieves logs present at the time of execution.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>This is a cluster management command, and must be executed on a swarm
+manager node. To learn about managers and workers, refer to the
+<a class=link href=/engine/swarm/>Swarm mode section</a> in the
+documentation.</p></div></blockquote><p>The <code>docker service logs</code> command can be used with either the name or ID of a
+service, or with the ID of a task. If a service is passed, it will display logs
+for all of the containers in that service. If a task is passed, it will only
+display logs from that particular task.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>This command is only functional for services that are started with
+the <code>json-file</code> or <code>journald</code> logging driver.</p></div></blockquote><p>For more information about selecting and configuring logging drivers, refer to
+<a class=link href=/engine/logging/configure/>Configure logging drivers</a>.</p><p>The <code>docker service logs --follow</code> command will continue streaming the new output from
+the service's <code>STDOUT</code> and <code>STDERR</code>.</p><p>Passing a negative number or a non-integer to <code>--tail</code> is invalid and the
+value is set to <code>all</code> in that case.</p><p>The <code>docker service logs --timestamps</code> command will add an <a class=link href=https://pkg.go.dev/time#RFC3339Nano rel=noopener>RFC3339Nano timestamp</a>
+, for example <code>2014-09-16T06:17:46.000000000Z</code>, to each
+log entry. To ensure that the timestamps are aligned the
+nano-second part of the timestamp will be padded with zero when necessary.</p><p>The <code>docker service logs --details</code> command will add on extra attributes, such as
+environment variables and labels, provided to <code>--log-opt</code> when creating the
+service.</p><p>The <code>--since</code> option shows only the service logs generated after
+a given date. You can specify the date as an RFC 3339 date, a UNIX
+timestamp, or a Go duration string (e.g. <code>1m30s</code>, <code>3h</code>). Besides RFC3339 date
+format you may also use RFC3339Nano, <code>2006-01-02T15:04:05</code>,
+<code>2006-01-02T15:04:05.999999999</code>, <code>2006-01-02T07:00</code>, and <code>2006-01-02</code>. The local
+timezone on the client will be used if you do not provide either a <code>Z</code> or a
+<code>+-00:00</code> timezone offset at the end of the timestamp. When providing Unix
+timestamps enter seconds[.nanoseconds], where seconds is the number of seconds
+that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap
+seconds (aka Unix epoch or Unix time), and the optional .nanoseconds field is a
+fraction of a second no more than nine digits long. You can combine the
+<code>--since</code> option with either or both of the <code>--follow</code> or <code>--tail</code> options.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><code>--details</code></td><td></td><td><span class="not-prose bg-blue-500 dark:bg-blue-400 rounded-sm px-1 text-xs text-white">API 1.30+
+</span>Show extra details provided to logs</td></tr><tr class=p-2><td><code>-f, --follow</code></td><td></td><td>Follow log output</td></tr><tr class=p-2><td><code>--no-resolve</code></td><td></td><td>Do not map IDs to Names in output</td></tr><tr class=p-2><td><code>--no-task-ids</code></td><td></td><td>Do not include task IDs in output</td></tr><tr class=p-2><td><code>--no-trunc</code></td><td></td><td>Do not truncate output</td></tr><tr class=p-2><td><code>--raw</code></td><td></td><td><span class="not-prose bg-blue-500 dark:bg-blue-400 rounded-sm px-1 text-xs text-white">API 1.30+
+</span>Do not neatly format logs</td></tr><tr class=p-2><td><code>--since</code></td><td></td><td>Show logs since timestamp (e.g. <code>2013-01-02T13:23:37Z</code>) or relative (e.g. <code>42m</code> for 42 minutes)<br></td></tr><tr class=p-2><td><code>-n, --tail</code></td><td><code>all</code></td><td>Number of lines to show from the end of the logs</td></tr><tr class=p-2><td><code>-t, --timestamps</code></td><td></td><td>Show timestamps</td></tr></tbody></table></div>

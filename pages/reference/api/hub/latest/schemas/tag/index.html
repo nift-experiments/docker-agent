@@ -1,0 +1,186 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/tag.md>Markdown</a></div><meta data-pagefind-meta="title:tag — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>tag</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>creator</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">ID of the user that pushed the tag</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ID of the user that pushed the tag",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>full_size</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">compressed size (sum of all layers) of the tagged image</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "compressed size (sum of all layers) of the tagged image",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>id</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">tag ID</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "tag ID",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>images</code></summary><p class=api-type>Type:
+<code>array | null</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/image/><code>image</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/image"
+  },
+  "type": [
+    "array",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>last_updated</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">datetime of last update</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "datetime of last update",
+  "example": "2021-01-05T21:06:53.506400Z",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>last_updater</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">ID of the last user that updated the tag</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ID of the last user that updated the tag",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>last_updater_username</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Hub username of the user that updated the tag</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Hub username of the user that updated the tag",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>name</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">name of the tag</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "name of the tag",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>repository</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">repository ID</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "repository ID",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>tag_last_pulled</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">datetime of last pull</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "datetime of last pull",
+  "example": "2021-01-05T21:06:53.506400Z",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>tag_last_pushed</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">datetime of last push</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "datetime of last push",
+  "example": "2021-01-05T21:06:53.506400Z",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>tag_status</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">whether a tag has been pushed to or pulled in the past month</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "whether a tag has been pushed to or pulled in the past month",
+  "enum": [
+    "active",
+    "inactive"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>v2</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">Whether the tag uses the Registry V2 format.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Whether the tag uses the Registry V2 format.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "creator": 1234,
+      "full_size": 123456,
+      "id": 12345,
+      "images": [
+        {
+          "architecture": "amd64",
+          "features": null,
+          "last_pulled": null,
+          "last_pushed": "2021-01-05T21:06:53.506400Z",
+          "os": "linux",
+          "os_features": null,
+          "os_version": null,
+          "size": 123456,
+          "status": "active",
+          "variant": null
+        }
+      ],
+      "last_updated": "2021-01-05T21:06:53.506400Z",
+      "last_updater": 1234,
+      "last_updater_username": "dockeruser",
+      "name": "latest",
+      "repository": 5678,
+      "tag_last_pulled": null,
+      "tag_last_pushed": "2021-01-05T21:06:53.506400Z",
+      "tag_status": "active",
+      "v2": true
+    }
+  ],
+  "properties": {
+    "creator": {
+      "description": "ID of the user that pushed the tag",
+      "type": "integer"
+    },
+    "full_size": {
+      "description": "compressed size (sum of all layers) of the tagged image",
+      "type": "integer"
+    },
+    "id": {
+      "description": "tag ID",
+      "type": "integer"
+    },
+    "images": {
+      "items": {
+        "$ref": "#/components/schemas/image"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "last_updated": {
+      "description": "datetime of last update",
+      "example": "2021-01-05T21:06:53.506400Z",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_updater": {
+      "description": "ID of the last user that updated the tag",
+      "type": "integer"
+    },
+    "last_updater_username": {
+      "description": "Hub username of the user that updated the tag",
+      "type": "string"
+    },
+    "name": {
+      "description": "name of the tag",
+      "type": "string"
+    },
+    "repository": {
+      "description": "repository ID",
+      "type": "integer"
+    },
+    "tag_last_pulled": {
+      "description": "datetime of last pull",
+      "example": "2021-01-05T21:06:53.506400Z",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tag_last_pushed": {
+      "description": "datetime of last push",
+      "example": "2021-01-05T21:06:53.506400Z",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tag_status": {
+      "description": "whether a tag has been pushed to or pulled in the past month",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "type": "string"
+    },
+    "v2": {
+      "description": "Whether the tag uses the Registry V2 format.",
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

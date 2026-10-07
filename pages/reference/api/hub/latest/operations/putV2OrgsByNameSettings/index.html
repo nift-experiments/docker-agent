@@ -1,0 +1,180 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/putV2OrgsByNameSettings.md>Markdown</a></div><meta data-pagefind-meta="title:Update organization settings — Docker Hub API 2-beta"><h1>Update organization settings</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v2<wbr>/orgs<wbr>/{name}<wbr>/settings</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Updates an organization's settings. Some settings are only used when the organization is on a business subscription.</p><p><em><strong>Only users with administrative privileges for the organization (owner role) can modify these settings.</strong></em></p><p>The following settings are only used on a business subscription:</p><ul><li><code>restricted_images</code></li></ul></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the organization.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{name}~1settings/put/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><details class=api-field open><summary><code>restricted_images</code>
+· required</summary><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/restricted_images/><code>restricted_images</code></a></p><p class=api-type>Type:
+<code>object</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "required": [
+    "enabled",
+    "allow_official_images",
+    "allow_verified_publishers"
+  ],
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/restricted_images"
+    },
+    {
+      "required": [
+        "enabled",
+        "allow_official_images",
+        "allow_verified_publishers"
+      ],
+      "type": "object"
+    }
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "restricted_images": {
+        "allow_official_images": true,
+        "allow_verified_publishers": true,
+        "enabled": true
+      }
+    }
+  ],
+  "properties": {
+    "restricted_images": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/restricted_images"
+        },
+        {
+          "required": [
+            "enabled",
+            "allow_official_images",
+            "allow_verified_publishers"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "required": [
+    "restricted_images"
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;restricted_images&#34;: {
+    &#34;allow_official_images&#34;: true,
+    &#34;allow_verified_publishers&#34;: true,
+    &#34;enabled&#34;: true
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{name}~1settings/put/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">OK</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/orgSettings/><code>orgSettings</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;restricted_images&#34;: {
+    &#34;allow_official_images&#34;: true,
+    &#34;allow_verified_publishers&#34;: true,
+    &#34;enabled&#34;: true
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{name}~1settings/put/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{name}~1settings/put/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{name}~1settings/put/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/orgSettings/>#/components/schemas/orgSettings</a></p><p><a href=/reference/api/hub/latest/schemas/restricted_images/>#/components/schemas/restricted_images</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Updates an organization's settings. Some settings are only used when the organization is on a business subscription.\n\n***Only users with administrative privileges for the organization (owner role) can modify these settings.***\n\nThe following settings are only used on a business subscription:\n- `restricted_images`\n",
+  "operationId": "putV2OrgsByNameSettings",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "examples": [
+            {
+              "restricted_images": {
+                "allow_official_images": true,
+                "allow_verified_publishers": true,
+                "enabled": true
+              }
+            }
+          ],
+          "properties": {
+            "restricted_images": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/restricted_images"
+                },
+                {
+                  "required": [
+                    "enabled",
+                    "allow_official_images",
+                    "allow_verified_publishers"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "required": [
+            "restricted_images"
+          ]
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/orgSettings"
+          }
+        }
+      },
+      "description": "OK"
+    },
+    "401": {
+      "$ref": "#/components/responses/Unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/Forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Update organization settings",
+  "tags": [
+    "org-settings"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;restricted_images&#34;: {
+    &#34;allow_official_images&#34;: true,
+    &#34;allow_verified_publishers&#34;: true,
+    &#34;enabled&#34;: true
+  }
+}&#39; \
+  &#39;https://hub.docker.com/v2/orgs/&lt;NAME&gt;/settings&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBvcmdhbml6YXRpb24uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm5hbWVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW9yZ3N+MXtuYW1lfX4xc2V0dGluZ3MvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImV4YW1wbGVzXCI6IFtcbiAgICB7XG4gICAgICBcInJlc3RyaWN0ZWRfaW1hZ2VzXCI6IHtcbiAgICAgICAgXCJhbGxvd19vZmZpY2lhbF9pbWFnZXNcIjogdHJ1ZSxcbiAgICAgICAgXCJhbGxvd192ZXJpZmllZF9wdWJsaXNoZXJzXCI6IHRydWUsXG4gICAgICAgIFwiZW5hYmxlZFwiOiB0cnVlXG4gICAgICB9XG4gICAgfVxuICBdLFxuICBcInByb3BlcnRpZXNcIjoge1xuICAgIFwicmVzdHJpY3RlZF9pbWFnZXNcIjoge1xuICAgICAgXCJhbGxPZlwiOiBbXG4gICAgICAgIHtcbiAgICAgICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9yZXN0cmljdGVkX2ltYWdlc1wiXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBcInJlcXVpcmVkXCI6IFtcbiAgICAgICAgICAgIFwiZW5hYmxlZFwiLFxuICAgICAgICAgICAgXCJhbGxvd19vZmZpY2lhbF9pbWFnZXNcIixcbiAgICAgICAgICAgIFwiYWxsb3dfdmVyaWZpZWRfcHVibGlzaGVyc1wiXG4gICAgICAgICAgXSxcbiAgICAgICAgICBcInR5cGVcIjogXCJvYmplY3RcIlxuICAgICAgICB9XG4gICAgICBdXG4gICAgfVxuICB9LFxuICBcInJlcXVpcmVkXCI6IFtcbiAgICBcInJlc3RyaWN0ZWRfaW1hZ2VzXCJcbiAgXVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL29yZ1NldHRpbmdzXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iXQ=="></template>

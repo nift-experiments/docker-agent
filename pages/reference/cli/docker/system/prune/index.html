@@ -1,0 +1,101 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Remove unused data</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker system prune [OPTIONS]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Remove all unused containers, networks, images (both dangling and unused),
+unused
+<a class=link href=/build/cache/>build cache</a>, and optionally,
+volumes.</p><p>Build cache is always eligible for pruning with this command (including BuildKit
+cache mounts created with <code>RUN --mount=type=cache</code>). Use
+<a class=link href=/reference/cli/docker/builder/prune/><code>docker builder prune</code></a> if you only want to reclaim build
+cache without removing containers, networks, or images.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><code>-a, --all</code></td><td></td><td>Remove all unused images not just dangling ones</td></tr><tr class=p-2><td><a class=link href=#filter><code>--filter</code></a></td><td></td><td><span class="not-prose bg-blue-500 dark:bg-blue-400 rounded-sm px-1 text-xs text-white">API 1.28+
+</span>Provide filter values (e.g. <code>label=&lt;key>=&lt;value></code>)</td></tr><tr class=p-2><td><code>-f, --force</code></td><td></td><td>Do not prompt for confirmation</td></tr><tr class=p-2><td><code>--volumes</code></td><td></td><td>Prune anonymous volumes</td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgc3lzdGVtIHBydW5lCgpXQVJOSU5HISBUaGlzIHdpbGwgcmVtb3ZlOgogICAgICAgIC0gYWxsIHN0b3BwZWQgY29udGFpbmVycwogICAgICAgIC0gYWxsIG5ldHdvcmtzIG5vdCB1c2VkIGJ5IGF0IGxlYXN0IG9uZSBjb250YWluZXIKICAgICAgICAtIGFsbCBkYW5nbGluZyBpbWFnZXMKICAgICAgICAtIHVudXNlZCBidWlsZCBjYWNoZQpBcmUgeW91IHN1cmUgeW91IHdhbnQgdG8gY29udGludWU/IFt5L05dIHkKCkRlbGV0ZWQgQ29udGFpbmVyczoKZjQ0ZjliODE5NDhiMzkxOTU5MGQ1Zjc5YTY4MGQ4Mzc4ZjExMzliNDE5NTJlMjE5ODMwYTMzMDI3YzgwYzg2Nwo3OTI3NzZlNjhhYzlkNzViY2U0MDkyYmMxYjVjYzE3Yjc3OWJjOTI2YWIwNGY0MTg1YWVjOWJmMWMwZDQ2NDFmCgpEZWxldGVkIE5ldHdvcmtzOgpuZXR3b3JrMQpuZXR3b3JrMgoKRGVsZXRlZCBJbWFnZXM6CnVudGFnZ2VkOiBoZWxsby13b3JsZEBzaGEyNTY6ZjNiM2IyOGE0NTE2MDgwNWJiMTY1NDJjOTUzMTg4ODUxOTQzMGU5ZTZkNmZmYzA5ZDcyMjYxYjBkMjZmZjc0ZgpkZWxldGVkOiBzaGEyNTY6MTgxNWM4MjY1MmMwM2JmZDg2NDRhZmRhMjZmYjE4NGYyZWQ4OTFkOTIxYjIwYTA3MDNiNDY3NjhmOTc1NWM1NwpkZWxldGVkOiBzaGEyNTY6NDU3NjE0NjljOTY1NDIxYTkyYTY5Y2M1MGU5MmMwMWUwY2ZhOTRmZTAyNmNkZDEyMzM0NDVlYTAwZTk2Mjg5YQoKVG90YWwgcmVjbGFpbWVkIHNwYWNlOiAxLjg0a0I=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker system prune
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>WARNING! This will remove:
+</span></span></span><span class=line><span class=cl><span class=go>        - all stopped containers
+</span></span></span><span class=line><span class=cl><span class=go>        - all networks not used by at least one container
+</span></span></span><span class=line><span class=cl><span class=go>        - all dangling images
+</span></span></span><span class=line><span class=cl><span class=go>        - unused build cache
+</span></span></span><span class=line><span class=cl><span class=go>Are you sure you want to continue? [y/N] y
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Containers:
+</span></span></span><span class=line><span class=cl><span class=go>f44f9b81948b3919590d5f79a680d8378f1139b41952e219830a33027c80c867
+</span></span></span><span class=line><span class=cl><span class=go>792776e68ac9d75bce4092bc1b5cc17b779bc926ab04f4185aec9bf1c0d4641f
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Networks:
+</span></span></span><span class=line><span class=cl><span class=go>network1
+</span></span></span><span class=line><span class=cl><span class=go>network2
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Images:
+</span></span></span><span class=line><span class=cl><span class=go>untagged: hello-world@sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:1815c82652c03bfd8644afda26fb184f2ed891d921b20a0703b46768f9755c57
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:45761469c965421a92a69cc50e92c01e0cfa94fe026cdd1233445ea00e96289a
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Total reclaimed space: 1.84kB
+</span></span></span></code></pre></div></div></div></div><p>By default, volumes aren't removed to prevent important data from being
+deleted if there is currently no container using the volume. Use the <code>--volumes</code>
+flag when running the command to prune anonymous volumes as well:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgc3lzdGVtIHBydW5lIC1hIC0tdm9sdW1lcwoKV0FSTklORyEgVGhpcyB3aWxsIHJlbW92ZToKICAgICAgICAtIGFsbCBzdG9wcGVkIGNvbnRhaW5lcnMKICAgICAgICAtIGFsbCBuZXR3b3JrcyBub3QgdXNlZCBieSBhdCBsZWFzdCBvbmUgY29udGFpbmVyCiAgICAgICAgLSBhbGwgYW5vbnltb3VzIHZvbHVtZXMgbm90IHVzZWQgYnkgYXQgbGVhc3Qgb25lIGNvbnRhaW5lcgogICAgICAgIC0gYWxsIGltYWdlcyB3aXRob3V0IGF0IGxlYXN0IG9uZSBjb250YWluZXIgYXNzb2NpYXRlZCB0byB0aGVtCiAgICAgICAgLSBhbGwgYnVpbGQgY2FjaGUKQXJlIHlvdSBzdXJlIHlvdSB3YW50IHRvIGNvbnRpbnVlPyBbeS9OXSB5CgpEZWxldGVkIENvbnRhaW5lcnM6CjA5OThhYTM3MTg1YTFhNzAzNmIwZTEyY2YxYWMxYjY0NDJkY2ZhMzBhNWM5NjUwYTQyZWQ1MDEwMDQ2ZjE5NWIKNzM5NThiZmI4ODRmYTgxZmE0Y2M2YmFmNjEwNTU2NjdlOTQwZWEyMzU3YjQwMzZhY2JiZTI1YTYwZjQ0MmE0ZAoKRGVsZXRlZCBOZXR3b3JrczoKbXktbmV0d29yay1hCm15LW5ldHdvcmstYgoKRGVsZXRlZCBWb2x1bWVzOgoxZTMxYmNkNDI1ZTkxM2Q5ZjY1ZWMwYzM4NDFlOWM0ZWJiNTQzYWVhZDJhMWNmZTBkOTVhN2M1ZTg4YmI1MDI2CjZhNmFiM2Q2YjhkNzQwYTFjMWQ0ZGJlMzZhOWM1ZjA0M2RkNGJhYzVmNzhhYmZhN2QxZjJhZTU3ODlmZTYwYjAKCkRlbGV0ZWQgSW1hZ2VzOgp1bnRhZ2dlZDogbXktY3VybDpsYXRlc3QKZGVsZXRlZDogc2hhMjU2OjdkODg1ODIxMjFmMmEyOTAzMWQ5MjAxNzc1NGQ2MmEwZDFhMjE1Yzk3ZThmMDEwNmM1ODY1NDZlNzQwNDQ0N2QKZGVsZXRlZDogc2hhMjU2OmRkMTRhOTNkODM1OTNkNDAyNDE1MmY4NWQ3YzYzZjc2YWFhNGU3M2UyMjgzNzdiYTFkMTMwZWY1MTQ5ZjRkOGIKdW50YWdnZWQ6IGFscGluZTozLjMKZGVsZXRlZDogc2hhMjU2OjY5NWYzZDA0MTI1ZGIzMjY2ZDRhYjdiYmIzYzZiMjNhYTQyOTM5MjNlNzYyYWEyNTYyYzU0ZjQ5YTI4ZjAwOWYKdW50YWdnZWQ6IGFscGluZTpsYXRlc3QKZGVsZXRlZDogc2hhMjU2OmVlNDYwMzI2MGRhYWZlMWE4YzJmM2I3OGZkNzYwOTIyOTE4YWIyNDQxY2JiMjg1M2VkNWM0MzllNTljNTJmOTYKZGVsZXRlZDogc2hhMjU2OjkwMDdmNTk4N2RiMzUzZWMzOThhMjIzYmM1YTEzNWM1YTk2MDE3OThiYTIwYTFhYmJhNTM3ZWEyZjhhYzc2NWYKZGVsZXRlZDogc2hhMjU2OjcxZmE5MGM4ZjA0NzY5Yzk3MjE0NTlkNWFhMDkzNmRiNjQwYjkyYzhjOTFjOWI1ODliNTRhYmQ0MTJkMTIwYWIKZGVsZXRlZDogc2hhMjU2OmJiMWMzMzU3YjNjMzBlY2UyNmU2NjA0YWVhN2QyZWMwYWNlNDE2NmZmMzRjMzYxNjcwMTI3OWMyMjQ0NGMwZjMKdW50YWdnZWQ6IG15LWpxOmxhdGVzdApkZWxldGVkOiBzaGEyNTY6NmU2NmQ3MjQ1NDJhZjliYzRjNGFiZjRhOTA5NzkxZDcyNjBiNmQwMTEwZDhlMjIwNzA4YjA5ZTRlZTEzMjJlMQpkZWxldGVkOiBzaGEyNTY6MDdiM2ZhODlkNGIxNzAwOWViMzk4OGRmYzU5MmM3ZDMwYWIzYmE1MmQyMDA3ODMyZGZmY2Y2ZDQwZTNlZGE3ZgpkZWxldGVkOiBzaGEyNTY6M2E4OGE1YzgxZWI1YzI4M2U3MmRiMmRiYzZkNjVjYmZkOGU4MGI2Yzg5YmI2ZTcxNGNmYWFhMGVlZDk5YzU0OAoKVG90YWwgcmVjbGFpbWVkIHNwYWNlOiAxMy41IE1C', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker system prune -a --volumes
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>WARNING! This will remove:
+</span></span></span><span class=line><span class=cl><span class=go>        - all stopped containers
+</span></span></span><span class=line><span class=cl><span class=go>        - all networks not used by at least one container
+</span></span></span><span class=line><span class=cl><span class=go>        - all anonymous volumes not used by at least one container
+</span></span></span><span class=line><span class=cl><span class=go>        - all images without at least one container associated to them
+</span></span></span><span class=line><span class=cl><span class=go>        - all build cache
+</span></span></span><span class=line><span class=cl><span class=go>Are you sure you want to continue? [y/N] y
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Containers:
+</span></span></span><span class=line><span class=cl><span class=go>0998aa37185a1a7036b0e12cf1ac1b6442dcfa30a5c9650a42ed5010046f195b
+</span></span></span><span class=line><span class=cl><span class=go>73958bfb884fa81fa4cc6baf61055667e940ea2357b4036acbbe25a60f442a4d
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Networks:
+</span></span></span><span class=line><span class=cl><span class=go>my-network-a
+</span></span></span><span class=line><span class=cl><span class=go>my-network-b
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Volumes:
+</span></span></span><span class=line><span class=cl><span class=go>1e31bcd425e913d9f65ec0c3841e9c4ebb543aead2a1cfe0d95a7c5e88bb5026
+</span></span></span><span class=line><span class=cl><span class=go>6a6ab3d6b8d740a1c1d4dbe36a9c5f043dd4bac5f78abfa7d1f2ae5789fe60b0
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Deleted Images:
+</span></span></span><span class=line><span class=cl><span class=go>untagged: my-curl:latest
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:7d88582121f2a29031d92017754d62a0d1a215c97e8f0106c586546e7404447d
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:dd14a93d83593d4024152f85d7c63f76aaa4e73e228377ba1d130ef5149f4d8b
+</span></span></span><span class=line><span class=cl><span class=go>untagged: alpine:3.3
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:695f3d04125db3266d4ab7bbb3c6b23aa4293923e762aa2562c54f49a28f009f
+</span></span></span><span class=line><span class=cl><span class=go>untagged: alpine:latest
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:ee4603260daafe1a8c2f3b78fd760922918ab2441cbb2853ed5c439e59c52f96
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:9007f5987db353ec398a223bc5a135c5a9601798ba20a1abba537ea2f8ac765f
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:71fa90c8f04769c9721459d5aa0936db640b92c8c91c9b589b54abd412d120ab
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:bb1c3357b3c30ece26e6604aea7d2ec0ace4166ff34c3616701279c22444c0f3
+</span></span></span><span class=line><span class=cl><span class=go>untagged: my-jq:latest
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:6e66d724542af9bc4c4abf4a909791d7260b6d0110d8e220708b09e4ee1322e1
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:07b3fa89d4b17009eb3988dfc592c7d30ab3ba52d2007832dffcf6d40e3eda7f
+</span></span></span><span class=line><span class=cl><span class=go>deleted: sha256:3a88a5c81eb5c283e72db2dbc6d65cbfd8e80b6c89bb6e714cfaaa0eed99c548
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Total reclaimed space: 13.5 MB
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=filter><a class="text-black dark:text-white no-underline hover:underline" href=#filter>Filtering (--filter)</a></h3><p>The filtering flag (<code>--filter</code>) format is of "key=value". If there is more
+than one filter, then pass multiple flags (e.g., <code>--filter "foo=bar" --filter "bif=baz"</code>).</p><p>When multiple filters are provided, they are combined as follows:</p><ul><li>Multiple filters with <strong>different keys</strong> are combined using AND logic.
+An item must satisfy all filter conditions to be pruned.</li><li>Multiple filters with the <strong>same key</strong> are combined using OR logic.
+An item is pruned if it matches any of the values for that key.</li></ul><p>For example, <code>--filter "label=foo" --filter "until=24h"</code> prunes items
+that have the <code>foo</code> label <strong>and</strong> were created more than 24 hours ago.
+Conversely, <code>--filter "label=foo" --filter "label=bar"</code> prunes items
+that have <strong>either</strong> the <code>foo</code> <strong>or</strong> <code>bar</code> label.</p><p>The currently supported filters are:</p><ul><li>until (<code>&lt;timestamp></code>) - only remove containers, images, and networks created before given timestamp</li><li>label (<code>label=&lt;key></code>, <code>label=&lt;key>=&lt;value></code>, <code>label!=&lt;key></code>, or <code>label!=&lt;key>=&lt;value></code>) - only remove containers, images, networks, and volumes with (or without, in case <code>label!=...</code> is used) the specified labels.</li></ul><p>The <code>until</code> filter can be Unix timestamps, date formatted
+timestamps, or Go duration strings supported by <a class=link href=https://pkg.go.dev/time#ParseDuration rel=noopener>ParseDuration</a> (e.g. <code>10m</code>, <code>1h30m</code>) computed
+relative to the daemon machine’s time. Supported formats for date
+formatted time stamps include RFC3339Nano, RFC3339, <code>2006-01-02T15:04:05</code>,
+<code>2006-01-02T15:04:05.999999999</code>, <code>2006-01-02T07:00</code>, and <code>2006-01-02</code>. The local
+timezone on the daemon will be used if you do not provide either a <code>Z</code> or a
+<code>+-00:00</code> timezone offset at the end of the timestamp. When providing Unix
+timestamps enter seconds[.nanoseconds], where seconds is the number of seconds
+that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap
+seconds (aka Unix epoch or Unix time), and the optional .nanoseconds field is a
+fraction of a second no more than nine digits long.</p><p>The <code>label</code> filter accepts two formats. One is the <code>label=...</code> (<code>label=&lt;key></code> or <code>label=&lt;key>=&lt;value></code>),
+which removes containers, images, networks, and volumes with the specified labels. The other
+format is the <code>label!=...</code> (<code>label!=&lt;key></code> or <code>label!=&lt;key>=&lt;value></code>), which removes
+containers, images, networks, and volumes without the specified labels.</p>

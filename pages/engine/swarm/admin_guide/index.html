@@ -131,7 +131,7 @@ store it in a safe location. If you are unsure, read
 being changed during the backup. It is possible to take a backup while the
 manager is running (a "hot" backup), but this is not recommended and your
 results are less predictable when restoring. While the manager is down,
-other nodes continue generating swarm data that is not part of this backup.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+other nodes continue generating swarm data that is not part of this backup.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Be sure to maintain the quorum of swarm managers. During the
 time that a manager is shut down, your swarm is more vulnerable to
 losing the quorum if further nodes are lost. The number of managers you
@@ -141,7 +141,7 @@ manager while the backup is running, without disrupting your services.</p></div>
 <a class=link href=#back-up-the-swarm>Back up the swarm</a>, use the following procedure to
 restore the data to a new swarm.</p><ol><li><p>Shut down Docker on the target host machine for the restored swarm.</p></li><li><p>Remove the contents of the <code>/var/lib/docker/swarm</code> directory on the new
 swarm.</p></li><li><p>Restore the <code>/var/lib/docker/swarm</code> directory with the contents of the
-backup.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+backup.</p><blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </span><span class=admonition-title>Note</span></div><div class=admonition-content><p>The new node uses the same encryption key for on-disk
 storage as the old one. It is not possible to change the on-disk storage
 encryption keys at this time.</p><p>In the case of a swarm with auto-lock enabled, the unlock key is also the

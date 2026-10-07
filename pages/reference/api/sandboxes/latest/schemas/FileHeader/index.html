@@ -1,0 +1,35 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FileHeader.md>Markdown</a></div><meta data-pagefind-meta="title:FileHeader — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FileHeader</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">FileHeader starts a file in an upload or download stream.</div><details class=api-field open><summary><code>mode</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">mode carries Unix permission bits. Upload applies mode & 0777, or 0644 when
+that value is zero, without subtracting umask; Download reports stored bits.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "mode carries Unix permission bits. Upload applies mode \u0026 0777, or 0644 when\nthat value is zero, without subtracting umask; Download reports stored bits.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>path</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">path is the sandbox path.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "path is the sandbox path.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "FileHeader starts a file in an upload or download stream.",
+  "properties": {
+    "mode": {
+      "description": "mode carries Unix permission bits. Upload applies mode \u0026 0777, or 0644 when\nthat value is zero, without subtracting umask; Download reports stored bits.",
+      "type": "integer"
+    },
+    "path": {
+      "description": "path is the sandbox path.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "path"
+  ],
+  "title": "FileHeader",
+  "type": "object"
+}</code></pre></details></article>

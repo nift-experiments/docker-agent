@@ -1,0 +1,217 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/operations/listPolicies.md>Markdown</a></div><meta data-pagefind-meta="title:List policies — AI Governance API 1"><h1>List policies</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/orgs<wbr>/{org_name}<wbr>/governance<wbr>/policies</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Returns a shallow summary of the organization's policies, one page at a time. The rule set is not included; use GetPolicy to fetch the full object.</p><p>Results are paginated with an opaque cursor. Pass <code>page_size</code> to bound the page; if more policies remain, the response includes a non-null <code>next_page_token</code> to pass as <code>page_token</code> on the next request. Iterate until <code>next_page_token</code> is <code>null</code>. Treat the token as opaque; do not parse or construct it.</p></div><h2>Connection and access</h2><p><a href=/reference/api/ai-governance/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/v2</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Docker Hub organization name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=page_size><h3><code>page_size</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Maximum number of policies to return. Defaults to 100 if omitted or zero. The server caps values above 100 at 100.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "default": 100,
+  "minimum": 0,
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=page_token><h3><code>page_token</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Opaque cursor from a previous response's <code>next_page_token</code>. Omit to fetch the first page.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Object wrapping an array of policy summaries under <code>data</code> and a <code>next_page_token</code>, which is null on the last page. Rule sets are not included; use GetPolicy to fetch a full policy.</div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>data</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/PolicySummary/><code>PolicySummary</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/PolicySummary"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>next_page_token</code>
+· required</summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">The opaque cursor for the next page, or <code>null</code> on the last page.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The opaque cursor for the next page, or `null` on the last page.\n",
+  "example": "AQpteyJQSyI6Im15LW9yZyIsIlNLIjoicG9saWN5I3BvbF8ifQ",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "data": {
+      "items": {
+        "$ref": "#/components/schemas/PolicySummary"
+      },
+      "type": "array"
+    },
+    "next_page_token": {
+      "description": "The opaque cursor for the next page, or `null` on the last page.\n",
+      "example": "AQpteyJQSyI6Im15LW9yZyIsIlNLIjoicG9saWN5I3BvbF8ifQ",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "data",
+    "next_page_token"
+  ],
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;data&#34;: [
+    {
+      &#34;created_at&#34;: &#34;2026-04-22T00:00:00Z&#34;,
+      &#34;id&#34;: &#34;pol_06evsmp24r1pg71cm8500546pkbn&#34;,
+      &#34;name&#34;: &#34;Security Research — hardened&#34;,
+      &#34;org&#34;: &#34;my-org&#34;,
+      &#34;scope&#34;: {
+        &#34;teams&#34;: [
+          &#34;d290f1ee-6c54-4b01-90e6-d701748f0851&#34;
+        ]
+      },
+      &#34;type&#34;: &#34;allowlist_v0&#34;,
+      &#34;updated_at&#34;: &#34;2026-04-22T00:00:00Z&#34;
+    }
+  ],
+  &#34;next_page_token&#34;: &#34;AQpteyJQSyI6Im15LW9yZyIsIlNLIjoicG9saWN5I3BvbF8ifQ&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies/get/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;invalid_argument&#34;,
+    &#34;message&#34;: &#34;name is required&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies/get/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Missing or invalid credentials</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;unauthenticated&#34;,
+    &#34;message&#34;: &#34;unauthenticated&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies/get/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Caller lacks the required permission for this org, or the org is not entitled to use governance.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;permission_denied&#34;,
+    &#34;message&#34;: &#34;permission denied&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;not_found&#34;,
+    &#34;message&#34;: &#34;policy not found&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies/get/responses/500/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal server error</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;internal&#34;,
+    &#34;message&#34;: &#34;internal error&#34;
+  }
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/ai-governance/latest/schemas/PolicySummary/>#/components/schemas/PolicySummary</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns a shallow summary of the organization's policies, one page at a time. The rule set is not included; use GetPolicy to fetch the full object.\n\nResults are paginated with an opaque cursor. Pass `page_size` to bound the page; if more policies remain, the response includes a non-null `next_page_token` to pass as `page_token` on the next request. Iterate until `next_page_token` is `null`. Treat the token as opaque; do not parse or construct it.\n",
+  "operationId": "listPolicies",
+  "parameters": [
+    {
+      "description": "Maximum number of policies to return. Defaults to 100 if omitted or zero. The server caps values above 100 at 100.\n",
+      "in": "query",
+      "name": "page_size",
+      "required": false,
+      "schema": {
+        "default": 100,
+        "minimum": 0,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Opaque cursor from a previous response's `next_page_token`. Omit to fetch the first page.\n",
+      "in": "query",
+      "name": "page_token",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "default": {
+              "value": {
+                "data": [
+                  {
+                    "created_at": "2026-04-22T00:00:00Z",
+                    "id": "pol_06evsmp24r1pg71cm8500546pkbn",
+                    "name": "Security Research — hardened",
+                    "org": "my-org",
+                    "scope": {
+                      "teams": [
+                        "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                      ]
+                    },
+                    "type": "allowlist_v0",
+                    "updated_at": "2026-04-22T00:00:00Z"
+                  }
+                ],
+                "next_page_token": "AQpteyJQSyI6Im15LW9yZyIsIlNLIjoicG9saWN5I3BvbF8ifQ"
+              }
+            }
+          },
+          "schema": {
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/PolicySummary"
+                },
+                "type": "array"
+              },
+              "next_page_token": {
+                "description": "The opaque cursor for the next page, or `null` on the last page.\n",
+                "example": "AQpteyJQSyI6Im15LW9yZyIsIlNLIjoicG9saWN5I3BvbF8ifQ",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "data",
+              "next_page_token"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Object wrapping an array of policy summaries under `data` and a `next_page_token`, which is null on the last page. Rule sets are not included; use GetPolicy to fetch a full policy."
+    },
+    "400": {
+      "$ref": "#/components/responses/InvalidArgument"
+    },
+    "401": {
+      "$ref": "#/components/responses/Unauthenticated"
+    },
+    "403": {
+      "$ref": "#/components/responses/PermissionDenied"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    },
+    "500": {
+      "$ref": "#/components/responses/InternalError"
+    }
+  },
+  "summary": "List policies",
+  "tags": [
+    "policies"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/v2/orgs/&lt;ORG_NAME&gt;/governance/policies&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJEb2NrZXIgSHViIG9yZ2FuaXphdGlvbiBuYW1lLlwiLFxuICBcImV4YW1wbGVzXCI6IHtcbiAgICBcImRlZmF1bHRcIjoge1xuICAgICAgXCJ2YWx1ZVwiOiBcIm15LW9yZ1wiXG4gICAgfVxuICB9LFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJvcmdfbmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFvcmdzfjF7b3JnX25hbWV9fjFnb3Zlcm5hbmNlfjFwb2xpY2llcy9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJNYXhpbXVtIG51bWJlciBvZiBwb2xpY2llcyB0byByZXR1cm4uIERlZmF1bHRzIHRvIDEwMCBpZiBvbWl0dGVkIG9yIHplcm8uIFRoZSBzZXJ2ZXIgY2FwcyB2YWx1ZXMgYWJvdmUgMTAwIGF0IDEwMC5cXG5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInBhZ2Vfc2l6ZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFvcmdzfjF7b3JnX25hbWV9fjFnb3Zlcm5hbmNlfjFwb2xpY2llcy9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlZmF1bHRcIjogMTAwLFxuICAgIFwibWluaW11bVwiOiAwLFxuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIk9wYXF1ZSBjdXJzb3IgZnJvbSBhIHByZXZpb3VzIHJlc3BvbnNlJ3MgYG5leHRfcGFnZV90b2tlbmAuIE9taXQgdG8gZmV0Y2ggdGhlIGZpcnN0IHBhZ2UuXFxuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJwYWdlX3Rva2VuXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MW9yZ3N+MXtvcmdfbmFtZX1+MWdvdmVybmFuY2V+MXBvbGljaWVzL2dldC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcInByb3BlcnRpZXNcIjoge1xuICAgIFwiZGF0YVwiOiB7XG4gICAgICBcIml0ZW1zXCI6IHtcbiAgICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvUG9saWN5U3VtbWFyeVwiXG4gICAgICB9LFxuICAgICAgXCJ0eXBlXCI6IFwiYXJyYXlcIlxuICAgIH0sXG4gICAgXCJuZXh0X3BhZ2VfdG9rZW5cIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBvcGFxdWUgY3Vyc29yIGZvciB0aGUgbmV4dCBwYWdlLCBvciBgbnVsbGAgb24gdGhlIGxhc3QgcGFnZS5cXG5cIixcbiAgICAgIFwiZXhhbXBsZVwiOiBcIkFRcHRleUpRU3lJNkltMTVMVzl5WnlJc0lsTkxJam9pY0c5c2FXTjVJM0J2YkY4aWZRXCIsXG4gICAgICBcInR5cGVcIjogW1xuICAgICAgICBcInN0cmluZ1wiLFxuICAgICAgICBcIm51bGxcIlxuICAgICAgXVxuICAgIH1cbiAgfSxcbiAgXCJyZXF1aXJlZFwiOiBbXG4gICAgXCJkYXRhXCIsXG4gICAgXCJuZXh0X3BhZ2VfdG9rZW5cIlxuICBdLFxuICBcInR5cGVcIjogXCJvYmplY3RcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59Il0="></template>

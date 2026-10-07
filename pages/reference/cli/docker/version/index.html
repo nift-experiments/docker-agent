@@ -1,0 +1,149 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Show the Docker version information</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker version [OPTIONS]</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>The version command prints the current version number for all independently
+versioned Docker components. Use the <a class=link href=#format><code>--format</code></a> option to customize
+the output.</p><p>The version command (<code>docker version</code>) outputs the version numbers of Docker
+components, while the <code>--version</code> flag (<code>docker --version</code>) outputs the version
+number of the Docker CLI you are using.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=default-output><a class="text-black dark:text-white no-underline hover:underline" href=#default-output>Default output</a></h3><p>The default output renders all version information divided into two sections;
+the <code>Client</code> section contains information about the Docker CLI and client
+components, and the <code>Server</code> section contains information about the Docker
+Engine and components used by the Docker Engine, such as the containerd and runc
+OCI Runtimes.</p><p>The information shown may differ depending on how you installed Docker and
+what components are in use. The following example shows the output on a macOS
+machine running Docker Desktop:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgdmVyc2lvbgoKQ2xpZW50OiBEb2NrZXIgRW5naW5lIC0gQ29tbXVuaXR5CiBWZXJzaW9uOiAgICAgICAgICAgMjguNS4xCiBBUEkgdmVyc2lvbjogICAgICAgMS41MQogR28gdmVyc2lvbjogICAgICAgIGdvMS4yNC44CiBHaXQgY29tbWl0OiAgICAgICAgZTE4MGFiOAogQnVpbHQ6ICAgICAgICAgICAgIFdlZCBPY3QgIDggMTI6MTY6MTcgMjAyNQogT1MvQXJjaDogICAgICAgICAgIGRhcndpbi9hcm02NAogQ29udGV4dDogICAgICAgICAgIHJlbW90ZS10ZXN0LXNlcnZlcgoKU2VydmVyOiBEb2NrZXIgRGVza3RvcCA0LjE5LjAgKDEyMzQ1KQogRW5naW5lOgogIFZlcnNpb246ICAgICAgICAgIDI3LjUuMQogIEFQSSB2ZXJzaW9uOiAgICAgIDEuNDcgKG1pbmltdW0gdmVyc2lvbiAxLjI0KQogIEdvIHZlcnNpb246ICAgICAgIGdvMS4yMi4xMQogIEdpdCBjb21taXQ6ICAgICAgIDRjOWIzYjAKICBCdWlsdDogICAgICAgICAgICBXZWQgSmFuIDIyIDEzOjQxOjI0IDIwMjUKICBPUy9BcmNoOiAgICAgICAgICBsaW51eC9hbWQ2NAogIEV4cGVyaW1lbnRhbDogICAgIHRydWUKIGNvbnRhaW5lcmQ6CiAgVmVyc2lvbjogICAgICAgICAgdjEuNy4yNQogIEdpdENvbW1pdDogICAgICAgIGJjYzgxMGQ2YjkwNjY0NzFiMGI2ZmE3NWY1NTdhMTVhMWNiZjMxYmIKIHJ1bmM6CiAgVmVyc2lvbjogICAgICAgICAgMS4yLjQKICBHaXRDb21taXQ6ICAgICAgICB2MS4yLjQtMC1nNmM1MmIzZgogZG9ja2VyLWluaXQ6CiAgVmVyc2lvbjogICAgICAgICAgMC4xOS4wCiAgR2l0Q29tbWl0OiAgICAgICAgZGU0MGFkMA==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker version
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Client: Docker Engine - Community
+</span></span></span><span class=line><span class=cl><span class=go> Version:           28.5.1
+</span></span></span><span class=line><span class=cl><span class=go> API version:       1.51
+</span></span></span><span class=line><span class=cl><span class=go> Go version:        go1.24.8
+</span></span></span><span class=line><span class=cl><span class=go> Git commit:        e180ab8
+</span></span></span><span class=line><span class=cl><span class=go> Built:             Wed Oct  8 12:16:17 2025
+</span></span></span><span class=line><span class=cl><span class=go> OS/Arch:           darwin/arm64
+</span></span></span><span class=line><span class=cl><span class=go> Context:           remote-test-server
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Server: Docker Desktop 4.19.0 (12345)
+</span></span></span><span class=line><span class=cl><span class=go> Engine:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          27.5.1
+</span></span></span><span class=line><span class=cl><span class=go>  API version:      1.47 (minimum version 1.24)
+</span></span></span><span class=line><span class=cl><span class=go>  Go version:       go1.22.11
+</span></span></span><span class=line><span class=cl><span class=go>  Git commit:       4c9b3b0
+</span></span></span><span class=line><span class=cl><span class=go>  Built:            Wed Jan 22 13:41:24 2025
+</span></span></span><span class=line><span class=cl><span class=go>  OS/Arch:          linux/amd64
+</span></span></span><span class=line><span class=cl><span class=go>  Experimental:     true
+</span></span></span><span class=line><span class=cl><span class=go> containerd:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          v1.7.25
+</span></span></span><span class=line><span class=cl><span class=go>  GitCommit:        bcc810d6b9066471b0b6fa75f557a15a1cbf31bb
+</span></span></span><span class=line><span class=cl><span class=go> runc:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          1.2.4
+</span></span></span><span class=line><span class=cl><span class=go>  GitCommit:        v1.2.4-0-g6c52b3f
+</span></span></span><span class=line><span class=cl><span class=go> docker-init:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          0.19.0
+</span></span></span><span class=line><span class=cl><span class=go>  GitCommit:        de40ad0
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=client-and-server-versions><a class="text-black dark:text-white no-underline hover:underline" href=#client-and-server-versions>Client and server versions</a></h3><p>Docker uses a client/server architecture, which allows you to use the Docker CLI
+on your local machine to control a Docker Engine running on a remote machine,
+which can be (for example) a machine running in the cloud or inside a virtual machine.</p><p>The following example switches the Docker CLI to use a
+<a class=link href=/reference/cli/docker/context/>context</a>
+named <code>remote-test-server</code>, which runs an older version of the Docker Engine
+on a Linux server:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgY29udGV4dCB1c2UgcmVtb3RlLXRlc3Qtc2VydmVyCnJlbW90ZS10ZXN0LXNlcnZlcgoKJCBkb2NrZXIgdmVyc2lvbgoKQ2xpZW50OiBEb2NrZXIgRW5naW5lIC0gQ29tbXVuaXR5CiBWZXJzaW9uOiAgICAgICAgICAgMjguNS4xCiBBUEkgdmVyc2lvbjogICAgICAgMS41MQogR28gdmVyc2lvbjogICAgICAgIGdvMS4yNC44CiBHaXQgY29tbWl0OiAgICAgICAgZTE4MGFiOAogQnVpbHQ6ICAgICAgICAgICAgIFdlZCBPY3QgIDggMTI6MTY6MTcgMjAyNQogT1MvQXJjaDogICAgICAgICAgIGRhcndpbi9hcm02NAogQ29udGV4dDogICAgICAgICAgIHJlbW90ZS10ZXN0LXNlcnZlcgoKU2VydmVyOiBEb2NrZXIgRW5naW5lIC0gQ29tbXVuaXR5CiBFbmdpbmU6CiAgVmVyc2lvbjogICAgICAgICAgMjcuNS4xCiAgQVBJIHZlcnNpb246ICAgICAgMS40NyAobWluaW11bSB2ZXJzaW9uIDEuMjQpCiAgR28gdmVyc2lvbjogICAgICAgZ28xLjIyLjExCiAgR2l0IGNvbW1pdDogICAgICAgNGM5YjNiMAogIEJ1aWx0OiAgICAgICAgICAgIFdlZCBKYW4gMjIgMTM6NDE6MjQgMjAyNQogIE9TL0FyY2g6ICAgICAgICAgIGxpbnV4L2FtZDY0CiAgRXhwZXJpbWVudGFsOiAgICAgdHJ1ZQogY29udGFpbmVyZDoKICBWZXJzaW9uOiAgICAgICAgICB2MS43LjI1CiAgR2l0Q29tbWl0OiAgICAgICAgYmNjODEwZDZiOTA2NjQ3MWIwYjZmYTc1ZjU1N2ExNWExY2JmMzFiYgogcnVuYzoKICBWZXJzaW9uOiAgICAgICAgICAxLjIuNAogIEdpdENvbW1pdDogICAgICAgIHYxLjIuNC0wLWc2YzUyYjNmCiBkb2NrZXItaW5pdDoKICBWZXJzaW9uOiAgICAgICAgICAwLjE5LjAKICBHaXRDb21taXQ6ICAgICAgICBkZTQwYWQw', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker context use remote-test-server
+</span></span><span class=line><span class=cl><span class=go>remote-test-server
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker version
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Client: Docker Engine - Community
+</span></span></span><span class=line><span class=cl><span class=go> Version:           28.5.1
+</span></span></span><span class=line><span class=cl><span class=go> API version:       1.51
+</span></span></span><span class=line><span class=cl><span class=go> Go version:        go1.24.8
+</span></span></span><span class=line><span class=cl><span class=go> Git commit:        e180ab8
+</span></span></span><span class=line><span class=cl><span class=go> Built:             Wed Oct  8 12:16:17 2025
+</span></span></span><span class=line><span class=cl><span class=go> OS/Arch:           darwin/arm64
+</span></span></span><span class=line><span class=cl><span class=go> Context:           remote-test-server
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Server: Docker Engine - Community
+</span></span></span><span class=line><span class=cl><span class=go> Engine:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          27.5.1
+</span></span></span><span class=line><span class=cl><span class=go>  API version:      1.47 (minimum version 1.24)
+</span></span></span><span class=line><span class=cl><span class=go>  Go version:       go1.22.11
+</span></span></span><span class=line><span class=cl><span class=go>  Git commit:       4c9b3b0
+</span></span></span><span class=line><span class=cl><span class=go>  Built:            Wed Jan 22 13:41:24 2025
+</span></span></span><span class=line><span class=cl><span class=go>  OS/Arch:          linux/amd64
+</span></span></span><span class=line><span class=cl><span class=go>  Experimental:     true
+</span></span></span><span class=line><span class=cl><span class=go> containerd:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          v1.7.25
+</span></span></span><span class=line><span class=cl><span class=go>  GitCommit:        bcc810d6b9066471b0b6fa75f557a15a1cbf31bb
+</span></span></span><span class=line><span class=cl><span class=go> runc:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          1.2.4
+</span></span></span><span class=line><span class=cl><span class=go>  GitCommit:        v1.2.4-0-g6c52b3f
+</span></span></span><span class=line><span class=cl><span class=go> docker-init:
+</span></span></span><span class=line><span class=cl><span class=go>  Version:          0.19.0
+</span></span></span><span class=line><span class=cl><span class=go>  GitCommit:        de40ad0
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=api-version-and-version-negotiation><a class="text-black dark:text-white no-underline hover:underline" href=#api-version-and-version-negotiation>API version and version negotiation</a></h3><p>The API version used by the client depends on the Docker Engine that the Docker
+CLI is connecting with. When connecting with the Docker Engine, the Docker CLI
+and Docker Engine perform API version negotiation, and select the highest API
+version that is supported by both the Docker CLI and the Docker Engine.</p><p>For example, if the CLI is connecting with Docker Engine version 27.5, it downgrades
+to API version 1.47 (refer to the
+<a class=link href=/reference/api/engine/#api-version-matrix>API version matrix</a>
+to learn about the supported API versions for Docker Engine):</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgdmVyc2lvbiAtLWZvcm1hdCAne3suQ2xpZW50LkFQSVZlcnNpb259fScKCjEuNDc=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker version --format <span class=s1>&#39;{{.Client.APIVersion}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>1.47
+</span></span></span></code></pre></div></div></div></div><p>Be aware that API version can also be overridden using the <code>DOCKER_API_VERSION</code>
+environment variable, which can be useful for debugging purposes, and disables
+API version negotiation. The following example illustrates an environment where
+the <code>DOCKER_API_VERSION</code> environment variable is set. Unsetting the environment
+variable removes the override, and re-enables API version negotiation:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBlbnYgfCBncmVwIERPQ0tFUl9BUElfVkVSU0lPTgpET0NLRVJfQVBJX1ZFUlNJT049MS41MAoKJCBkb2NrZXIgdmVyc2lvbiAtLWZvcm1hdCAne3suQ2xpZW50LkFQSVZlcnNpb259fScKMS41MAoKJCB1bnNldCBET0NLRVJfQVBJX1ZFUlNJT04KJCBkb2NrZXIgdmVyc2lvbiAtLWZvcm1hdCAne3suQ2xpZW50LkFQSVZlcnNpb259fScKMS41MQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> env <span class=p>|</span> grep DOCKER_API_VERSION
+</span></span><span class=line><span class=cl><span class=go>DOCKER_API_VERSION=1.50
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> docker version --format <span class=s1>&#39;{{.Client.APIVersion}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=go>1.50
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> <span class=nb>unset</span> DOCKER_API_VERSION
+</span></span><span class=line><span class=cl><span class=gp>$</span> docker version --format <span class=s1>&#39;{{.Client.APIVersion}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=go>1.51
+</span></span></span></code></pre></div></div></div></div><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><a class=link href=#format><code>-f, --format</code></a></td><td></td><td>Format output using a custom template:<br>'json': Print in JSON format<br>'TEMPLATE': Print output using the given Go template.<br>Refer to <a class=link href=https://docs.docker.com/go/formatting/ rel=noopener>https://docs.docker.com/go/formatting/</a> for more information about formatting output with templates</td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=examples><a class="text-black dark:text-white no-underline hover:underline" href=#examples>Examples</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=format><a class="text-black dark:text-white no-underline hover:underline" href=#format>Format the output (--format)</a></h3><p>The formatting option (<code>--format</code>) pretty-prints the output using a Go template,
+which allows you to customize the output format, or to obtain specific information
+from the output. Refer to the
+<a class=link href=/config/formatting/>format command and log output</a>
+page for details of the format.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=get-the-server-version><a class="text-black dark:text-white no-underline hover:underline" href=#get-the-server-version>Get the server version</a></h3><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgdmVyc2lvbiAtLWZvcm1hdCAne3suU2VydmVyLlZlcnNpb259fScKCjI4LjUuMQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker version --format <span class=s1>&#39;{{.Server.Version}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>28.5.1
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=get-the-client-api-version><a class="text-black dark:text-white no-underline hover:underline" href=#get-the-client-api-version>Get the client API version</a></h3><p>The following example prints the API version that is used by the client:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgdmVyc2lvbiAtLWZvcm1hdCAne3suQ2xpZW50LkFQSVZlcnNpb259fScKCjEuNTE=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker version --format <span class=s1>&#39;{{.Client.APIVersion}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>1.51
+</span></span></span></code></pre></div></div></div></div><p>The version shown is the API version that is negotiated between the client
+and the Docker Engine. Refer to <a class=link href=#api-version-and-version-negotiation>API version and version negotiation</a>
+above for more information.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=dump-raw-json-data><a class="text-black dark:text-white no-underline hover:underline" href=#dump-raw-json-data>Dump raw JSON data</a></h3><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgdmVyc2lvbiAtLWZvcm1hdCAne3tqc29uIC59fScKCnsiQ2xpZW50IjoiVmVyc2lvbiI6IjI4LjUuMSIsIkFwaVZlcnNpb24iOiIxLjUxIiwgLi4ufQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker version --format <span class=s1>&#39;{{json .}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>{&#34;Client&#34;:&#34;Version&#34;:&#34;28.5.1&#34;,&#34;ApiVersion&#34;:&#34;1.51&#34;, ...}
+</span></span></span></code></pre></div></div></div></div>

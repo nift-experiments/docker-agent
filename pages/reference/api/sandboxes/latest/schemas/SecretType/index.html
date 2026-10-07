@@ -1,0 +1,17 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/SecretType.md>Markdown</a></div><meta data-pagefind-meta="title:SecretType — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>SecretType</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The stored credential shape: token, OAuth refresh material, custom injection, registry credentials, or a credential resolved from an approved host-owned source. Secret material is never returned.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The stored credential shape: token, OAuth refresh material, custom injection, registry credentials, or a credential resolved from an approved host-owned source. Secret material is never returned.",
+  "enum": [
+    "unspecified",
+    "token",
+    "oauthRefresh",
+    "custom",
+    "registryV2",
+    "hostResolved"
+  ],
+  "title": "SecretType",
+  "type": "string"
+}</code></pre></details></article>

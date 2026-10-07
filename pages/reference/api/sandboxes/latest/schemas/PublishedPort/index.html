@@ -1,0 +1,51 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/PublishedPort.md>Markdown</a></div><meta data-pagefind-meta="title:PublishedPort — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>PublishedPort</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">PublishedPort reports external reachability for one sandbox port.</div><details class=api-field open><summary><code>hostIp</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">host_ip is the local host bind address when relevant.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "host_ip is the local host bind address when relevant.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>hostPort</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">host_port is the local host port when relevant.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "host_port is the local host port when relevant.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>protocol</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Protocol/><code>Protocol</code></a></p><div class="prose dark:prose-invert">protocol is the published protocol.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Protocol",
+  "description": "protocol is the published protocol."
+}</code></pre></details></details><details class=api-field open><summary><code>sandboxPort</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">sandbox_port is the port inside the sandbox.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "sandbox_port is the port inside the sandbox.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>url</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">url is the required externally reachable address, including host-local addresses.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "url is the required externally reachable address, including host-local addresses.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "PublishedPort reports external reachability for one sandbox port.",
+  "properties": {
+    "hostIp": {
+      "description": "host_ip is the local host bind address when relevant.",
+      "type": "string"
+    },
+    "hostPort": {
+      "description": "host_port is the local host port when relevant.",
+      "type": "integer"
+    },
+    "protocol": {
+      "$ref": "#/components/schemas/Protocol",
+      "description": "protocol is the published protocol."
+    },
+    "sandboxPort": {
+      "description": "sandbox_port is the port inside the sandbox.",
+      "type": "integer"
+    },
+    "url": {
+      "description": "url is the required externally reachable address, including host-local addresses.",
+      "type": "string"
+    }
+  },
+  "title": "PublishedPort",
+  "type": "object"
+}</code></pre></details></article>

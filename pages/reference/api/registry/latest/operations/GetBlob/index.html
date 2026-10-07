@@ -1,0 +1,159 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/GetBlob.md>Markdown</a></div><meta data-pagefind-meta="title:Retrieve blob — Registry API 2"><h1>Retrieve blob</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/{name}<wbr>/blobs<wbr>/{digest}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Download the blob identified by digest from the registry.</p><p>Blobs include image layers and configuration objects. Clients must use the digest from the manifest to retrieve a blob.</p><p>This endpoint may return a <code>307 Temporary Redirect</code> to a CDN or storage location. Clients must follow the redirect to obtain the actual blob content.</p><p>The blob content is typically a gzipped tarball (for layers) or JSON (for configs). The MIME type is usually <code>application/octet-stream</code>.</p></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Repository Name</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=digest><h3><code>digest</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Digest of the Blob</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/octet-stream>application/octet-stream</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1{digest}/get/responses/200/content/application~1octet-stream data-api-media=application/octet-stream><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Blob content returned directly</div><p class=api-media><code>application/octet-stream</code></p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Size of the blob in bytes</p><pre><code>{
+  "description": "Size of the blob in bytes",
+  "example": 32768,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div><div class=api-field><code>Content-Type</code><p>MIME type of the blob</p><pre><code>{
+  "description": "MIME type of the blob",
+  "example": "application/octet-stream",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Docker-Content-Digest</code><p>Digest of the returned blob</p><pre><code>{
+  "description": "Digest of the returned blob",
+  "example": "sha256:abc123def456...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "format": "binary",
+  "type": "string"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>small-layer</h4><pre><code>&lt;binary data not shown&gt;</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1{digest}/get/responses/307 data-api-media><h3><span>Response</span>
+<code class=api-status>307</code></h3><div class="prose dark:prose-invert">Temporary redirect to blob location</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Location</code><p>Redirect URL for blob download (e.g., S3 or CDN)</p><pre><code>{
+  "description": "Redirect URL for blob download (e.g., S3 or CDN)",
+  "example": "https://cdn.docker.io/blobs/library/ubuntu/abc123...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1{digest}/get/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1{digest}/get/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1{digest}/get/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Blob not found</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1{digest}/get/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Download the blob identified by digest from the registry.\n\nBlobs include image layers and configuration objects. Clients must use the digest from the manifest to retrieve a blob.\n\nThis endpoint may return a `307 Temporary Redirect` to a CDN or storage location. Clients must follow the redirect to obtain the actual blob content.\n\nThe blob content is typically a gzipped tarball (for layers) or JSON (for configs). The MIME type is usually `application/octet-stream`.\n",
+  "operationId": "GetBlob",
+  "parameters": [
+    {
+      "description": "Repository Name",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Digest of the Blob",
+      "example": "sha256:abc123def456...",
+      "in": "path",
+      "name": "digest",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/octet-stream": {
+          "examples": {
+            "small-layer": {
+              "summary": "Example binary blob (gzipped tar layer)",
+              "value": "\u003cbinary data not shown\u003e"
+            }
+          },
+          "schema": {
+            "format": "binary",
+            "type": "string"
+          }
+        }
+      },
+      "description": "Blob content returned directly",
+      "headers": {
+        "Content-Length": {
+          "description": "Size of the blob in bytes",
+          "example": 32768,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "Content-Type": {
+          "description": "MIME type of the blob",
+          "example": "application/octet-stream",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Docker-Content-Digest": {
+          "description": "Digest of the returned blob",
+          "example": "sha256:abc123def456...",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "307": {
+      "description": "Temporary redirect to blob location",
+      "headers": {
+        "Location": {
+          "description": "Redirect URL for blob download (e.g., S3 or CDN)",
+          "example": "https://cdn.docker.io/blobs/library/ubuntu/abc123...",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Authentication required"
+    },
+    "403": {
+      "description": "Access denied"
+    },
+    "404": {
+      "description": "Blob not found"
+    },
+    "429": {
+      "description": "Too many requests"
+    }
+  },
+  "summary": "Retrieve blob",
+  "tags": [
+    "Blobs"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# GET (download) a blob\ncurl -L \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  https://registry-1.docker.io/v2/library/ubuntu/blobs/sha256:abc123... \\\n  -o layer.tar.gz\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  --header &#39;Accept: application/octet-stream&#39; \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/blobs/sha256:abc123def456...&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBvc2l0b3J5IE5hbWVcIixcbiAgXCJleGFtcGxlXCI6IFwibGlicmFyeS91YnVudHVcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xe2RpZ2VzdH0vZ2V0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIkRpZ2VzdCBvZiB0aGUgQmxvYlwiLFxuICBcImV4YW1wbGVcIjogXCJzaGEyNTY6YWJjMTIzZGVmNDU2Li4uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcImRpZ2VzdFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xe2RpZ2VzdH0vZ2V0L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJmb3JtYXRcIjogXCJiaW5hcnlcIixcbiAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbn0iLCAie1xuICBcIkNvbnRlbnQtTGVuZ3RoXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiU2l6ZSBvZiB0aGUgYmxvYiBpbiBieXRlc1wiLFxuICAgIFwiZXhhbXBsZVwiOiAzMjc2OCxcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJpbnRlZ2VyXCJcbiAgICB9XG4gIH0sXG4gIFwiQ29udGVudC1UeXBlXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiTUlNRSB0eXBlIG9mIHRoZSBibG9iXCIsXG4gICAgXCJleGFtcGxlXCI6IFwiYXBwbGljYXRpb24vb2N0ZXQtc3RyZWFtXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwiRG9ja2VyLUNvbnRlbnQtRGlnZXN0XCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiRGlnZXN0IG9mIHRoZSByZXR1cm5lZCBibG9iXCIsXG4gICAgXCJleGFtcGxlXCI6IFwic2hhMjU2OmFiYzEyM2RlZjQ1Ni4uLlwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9XG59IiwgIntcbiAgXCJMb2NhdGlvblwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIlJlZGlyZWN0IFVSTCBmb3IgYmxvYiBkb3dubG9hZCAoZS5nLiwgUzMgb3IgQ0ROKVwiLFxuICAgIFwiZXhhbXBsZVwiOiBcImh0dHBzOi8vY2RuLmRvY2tlci5pby9ibG9icy9saWJyYXJ5L3VidW50dS9hYmMxMjMuLi5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSJd"></template>

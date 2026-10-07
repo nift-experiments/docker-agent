@@ -1,0 +1,129 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/operations/getManyReposPulls.md>Markdown</a></div><meta data-pagefind-meta="title:Get pull data for multiple repos — Publisher analytics API 1.0.0"><h1>Get pull data for multiple repos</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/repos<wbr>/pulls</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Gets pull for the given repos.</div><h2>Connection and access</h2><p><a href=/reference/api/dvp/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/api/publisher/analytics/v1</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>HubAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=repos><h3><code>repos</code>
+<small>query</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Repositories to fetch data for (maximum of 50 repositories per request).</div><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></section><section class=api-field data-api-parameter=timespan><h3><code>timespan</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Timespan type for fetching data</div><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/TimespanType/><code>TimespanType</code></a></p></section><section class=api-field data-api-parameter=period><h3><code>period</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Relative period of the period to fetch data</div><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/PeriodType/><code>PeriodType</code></a></p></section><section class=api-field data-api-parameter=group><h3><code>group</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Field to group the data by</div><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/GroupType/><code>GroupType</code></a></p></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1repos~1pulls/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/ReposPullData/><code>ReposPullData</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;repos&#34;: {
+    &#34;org2/neo4j&#34;: {
+      &#34;pulls&#34;: [
+        {
+          &#34;end&#34;: &#34;2022-08-07T00:00:00Z&#34;,
+          &#34;ipCount&#34;: 41490,
+          &#34;pullCount&#34;: 272407,
+          &#34;repo&#34;: &#34;neo4j&#34;,
+          &#34;start&#34;: &#34;2022-08-01T00:00:00Z&#34;
+        },
+        {
+          &#34;end&#34;: &#34;2022-08-14T00:00:00Z&#34;,
+          &#34;ipCount&#34;: 41490,
+          &#34;pullCount&#34;: 272407,
+          &#34;repo&#34;: &#34;neo4j&#34;,
+          &#34;start&#34;: &#34;2022-08-08T00:00:00Z&#34;
+        }
+      ]
+    },
+    &#34;org2/neo4j-admin&#34;: {
+      &#34;pulls&#34;: [
+        {
+          &#34;end&#34;: &#34;2022-08-07T00:00:00Z&#34;,
+          &#34;ipCount&#34;: 10,
+          &#34;pullCount&#34;: 11,
+          &#34;repo&#34;: &#34;neo4j-admin&#34;,
+          &#34;start&#34;: &#34;2022-08-01T00:00:00Z&#34;
+        },
+        {
+          &#34;end&#34;: &#34;2022-08-14T00:00:00Z&#34;,
+          &#34;ipCount&#34;: 10,
+          &#34;pullCount&#34;: 11,
+          &#34;repo&#34;: &#34;neo4j-admin&#34;,
+          &#34;start&#34;: &#34;2022-08-08T00:00:00Z&#34;
+        }
+      ]
+    }
+  }
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/dvp/latest/schemas/GroupType/>#/components/schemas/GroupType</a></p><p><a href=/reference/api/dvp/latest/schemas/PeriodType/>#/components/schemas/PeriodType</a></p><p><a href=/reference/api/dvp/latest/schemas/ReposPullData/>#/components/schemas/ReposPullData</a></p><p><a href=/reference/api/dvp/latest/schemas/TimespanType/>#/components/schemas/TimespanType</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Gets pull for the given repos.",
+  "operationId": "getManyReposPulls",
+  "parameters": [
+    {
+      "description": "Repositories to fetch data for (maximum of 50 repositories per request).",
+      "in": "query",
+      "name": "repos",
+      "required": true,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      }
+    },
+    {
+      "description": "Timespan type for fetching data",
+      "in": "query",
+      "name": "timespan",
+      "required": false,
+      "schema": {
+        "$ref": "#/components/schemas/TimespanType"
+      }
+    },
+    {
+      "description": "Relative period of the period to fetch data",
+      "in": "query",
+      "name": "period",
+      "required": false,
+      "schema": {
+        "$ref": "#/components/schemas/PeriodType"
+      }
+    },
+    {
+      "description": "Field to group the data by",
+      "in": "query",
+      "name": "group",
+      "required": false,
+      "schema": {
+        "$ref": "#/components/schemas/GroupType"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ReposPullData"
+          }
+        }
+      },
+      "description": "Success"
+    }
+  },
+  "summary": "Get pull data for multiple repos",
+  "tags": [
+    "namespaces"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/api/publisher/analytics/v1/repos/pulls?repos=%3CREPOS%3E&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcIkh1YkF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBvc2l0b3JpZXMgdG8gZmV0Y2ggZGF0YSBmb3IgKG1heGltdW0gb2YgNTAgcmVwb3NpdG9yaWVzIHBlciByZXF1ZXN0KS5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInJlcG9zXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXJlcG9zfjFwdWxscy9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiaXRlbXNcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9LFxuICAgIFwidHlwZVwiOiBcImFycmF5XCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJUaW1lc3BhbiB0eXBlIGZvciBmZXRjaGluZyBkYXRhXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJ0aW1lc3BhblwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFyZXBvc34xcHVsbHMvZ2V0L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvVGltZXNwYW5UeXBlXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZWxhdGl2ZSBwZXJpb2Qgb2YgdGhlIHBlcmlvZCB0byBmZXRjaCBkYXRhXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJwZXJpb2RcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xcmVwb3N+MXB1bGxzL2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1BlcmlvZFR5cGVcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIkZpZWxkIHRvIGdyb3VwIHRoZSBkYXRhIGJ5XCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJncm91cFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFyZXBvc34xcHVsbHMvZ2V0L3BhcmFtZXRlcnMvM1wiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvR3JvdXBUeXBlXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1JlcG9zUHVsbERhdGFcIlxufSJd"></template>

@@ -1,0 +1,44 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/CedarV1Policy.md>Markdown</a></div><meta data-pagefind-meta="title:CedarV1Policy — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>CedarV1Policy</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Cedar:V1 policy body. Present on <code>Policy</code> when <code>PolicySummary.type</code> is <code>cedar_v1</code>. Cedar policies encode their rules directly in <code>text</code> rather than in the rules sub-resource; the rules endpoints are not available for Cedar policies.</div><details class=api-field open><summary><code>schema_url</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">URL of the Cedar schema this policy was authored against. The evaluator looks up the schema by this URL from its built-in registry. Use <code>https://schemas.docker.com/policy/cedar/v1/mcp/v0</code> for MCP policies.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "URL of the Cedar schema this policy was authored against. The evaluator looks up the schema by this URL from its built-in registry. Use `https://schemas.docker.com/policy/cedar/v1/mcp/v0` for MCP policies.\n",
+  "examples": [
+    "https://schemas.docker.com/policy/cedar/v1/mcp/v0"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>text</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">One or more Cedar <code>permit</code> or <code>forbid</code> statements. Must be syntactically valid Cedar and must not carry an <code>@id</code> annotation (IDs are server-assigned).</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "One or more Cedar `permit` or `forbid` statements. Must be syntactically valid Cedar and must not carry an `@id` annotation (IDs are server-assigned).\n",
+  "examples": [
+    "permit(principal, action == MCP::Action::\"call_tool\", resource is MCP::Tool);"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Cedar:V1 policy body. Present on `Policy` when `PolicySummary.type` is `cedar_v1`. Cedar policies encode their rules directly in `text` rather than in the rules sub-resource; the rules endpoints are not available for Cedar policies.\n",
+  "properties": {
+    "schema_url": {
+      "description": "URL of the Cedar schema this policy was authored against. The evaluator looks up the schema by this URL from its built-in registry. Use `https://schemas.docker.com/policy/cedar/v1/mcp/v0` for MCP policies.\n",
+      "examples": [
+        "https://schemas.docker.com/policy/cedar/v1/mcp/v0"
+      ],
+      "type": "string"
+    },
+    "text": {
+      "description": "One or more Cedar `permit` or `forbid` statements. Must be syntactically valid Cedar and must not carry an `@id` annotation (IDs are server-assigned).\n",
+      "examples": [
+        "permit(principal, action == MCP::Action::\"call_tool\", resource is MCP::Tool);"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "text",
+    "schema_url"
+  ],
+  "type": "object"
+}</code></pre></details></article>

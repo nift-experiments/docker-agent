@@ -1,0 +1,65 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/BadRequestFieldViolation.md>Markdown</a></div><meta data-pagefind-meta="title:BadRequestFieldViolation — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>BadRequestFieldViolation</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">A message type used to describe a single bad request field.</div><details class=api-field open><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">A description of why the request element is bad.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A description of why the request element is bad.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>field</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>A path that leads to a field in the request body. The value will be a
+sequence of dot-separated identifiers that identify a protocol buffer
+field.</p><p>Consider the following:</p><p>message CreateContactRequest {
+message EmailAddress {
+enum Type {
+TYPE_UNSPECIFIED = 0;
+HOME = 1;
+WORK = 2;
+}</p><p>optional string email = 1;
+repeated EmailType type = 2;
+}</p><p>string full_name = 1;
+repeated EmailAddress email_addresses = 2;
+}</p><p>In this example, in proto <code>field</code> could take one of the following values:</p><ul><li><code>full_name</code> for a violation in the <code>full_name</code> value</li><li><code>email_addresses[0].email</code> for a violation in the <code>email</code> field of the
+first <code>email_addresses</code> message</li><li><code>email_addresses[2].type[1]</code> for a violation in the second <code>type</code>
+value in the third <code>email_addresses</code> message.</li></ul><p>In JSON, the same values are represented as:</p><ul><li><code>fullName</code> for a violation in the <code>fullName</code> value</li><li><code>emailAddresses[0].email</code> for a violation in the <code>email</code> field of the
+first <code>emailAddresses</code> message</li><li><code>emailAddresses[2].type[1]</code> for a violation in the second <code>type</code>
+value in the third <code>emailAddresses</code> message.</li></ul></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A path that leads to a field in the request body. The value will be a\nsequence of dot-separated identifiers that identify a protocol buffer\nfield.\n\nConsider the following:\n\nmessage CreateContactRequest {\nmessage EmailAddress {\nenum Type {\nTYPE_UNSPECIFIED = 0;\nHOME = 1;\nWORK = 2;\n}\n\noptional string email = 1;\nrepeated EmailType type = 2;\n}\n\nstring full_name = 1;\nrepeated EmailAddress email_addresses = 2;\n}\n\nIn this example, in proto `field` could take one of the following values:\n\n* `full_name` for a violation in the `full_name` value\n* `email_addresses[0].email` for a violation in the `email` field of the\nfirst `email_addresses` message\n* `email_addresses[2].type[1]` for a violation in the second `type`\nvalue in the third `email_addresses` message.\n\nIn JSON, the same values are represented as:\n\n* `fullName` for a violation in the `fullName` value\n* `emailAddresses[0].email` for a violation in the `email` field of the\nfirst `emailAddresses` message\n* `emailAddresses[2].type[1]` for a violation in the second `type`\nvalue in the third `emailAddresses` message.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>localizedMessage</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/LocalizedMessage/><code>LocalizedMessage</code></a></p><div class="prose dark:prose-invert">Provides a localized error message for field-level errors that is safe to
+return to the API consumer.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/LocalizedMessage",
+  "description": "Provides a localized error message for field-level errors that is safe to\nreturn to the API consumer."
+}</code></pre></details></details><details class=api-field open><summary><code>reason</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The reason of the field-level error. This is a constant value that
+identifies the proximate cause of the field-level error. It should
+uniquely identify the type of the FieldViolation within the scope of the
+ErrorInfo.domain. This should be at most 63
+characters and match a regular expression of <code>[A-Z][A-Z0-9_]+[A-Z0-9]</code>,
+which represents UPPER_SNAKE_CASE.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The reason of the field-level error. This is a constant value that\nidentifies the proximate cause of the field-level error. It should\nuniquely identify the type of the FieldViolation within the scope of the\nErrorInfo.domain. This should be at most 63\ncharacters and match a regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`,\nwhich represents UPPER_SNAKE_CASE.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A message type used to describe a single bad request field.",
+  "properties": {
+    "description": {
+      "description": "A description of why the request element is bad.",
+      "type": "string"
+    },
+    "field": {
+      "description": "A path that leads to a field in the request body. The value will be a\nsequence of dot-separated identifiers that identify a protocol buffer\nfield.\n\nConsider the following:\n\nmessage CreateContactRequest {\nmessage EmailAddress {\nenum Type {\nTYPE_UNSPECIFIED = 0;\nHOME = 1;\nWORK = 2;\n}\n\noptional string email = 1;\nrepeated EmailType type = 2;\n}\n\nstring full_name = 1;\nrepeated EmailAddress email_addresses = 2;\n}\n\nIn this example, in proto `field` could take one of the following values:\n\n* `full_name` for a violation in the `full_name` value\n* `email_addresses[0].email` for a violation in the `email` field of the\nfirst `email_addresses` message\n* `email_addresses[2].type[1]` for a violation in the second `type`\nvalue in the third `email_addresses` message.\n\nIn JSON, the same values are represented as:\n\n* `fullName` for a violation in the `fullName` value\n* `emailAddresses[0].email` for a violation in the `email` field of the\nfirst `emailAddresses` message\n* `emailAddresses[2].type[1]` for a violation in the second `type`\nvalue in the third `emailAddresses` message.",
+      "type": "string"
+    },
+    "localizedMessage": {
+      "$ref": "#/components/schemas/LocalizedMessage",
+      "description": "Provides a localized error message for field-level errors that is safe to\nreturn to the API consumer."
+    },
+    "reason": {
+      "description": "The reason of the field-level error. This is a constant value that\nidentifies the proximate cause of the field-level error. It should\nuniquely identify the type of the FieldViolation within the scope of the\nErrorInfo.domain. This should be at most 63\ncharacters and match a regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`,\nwhich represents UPPER_SNAKE_CASE.",
+      "type": "string"
+    }
+  },
+  "title": "FieldViolation",
+  "type": "object"
+}</code></pre></details></article>

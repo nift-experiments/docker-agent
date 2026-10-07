@@ -1,0 +1,442 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/PutImageManifest.md>Markdown</a></div><meta data-pagefind-meta="title:Put image manifest — Registry API 2"><h1>Put image manifest</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v2<wbr>/{name}<wbr>/manifests<wbr>/{reference}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Upload an image manifest for a given tag or digest. This operation registers a manifest in a repository, allowing it to be pulled using the specified reference.</p><p>This endpoint is typically used after all layer and config blobs have been uploaded to the registry.</p><p>The manifest must conform to the expected schema and media type. For Docker image manifest schema version 2, use:
+<code>application/vnd.docker.distribution.manifest.v2+json</code></p><p>Requires authentication via a bearer token with <code>push</code> scope for the target repository.</p></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the target Repository</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=reference><h3><code>reference</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Tag or digest to associate with the uploaded Manifest</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/vnd.docker.distribution.manifest.v2+json>application/vnd.docker.distribution.manifest.v2+json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/requestBody/content/application~1vnd.docker.distribution.manifest.v2+json data-api-media=application/vnd.docker.distribution.manifest.v2+json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/vnd.docker.distribution.manifest.v2+json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>config</code>
+· required</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>digest</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "sha256:123456abcdef...",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>mediaType</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "application/vnd.docker.container.image.v1+json",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>size</code>
+· required</summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 7023,
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "digest": {
+      "example": "sha256:123456abcdef...",
+      "type": "string"
+    },
+    "mediaType": {
+      "example": "application/vnd.docker.container.image.v1+json",
+      "type": "string"
+    },
+    "size": {
+      "example": 7023,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mediaType",
+    "size",
+    "digest"
+  ],
+  "type": "object"
+}</code></pre></details></details><details class=api-field open><summary><code>layers</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>digest</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "sha256:abcdef123456...",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>mediaType</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>size</code>
+· required</summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 32654,
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "digest": {
+      "example": "sha256:abcdef123456...",
+      "type": "string"
+    },
+    "mediaType": {
+      "example": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "type": "string"
+    },
+    "size": {
+      "example": 32654,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "mediaType",
+    "size",
+    "digest"
+  ],
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "properties": {
+      "digest": {
+        "example": "sha256:abcdef123456...",
+        "type": "string"
+      },
+      "mediaType": {
+        "example": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "type": "string"
+      },
+      "size": {
+        "example": 32654,
+        "type": "integer"
+      }
+    },
+    "required": [
+      "mediaType",
+      "size",
+      "digest"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>mediaType</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "application/vnd.docker.distribution.manifest.v2+json",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>schemaVersion</code>
+· required</summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 2,
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "config": {
+      "properties": {
+        "digest": {
+          "example": "sha256:123456abcdef...",
+          "type": "string"
+        },
+        "mediaType": {
+          "example": "application/vnd.docker.container.image.v1+json",
+          "type": "string"
+        },
+        "size": {
+          "example": 7023,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "mediaType",
+        "size",
+        "digest"
+      ],
+      "type": "object"
+    },
+    "layers": {
+      "items": {
+        "properties": {
+          "digest": {
+            "example": "sha256:abcdef123456...",
+            "type": "string"
+          },
+          "mediaType": {
+            "example": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+            "type": "string"
+          },
+          "size": {
+            "example": 32654,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mediaType",
+          "size",
+          "digest"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "mediaType": {
+      "example": "application/vnd.docker.distribution.manifest.v2+json",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "example": 2,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "mediaType",
+    "config",
+    "layers"
+  ],
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>sample-manifest</h4><pre><code>{
+  &#34;config&#34;: {
+    &#34;digest&#34;: &#34;sha256:123456abcdef...&#34;,
+    &#34;mediaType&#34;: &#34;application/vnd.docker.container.image.v1&#43;json&#34;,
+    &#34;size&#34;: 7023
+  },
+  &#34;layers&#34;: [
+    {
+      &#34;digest&#34;: &#34;sha256:abcdef123456...&#34;,
+      &#34;mediaType&#34;: &#34;application/vnd.docker.image.rootfs.diff.tar.gzip&#34;,
+      &#34;size&#34;: 32654
+    }
+  ],
+  &#34;mediaType&#34;: &#34;application/vnd.docker.distribution.manifest.v2&#43;json&#34;,
+  &#34;schemaVersion&#34;: 2
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/201 data-api-media><h3><span>Response</span>
+<code class=api-status>201</code></h3><div class="prose dark:prose-invert">Manifest created successfully.</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Always zero.</p><pre><code>{
+  "description": "Always zero.",
+  "example": 0,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div><div class=api-field><code>Docker-Content-Digest</code><p>Digest of the stored manifest.</p><pre><code>{
+  "description": "Digest of the stored manifest.",
+  "example": "sha256:abcdef123456...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Location</code><p>Canonical location of the uploaded manifest.</p><pre><code>{
+  "description": "Canonical location of the uploaded manifest.",
+  "example": "/v2/library/ubuntu/manifests/latest",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/400 data-api-media><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Invalid name, reference, or manifest.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Repository not found.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/405 data-api-media><h3><span>Response</span>
+<code class=api-status>405</code></h3><div class="prose dark:prose-invert">Operation not allowed.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1manifests~1{reference}/put/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests.</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Upload an image manifest for a given tag or digest. This operation registers a manifest in a repository, allowing it to be pulled using the specified reference.\n\nThis endpoint is typically used after all layer and config blobs have been uploaded to the registry.\n\nThe manifest must conform to the expected schema and media type. For Docker image manifest schema version 2, use:\n`application/vnd.docker.distribution.manifest.v2+json`\n\nRequires authentication via a bearer token with `push` scope for the target repository.\n",
+  "operationId": "PutImageManifest",
+  "parameters": [
+    {
+      "description": "Name of the target Repository",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Tag or digest to associate with the uploaded Manifest",
+      "examples": {
+        "by-digest": {
+          "summary": "Digest",
+          "value": "sha256:abc123def456..."
+        },
+        "by-tag": {
+          "summary": "Tag",
+          "value": "latest"
+        }
+      },
+      "in": "path",
+      "name": "reference",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/vnd.docker.distribution.manifest.v2+json": {
+        "examples": {
+          "sample-manifest": {
+            "summary": "Sample Docker image manifest (schema v2)",
+            "value": {
+              "config": {
+                "digest": "sha256:123456abcdef...",
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 7023
+              },
+              "layers": [
+                {
+                  "digest": "sha256:abcdef123456...",
+                  "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                  "size": 32654
+                }
+              ],
+              "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+              "schemaVersion": 2
+            }
+          }
+        },
+        "schema": {
+          "properties": {
+            "config": {
+              "properties": {
+                "digest": {
+                  "example": "sha256:123456abcdef...",
+                  "type": "string"
+                },
+                "mediaType": {
+                  "example": "application/vnd.docker.container.image.v1+json",
+                  "type": "string"
+                },
+                "size": {
+                  "example": 7023,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "mediaType",
+                "size",
+                "digest"
+              ],
+              "type": "object"
+            },
+            "layers": {
+              "items": {
+                "properties": {
+                  "digest": {
+                    "example": "sha256:abcdef123456...",
+                    "type": "string"
+                  },
+                  "mediaType": {
+                    "example": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "type": "string"
+                  },
+                  "size": {
+                    "example": 32654,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "mediaType",
+                  "size",
+                  "digest"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "mediaType": {
+              "example": "application/vnd.docker.distribution.manifest.v2+json",
+              "type": "string"
+            },
+            "schemaVersion": {
+              "example": 2,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "schemaVersion",
+            "mediaType",
+            "config",
+            "layers"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "description": "Manifest created successfully.",
+      "headers": {
+        "Content-Length": {
+          "description": "Always zero.",
+          "example": 0,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "Docker-Content-Digest": {
+          "description": "Digest of the stored manifest.",
+          "example": "sha256:abcdef123456...",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Location": {
+          "description": "Canonical location of the uploaded manifest.",
+          "example": "/v2/library/ubuntu/manifests/latest",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "400": {
+      "description": "Invalid name, reference, or manifest."
+    },
+    "401": {
+      "description": "Authentication required."
+    },
+    "403": {
+      "description": "Access denied."
+    },
+    "404": {
+      "description": "Repository not found."
+    },
+    "405": {
+      "description": "Operation not allowed."
+    },
+    "429": {
+      "description": "Too many requests."
+    }
+  },
+  "summary": "Put image manifest",
+  "tags": [
+    "Manifests"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# PUT a manifest (tag = latest)\ncurl -X PUT \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  -H \"Content-Type: application/vnd.docker.distribution.manifest.v2+json\" \\\n  --data-binary @manifest.json \\\n  https://registry-1.docker.io/v2/library/ubuntu/manifests/latest\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  --header &#39;Content-Type: application/vnd.docker.distribution.manifest.v2&#43;json&#39; \
+  --data-raw &#39;{
+  &#34;config&#34;: {
+    &#34;digest&#34;: &#34;sha256:123456abcdef...&#34;,
+    &#34;mediaType&#34;: &#34;application/vnd.docker.container.image.v1&#43;json&#34;,
+    &#34;size&#34;: 7023
+  },
+  &#34;layers&#34;: [
+    {
+      &#34;digest&#34;: &#34;sha256:abcdef123456...&#34;,
+      &#34;mediaType&#34;: &#34;application/vnd.docker.image.rootfs.diff.tar.gzip&#34;,
+      &#34;size&#34;: 32654
+    }
+  ],
+  &#34;mediaType&#34;: &#34;application/vnd.docker.distribution.manifest.v2&#43;json&#34;,
+  &#34;schemaVersion&#34;: 2
+}&#39; \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/manifests/&lt;REFERENCE&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSB0YXJnZXQgUmVwb3NpdG9yeVwiLFxuICBcImV4YW1wbGVcIjogXCJsaWJyYXJ5L3VidW50dVwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJuYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjF7bmFtZX1+MW1hbmlmZXN0c34xe3JlZmVyZW5jZX0vcHV0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRhZyBvciBkaWdlc3QgdG8gYXNzb2NpYXRlIHdpdGggdGhlIHVwbG9hZGVkIE1hbmlmZXN0XCIsXG4gIFwiZXhhbXBsZXNcIjoge1xuICAgIFwiYnktZGlnZXN0XCI6IHtcbiAgICAgIFwic3VtbWFyeVwiOiBcIkRpZ2VzdFwiLFxuICAgICAgXCJ2YWx1ZVwiOiBcInNoYTI1NjphYmMxMjNkZWY0NTYuLi5cIlxuICAgIH0sXG4gICAgXCJieS10YWdcIjoge1xuICAgICAgXCJzdW1tYXJ5XCI6IFwiVGFnXCIsXG4gICAgICBcInZhbHVlXCI6IFwibGF0ZXN0XCJcbiAgICB9XG4gIH0sXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInJlZmVyZW5jZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFtYW5pZmVzdHN+MXtyZWZlcmVuY2V9L3B1dC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwicHJvcGVydGllc1wiOiB7XG4gICAgXCJjb25maWdcIjoge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJkaWdlc3RcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcInNoYTI1NjoxMjM0NTZhYmNkZWYuLi5cIixcbiAgICAgICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgICAgICB9LFxuICAgICAgICBcIm1lZGlhVHlwZVwiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiYXBwbGljYXRpb24vdm5kLmRvY2tlci5jb250YWluZXIuaW1hZ2UudjEranNvblwiLFxuICAgICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICAgIH0sXG4gICAgICAgIFwic2l6ZVwiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IDcwMjMsXG4gICAgICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgICAgIH1cbiAgICAgIH0sXG4gICAgICBcInJlcXVpcmVkXCI6IFtcbiAgICAgICAgXCJtZWRpYVR5cGVcIixcbiAgICAgICAgXCJzaXplXCIsXG4gICAgICAgIFwiZGlnZXN0XCJcbiAgICAgIF0sXG4gICAgICBcInR5cGVcIjogXCJvYmplY3RcIlxuICAgIH0sXG4gICAgXCJsYXllcnNcIjoge1xuICAgICAgXCJpdGVtc1wiOiB7XG4gICAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgICAgXCJkaWdlc3RcIjoge1xuICAgICAgICAgICAgXCJleGFtcGxlXCI6IFwic2hhMjU2OmFiY2RlZjEyMzQ1Ni4uLlwiLFxuICAgICAgICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICAgICAgICB9LFxuICAgICAgICAgIFwibWVkaWFUeXBlXCI6IHtcbiAgICAgICAgICAgIFwiZXhhbXBsZVwiOiBcImFwcGxpY2F0aW9uL3ZuZC5kb2NrZXIuaW1hZ2Uucm9vdGZzLmRpZmYudGFyLmd6aXBcIixcbiAgICAgICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICAgICAgfSxcbiAgICAgICAgICBcInNpemVcIjoge1xuICAgICAgICAgICAgXCJleGFtcGxlXCI6IDMyNjU0LFxuICAgICAgICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgICAgICAgfVxuICAgICAgICB9LFxuICAgICAgICBcInJlcXVpcmVkXCI6IFtcbiAgICAgICAgICBcIm1lZGlhVHlwZVwiLFxuICAgICAgICAgIFwic2l6ZVwiLFxuICAgICAgICAgIFwiZGlnZXN0XCJcbiAgICAgICAgXSxcbiAgICAgICAgXCJ0eXBlXCI6IFwib2JqZWN0XCJcbiAgICAgIH0sXG4gICAgICBcInR5cGVcIjogXCJhcnJheVwiXG4gICAgfSxcbiAgICBcIm1lZGlhVHlwZVwiOiB7XG4gICAgICBcImV4YW1wbGVcIjogXCJhcHBsaWNhdGlvbi92bmQuZG9ja2VyLmRpc3RyaWJ1dGlvbi5tYW5pZmVzdC52Mitqc29uXCIsXG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH0sXG4gICAgXCJzY2hlbWFWZXJzaW9uXCI6IHtcbiAgICAgIFwiZXhhbXBsZVwiOiAyLFxuICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgfVxuICB9LFxuICBcInJlcXVpcmVkXCI6IFtcbiAgICBcInNjaGVtYVZlcnNpb25cIixcbiAgICBcIm1lZGlhVHlwZVwiLFxuICAgIFwiY29uZmlnXCIsXG4gICAgXCJsYXllcnNcIlxuICBdLFxuICBcInR5cGVcIjogXCJvYmplY3RcIlxufSIsICJ7XG4gIFwiQ29udGVudC1MZW5ndGhcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJBbHdheXMgemVyby5cIixcbiAgICBcImV4YW1wbGVcIjogMCxcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJpbnRlZ2VyXCJcbiAgICB9XG4gIH0sXG4gIFwiRG9ja2VyLUNvbnRlbnQtRGlnZXN0XCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiRGlnZXN0IG9mIHRoZSBzdG9yZWQgbWFuaWZlc3QuXCIsXG4gICAgXCJleGFtcGxlXCI6IFwic2hhMjU2OmFiY2RlZjEyMzQ1Ni4uLlwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9LFxuICBcIkxvY2F0aW9uXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiQ2Fub25pY2FsIGxvY2F0aW9uIG9mIHRoZSB1cGxvYWRlZCBtYW5pZmVzdC5cIixcbiAgICBcImV4YW1wbGVcIjogXCIvdjIvbGlicmFyeS91YnVudHUvbWFuaWZlc3RzL2xhdGVzdFwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9XG59Il0="></template>

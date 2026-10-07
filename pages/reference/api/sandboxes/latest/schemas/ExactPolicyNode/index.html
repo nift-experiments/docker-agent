@@ -1,0 +1,277 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ExactPolicyNode.md>Markdown</a></div><meta data-pagefind-meta="title:ExactPolicyNode — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ExactPolicyNode</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ExactPolicyNode is topologically ordered; references must precede this node.</div><details class=api-field open><summary>All constraints apply</summary><details class=api-field><summary><code>source</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactPolicySource/><code>ExactPolicySource</code></a></p><div class="prose dark:prose-invert">source is required on constants and destinations and absent on Boolean operators.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactPolicySource",
+  "description": "source is required on constants and destinations and absent on Boolean operators."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "source": {
+      "$ref": "#/components/schemas/ExactPolicySource",
+      "description": "source is required on constants and destinations and absent on Boolean operators."
+    }
+  }
+}</code></pre></details><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>all</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactPolicyOperands/><code>ExactPolicyOperands</code></a></p><div class="prose dark:prose-invert">all intersects every operand.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactPolicyOperands",
+  "description": "all intersects every operand."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "all": {
+      "$ref": "#/components/schemas/ExactPolicyOperands",
+      "description": "all intersects every operand."
+    }
+  },
+  "required": [
+    "all"
+  ],
+  "title": "all",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>any</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactPolicyOperands/><code>ExactPolicyOperands</code></a></p><div class="prose dark:prose-invert">any unions its operands without discarding enclosing ceilings.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactPolicyOperands",
+  "description": "any unions its operands without discarding enclosing ceilings."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "any": {
+      "$ref": "#/components/schemas/ExactPolicyOperands",
+      "description": "any unions its operands without discarding enclosing ceilings."
+    }
+  },
+  "required": [
+    "any"
+  ],
+  "title": "any",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>constant</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactPolicyConstant/><code>ExactPolicyConstant</code></a></p><div class="prose dark:prose-invert">constant explicitly allows or denies independently of the destination.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactPolicyConstant",
+  "description": "constant explicitly allows or denies independently of the destination.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "constant": {
+      "$ref": "#/components/schemas/ExactPolicyConstant",
+      "description": "constant explicitly allows or denies independently of the destination.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    }
+  },
+  "required": [
+    "constant"
+  ],
+  "title": "constant",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>destination</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactDestination/><code>ExactDestination</code></a></p><div class="prose dark:prose-invert">destination matches only its declared DNS or IP kind.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactDestination",
+  "description": "destination matches only its declared DNS or IP kind."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "destination": {
+      "$ref": "#/components/schemas/ExactDestination",
+      "description": "destination matches only its declared DNS or IP kind."
+    }
+  },
+  "required": [
+    "destination"
+  ],
+  "title": "destination",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>not</code>
+· required</summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">not negates one earlier node.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "not negates one earlier node.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "not": {
+      "description": "not negates one earlier node.",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "not"
+  ],
+  "title": "not",
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "oneOf": [
+    {
+      "properties": {
+        "all": {
+          "$ref": "#/components/schemas/ExactPolicyOperands",
+          "description": "all intersects every operand."
+        }
+      },
+      "required": [
+        "all"
+      ],
+      "title": "all",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "any": {
+          "$ref": "#/components/schemas/ExactPolicyOperands",
+          "description": "any unions its operands without discarding enclosing ceilings."
+        }
+      },
+      "required": [
+        "any"
+      ],
+      "title": "any",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "constant": {
+          "$ref": "#/components/schemas/ExactPolicyConstant",
+          "description": "constant explicitly allows or denies independently of the destination.",
+          "not": {
+            "enum": [
+              "unspecified"
+            ]
+          }
+        }
+      },
+      "required": [
+        "constant"
+      ],
+      "title": "constant",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "destination": {
+          "$ref": "#/components/schemas/ExactDestination",
+          "description": "destination matches only its declared DNS or IP kind."
+        }
+      },
+      "required": [
+        "destination"
+      ],
+      "title": "destination",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "not": {
+          "description": "not negates one earlier node.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "not"
+      ],
+      "title": "not",
+      "type": "object"
+    }
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "properties": {
+        "source": {
+          "$ref": "#/components/schemas/ExactPolicySource",
+          "description": "source is required on constants and destinations and absent on Boolean operators."
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "all": {
+              "$ref": "#/components/schemas/ExactPolicyOperands",
+              "description": "all intersects every operand."
+            }
+          },
+          "required": [
+            "all"
+          ],
+          "title": "all",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "any": {
+              "$ref": "#/components/schemas/ExactPolicyOperands",
+              "description": "any unions its operands without discarding enclosing ceilings."
+            }
+          },
+          "required": [
+            "any"
+          ],
+          "title": "any",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "constant": {
+              "$ref": "#/components/schemas/ExactPolicyConstant",
+              "description": "constant explicitly allows or denies independently of the destination.",
+              "not": {
+                "enum": [
+                  "unspecified"
+                ]
+              }
+            }
+          },
+          "required": [
+            "constant"
+          ],
+          "title": "constant",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "destination": {
+              "$ref": "#/components/schemas/ExactDestination",
+              "description": "destination matches only its declared DNS or IP kind."
+            }
+          },
+          "required": [
+            "destination"
+          ],
+          "title": "destination",
+          "type": "object"
+        },
+        {
+          "properties": {
+            "not": {
+              "description": "not negates one earlier node.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "not"
+          ],
+          "title": "not",
+          "type": "object"
+        }
+      ]
+    }
+  ],
+  "description": "ExactPolicyNode is topologically ordered; references must precede this node.",
+  "title": "ExactPolicyNode",
+  "type": "object"
+}</code></pre></details></article>

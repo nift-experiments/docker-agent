@@ -1,0 +1,32 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EffectiveManagedVolumes.md>Markdown</a></div><meta data-pagefind-meta="title:EffectiveManagedVolumes — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EffectiveManagedVolumes</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EffectiveManagedVolumes records storage that is not deleted with the sandbox.</div><details class=api-field open><summary><code>attachments</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">attachments retains admission order and stable volume identities.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EffectiveVolumeAttachment/><code>EffectiveVolumeAttachment</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "attachments retains admission order and stable volume identities.",
+  "items": {
+    "$ref": "#/components/schemas/EffectiveVolumeAttachment"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "EffectiveManagedVolumes records storage that is not deleted with the sandbox.",
+  "properties": {
+    "attachments": {
+      "description": "attachments retains admission order and stable volume identities.",
+      "items": {
+        "$ref": "#/components/schemas/EffectiveVolumeAttachment"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "attachments"
+  ],
+  "title": "EffectiveManagedVolumes",
+  "type": "object"
+}</code></pre></details></article>

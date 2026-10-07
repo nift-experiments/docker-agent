@@ -1,0 +1,179 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/deleteVolume.md>Markdown</a></div><meta data-pagefind-meta="title:DeleteVolume deletes a volume; deleting an already absent volume succeeds. — Docker Sandboxes API v1"><h1>DeleteVolume deletes a volume; deleting an already absent volume succeeds.</h1><div class=api-signature><span class=api-method data-method=DELETE>DELETE</span><code><wbr>/v1<wbr>/volumes<wbr>/{volume}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>DeleteVolume deletes a volume; deleting an already absent volume succeeds.</p><p>Returns unimplemented when this operation is unavailable. Support does not grant permission.</p></div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=volume><h3><code>volume</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The volume id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-Match><h3><code>If-Match</code>
+<small>header</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag is the required precondition, the value the target's last read returned.
+An absent one refuses etag_required and a stale one etag_mismatch.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+  "title": "If-Match",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/delete/responses/204 data-api-media><h3><span>Response</span>
+<code class=api-status>204</code></h3><div class="prose dark:prose-invert">Success. The response carries no body.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/delete/responses/412/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>412</code></h3><div class="prose dark:prose-invert">The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_mismatch</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;details&#34;: [
+    {
+      &#34;@type&#34;: &#34;type.googleapis.com/docker.sandboxes.v1.EtagMismatch&#34;,
+      &#34;currentEtag&#34;: &#34;v2&#34;
+    }
+  ],
+  &#34;message&#34;: &#34;etag_mismatch: The precondition is not the resource&#39;s current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/delete/responses/428/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>428</code></h3><div class="prose dark:prose-invert">No precondition was sent. The body carries failedPrecondition naming etag_required.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_required</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/delete/responses/501/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>501</code></h3><div class="prose dark:prose-invert">This operation is not available on this service.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>unimplemented</h4><pre><code>{
+  &#34;code&#34;: &#34;unimplemented&#34;,
+  &#34;message&#34;: &#34;This operation is not available on this service.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1volumes~1{volume}/delete/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "DeleteVolume deletes a volume; deleting an already absent volume succeeds.\n\nReturns unimplemented when this operation is unavailable. Support does not grant permission.",
+  "operationId": "deleteVolume",
+  "parameters": [
+    {
+      "description": "The volume id.",
+      "in": "path",
+      "name": "volume",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.",
+      "in": "header",
+      "name": "If-Match",
+      "required": true,
+      "schema": {
+        "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+        "title": "If-Match",
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Success. The response carries no body."
+    },
+    "412": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_mismatch": {
+              "summary": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.",
+              "value": {
+                "code": "failedPrecondition",
+                "details": [
+                  {
+                    "@type": "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+                    "currentEtag": "v2"
+                  }
+                ],
+                "message": "etag_mismatch: The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+    },
+    "428": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_required": {
+              "summary": "No precondition was sent. The body carries failedPrecondition naming etag_required.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "No precondition was sent. The body carries failedPrecondition naming etag_required."
+    },
+    "501": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "unimplemented": {
+              "summary": "This operation is not available on this service.",
+              "value": {
+                "code": "unimplemented",
+                "message": "This operation is not available on this service."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "This operation is not available on this service."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "DeleteVolume deletes a volume; deleting an already absent volume succeeds.",
+  "tags": [
+    "Volumes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "UNIMPLEMENTED",
+      "description": "This operation is not available on this service."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "volumesWrite"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request DELETE \
+  --header &#39;If-Match: &lt;IF-MATCH&gt;&#39; \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  &#39;https://connect.docker.com/sandboxes/v1/volumes/&lt;VOLUME&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSB2b2x1bWUgaWQuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInZvbHVtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xdm9sdW1lc34xe3ZvbHVtZX0vZGVsZXRlL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBjb21wbGV0ZSBxdW90ZWQgc3Ryb25nIGVudGl0eS10YWcgb2JzZXJ2ZWQgb24gdGhlIHJlc291cmNlLCBpbmNsdWRpbmcgaXRzIHF1b3Rlcy4gRXZlcnkgbXV0YXRpb24gb2YgYW4gZXhpc3RpbmcgcmVzb3VyY2UgcmVxdWlyZXMgaXQ6IGFuIGFic2VudCB2YWx1ZSBhbnN3ZXJzIDQyOCBhbmQgYSBzdGFsZSBvbmUgNDEyLCBlYWNoIGNhcnJ5aW5nIGZhaWxlZFByZWNvbmRpdGlvbiBpbiB0aGUgYm9keS5cIixcbiAgXCJpblwiOiBcImhlYWRlclwiLFxuICBcIm5hbWVcIjogXCJJZi1NYXRjaFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xdm9sdW1lc34xe3ZvbHVtZX0vZGVsZXRlL3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiZXRhZyBpcyB0aGUgcmVxdWlyZWQgcHJlY29uZGl0aW9uLCB0aGUgdmFsdWUgdGhlIHRhcmdldCdzIGxhc3QgcmVhZCByZXR1cm5lZC5cXG5BbiBhYnNlbnQgb25lIHJlZnVzZXMgZXRhZ19yZXF1aXJlZCBhbmQgYSBzdGFsZSBvbmUgZXRhZ19taXNtYXRjaC5cIixcbiAgICBcInRpdGxlXCI6IFwiSWYtTWF0Y2hcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

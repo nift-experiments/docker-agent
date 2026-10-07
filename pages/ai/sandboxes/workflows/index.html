@@ -1,0 +1,20 @@
+<p>Choose a workflow based on how you want to develop, authenticate tools, or run
+local sandboxes in automation. For command syntax and lifecycle basics, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/usage/>Usage</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-how-code-moves><a class="text-black dark:text-white no-underline hover:underline" href=#choose-how-code-moves>Choose how code moves</a></h2><p>Your workspace strategy determines when an agent's changes appear on the host.
+Direct mode edits the host working tree in place. Clone mode keeps changes in a
+private clone until you fetch or push them. Host worktrees provide branch
+isolation while keeping Git operations on the host. See <a class=link href=https://docs.docker.com/ai/sandboxes/workflows/git/>Git workflows</a>
+to choose a strategy for single or parallel tasks.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=develop-in-the-sandbox><a class="text-black dark:text-white no-underline hover:underline" href=#develop-in-the-sandbox>Develop in the sandbox</a></h2><p>Each sandbox has a private Docker daemon and runtime for building images,
+installing dependencies, and running tests. You can publish services from the
+sandbox or connect to services on the host. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/workflows/development/>Develop and test locally</a>.</p><p>Tools inside the sandbox can use credentials configured on the host without
+copying secret values into the VM. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/workflows/authentication/>Authenticate command-line tools</a> for GitHub CLI, registry,
+and external secret-provider workflows.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=reuse-and-automate-workflows><a class="text-black dark:text-white no-underline hover:underline" href=#reuse-and-automate-workflows>Reuse and automate workflows</a></h2><p>Sandbox environment files work like Compose files for sandboxes: they capture
+project configuration in a versioned YAML file. Use <code>sbxenv.yaml</code> to define
+the agent, workspaces, tools, resources, credentials, and ports so contributors
+can start a consistent environment without reproducing CLI flags and setup
+steps. See <a class=link href=https://docs.docker.com/ai/sandboxes/configuration/environment-files/>Sandbox environment files</a>.</p><p>You can also add skills from Git repositories or import them from supported
+host agents into a persistent store shared with new sandboxes. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/workflows/agent-skills/>Share agent skills</a>.</p><p>For unattended jobs, use headless authentication and manage the sandbox
+lifecycle from scripts. See <a class=link href=https://docs.docker.com/ai/sandboxes/workflows/automation/>Run sandboxes in CI</a>.</p>

@@ -1,0 +1,37 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/StartupArgv.md>Markdown</a></div><meta data-pagefind-meta="title:StartupArgv — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>StartupArgv</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">StartupArgv preserves literal arguments, including empty positional arguments.
+startup argv requires a nonempty executable</div><details class=api-field open><summary><code>argv</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">argv is executed without shell expansion. It carries at least one element,
+and that first element is the executable and must not be empty.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "argv is executed without shell expansion. It carries at least one element,\nand that first element is the executable and must not be empty.",
+  "items": {
+    "type": "string"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "StartupArgv preserves literal arguments, including empty positional arguments.\nstartup argv requires a nonempty executable",
+  "properties": {
+    "argv": {
+      "description": "argv is executed without shell expansion. It carries at least one element,\nand that first element is the executable and must not be empty.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "argv"
+  ],
+  "title": "StartupArgv",
+  "type": "object"
+}</code></pre></details></article>

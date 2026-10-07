@@ -1,0 +1,424 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/startSandbox.md>Markdown</a></div><meta data-pagefind-meta="title:StartSandbox starts a stopped sandbox; a backend that preserved memory resumes it. — Docker Sandboxes API v1"><h1>StartSandbox starts a stopped sandbox; a backend that preserved memory resumes it.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/sandboxes<wbr>/{sandbox}<wbr>/start</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">StartSandbox starts a stopped sandbox; a backend that preserved memory resumes it.
+Action: a lifecycle transition is not a representation a caller can PUT.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=sandbox><h3><code>sandbox</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The sandbox id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=Idempotency-Key><h3><code>Idempotency-Key</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+  "title": "Idempotency-Key",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-Match><h3><code>If-Match</code>
+<small>header</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag is the required precondition, the value the target's last read returned.
+An absent one refuses etag_required and a stale one etag_mismatch.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+  "title": "If-Match",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">StartSandboxRequest starts or resumes a sandbox.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "StartSandboxRequest starts or resumes a sandbox.",
+  "properties": {},
+  "title": "StartSandboxRequest",
+  "type": "object"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Sandbox/><code>Sandbox</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "not": {
+    "properties": {
+      "core": {
+        "properties": {
+          "status": {
+            "enum": [
+              "starting"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    },
+    "required": [
+      "core"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Sandbox"
+    },
+    {
+      "not": {
+        "properties": {
+          "core": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "starting"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "core"
+        ]
+      }
+    }
+  ]
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/responses/202/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>202</code></h3><div class="prose dark:prose-invert">Accepted. The resource is still progressing; read it or follow its events until completion.</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Sandbox/><code>Sandbox</code></a></p><details class=api-field><summary><code>core</code>
+· required</summary><details class=api-field><summary><code>status</code>
+· required</summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "starting"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "enum": [
+        "starting"
+      ]
+    }
+  },
+  "required": [
+    "status"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "core": {
+      "properties": {
+        "status": {
+          "enum": [
+            "starting"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ]
+    }
+  },
+  "required": [
+    "core"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Sandbox"
+    },
+    {
+      "properties": {
+        "core": {
+          "properties": {
+            "status": {
+              "enum": [
+                "starting"
+              ]
+            }
+          },
+          "required": [
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "core"
+      ]
+    }
+  ]
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert">The Idempotency-Key was already used with a different payload.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>failedPrecondition</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;The Idempotency-Key was already used with a different payload.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/responses/412/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>412</code></h3><div class="prose dark:prose-invert">The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_mismatch</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;details&#34;: [
+    {
+      &#34;@type&#34;: &#34;type.googleapis.com/docker.sandboxes.v1.EtagMismatch&#34;,
+      &#34;currentEtag&#34;: &#34;v2&#34;
+    }
+  ],
+  &#34;message&#34;: &#34;etag_mismatch: The precondition is not the resource&#39;s current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/responses/428/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>428</code></h3><div class="prose dark:prose-invert">No precondition was sent. The body carries failedPrecondition naming etag_required.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_required</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1start/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Sandbox/>#/components/schemas/Sandbox</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "StartSandbox starts a stopped sandbox; a backend that preserved memory resumes it.\nAction: a lifecycle transition is not a representation a caller can PUT.",
+  "operationId": "startSandbox",
+  "parameters": [
+    {
+      "description": "The sandbox id.",
+      "in": "path",
+      "name": "sandbox",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.",
+      "in": "header",
+      "name": "Idempotency-Key",
+      "schema": {
+        "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+        "title": "Idempotency-Key",
+        "type": "string"
+      }
+    },
+    {
+      "description": "The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.",
+      "in": "header",
+      "name": "If-Match",
+      "required": true,
+      "schema": {
+        "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+        "title": "If-Match",
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "additionalProperties": false,
+          "description": "StartSandboxRequest starts or resumes a sandbox.",
+          "properties": {},
+          "title": "StartSandboxRequest",
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Sandbox"
+              },
+              {
+                "not": {
+                  "properties": {
+                    "core": {
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "starting"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "core"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "202": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Sandbox"
+              },
+              {
+                "properties": {
+                  "core": {
+                    "properties": {
+                      "status": {
+                        "enum": [
+                          "starting"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "status"
+                    ]
+                  }
+                },
+                "required": [
+                  "core"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "description": "Accepted. The resource is still progressing; read it or follow its events until completion.",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "failedPrecondition": {
+              "summary": "The Idempotency-Key was already used with a different payload.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "The Idempotency-Key was already used with a different payload."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The Idempotency-Key was already used with a different payload."
+    },
+    "412": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_mismatch": {
+              "summary": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.",
+              "value": {
+                "code": "failedPrecondition",
+                "details": [
+                  {
+                    "@type": "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+                    "currentEtag": "v2"
+                  }
+                ],
+                "message": "etag_mismatch: The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+    },
+    "428": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_required": {
+              "summary": "No precondition was sent. The body carries failedPrecondition naming etag_required.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "No precondition was sent. The body carries failedPrecondition naming etag_required."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "StartSandbox starts a stopped sandbox; a backend that preserved memory resumes it.",
+  "tags": [
+    "Sandboxes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The Idempotency-Key was already used with a different payload."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "sandboxesLifecycle"
+  ],
+  "x-sbx-resource-response": {
+    "$ref": "#/components/schemas/Sandbox"
+  },
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#39;If-Match: &lt;IF-MATCH&gt;&#39; \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/sandboxes/&lt;SANDBOX&gt;/start&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzYW5kYm94IGlkLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJzYW5kYm94XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzYW5kYm94ZXN+MXtzYW5kYm94fX4xc3RhcnQvcG9zdC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBsYXkga2V5LiBSZXVzaW5nIGl0IHdpdGggYSBkaWZmZXJlbnQgcGF5bG9hZCBmYWlscyB3aXRoIGZhaWxlZFByZWNvbmRpdGlvbjsgYWNjZXB0ZWQga2V5cyBhcmUgcmV0YWluZWQgZm9yIGF0IGxlYXN0IDI0IGhvdXJzLlwiLFxuICBcImluXCI6IFwiaGVhZGVyXCIsXG4gIFwibmFtZVwiOiBcIklkZW1wb3RlbmN5LUtleVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xc2FuZGJveGVzfjF7c2FuZGJveH1+MXN0YXJ0L3Bvc3QvcGFyYW1ldGVycy8xXCIsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiSWRlbXBvdGVuY3kga2V5LiBBIHJlcGxheSByZXR1cm5zIHRoZSBmaXJzdCByZXN1bHQ7IHRoZSBzYW1lIGtleSB3aXRoIGEgZGlmZmVyZW50IHBheWxvYWQgZmFpbHMgd2l0aCBGQUlMRURfUFJFQ09ORElUSU9OOyByZXRhaW5lZCBhdCBsZWFzdCAyNCBob3Vycy5cIixcbiAgICBcInRpdGxlXCI6IFwiSWRlbXBvdGVuY3ktS2V5XCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgY29tcGxldGUgcXVvdGVkIHN0cm9uZyBlbnRpdHktdGFnIG9ic2VydmVkIG9uIHRoZSByZXNvdXJjZSwgaW5jbHVkaW5nIGl0cyBxdW90ZXMuIEV2ZXJ5IG11dGF0aW9uIG9mIGFuIGV4aXN0aW5nIHJlc291cmNlIHJlcXVpcmVzIGl0OiBhbiBhYnNlbnQgdmFsdWUgYW5zd2VycyA0MjggYW5kIGEgc3RhbGUgb25lIDQxMiwgZWFjaCBjYXJyeWluZyBmYWlsZWRQcmVjb25kaXRpb24gaW4gdGhlIGJvZHkuXCIsXG4gIFwiaW5cIjogXCJoZWFkZXJcIixcbiAgXCJuYW1lXCI6IFwiSWYtTWF0Y2hcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNhbmRib3hlc34xe3NhbmRib3h9fjFzdGFydC9wb3N0L3BhcmFtZXRlcnMvMlwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiZXRhZyBpcyB0aGUgcmVxdWlyZWQgcHJlY29uZGl0aW9uLCB0aGUgdmFsdWUgdGhlIHRhcmdldCdzIGxhc3QgcmVhZCByZXR1cm5lZC5cXG5BbiBhYnNlbnQgb25lIHJlZnVzZXMgZXRhZ19yZXF1aXJlZCBhbmQgYSBzdGFsZSBvbmUgZXRhZ19taXNtYXRjaC5cIixcbiAgICBcInRpdGxlXCI6IFwiSWYtTWF0Y2hcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJhZGRpdGlvbmFsUHJvcGVydGllc1wiOiBmYWxzZSxcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlN0YXJ0U2FuZGJveFJlcXVlc3Qgc3RhcnRzIG9yIHJlc3VtZXMgYSBzYW5kYm94LlwiLFxuICBcInByb3BlcnRpZXNcIjoge30sXG4gIFwidGl0bGVcIjogXCJTdGFydFNhbmRib3hSZXF1ZXN0XCIsXG4gIFwidHlwZVwiOiBcIm9iamVjdFwiXG59IiwgIntcbiAgXCJhbGxPZlwiOiBbXG4gICAge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvU2FuZGJveFwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcIm5vdFwiOiB7XG4gICAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgICAgXCJjb3JlXCI6IHtcbiAgICAgICAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgICAgICAgIFwic3RhdHVzXCI6IHtcbiAgICAgICAgICAgICAgICBcImVudW1cIjogW1xuICAgICAgICAgICAgICAgICAgXCJzdGFydGluZ1wiXG4gICAgICAgICAgICAgICAgXVxuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgXCJyZXF1aXJlZFwiOiBbXG4gICAgICAgICAgICAgIFwic3RhdHVzXCJcbiAgICAgICAgICAgIF1cbiAgICAgICAgICB9XG4gICAgICAgIH0sXG4gICAgICAgIFwicmVxdWlyZWRcIjogW1xuICAgICAgICAgIFwiY29yZVwiXG4gICAgICAgIF1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iLCAie1xuICBcIkVUYWdcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgZXRhZyBvZiB0aGUgcmVzb3VyY2UgdGhpcyByZXNwb25zZSBjYXJyaWVzLCB3aGljaCB0aGUgbmV4dCBtdXRhdGlvbiBvZiBpdCBzZW5kcyBhcyBJZi1NYXRjaC5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1NhbmRib3hcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJjb3JlXCI6IHtcbiAgICAgICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgICAgICBcImVudW1cIjogW1xuICAgICAgICAgICAgICAgIFwic3RhcnRpbmdcIlxuICAgICAgICAgICAgICBdXG4gICAgICAgICAgICB9XG4gICAgICAgICAgfSxcbiAgICAgICAgICBcInJlcXVpcmVkXCI6IFtcbiAgICAgICAgICAgIFwic3RhdHVzXCJcbiAgICAgICAgICBdXG4gICAgICAgIH1cbiAgICAgIH0sXG4gICAgICBcInJlcXVpcmVkXCI6IFtcbiAgICAgICAgXCJjb3JlXCJcbiAgICAgIF1cbiAgICB9XG4gIF1cbn0iLCAie1xuICBcIkVUYWdcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgZXRhZyBvZiB0aGUgcmVzb3VyY2UgdGhpcyByZXNwb25zZSBjYXJyaWVzLCB3aGljaCB0aGUgbmV4dCBtdXRhdGlvbiBvZiBpdCBzZW5kcyBhcyBJZi1NYXRjaC5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iXQ=="></template>

@@ -1,0 +1,162 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/SandboxEndpoint.md>Markdown</a></div><meta data-pagefind-meta="title:SandboxEndpoint — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>SandboxEndpoint</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">SandboxEndpoint tells a client where sandbox endpoint services are served.
+network endpoints require scoped credentials; Unix sockets use actual socket access controls
+sandbox must contain the endpoint's immutable sandbox UID</div><details class=api-field open><summary><code>apiVersion</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">api_version identifies the /v1 endpoint contract before the client connects.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "const": "v1",
+  "description": "api_version identifies the /v1 endpoint contract before the client connects.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>authentication</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EndpointAuthentication/><code>EndpointAuthentication</code></a></p></details><details class=api-field open><summary><code>capabilities</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">capabilities lists supported public operation IDs, independently of caller grants.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "pattern": "^[a-z][A-Za-z0-9]*$",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "capabilities lists supported public operation IDs, independently of caller grants.",
+  "items": {
+    "pattern": "^[a-z][A-Za-z0-9]*$",
+    "type": "string"
+  },
+  "minItems": 1,
+  "type": "array",
+  "uniqueItems": true
+}</code></pre></details></details><details class=api-field open><summary><code>credentialAudience</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">credential_audience is server-controlled and required for network endpoints.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "credential_audience is server-controlled and required for network endpoints.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>protocol</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/SandboxEndpointProtocol/><code>SandboxEndpointProtocol</code></a></p><div class="prose dark:prose-invert">protocol identifies the endpoint transport.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/SandboxEndpointProtocol",
+  "description": "protocol identifies the endpoint transport."
+}</code></pre></details></details><details class=api-field open><summary><code>sandbox</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">sandbox names the immutable sandbox incarnation served by this endpoint.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "sandbox names the immutable sandbox incarnation served by this endpoint.",
+  "pattern": "^sandboxes/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>sandboxUid</code>
+· required
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "minLength": 1,
+  "readOnly": true,
+  "type": [
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>uri</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">uri is the endpoint API base; preserve its path prefix when appending /v1 routes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "uri is the endpoint API base; preserve its path prefix when appending /v1 routes.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "dependentSchemas": {
+    "authentication": {
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "authentication": {
+                  "properties": {
+                    "scheme": {
+                      "const": "scopedBearer"
+                    }
+                  }
+                },
+                "credentialAudience": {
+                  "minLength": 1
+                },
+                "protocol": {
+                  "const": "http"
+                }
+              },
+              "required": [
+                "credentialAudience"
+              ]
+            },
+            {
+              "properties": {
+                "authentication": {
+                  "properties": {
+                    "scheme": {
+                      "const": "localSocket"
+                    }
+                  }
+                },
+                "credentialAudience": {
+                  "const": ""
+                },
+                "protocol": {
+                  "const": "unixSocket"
+                }
+              }
+            }
+          ],
+          "required": [
+            "protocol"
+          ]
+        }
+      ]
+    }
+  },
+  "description": "SandboxEndpoint tells a client where sandbox endpoint services are served.\nnetwork endpoints require scoped credentials; Unix sockets use actual socket access controls\nsandbox must contain the endpoint's immutable sandbox UID",
+  "properties": {
+    "apiVersion": {
+      "const": "v1",
+      "description": "api_version identifies the /v1 endpoint contract before the client connects.",
+      "type": "string"
+    },
+    "authentication": {
+      "$ref": "#/components/schemas/EndpointAuthentication"
+    },
+    "capabilities": {
+      "description": "capabilities lists supported public operation IDs, independently of caller grants.",
+      "items": {
+        "pattern": "^[a-z][A-Za-z0-9]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "credentialAudience": {
+      "description": "credential_audience is server-controlled and required for network endpoints.",
+      "type": "string"
+    },
+    "protocol": {
+      "$ref": "#/components/schemas/SandboxEndpointProtocol",
+      "description": "protocol identifies the endpoint transport."
+    },
+    "sandbox": {
+      "description": "sandbox names the immutable sandbox incarnation served by this endpoint.",
+      "pattern": "^sandboxes/[^/]+$",
+      "type": "string"
+    },
+    "sandboxUid": {
+      "minLength": 1,
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "uri": {
+      "description": "uri is the endpoint API base; preserve its path prefix when appending /v1 routes.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sandbox",
+    "sandboxUid",
+    "apiVersion",
+    "capabilities",
+    "authentication"
+  ],
+  "title": "SandboxEndpoint",
+  "type": "object"
+}</code></pre></details></article>

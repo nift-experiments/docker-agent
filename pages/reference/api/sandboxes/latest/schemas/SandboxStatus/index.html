@@ -1,0 +1,29 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/SandboxStatus.md>Markdown</a></div><meta data-pagefind-meta="title:SandboxStatus — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>SandboxStatus</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>SandboxStatus is the backend-neutral lifecycle state.</p><p>Values:
+unspecified: unspecified is never a concrete known state.
+creating: creating means provisioning has not completed.
+starting: starting means a stopped sandbox is starting or resuming.
+running: running means the sandbox is running.
+stopping: stopping means the sandbox is stopping or hibernating.
+stopped: stopped means the sandbox is not running and may be started.
+failed: failed means the sandbox reached an unrecoverable failure.
+deleting: deleting means deletion is accepted; reads continue until removal.
+degraded: degraded means runtime contact is lost; recovery or failure may follow.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "SandboxStatus is the backend-neutral lifecycle state.\n\nValues:\nunspecified: unspecified is never a concrete known state.\ncreating: creating means provisioning has not completed.\nstarting: starting means a stopped sandbox is starting or resuming.\nrunning: running means the sandbox is running.\nstopping: stopping means the sandbox is stopping or hibernating.\nstopped: stopped means the sandbox is not running and may be started.\nfailed: failed means the sandbox reached an unrecoverable failure.\ndeleting: deleting means deletion is accepted; reads continue until removal.\ndegraded: degraded means runtime contact is lost; recovery or failure may follow.",
+  "enum": [
+    "unspecified",
+    "creating",
+    "starting",
+    "running",
+    "stopping",
+    "stopped",
+    "failed",
+    "deleting",
+    "degraded"
+  ],
+  "title": "SandboxStatus",
+  "type": "string"
+}</code></pre></details></article>

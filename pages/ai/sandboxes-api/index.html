@@ -1,0 +1,21 @@
+<blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>The Docker Sandboxes API and SDK are experimental. Features, interfaces,
+and behavior may change.</p></div></blockquote><p>Use the Docker Sandboxes API to create cloud sandboxes, run commands, and
+transfer files from your applications and automated workflows. You can also
+manage related resources, including images, snapshots, volumes, and secrets.</p><p>To try it, <a class=link href=https://docs.docker.com/ai/sandboxes-api/get-started/>run your first cloud sandbox</a> with the TypeScript
+SDK. The tutorial uses a bundled kit that supplies a shell environment for
+running commands.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=activate-cloud-access><a class="text-black dark:text-white no-underline hover:underline" href=#activate-cloud-access>Activate cloud access</a></h2><p>To use the API or SDK,
+<a class=link href=https://docs.docker.com/agentic-platform/signup/#activate-cloud-access>activate a Docker Agentic Platform subscription</a>.
+Use the same Docker account to <a class=link href=https://docs.docker.com/ai/sandboxes-api/authentication/>authenticate your application</a>.</p><p>Cloud compute is billed separately from your Docker subscription. See
+<a class=link href=https://docs.docker.com/agentic-platform/signup/#billing>Billing</a> for details.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-an-interface><a class="text-black dark:text-white no-underline hover:underline" href=#choose-an-interface>Choose an interface</a></h2><p>Use the TypeScript SDK in your JavaScript or TypeScript application. The SDK
+provides typed requests and responses, waits for sandboxes to start or stop,
+and handles file transfers and interactive processes.
+See <a class=link href=https://docs.docker.com/ai/sandboxes-api/install/>Install the SDK</a> for installation instructions.</p><p>You can also call the REST API directly from any language or HTTP tool.
+See the
+<a class=link href=/reference/api/sandboxes/latest/>API reference</a> for operations,
+request fields, responses, and the downloadable OpenAPI specification.</p><p>To run agents from your terminal, see <a class=link href=https://docs.docker.com/ai/sandboxes/>Docker Sandboxes</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=develop-your-application><a class="text-black dark:text-white no-underline hover:underline" href=#develop-your-application>Develop your application</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes-api/cookbook/>SDK cookbook</a>: follow examples for processes, files,
+storage, networking, and other sandbox operations.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes-api/concepts/>API concepts</a>: choose a kit or image, identify resources, and
+wait for actions to finish.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes-api/authentication/>Authentication and authorization</a>: authenticate requests
+and understand which permissions your application needs.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes-api/errors/>Errors and retries</a>: handle failures and retry requests without
+duplicating work.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes-api/limits/>Compute sizes and limits</a>: choose resources and handle account
+quotas and request rate limits.</li></ul>

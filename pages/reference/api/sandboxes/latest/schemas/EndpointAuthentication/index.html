@@ -1,0 +1,130 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EndpointAuthentication.md>Markdown</a></div><meta data-pagefind-meta="title:EndpointAuthentication — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EndpointAuthentication</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EndpointAuthentication describes credential issuance without publishing a token.
+local sockets cannot advertise bearer credential transports
+scoped bearer discovery states the five-minute credential lifetime; local sockets carry no token lifetime</div><details class=api-field open><summary><code>credentialTransports</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">Omission retains Authorization-header clients; browsers require an explicit subprotocol offer.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EndpointCredentialTransport/><code>EndpointCredentialTransport</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Omission retains Authorization-header clients; browsers require an explicit subprotocol offer.",
+  "items": {
+    "$ref": "#/components/schemas/EndpointCredentialTransport"
+  },
+  "type": "array",
+  "uniqueItems": true
+}</code></pre></details></details><details class=api-field open><summary><code>defaultTtl</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">default_ttl and max_ttl describe CreateEndpointCredential's provider policy.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "default_ttl and max_ttl describe CreateEndpointCredential's provider policy."
+}</code></pre></details></details><details class=api-field open><summary><code>maxTtl</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p></details><details class=api-field open><summary><code>scheme</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EndpointAuthenticationScheme/><code>EndpointAuthenticationScheme</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/EndpointAuthenticationScheme",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "dependentSchemas": {
+    "credentialTransports": {
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "scheme": {
+                "const": "localSocket"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "credentialTransports": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "scheme": {
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "defaultTtl": {
+                  "pattern": "^300([.]0{1,9})?s$"
+                },
+                "maxTtl": {
+                  "pattern": "^300([.]0{1,9})?s$"
+                },
+                "scheme": {
+                  "const": "scopedBearer"
+                }
+              },
+              "required": [
+                "defaultTtl",
+                "maxTtl"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "defaultTtl"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "maxTtl"
+                    ]
+                  }
+                ]
+              },
+              "properties": {
+                "scheme": {
+                  "const": "localSocket"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "description": "EndpointAuthentication describes credential issuance without publishing a token.\nlocal sockets cannot advertise bearer credential transports\nscoped bearer discovery states the five-minute credential lifetime; local sockets carry no token lifetime",
+  "properties": {
+    "credentialTransports": {
+      "description": "Omission retains Authorization-header clients; browsers require an explicit subprotocol offer.",
+      "items": {
+        "$ref": "#/components/schemas/EndpointCredentialTransport"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "defaultTtl": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "default_ttl and max_ttl describe CreateEndpointCredential's provider policy."
+    },
+    "maxTtl": {
+      "$ref": "#/components/schemas/Duration"
+    },
+    "scheme": {
+      "$ref": "#/components/schemas/EndpointAuthenticationScheme",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    }
+  },
+  "required": [
+    "scheme"
+  ],
+  "title": "EndpointAuthentication",
+  "type": "object"
+}</code></pre></details></article>

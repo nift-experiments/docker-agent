@@ -1,0 +1,55 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ExecResponse.md>Markdown</a></div><meta data-pagefind-meta="title:ExecResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ExecResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ExecResponse returns process output after the command exits.</div><details class=api-field open><summary><code>exitCode</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">exit_code is the process exit code.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "exit_code is the process exit code.",
+  "format": "int32",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>incomplete</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">incomplete is true when the combined capture limit forced stdout and/or
+stderr to discard some of the command's real output; false whenever
+every byte the command produced was retained, even if that total lands
+exactly at the limit. exit_code is still the real, final exit code: the
+command ran to completion, only its captured output was capped. A retry
+would rerun the command, so this stays a normal successful response
+rather than an error a client might retry.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "incomplete is true when the combined capture limit forced stdout and/or\nstderr to discard some of the command's real output; false whenever\nevery byte the command produced was retained, even if that total lands\nexactly at the limit. exit_code is still the real, final exit code: the\ncommand ran to completion, only its captured output was capped. A retry\nwould rerun the command, so this stays a normal successful response\nrather than an error a client might retry.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>stderr</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">stderr is captured stderr, up to the capture limit when incomplete.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "stderr is captured stderr, up to the capture limit when incomplete.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>stdout</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">stdout is captured stdout, up to the capture limit when incomplete.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "stdout is captured stdout, up to the capture limit when incomplete.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ExecResponse returns process output after the command exits.",
+  "properties": {
+    "exitCode": {
+      "description": "exit_code is the process exit code.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "incomplete": {
+      "description": "incomplete is true when the combined capture limit forced stdout and/or\nstderr to discard some of the command's real output; false whenever\nevery byte the command produced was retained, even if that total lands\nexactly at the limit. exit_code is still the real, final exit code: the\ncommand ran to completion, only its captured output was capped. A retry\nwould rerun the command, so this stays a normal successful response\nrather than an error a client might retry.",
+      "type": "boolean"
+    },
+    "stderr": {
+      "description": "stderr is captured stderr, up to the capture limit when incomplete.",
+      "format": "byte",
+      "type": "string"
+    },
+    "stdout": {
+      "description": "stdout is captured stdout, up to the capture limit when incomplete.",
+      "format": "byte",
+      "type": "string"
+    }
+  },
+  "title": "ExecResponse",
+  "type": "object"
+}</code></pre></details></article>

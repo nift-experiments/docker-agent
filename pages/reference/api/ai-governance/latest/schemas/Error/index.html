@@ -1,0 +1,99 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/Error.md>Markdown</a></div><meta data-pagefind-meta="title:Error — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>Error</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Error envelope returned on all non-2xx responses.</div><details class=api-field open><summary><code>error</code>
+· required</summary><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Error detail.</div><details class=api-field><summary><code>code</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Machine-readable error code. <code>not_found</code>: the requested resource does not exist, the org does not exist, or the caller is not a member of the organization (the organization's existence is not revealed to callers who cannot access it). <code>conflict</code>: a resource with the same name already exists. <code>invalid_argument</code>: the request body is malformed or fails validation. <code>unauthenticated</code>: missing or invalid credentials. <code>permission_denied</code>: the org is not entitled to use governance. <code>limit_exceeded</code>: the org has reached its maximum number of policies, or the policy has reached its maximum number of rules. <code>unimplemented</code>: the endpoint or feature is not yet available. <code>internal</code>: unexpected server error.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Machine-readable error code. `not_found`: the requested resource does not exist, the org does not exist, or the caller is not a member of the organization (the organization's existence is not revealed to callers who cannot access it). `conflict`: a resource with the same name already exists. `invalid_argument`: the request body is malformed or fails validation. `unauthenticated`: missing or invalid credentials. `permission_denied`: the org is not entitled to use governance. `limit_exceeded`: the org has reached its maximum number of policies, or the policy has reached its maximum number of rules. `unimplemented`: the endpoint or feature is not yet available. `internal`: unexpected server error.\n",
+  "enum": [
+    "not_found",
+    "conflict",
+    "invalid_argument",
+    "unauthenticated",
+    "permission_denied",
+    "limit_exceeded",
+    "unimplemented",
+    "internal"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>message</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Error detail.",
+  "examples": [
+    {
+      "code": "not_found",
+      "message": "policy not found"
+    }
+  ],
+  "properties": {
+    "code": {
+      "description": "Machine-readable error code. `not_found`: the requested resource does not exist, the org does not exist, or the caller is not a member of the organization (the organization's existence is not revealed to callers who cannot access it). `conflict`: a resource with the same name already exists. `invalid_argument`: the request body is malformed or fails validation. `unauthenticated`: missing or invalid credentials. `permission_denied`: the org is not entitled to use governance. `limit_exceeded`: the org has reached its maximum number of policies, or the policy has reached its maximum number of rules. `unimplemented`: the endpoint or feature is not yet available. `internal`: unexpected server error.\n",
+      "enum": [
+        "not_found",
+        "conflict",
+        "invalid_argument",
+        "unauthenticated",
+        "permission_denied",
+        "limit_exceeded",
+        "unimplemented",
+        "internal"
+      ],
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Error envelope returned on all non-2xx responses.",
+  "properties": {
+    "error": {
+      "description": "Error detail.",
+      "examples": [
+        {
+          "code": "not_found",
+          "message": "policy not found"
+        }
+      ],
+      "properties": {
+        "code": {
+          "description": "Machine-readable error code. `not_found`: the requested resource does not exist, the org does not exist, or the caller is not a member of the organization (the organization's existence is not revealed to callers who cannot access it). `conflict`: a resource with the same name already exists. `invalid_argument`: the request body is malformed or fails validation. `unauthenticated`: missing or invalid credentials. `permission_denied`: the org is not entitled to use governance. `limit_exceeded`: the org has reached its maximum number of policies, or the policy has reached its maximum number of rules. `unimplemented`: the endpoint or feature is not yet available. `internal`: unexpected server error.\n",
+          "enum": [
+            "not_found",
+            "conflict",
+            "invalid_argument",
+            "unauthenticated",
+            "permission_denied",
+            "limit_exceeded",
+            "unimplemented",
+            "internal"
+          ],
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "error"
+  ],
+  "type": "object"
+}</code></pre></details></article>

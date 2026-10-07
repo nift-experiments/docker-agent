@@ -1,0 +1,58 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/KitStartup.md>Markdown</a></div><meta data-pagefind-meta="title:KitStartup — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>KitStartup</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Startup commands retained when creating an image. Services with startup replay run them at each boot; services without it accept valid commands without running them.</div><details class=api-field open><summary><code>commands</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">commands run in order at sandbox boot, on a backend that replays them.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/KitStartupCommand/><code>KitStartupCommand</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "commands run in order at sandbox boot, on a backend that replays them.",
+  "items": {
+    "$ref": "#/components/schemas/KitStartupCommand"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>kits</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">kits names the kit identities the commands derive from, in composition
+order. Required.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "kits names the kit identities the commands derive from, in composition\norder. Required.",
+  "items": {
+    "minLength": 1,
+    "type": "string"
+  },
+  "minItems": 1,
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "Startup commands retained when creating an image. Services with startup replay run them at each boot; services without it accept valid commands without running them.",
+  "properties": {
+    "commands": {
+      "description": "commands run in order at sandbox boot, on a backend that replays them.",
+      "items": {
+        "$ref": "#/components/schemas/KitStartupCommand"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "kits": {
+      "description": "kits names the kit identities the commands derive from, in composition\norder. Required.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "kits",
+    "commands"
+  ],
+  "title": "KitStartup",
+  "type": "object"
+}</code></pre></details></article>

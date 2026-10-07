@@ -1,0 +1,67 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/HTTPResource.md>Markdown</a></div><meta data-pagefind-meta="title:HTTPResource — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>HTTPResource</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>host</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Domain name or domain glob without a URL scheme or port. Use the separate <code>port</code> field to restrict the target to one port.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Domain name or domain glob without a URL scheme or port. Use the separate `port` field to restrict the target to one port.\n",
+  "examples": [
+    "api.github.com",
+    "*.example.com"
+  ],
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>path</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Absolute HTTP path glob. <code>*</code> matches one segment and <code>**</code> matches any depth, including the bare path.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Absolute HTTP path glob. `*` matches one segment and `**` matches any depth, including the bare path.\n",
+  "examples": [
+    "/repos/docker/**"
+  ],
+  "pattern": "^/",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>port</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">Optional destination port. Omit it to match every port.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Optional destination port. Omit it to match every port.",
+  "examples": [
+    443
+  ],
+  "maximum": 65535,
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "host": {
+      "description": "Domain name or domain glob without a URL scheme or port. Use the separate `port` field to restrict the target to one port.\n",
+      "examples": [
+        "api.github.com",
+        "*.example.com"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "path": {
+      "description": "Absolute HTTP path glob. `*` matches one segment and `**` matches any depth, including the bare path.\n",
+      "examples": [
+        "/repos/docker/**"
+      ],
+      "pattern": "^/",
+      "type": "string"
+    },
+    "port": {
+      "description": "Optional destination port. Omit it to match every port.",
+      "examples": [
+        443
+      ],
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "host",
+    "path"
+  ],
+  "type": "object"
+}</code></pre></details></article>

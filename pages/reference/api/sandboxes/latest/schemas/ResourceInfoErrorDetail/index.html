@@ -1,0 +1,63 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ResourceInfoErrorDetail.md>Markdown</a></div><meta data-pagefind-meta="title:ResourceInfoErrorDetail — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ResourceInfoErrorDetail</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Describes the resource that is being accessed.</div><details class=api-field open><summary><code>@type</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "const": "type.googleapis.com/google.rpc.ResourceInfo",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Describes what error is encountered when accessing this resource.
+For example, updating a cloud project may require the <code>writer</code> permission
+on the developer console project.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes what error is encountered when accessing this resource.\nFor example, updating a cloud project may require the `writer` permission\non the developer console project.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>owner</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The owner of the resource (optional).
+For example, "user:<owner email>" or "project:<google developer project id>".</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The owner of the resource (optional).\nFor example, \"user:\u003cowner email\u003e\" or \"project:\u003cGoogle developer project\nid\u003e\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>resourceName</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The name of the resource being accessed. For example, a shared calendar
+name: "example.com_<a class=link href=mailto:4fghdhgsrgh@group.calendar.google.com>4fghdhgsrgh@group.calendar.google.com</a>", if the current
+error is
+[CodePERMISSION_DENIED][CodePERMISSION_DENIED].</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The name of the resource being accessed.  For example, a shared calendar\nname: \"example.com_4fghdhgsrgh@group.calendar.google.com\", if the current\nerror is\n[CodePERMISSION_DENIED][CodePERMISSION_DENIED].",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>resourceType</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">A name for the type of resource being accessed, e.g. "sql table",
+"cloud storage bucket", "file", "Google calendar"; or the type URL
+of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A name for the type of resource being accessed, e.g. \"sql table\",\n\"cloud storage bucket\", \"file\", \"Google calendar\"; or the type URL\nof the resource: e.g. \"type.googleapis.com/google.pubsub.v1.Topic\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes the resource that is being accessed.",
+  "properties": {
+    "@type": {
+      "const": "type.googleapis.com/google.rpc.ResourceInfo",
+      "type": "string"
+    },
+    "description": {
+      "description": "Describes what error is encountered when accessing this resource.\nFor example, updating a cloud project may require the `writer` permission\non the developer console project.",
+      "type": "string"
+    },
+    "owner": {
+      "description": "The owner of the resource (optional).\nFor example, \"user:\u003cowner email\u003e\" or \"project:\u003cGoogle developer project\nid\u003e\".",
+      "type": "string"
+    },
+    "resourceName": {
+      "description": "The name of the resource being accessed.  For example, a shared calendar\nname: \"example.com_4fghdhgsrgh@group.calendar.google.com\", if the current\nerror is\n[CodePERMISSION_DENIED][CodePERMISSION_DENIED].",
+      "type": "string"
+    },
+    "resourceType": {
+      "description": "A name for the type of resource being accessed, e.g. \"sql table\",\n\"cloud storage bucket\", \"file\", \"Google calendar\"; or the type URL\nof the resource: e.g. \"type.googleapis.com/google.pubsub.v1.Topic\".",
+      "type": "string"
+    }
+  },
+  "required": [
+    "@type"
+  ],
+  "title": "ResourceInfoErrorDetail",
+  "type": "object"
+}</code></pre></details></article>

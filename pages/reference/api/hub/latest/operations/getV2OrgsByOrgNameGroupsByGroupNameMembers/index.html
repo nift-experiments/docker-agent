@@ -1,0 +1,236 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/getV2OrgsByOrgNameGroupsByGroupNameMembers.md>Markdown</a></div><meta data-pagefind-meta="title:List members of a group — Docker Hub API 2-beta"><h1>List members of a group</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/orgs<wbr>/{org_name}<wbr>/groups<wbr>/{group_name}<wbr>/members</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>List the members (users) that are in a group.
+If user is owner of the org or has otherwise elevated permissions, they can search by email and the result will also contain emails.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the organization (namespace).</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=group_name><h3><code>group_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the group (team) in the organization.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "developers",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=page><h3><code>page</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Page number (starts on 1).</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=page_size><h3><code>page_size</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Number of items (rows) per page.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=search><h3><code>search</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Search members by username, full_name or email.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}~1members/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>count</code></summary><p class=api-type>Type:
+<code>number</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 1,
+  "type": "number"
+}</code></pre></details></details><details class=api-field open><summary><code>next</code></summary><p class=api-type>Type:
+<code>string | null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": null,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>previous</code></summary><p class=api-type>Type:
+<code>string | null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": null,
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>results</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/group_member/><code>group_member</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/group_member"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "count": 1,
+      "next": null,
+      "previous": null,
+      "results": [
+        {
+          "date_joined": "2021-01-05T21:06:53.506400Z",
+          "email": "example@docker.com",
+          "full_name": "Jon Snow",
+          "id": "0ab70deb065a43fcacd55d48caa945d8",
+          "type": "User",
+          "username": "dockeruser"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "count": {
+      "example": 1,
+      "type": "number"
+    },
+    "next": {
+      "example": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "previous": {
+      "example": null,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "results": {
+      "items": {
+        "$ref": "#/components/schemas/group_member"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;count&#34;: 1,
+  &#34;next&#34;: null,
+  &#34;previous&#34;: null,
+  &#34;results&#34;: [
+    {
+      &#34;date_joined&#34;: &#34;2021-01-05T21:06:53.506400Z&#34;,
+      &#34;email&#34;: &#34;example@docker.com&#34;,
+      &#34;full_name&#34;: &#34;Jon Snow&#34;,
+      &#34;id&#34;: &#34;0ab70deb065a43fcacd55d48caa945d8&#34;,
+      &#34;type&#34;: &#34;User&#34;,
+      &#34;username&#34;: &#34;dockeruser&#34;
+    }
+  ]
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}~1members/get/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}~1members/get/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1orgs~1{org_name}~1groups~1{group_name}~1members/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/group_member/>#/components/schemas/group_member</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "List the members (users) that are in a group.\nIf user is owner of the org or has otherwise elevated permissions, they can search by email and the result will also contain emails.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "getV2OrgsByOrgNameGroupsByGroupNameMembers",
+  "parameters": [
+    {
+      "$ref": "#/components/parameters/org_name"
+    },
+    {
+      "$ref": "#/components/parameters/group_name"
+    },
+    {
+      "$ref": "#/components/parameters/page"
+    },
+    {
+      "$ref": "#/components/parameters/page_size"
+    },
+    {
+      "description": "Search members by username, full_name or email.",
+      "in": "query",
+      "name": "search",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "examples": [
+              {
+                "count": 1,
+                "next": null,
+                "previous": null,
+                "results": [
+                  {
+                    "date_joined": "2021-01-05T21:06:53.506400Z",
+                    "email": "example@docker.com",
+                    "full_name": "Jon Snow",
+                    "id": "0ab70deb065a43fcacd55d48caa945d8",
+                    "type": "User",
+                    "username": "dockeruser"
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "count": {
+                "example": 1,
+                "type": "number"
+              },
+              "next": {
+                "example": null,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "previous": {
+                "example": null,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "results": {
+                "items": {
+                  "$ref": "#/components/schemas/group_member"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": ""
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/not_found"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "List members of a group",
+  "tags": [
+    "groups"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/v2/orgs/myorganization/groups/developers/members&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSBvcmdhbml6YXRpb24gKG5hbWVzcGFjZSkuXCIsXG4gIFwiZXhhbXBsZVwiOiBcIm15b3JnYW5pemF0aW9uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm9yZ19uYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFvcmdzfjF7b3JnX25hbWV9fjFncm91cHN+MXtncm91cF9uYW1lfX4xbWVtYmVycy9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiTmFtZSBvZiB0aGUgZ3JvdXAgKHRlYW0pIGluIHRoZSBvcmdhbml6YXRpb24uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcImdyb3VwX25hbWVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW9yZ3N+MXtvcmdfbmFtZX1+MWdyb3Vwc34xe2dyb3VwX25hbWV9fjFtZW1iZXJzL2dldC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJleGFtcGxlXCI6IFwiZGV2ZWxvcGVyc1wiLFxuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiUGFnZSBudW1iZXIgKHN0YXJ0cyBvbiAxKS5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInBhZ2VcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW9yZ3N+MXtvcmdfbmFtZX1+MWdyb3Vwc34xe2dyb3VwX25hbWV9fjFtZW1iZXJzL2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIk51bWJlciBvZiBpdGVtcyAocm93cykgcGVyIHBhZ2UuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJwYWdlX3NpemVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW9yZ3N+MXtvcmdfbmFtZX1+MWdyb3Vwc34xe2dyb3VwX25hbWV9fjFtZW1iZXJzL2dldC9wYXJhbWV0ZXJzLzNcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlNlYXJjaCBtZW1iZXJzIGJ5IHVzZXJuYW1lLCBmdWxsX25hbWUgb3IgZW1haWwuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJzZWFyY2hcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW9yZ3N+MXtvcmdfbmFtZX1+MWdyb3Vwc34xe2dyb3VwX25hbWV9fjFtZW1iZXJzL2dldC9wYXJhbWV0ZXJzLzRcIixcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImV4YW1wbGVzXCI6IFtcbiAgICB7XG4gICAgICBcImNvdW50XCI6IDEsXG4gICAgICBcIm5leHRcIjogbnVsbCxcbiAgICAgIFwicHJldmlvdXNcIjogbnVsbCxcbiAgICAgIFwicmVzdWx0c1wiOiBbXG4gICAgICAgIHtcbiAgICAgICAgICBcImRhdGVfam9pbmVkXCI6IFwiMjAyMS0wMS0wNVQyMTowNjo1My41MDY0MDBaXCIsXG4gICAgICAgICAgXCJlbWFpbFwiOiBcImV4YW1wbGVAZG9ja2VyLmNvbVwiLFxuICAgICAgICAgIFwiZnVsbF9uYW1lXCI6IFwiSm9uIFNub3dcIixcbiAgICAgICAgICBcImlkXCI6IFwiMGFiNzBkZWIwNjVhNDNmY2FjZDU1ZDQ4Y2FhOTQ1ZDhcIixcbiAgICAgICAgICBcInR5cGVcIjogXCJVc2VyXCIsXG4gICAgICAgICAgXCJ1c2VybmFtZVwiOiBcImRvY2tlcnVzZXJcIlxuICAgICAgICB9XG4gICAgICBdXG4gICAgfVxuICBdLFxuICBcInByb3BlcnRpZXNcIjoge1xuICAgIFwiY291bnRcIjoge1xuICAgICAgXCJleGFtcGxlXCI6IDEsXG4gICAgICBcInR5cGVcIjogXCJudW1iZXJcIlxuICAgIH0sXG4gICAgXCJuZXh0XCI6IHtcbiAgICAgIFwiZXhhbXBsZVwiOiBudWxsLFxuICAgICAgXCJ0eXBlXCI6IFtcbiAgICAgICAgXCJzdHJpbmdcIixcbiAgICAgICAgXCJudWxsXCJcbiAgICAgIF1cbiAgICB9LFxuICAgIFwicHJldmlvdXNcIjoge1xuICAgICAgXCJleGFtcGxlXCI6IG51bGwsXG4gICAgICBcInR5cGVcIjogW1xuICAgICAgICBcInN0cmluZ1wiLFxuICAgICAgICBcIm51bGxcIlxuICAgICAgXVxuICAgIH0sXG4gICAgXCJyZXN1bHRzXCI6IHtcbiAgICAgIFwiaXRlbXNcIjoge1xuICAgICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9ncm91cF9tZW1iZXJcIlxuICAgICAgfSxcbiAgICAgIFwidHlwZVwiOiBcImFycmF5XCJcbiAgICB9XG4gIH0sXG4gIFwidHlwZVwiOiBcIm9iamVjdFwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59Il0="></template>

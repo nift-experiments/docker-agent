@@ -1,0 +1,73 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/PostUsersLogin.md>Markdown</a></div><meta data-pagefind-meta="title:Create an authentication token — Docker Hub API 2-beta"><h1>Create an authentication token</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v2<wbr>/users<wbr>/login</code>
+<span>Deprecated</span></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Creates and returns a bearer token in JWT format that you can use to authenticate with Docker Hub APIs.</p><p>The returned token is used in the HTTP Authorization header like <code>Authorization: Bearer {TOKEN}</code>.</p><p><em><strong>As of September 16, 2024, this route requires a personal access token (PAT) instead of a password if your organization has SSO enforced.</strong></em></p><p>Deprecated: Use
+<a class=link href=/reference/api/hub/latest/operations/AuthCreateAccessToken/>Create access token</a> instead.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>No HTTP authentication requirement is declared for this
+operation. Transport access controls can still apply.</p><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1users~1login/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert">Login details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/UsersLoginRequest/><code>UsersLoginRequest</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;password&#34;: &#34;p@ssw0rd&#34;,
+  &#34;username&#34;: &#34;myusername&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1users~1login/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Authentication successful</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/PostUsersLoginSuccessResponse/><code>PostUsersLoginSuccessResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;token&#34;: &#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1users~1login/post/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication failed or second factor required</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/PostUsersLoginErrorResponse/><code>PostUsersLoginErrorResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;detail&#34;: &#34;Incorrect authentication credentials&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/PostUsersLoginErrorResponse/>#/components/schemas/PostUsersLoginErrorResponse</a></p><p><a href=/reference/api/hub/latest/schemas/PostUsersLoginSuccessResponse/>#/components/schemas/PostUsersLoginSuccessResponse</a></p><p><a href=/reference/api/hub/latest/schemas/UsersLoginRequest/>#/components/schemas/UsersLoginRequest</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "deprecated": true,
+  "description": "Creates and returns a bearer token in JWT format that you can use to authenticate with Docker Hub APIs.\n\nThe returned token is used in the HTTP Authorization header like `Authorization: Bearer {TOKEN}`.\n\n_**As of September 16, 2024, this route requires a personal access token (PAT) instead of a password if your organization has SSO enforced.**_\n\n\n  Deprecated: Use [Create access token](#tag/authentication-api/operation/AuthCreateAccessToken) instead.\n\n",
+  "operationId": "PostUsersLogin",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/UsersLoginRequest"
+        }
+      }
+    },
+    "description": "Login details.",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/PostUsersLoginSuccessResponse"
+          }
+        }
+      },
+      "description": "Authentication successful"
+    },
+    "401": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/PostUsersLoginErrorResponse"
+          }
+        }
+      },
+      "description": "Authentication failed or second factor required"
+    }
+  },
+  "security": [],
+  "summary": "Create an authentication token",
+  "tags": [
+    "authentication-api"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;password&#34;: &#34;p@ssw0rd&#34;,
+  &#34;username&#34;: &#34;myusername&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/users/login&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1VzZXJzTG9naW5SZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9Qb3N0VXNlcnNMb2dpblN1Y2Nlc3NSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvUG9zdFVzZXJzTG9naW5FcnJvclJlc3BvbnNlXCJcbn0iXQ=="></template>

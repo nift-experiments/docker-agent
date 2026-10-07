@@ -1,0 +1,44 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/Resources.md>Markdown</a></div><meta data-pagefind-meta="title:Resources — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>Resources</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Resources describes sandbox CPU and memory allocation.</div><details class=api-field open><summary><code>cpus</code></summary><p class=api-type>Type:
+<code>integer | null</code></p><div class="prose dark:prose-invert">cpus is present only when the caller or backend chooses a CPU count.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "cpus is present only when the caller or backend chooses a CPU count.",
+  "type": [
+    "integer",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>memoryMib</code></summary><p class=api-type>Type:
+<code>integer | string | null</code></p><div class="prose dark:prose-invert">memory_mib is present only when the caller or backend chooses memory.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "memory_mib is present only when the caller or backend chooses memory.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "Resources describes sandbox CPU and memory allocation.",
+  "properties": {
+    "cpus": {
+      "description": "cpus is present only when the caller or backend chooses a CPU count.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "memoryMib": {
+      "description": "memory_mib is present only when the caller or backend chooses memory.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    }
+  },
+  "title": "Resources",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,156 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/listPolicyLogEntriesInOwnerScope.md>Markdown</a></div><meta data-pagefind-meta="title:ListPolicyLogEntries lists observed policy decisions. — Docker Sandboxes API v1"><h1>ListPolicyLogEntries lists observed policy decisions.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/policy-logs</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">ListPolicyLogEntries lists observed policy decisions.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=pageSize><h3><code>pageSize</code>
+<small>query</small></h3><div class="prose dark:prose-invert"><p>page_size is an optional page size.</p><p>Omitted or zero uses the backend default. Unless the operation states otherwise, page-size limits and handling of larger requests are backend-specific; use the backend support guide. Continue with nextPageToken until it is empty.</p></div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "page_size",
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=pageToken><h3><code>pageToken</code>
+<small>query</small></h3><div class="prose dark:prose-invert">page_token is an opaque continuation token.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "page_token",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=filter><h3><code>filter</code>
+<small>query</small></h3><div class="prose dark:prose-invert">filter is comma-separated exact-match field=value terms; the portable field is
+domain.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "title": "filter",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=since><h3><code>since</code>
+<small>query</small></h3><div class="prose dark:prose-invert">An RFC 3339 timestamp, for example 2026-01-01T12:00:00Z. Fractional seconds may contain up to nine digits. The supported range is 0001-01-01T00:00:00Z through 9999-12-31T23:59:59.999999999Z.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    "2023-01-15T01:30:15.01Z",
+    "2024-12-25T12:00:00Z"
+  ],
+  "format": "date-time",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=until><h3><code>until</code>
+<small>query</small></h3><div class="prose dark:prose-invert">An RFC 3339 timestamp, for example 2026-01-01T12:00:00Z. Fractional seconds may contain up to nine digits. The supported range is 0001-01-01T00:00:00Z through 9999-12-31T23:59:59.999999999Z.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    "2023-01-15T01:30:15.01Z",
+    "2024-12-25T12:00:00Z"
+  ],
+  "format": "date-time",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1policy-logs/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ListPolicyLogEntriesResponse/><code>ListPolicyLogEntriesResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1policy-logs/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/ListPolicyLogEntriesResponse/>#/components/schemas/ListPolicyLogEntriesResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "ListPolicyLogEntries lists observed policy decisions.",
+  "operationId": "listPolicyLogEntriesInOwnerScope",
+  "parameters": [
+    {
+      "description": "page_size is an optional page size.\n\nOmitted or zero uses the backend default. Unless the operation states otherwise, page-size limits and handling of larger requests are backend-specific; use the backend support guide. Continue with nextPageToken until it is empty.",
+      "in": "query",
+      "name": "pageSize",
+      "required": false,
+      "schema": {
+        "title": "page_size",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "page_token is an opaque continuation token.",
+      "in": "query",
+      "name": "pageToken",
+      "required": false,
+      "schema": {
+        "title": "page_token",
+        "type": "string"
+      }
+    },
+    {
+      "description": "filter is comma-separated exact-match field=value terms; the portable field is\ndomain.",
+      "in": "query",
+      "name": "filter",
+      "required": false,
+      "schema": {
+        "title": "filter",
+        "type": "string"
+      }
+    },
+    {
+      "description": "An RFC 3339 timestamp, for example 2026-01-01T12:00:00Z. Fractional seconds may contain up to nine digits. The supported range is 0001-01-01T00:00:00Z through 9999-12-31T23:59:59.999999999Z.",
+      "in": "query",
+      "name": "since",
+      "required": false,
+      "schema": {
+        "examples": [
+          "2023-01-15T01:30:15.01Z",
+          "2024-12-25T12:00:00Z"
+        ],
+        "format": "date-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "An RFC 3339 timestamp, for example 2026-01-01T12:00:00Z. Fractional seconds may contain up to nine digits. The supported range is 0001-01-01T00:00:00Z through 9999-12-31T23:59:59.999999999Z.",
+      "in": "query",
+      "name": "until",
+      "required": false,
+      "schema": {
+        "examples": [
+          "2023-01-15T01:30:15.01Z",
+          "2024-12-25T12:00:00Z"
+        ],
+        "format": "date-time",
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ListPolicyLogEntriesResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "ListPolicyLogEntries lists observed policy decisions.",
+  "tags": [
+    "Network policies"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "networkPoliciesRead"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://connect.docker.com/sandboxes/v1/policy-logs?since=2023-01-15T01%3A30%3A15.01Z&amp;until=2023-01-15T01%3A30%3A15.01Z&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcInBhZ2Vfc2l6ZSBpcyBhbiBvcHRpb25hbCBwYWdlIHNpemUuXFxuXFxuT21pdHRlZCBvciB6ZXJvIHVzZXMgdGhlIGJhY2tlbmQgZGVmYXVsdC4gVW5sZXNzIHRoZSBvcGVyYXRpb24gc3RhdGVzIG90aGVyd2lzZSwgcGFnZS1zaXplIGxpbWl0cyBhbmQgaGFuZGxpbmcgb2YgbGFyZ2VyIHJlcXVlc3RzIGFyZSBiYWNrZW5kLXNwZWNpZmljOyB1c2UgdGhlIGJhY2tlbmQgc3VwcG9ydCBndWlkZS4gQ29udGludWUgd2l0aCBuZXh0UGFnZVRva2VuIHVudGlsIGl0IGlzIGVtcHR5LlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGFnZVNpemVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXBvbGljeS1sb2dzL2dldC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidGl0bGVcIjogXCJwYWdlX3NpemVcIixcbiAgICBcInR5cGVcIjogXCJpbnRlZ2VyXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJwYWdlX3Rva2VuIGlzIGFuIG9wYXF1ZSBjb250aW51YXRpb24gdG9rZW4uXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJwYWdlVG9rZW5cIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXBvbGljeS1sb2dzL2dldC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidGl0bGVcIjogXCJwYWdlX3Rva2VuXCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJmaWx0ZXIgaXMgY29tbWEtc2VwYXJhdGVkIGV4YWN0LW1hdGNoIGZpZWxkPXZhbHVlIHRlcm1zOyB0aGUgcG9ydGFibGUgZmllbGQgaXNcXG5kb21haW4uXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJmaWx0ZXJcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXBvbGljeS1sb2dzL2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidGl0bGVcIjogXCJmaWx0ZXJcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIkFuIFJGQyAzMzM5IHRpbWVzdGFtcCwgZm9yIGV4YW1wbGUgMjAyNi0wMS0wMVQxMjowMDowMFouIEZyYWN0aW9uYWwgc2Vjb25kcyBtYXkgY29udGFpbiB1cCB0byBuaW5lIGRpZ2l0cy4gVGhlIHN1cHBvcnRlZCByYW5nZSBpcyAwMDAxLTAxLTAxVDAwOjAwOjAwWiB0aHJvdWdoIDk5OTktMTItMzFUMjM6NTk6NTkuOTk5OTk5OTk5Wi5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInNpbmNlXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFwb2xpY3ktbG9ncy9nZXQvcGFyYW1ldGVycy8zXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImV4YW1wbGVzXCI6IFtcbiAgICAgIFwiMjAyMy0wMS0xNVQwMTozMDoxNS4wMVpcIixcbiAgICAgIFwiMjAyNC0xMi0yNVQxMjowMDowMFpcIlxuICAgIF0sXG4gICAgXCJmb3JtYXRcIjogXCJkYXRlLXRpbWVcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIkFuIFJGQyAzMzM5IHRpbWVzdGFtcCwgZm9yIGV4YW1wbGUgMjAyNi0wMS0wMVQxMjowMDowMFouIEZyYWN0aW9uYWwgc2Vjb25kcyBtYXkgY29udGFpbiB1cCB0byBuaW5lIGRpZ2l0cy4gVGhlIHN1cHBvcnRlZCByYW5nZSBpcyAwMDAxLTAxLTAxVDAwOjAwOjAwWiB0aHJvdWdoIDk5OTktMTItMzFUMjM6NTk6NTkuOTk5OTk5OTk5Wi5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInVudGlsXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFwb2xpY3ktbG9ncy9nZXQvcGFyYW1ldGVycy80XCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImV4YW1wbGVzXCI6IFtcbiAgICAgIFwiMjAyMy0wMS0xNVQwMTozMDoxNS4wMVpcIixcbiAgICAgIFwiMjAyNC0xMi0yNVQxMjowMDowMFpcIlxuICAgIF0sXG4gICAgXCJmb3JtYXRcIjogXCJkYXRlLXRpbWVcIixcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvTGlzdFBvbGljeUxvZ0VudHJpZXNSZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

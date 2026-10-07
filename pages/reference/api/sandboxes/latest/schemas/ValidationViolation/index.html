@@ -1,0 +1,105 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ValidationViolation.md>Markdown</a></div><meta data-pagefind-meta="title:ValidationViolation — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ValidationViolation</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">A validation failure, with the affected field, rule, and a human-readable message.</div><details class=api-field open><summary><code>field</code></summary><div class="prose dark:prose-invert">The field that failed validation, including its parent fields.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ValidationFieldPath/><code>ValidationFieldPath</code></a></p><p class=api-type>Type:
+<code>null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "null"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The field that failed validation, including its parent fields.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ValidationFieldPath"
+    },
+    {
+      "type": "null"
+    }
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>forKey</code></summary><p class=api-type>Type:
+<code>boolean | null</code></p><div class="prose dark:prose-invert"><code>for_key</code> indicates whether the violation was caused by a map key, rather than a value.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`for_key` indicates whether the violation was caused by a map key, rather than a value.",
+  "type": [
+    "boolean",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>message</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert"><code>message</code> is a human-readable error message that describes the nature of the violation.
+This can be the default error message from the violated <code>Rule</code>, or it can be a custom message that gives more context about the violation.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`message` is a human-readable error message that describes the nature of the violation.\nThis can be the default error message from the violated `Rule`, or it can be a custom message that gives more context about the violation.",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>rule</code></summary><div class="prose dark:prose-invert">The validation rule that failed.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ValidationFieldPath/><code>ValidationFieldPath</code></a></p><p class=api-type>Type:
+<code>null</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "null"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The validation rule that failed.",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/ValidationFieldPath"
+    },
+    {
+      "type": "null"
+    }
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>ruleId</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert"><code>rule_id</code> is the unique identifier of the <code>Rule</code> that was not fulfilled.
+This is the same <code>id</code> that was specified in the <code>Rule</code> message, allowing easy tracing of which rule was violated.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "`rule_id` is the unique identifier of the `Rule` that was not fulfilled.\nThis is the same `id` that was specified in the `Rule` message, allowing easy tracing of which rule was violated.",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A validation failure, with the affected field, rule, and a human-readable message.",
+  "properties": {
+    "field": {
+      "description": "The field that failed validation, including its parent fields.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/ValidationFieldPath"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "forKey": {
+      "description": "`for_key` indicates whether the violation was caused by a map key, rather than a value.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "message": {
+      "description": "`message` is a human-readable error message that describes the nature of the violation.\nThis can be the default error message from the violated `Rule`, or it can be a custom message that gives more context about the violation.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rule": {
+      "description": "The validation rule that failed.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/ValidationFieldPath"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ruleId": {
+      "description": "`rule_id` is the unique identifier of the `Rule` that was not fulfilled.\nThis is the same `id` that was specified in the `Rule` message, allowing easy tracing of which rule was violated.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "title": "Violation",
+  "type": "object"
+}</code></pre></details></article>

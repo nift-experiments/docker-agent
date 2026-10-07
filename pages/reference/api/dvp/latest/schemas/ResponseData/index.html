@@ -1,0 +1,25 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/schemas/ResponseData.md>Markdown</a></div><meta data-pagefind-meta="title:ResponseData — Publisher analytics API 1.0.0"><p class=api-eyebrow>Schema</p><h1>ResponseData</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Download locations for the selected export. Large exports can span multiple files.</div><details class=api-field open><summary><code>data</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">Download URLs and file sizes for the export.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/ResponseDataFile/><code>ResponseDataFile</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Download URLs and file sizes for the export.",
+  "items": {
+    "$ref": "#/components/schemas/ResponseDataFile"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Download locations for the selected export. Large exports can span multiple files.",
+  "properties": {
+    "data": {
+      "description": "Download URLs and file sizes for the export.",
+      "items": {
+        "$ref": "#/components/schemas/ResponseDataFile"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

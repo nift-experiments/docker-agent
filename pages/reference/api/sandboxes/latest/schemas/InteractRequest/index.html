@@ -1,0 +1,145 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/InteractRequest.md>Markdown</a></div><meta data-pagefind-meta="title:InteractRequest — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>InteractRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">InteractRequest is one frame on the bidirectional interaction stream.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>attach</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ProcessAttach/><code>ProcessAttach</code></a></p><div class="prose dark:prose-invert">attach opens or resumes the interaction.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ProcessAttach",
+  "description": "attach opens or resumes the interaction."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "attach": {
+      "$ref": "#/components/schemas/ProcessAttach",
+      "description": "attach opens or resumes the interaction."
+    }
+  },
+  "required": [
+    "attach"
+  ],
+  "title": "attach",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>closeStdin</code>
+· required</summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">close_stdin closes standard input when true; false has no effect, including on a PTY.
+On a PTY, true delivers the terminal's VEOF input through the line discipline and
+does not close the PTY master; subsequent stdin frames remain valid. Terminal mode
+owns interpretation: canonical mode treats VEOF as marking the end of input, while
+raw mode delivers it as an ordinary input byte, so this promises delivery, never
+interpretation. Each true frame on a PTY delivers exactly one VEOF input; unlike the
+pipe path, repeated frames are not a no-op.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "close_stdin closes standard input when true; false has no effect, including on a PTY.\nOn a PTY, true delivers the terminal's VEOF input through the line discipline and\ndoes not close the PTY master; subsequent stdin frames remain valid. Terminal mode\nowns interpretation: canonical mode treats VEOF as marking the end of input, while\nraw mode delivers it as an ordinary input byte, so this promises delivery, never\ninterpretation. Each true frame on a PTY delivers exactly one VEOF input; unlike the\npipe path, repeated frames are not a no-op.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "closeStdin": {
+      "description": "close_stdin closes standard input when true; false has no effect, including on a PTY.\nOn a PTY, true delivers the terminal's VEOF input through the line discipline and\ndoes not close the PTY master; subsequent stdin frames remain valid. Terminal mode\nowns interpretation: canonical mode treats VEOF as marking the end of input, while\nraw mode delivers it as an ordinary input byte, so this promises delivery, never\ninterpretation. Each true frame on a PTY delivers exactly one VEOF input; unlike the\npipe path, repeated frames are not a no-op.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "closeStdin"
+  ],
+  "title": "close_stdin",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>resize</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/TerminalSize/><code>TerminalSize</code></a></p><div class="prose dark:prose-invert">resize changes terminal size; portable-range dimensions on a running process without a PTY return FAILED_PRECONDITION.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/TerminalSize",
+  "description": "resize changes terminal size; portable-range dimensions on a running process without a PTY return FAILED_PRECONDITION."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "resize": {
+      "$ref": "#/components/schemas/TerminalSize",
+      "description": "resize changes terminal size; portable-range dimensions on a running process without a PTY return FAILED_PRECONDITION."
+    }
+  },
+  "required": [
+    "resize"
+  ],
+  "title": "resize",
+  "type": "object"
+}</code></pre></details><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>stdin</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">stdin writes process standard input.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "stdin writes process standard input.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "stdin": {
+      "description": "stdin writes process standard input.",
+      "format": "byte",
+      "type": "string"
+    }
+  },
+  "required": [
+    "stdin"
+  ],
+  "title": "stdin",
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "InteractRequest is one frame on the bidirectional interaction stream.",
+  "oneOf": [
+    {
+      "properties": {
+        "attach": {
+          "$ref": "#/components/schemas/ProcessAttach",
+          "description": "attach opens or resumes the interaction."
+        }
+      },
+      "required": [
+        "attach"
+      ],
+      "title": "attach",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "closeStdin": {
+          "description": "close_stdin closes standard input when true; false has no effect, including on a PTY.\nOn a PTY, true delivers the terminal's VEOF input through the line discipline and\ndoes not close the PTY master; subsequent stdin frames remain valid. Terminal mode\nowns interpretation: canonical mode treats VEOF as marking the end of input, while\nraw mode delivers it as an ordinary input byte, so this promises delivery, never\ninterpretation. Each true frame on a PTY delivers exactly one VEOF input; unlike the\npipe path, repeated frames are not a no-op.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "closeStdin"
+      ],
+      "title": "close_stdin",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "resize": {
+          "$ref": "#/components/schemas/TerminalSize",
+          "description": "resize changes terminal size; portable-range dimensions on a running process without a PTY return FAILED_PRECONDITION."
+        }
+      },
+      "required": [
+        "resize"
+      ],
+      "title": "resize",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "stdin": {
+          "description": "stdin writes process standard input.",
+          "format": "byte",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stdin"
+      ],
+      "title": "stdin",
+      "type": "object"
+    }
+  ],
+  "title": "InteractRequest",
+  "type": "object",
+  "unevaluatedProperties": false
+}</code></pre></details></article>

@@ -1,0 +1,76 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/NetworkPolicy.md>Markdown</a></div><meta data-pagefind-meta="title:NetworkPolicy — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>NetworkPolicy</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">NetworkPolicy is an inline policy request materialized in the governance plane.</div><details class=api-field open><summary><code>allowNetworks</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">allow_networks are exact network names or CIDRs allowed by this document.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "allow_networks are exact network names or CIDRs allowed by this document.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>denyNetworks</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">deny_networks are exact network names or CIDRs denied by this document.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "deny_networks are exact network names or CIDRs denied by this document.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>mode</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">mode is required and cannot be UNSPECIFIED.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "mode is required and cannot be UNSPECIFIED.",
+  "enum": [
+    "denyAll"
+  ],
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  },
+  "title": "NetworkPolicyMode",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "NetworkPolicy is an inline policy request materialized in the governance plane.",
+  "properties": {
+    "allowNetworks": {
+      "description": "allow_networks are exact network names or CIDRs allowed by this document.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "denyNetworks": {
+      "description": "deny_networks are exact network names or CIDRs denied by this document.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "mode": {
+      "description": "mode is required and cannot be UNSPECIFIED.",
+      "enum": [
+        "denyAll"
+      ],
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      },
+      "title": "NetworkPolicyMode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "title": "NetworkPolicy",
+  "type": "object"
+}</code></pre></details></article>

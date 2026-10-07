@@ -1,0 +1,126 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/addMcpGatewayServer.md>Markdown</a></div><meta data-pagefind-meta="title:AddMcpGatewayServer adds one server to an existing ready gateway. — Docker Sandboxes API v1"><h1>AddMcpGatewayServer adds one server to an existing ready gateway.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/sandboxes<wbr>/{sandbox}<wbr>/mcp-gateway<wbr>/servers</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">AddMcpGatewayServer adds one server to an existing ready gateway.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=sandbox><h3><code>sandbox</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The sandbox id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1mcp-gateway~1servers/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">AddMcpGatewayServerRequest adds one server to an existing ready gateway.</div><details class=api-field open><summary><code>server</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">server is the external configured key; a supplied registration must define this same key.
+A mismatch refuses FAILED_PRECONDITION before changing the gateway.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "server is the external configured key; a supplied registration must define this same key.\nA mismatch refuses FAILED_PRECONDITION before changing the gateway.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "AddMcpGatewayServerRequest adds one server to an existing ready gateway.",
+  "properties": {
+    "server": {
+      "description": "server is the external configured key; a supplied registration must define this same key.\nA mismatch refuses FAILED_PRECONDITION before changing the gateway.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "server"
+  ],
+  "title": "AddMcpGatewayServerRequest",
+  "type": "object"
+}</code></pre></details></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1mcp-gateway~1servers/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/AddMcpGatewayServerResponse/><code>AddMcpGatewayServerResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1sandboxes~1{sandbox}~1mcp-gateway~1servers/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/AddMcpGatewayServerResponse/>#/components/schemas/AddMcpGatewayServerResponse</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "AddMcpGatewayServer adds one server to an existing ready gateway.",
+  "operationId": "addMcpGatewayServer",
+  "parameters": [
+    {
+      "description": "The sandbox id.",
+      "in": "path",
+      "name": "sandbox",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "additionalProperties": false,
+          "description": "AddMcpGatewayServerRequest adds one server to an existing ready gateway.",
+          "properties": {
+            "server": {
+              "description": "server is the external configured key; a supplied registration must define this same key.\nA mismatch refuses FAILED_PRECONDITION before changing the gateway.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "server"
+          ],
+          "title": "AddMcpGatewayServerRequest",
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/AddMcpGatewayServerResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "AddMcpGatewayServer adds one server to an existing ready gateway.",
+  "tags": [
+    "MCP gateways"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "mcpWrite"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/sandboxes/&lt;SANDBOX&gt;/mcp-gateway/servers&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzYW5kYm94IGlkLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJzYW5kYm94XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzYW5kYm94ZXN+MXtzYW5kYm94fX4xbWNwLWdhdGV3YXl+MXNlcnZlcnMvcG9zdC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiYWRkaXRpb25hbFByb3BlcnRpZXNcIjogZmFsc2UsXG4gIFwiZGVzY3JpcHRpb25cIjogXCJBZGRNY3BHYXRld2F5U2VydmVyUmVxdWVzdCBhZGRzIG9uZSBzZXJ2ZXIgdG8gYW4gZXhpc3RpbmcgcmVhZHkgZ2F0ZXdheS5cIixcbiAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICBcInNlcnZlclwiOiB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwic2VydmVyIGlzIHRoZSBleHRlcm5hbCBjb25maWd1cmVkIGtleTsgYSBzdXBwbGllZCByZWdpc3RyYXRpb24gbXVzdCBkZWZpbmUgdGhpcyBzYW1lIGtleS5cXG5BIG1pc21hdGNoIHJlZnVzZXMgRkFJTEVEX1BSRUNPTkRJVElPTiBiZWZvcmUgY2hhbmdpbmcgdGhlIGdhdGV3YXkuXCIsXG4gICAgICBcIm1pbkxlbmd0aFwiOiAxLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwicmVxdWlyZWRcIjogW1xuICAgIFwic2VydmVyXCJcbiAgXSxcbiAgXCJ0aXRsZVwiOiBcIkFkZE1jcEdhdGV3YXlTZXJ2ZXJSZXF1ZXN0XCIsXG4gIFwidHlwZVwiOiBcIm9iamVjdFwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvQWRkTWNwR2F0ZXdheVNlcnZlclJlc3BvbnNlXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59Il0="></template>

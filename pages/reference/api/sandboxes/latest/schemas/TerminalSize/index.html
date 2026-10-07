@@ -1,0 +1,38 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/TerminalSize.md>Markdown</a></div><meta data-pagefind-meta="title:TerminalSize — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>TerminalSize</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">TerminalSize is a terminal rows/columns pair; 1 through 65535 is the portable range.
+bounded requires rows and cols in 1..65535</div><details class=api-field open><summary><code>bounded</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">bounded requests the portable range enforced on this size, with no opt in
+to perform first. Unset or false keeps the unenforced behavior.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "bounded requests the portable range enforced on this size, with no opt in\nto perform first. Unset or false keeps the unenforced behavior.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>cols</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">cols is the terminal column count.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "cols is the terminal column count.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>rows</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">rows is the terminal row count.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "rows is the terminal row count.",
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "TerminalSize is a terminal rows/columns pair; 1 through 65535 is the portable range.\nbounded requires rows and cols in 1..65535",
+  "properties": {
+    "bounded": {
+      "description": "bounded requests the portable range enforced on this size, with no opt in\nto perform first. Unset or false keeps the unenforced behavior.",
+      "type": "boolean"
+    },
+    "cols": {
+      "description": "cols is the terminal column count.",
+      "type": "integer"
+    },
+    "rows": {
+      "description": "rows is the terminal row count.",
+      "type": "integer"
+    }
+  },
+  "title": "TerminalSize",
+  "type": "object"
+}</code></pre></details></article>

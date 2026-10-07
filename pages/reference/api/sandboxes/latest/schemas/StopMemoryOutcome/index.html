@@ -1,0 +1,17 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/StopMemoryOutcome.md>Markdown</a></div><meta data-pagefind-meta="title:StopMemoryOutcome — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>StopMemoryOutcome</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>StopMemoryOutcome records the stop/start guarantee independently of location.</p><p>Values:
+unspecified: unspecified is not an advertised or accepted guarantee.
+discard: discard retains disk and starts a fresh process tree.
+preserve: preserve restores the stopped process tree on start.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "StopMemoryOutcome records the stop/start guarantee independently of location.\n\nValues:\nunspecified: unspecified is not an advertised or accepted guarantee.\ndiscard: discard retains disk and starts a fresh process tree.\npreserve: preserve restores the stopped process tree on start.",
+  "enum": [
+    "unspecified",
+    "discard",
+    "preserve"
+  ],
+  "title": "StopMemoryOutcome",
+  "type": "string"
+}</code></pre></details></article>

@@ -1,0 +1,42 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/scim_schema_parent_attribute.md>Markdown</a></div><meta data-pagefind-meta="title:scim_schema_parent_attribute — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>scim_schema_parent_attribute</h1><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_schema_attribute/><code>scim_schema_attribute</code></a></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>subAttributes</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_schema_attribute/><code>scim_schema_attribute</code></a></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/scim_schema_attribute"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/scim_schema_attribute"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "subAttributes": {
+      "items": {
+        "$ref": "#/components/schemas/scim_schema_attribute"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_schema_attribute"
+    },
+    {
+      "properties": {
+        "subAttributes": {
+          "items": {
+            "$ref": "#/components/schemas/scim_schema_attribute"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+}</code></pre></details></article>

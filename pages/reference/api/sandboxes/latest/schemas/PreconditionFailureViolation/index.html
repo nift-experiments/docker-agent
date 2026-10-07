@@ -1,0 +1,40 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/PreconditionFailureViolation.md>Markdown</a></div><meta data-pagefind-meta="title:PreconditionFailureViolation — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>PreconditionFailureViolation</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">A message type used to describe a single precondition failure.</div><details class=api-field open><summary><code>description</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>A description of how the precondition failed. Developers can use this
+description to understand how to fix the failure.</p><p>For example: "Terms of service not accepted".</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A description of how the precondition failed. Developers can use this\ndescription to understand how to fix the failure.\n\nFor example: \"Terms of service not accepted\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>subject</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The subject, relative to the type, that failed.
+For example, "google.com/cloud" relative to the "TOS" type would indicate
+which terms of service is being referenced.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The subject, relative to the type, that failed.\nFor example, \"google.com/cloud\" relative to the \"TOS\" type would indicate\nwhich terms of service is being referenced.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>type</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The type of PreconditionFailure. We recommend using a service-specific
+enum type to define the supported precondition violation subjects. For
+example, "TOS" for "Terms of Service violation".</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The type of PreconditionFailure. We recommend using a service-specific\nenum type to define the supported precondition violation subjects. For\nexample, \"TOS\" for \"Terms of Service violation\".",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "A message type used to describe a single precondition failure.",
+  "properties": {
+    "description": {
+      "description": "A description of how the precondition failed. Developers can use this\ndescription to understand how to fix the failure.\n\nFor example: \"Terms of service not accepted\".",
+      "type": "string"
+    },
+    "subject": {
+      "description": "The subject, relative to the type, that failed.\nFor example, \"google.com/cloud\" relative to the \"TOS\" type would indicate\nwhich terms of service is being referenced.",
+      "type": "string"
+    },
+    "type": {
+      "description": "The type of PreconditionFailure. We recommend using a service-specific\nenum type to define the supported precondition violation subjects. For\nexample, \"TOS\" for \"Terms of Service violation\".",
+      "type": "string"
+    }
+  },
+  "title": "Violation",
+  "type": "object"
+}</code></pre></details></article>

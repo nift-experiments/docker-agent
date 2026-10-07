@@ -1,0 +1,9 @@
+<p>Access controls are expressed as policies. Local and organization pages
+describe where policies apply. Network and filesystem pages describe the rules
+inside those policies. MCP policies use Cedar statements instead of the network
+and filesystem rule format.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=policy-scope><a class="text-black dark:text-white no-underline hover:underline" href=#policy-scope>Policy scope</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/>Local policy</a>: configure network rules on a developer machine with
+the <code>sbx policy</code> CLI.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>Organization policies</a>: manage centralized policies for an
+organization or team.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=access-surfaces><a class="text-black dark:text-white no-underline hover:underline" href=#access-surfaces>Access surfaces</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/>Network access policies</a>: control outbound network access from
+sandboxes, by host or by HTTP method and path.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/filesystem/>Filesystem access policies</a>: control which host paths
+sandboxes can mount as workspaces.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/>MCP access policies</a>: control MCP server registration, tool calls,
+resources, prompts, and approval gates with Cedar policy.</li></ul>

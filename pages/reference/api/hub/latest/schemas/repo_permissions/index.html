@@ -1,0 +1,41 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/repo_permissions.md>Markdown</a></div><meta data-pagefind-meta="title:repo_permissions — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>repo_permissions</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>admin</code>
+· required</summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">Admin permission</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Admin permission",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>read</code>
+· required</summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">Read permission</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Read permission",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>write</code>
+· required</summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">Write permission</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Write permission",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "admin": {
+      "description": "Admin permission",
+      "type": "boolean"
+    },
+    "read": {
+      "description": "Read permission",
+      "type": "boolean"
+    },
+    "write": {
+      "description": "Write permission",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "read",
+    "write",
+    "admin"
+  ],
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,88 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FilesDownloadResponse.md>Markdown</a></div><meta data-pagefind-meta="title:FilesDownloadResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FilesDownloadResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">DownloadResponse is one frame in a download stream. At most one of data, error, header is set.</div><details class=api-field open><summary><code>data</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">data carries bytes for the current file.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "data carries bytes for the current file.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>error</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileError/><code>FileError</code></a></p><div class="prose dark:prose-invert">error reports a path-level failure without aborting the whole stream.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/FileError",
+  "description": "error reports a path-level failure without aborting the whole stream."
+}</code></pre></details></details><details class=api-field open><summary><code>header</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileHeader/><code>FileHeader</code></a></p><div class="prose dark:prose-invert">header starts a downloaded file.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/FileHeader",
+  "description": "header starts a downloaded file."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "dependentSchemas": {
+    "data": {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "required": [
+              "header"
+            ]
+          }
+        ]
+      }
+    },
+    "error": {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "data"
+            ]
+          },
+          {
+            "required": [
+              "header"
+            ]
+          }
+        ]
+      }
+    },
+    "header": {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "data"
+            ]
+          },
+          {
+            "required": [
+              "error"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "description": "DownloadResponse is one frame in a download stream. At most one of data, error, header is set.",
+  "properties": {
+    "data": {
+      "description": "data carries bytes for the current file.",
+      "format": "byte",
+      "type": "string"
+    },
+    "error": {
+      "$ref": "#/components/schemas/FileError",
+      "description": "error reports a path-level failure without aborting the whole stream."
+    },
+    "header": {
+      "$ref": "#/components/schemas/FileHeader",
+      "description": "header starts a downloaded file."
+    }
+  },
+  "title": "DownloadResponse",
+  "type": "object",
+  "unevaluatedProperties": false
+}</code></pre></details></article>

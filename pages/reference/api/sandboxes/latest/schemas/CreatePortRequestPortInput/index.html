@@ -1,0 +1,47 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/CreatePortRequestPortInput.md>Markdown</a></div><meta data-pagefind-meta="title:CreatePortRequestPortInput — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>CreatePortRequestPortInput</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>number</code>
+· required</summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">(IMMUTABLE) number is immutable and unique within the sandbox; duplicates refuse ALREADY_EXISTS.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) number is immutable and unique within the sandbox; duplicates refuse ALREADY_EXISTS.",
+  "format": "int32",
+  "maximum": 65535,
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>protocol</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IMMUTABLE) protocol defaults to TCP when unspecified.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) protocol defaults to TCP when unspecified.",
+  "enum": [
+    "unspecified",
+    "tcp"
+  ],
+  "title": "PortInputProtocol",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "properties": {
+    "number": {
+      "description": "(IMMUTABLE) number is immutable and unique within the sandbox; duplicates refuse ALREADY_EXISTS.",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "protocol": {
+      "description": "(IMMUTABLE) protocol defaults to TCP when unspecified.",
+      "enum": [
+        "unspecified",
+        "tcp"
+      ],
+      "title": "PortInputProtocol",
+      "type": "string"
+    }
+  },
+  "required": [
+    "number"
+  ],
+  "title": "PortInput",
+  "type": "object"
+}</code></pre></details></article>

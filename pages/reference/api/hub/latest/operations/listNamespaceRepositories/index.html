@@ -1,0 +1,357 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/listNamespaceRepositories.md>Markdown</a></div><meta data-pagefind-meta="title:List repositories in a namespace — Docker Hub API 2-beta"><h1>List repositories in a namespace</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/namespaces<wbr>/{namespace}<wbr>/repositories</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Returns a list of repositories within the specified namespace (organization or user).</p><p>Public repositories are accessible to everyone, while private repositories require appropriate authentication and permissions.</p><p><strong>OAT listing behavior</strong>: an OAT with the <code>scope-repository-list</code> scope sees all repositories including private ones. An OAT without that scope only sees public repositories. This filtering is silent: the response is a normal <code>200</code> with no indication that private repositories were withheld.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li><li>Anonymous access</li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=namespace><h3><code>namespace</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Namespace of the repository, such as a user or organization name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=page><h3><code>page</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Page number to get. Defaults to 1.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "default": 1,
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=page_size><h3><code>page_size</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Number of repositories to get per page. Defaults to 10. Max of 100.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "default": 10,
+  "maximum": 100,
+  "minimum": 1,
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Filter repositories by name (partial match).</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=ordering><h3><code>ordering</code>
+<small>query</small></h3><div class="prose dark:prose-invert"><p>Order repositories by the specified field. Prefix with '-' for descending order.
+Available options:</p><ul><li><code>name</code> / <code>-name</code>: Repository name (ascending/descending)</li><li><code>last_updated</code> / <code>-last_updated</code>: Last update time (ascending/descending)</li><li><code>pull_count</code> / <code>-pull_count</code>: Number of pulls (ascending/descending)</li></ul></div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "enum": [
+    "name",
+    "-name",
+    "last_updated",
+    "-last_updated",
+    "pull_count",
+    "-pull_count"
+  ],
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">List of repositories</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/list_repositories_response/><code>list_repositories_response</code></a></p><div data-api-examples><div data-api-example=0><h4>repositories_list</h4><pre><code>{
+  &#34;count&#34;: 287,
+  &#34;next&#34;: &#34;https://hub.docker.com/v2/namespaces/docker/repositories?page=2\u0026page_size=2&#34;,
+  &#34;previous&#34;: null,
+  &#34;results&#34;: [
+    {
+      &#34;affiliation&#34;: &#34;&#34;,
+      &#34;categories&#34;: [
+        {
+          &#34;name&#34;: &#34;Languages \u0026 frameworks&#34;,
+          &#34;slug&#34;: &#34;languages-and-frameworks&#34;
+        },
+        {
+          &#34;name&#34;: &#34;Integration \u0026 delivery&#34;,
+          &#34;slug&#34;: &#34;integration-and-delivery&#34;
+        },
+        {
+          &#34;name&#34;: &#34;Operating systems&#34;,
+          &#34;slug&#34;: &#34;operating-systems&#34;
+        }
+      ],
+      &#34;content_types&#34;: [
+        &#34;unrecognized&#34;,
+        &#34;image&#34;
+      ],
+      &#34;date_registered&#34;: &#34;2015-05-19T21:13:35.937763Z&#34;,
+      &#34;description&#34;: &#34;Image for performing Docker build requests&#34;,
+      &#34;is_private&#34;: false,
+      &#34;last_modified&#34;: &#34;2024-10-16T13:48:34.145251Z&#34;,
+      &#34;last_updated&#34;: &#34;2023-06-20T10:44:45.459826Z&#34;,
+      &#34;media_types&#34;: [
+        &#34;application/octet-stream&#34;,
+        &#34;application/vnd.docker.container.image.v1&#43;json&#34;,
+        &#34;application/vnd.docker.distribution.manifest.v1&#43;prettyjws&#34;
+      ],
+      &#34;name&#34;: &#34;highland_builder&#34;,
+      &#34;namespace&#34;: &#34;docker&#34;,
+      &#34;pull_count&#34;: 15722123,
+      &#34;repository_type&#34;: &#34;image&#34;,
+      &#34;star_count&#34;: 7,
+      &#34;status&#34;: 1,
+      &#34;status_description&#34;: &#34;active&#34;,
+      &#34;storage_size&#34;: 488723114800
+    },
+    {
+      &#34;affiliation&#34;: &#34;&#34;,
+      &#34;categories&#34;: [
+        {
+          &#34;name&#34;: &#34;Languages \u0026 frameworks&#34;,
+          &#34;slug&#34;: &#34;languages-and-frameworks&#34;
+        },
+        {
+          &#34;name&#34;: &#34;Integration \u0026 delivery&#34;,
+          &#34;slug&#34;: &#34;integration-and-delivery&#34;
+        }
+      ],
+      &#34;content_types&#34;: [
+        &#34;image&#34;
+      ],
+      &#34;date_registered&#34;: &#34;2015-06-09T18:16:36.527329Z&#34;,
+      &#34;description&#34;: &#34;An image for use in the Docker demo tutorial&#34;,
+      &#34;is_private&#34;: false,
+      &#34;last_modified&#34;: &#34;2024-10-16T13:48:34.145251Z&#34;,
+      &#34;last_updated&#34;: &#34;2015-06-19T19:06:27.388123Z&#34;,
+      &#34;media_types&#34;: [
+        &#34;application/vnd.docker.distribution.manifest.v1&#43;prettyjws&#34;
+      ],
+      &#34;name&#34;: &#34;whalesay&#34;,
+      &#34;namespace&#34;: &#34;docker&#34;,
+      &#34;pull_count&#34;: 130737682,
+      &#34;repository_type&#34;: null,
+      &#34;star_count&#34;: 757,
+      &#34;status&#34;: 1,
+      &#34;status_description&#34;: &#34;active&#34;,
+      &#34;storage_size&#34;: 103666708
+    }
+  ]
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories/get/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request - Invalid request parameters</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>invalid_ordering</h4><pre><code>{
+  &#34;fields&#34;: {
+    &#34;ordering&#34;: [
+      &#34;Invalid ordering value. Must be one of: name, -name, last_updated, -last_updated, pull_count, -pull_count&#34;
+    ]
+  },
+  &#34;text&#34;: &#34;Invalid ordering value&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories/get/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories/get/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;permission denied&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1namespaces~1{namespace}~1repositories/get/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Page not found - occurs when requesting a page number <code>>1</code> that exceeds the available results</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/error/>#/components/schemas/error</a></p><p><a href=/reference/api/hub/latest/schemas/list_repositories_response/>#/components/schemas/list_repositories_response</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns a list of repositories within the specified namespace (organization or user).\n\nPublic repositories are accessible to everyone, while private repositories require appropriate authentication and permissions.\n\n\n\n**OAT listing behavior**: an OAT with the `scope-repository-list` scope sees all repositories including private ones. An OAT without that scope only sees public repositories. This filtering is silent: the response is a normal `200` with no indication that private repositories were withheld.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "listNamespaceRepositories",
+  "parameters": [
+    {
+      "description": "Page number to get. Defaults to 1.",
+      "in": "query",
+      "name": "page",
+      "required": false,
+      "schema": {
+        "default": 1,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Number of repositories to get per page. Defaults to 10. Max of 100.",
+      "in": "query",
+      "name": "page_size",
+      "required": false,
+      "schema": {
+        "default": 10,
+        "maximum": 100,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter repositories by name (partial match).",
+      "in": "query",
+      "name": "name",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Order repositories by the specified field. Prefix with '-' for descending order.\nAvailable options:\n- `name` / `-name`: Repository name (ascending/descending)\n- `last_updated` / `-last_updated`: Last update time (ascending/descending)\n- `pull_count` / `-pull_count`: Number of pulls (ascending/descending)\n",
+      "in": "query",
+      "name": "ordering",
+      "required": false,
+      "schema": {
+        "enum": [
+          "name",
+          "-name",
+          "last_updated",
+          "-last_updated",
+          "pull_count",
+          "-pull_count"
+        ],
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "repositories_list": {
+              "value": {
+                "count": 287,
+                "next": "https://hub.docker.com/v2/namespaces/docker/repositories?page=2\u0026page_size=2",
+                "previous": null,
+                "results": [
+                  {
+                    "affiliation": "",
+                    "categories": [
+                      {
+                        "name": "Languages \u0026 frameworks",
+                        "slug": "languages-and-frameworks"
+                      },
+                      {
+                        "name": "Integration \u0026 delivery",
+                        "slug": "integration-and-delivery"
+                      },
+                      {
+                        "name": "Operating systems",
+                        "slug": "operating-systems"
+                      }
+                    ],
+                    "content_types": [
+                      "unrecognized",
+                      "image"
+                    ],
+                    "date_registered": "2015-05-19T21:13:35.937763Z",
+                    "description": "Image for performing Docker build requests",
+                    "is_private": false,
+                    "last_modified": "2024-10-16T13:48:34.145251Z",
+                    "last_updated": "2023-06-20T10:44:45.459826Z",
+                    "media_types": [
+                      "application/octet-stream",
+                      "application/vnd.docker.container.image.v1+json",
+                      "application/vnd.docker.distribution.manifest.v1+prettyjws"
+                    ],
+                    "name": "highland_builder",
+                    "namespace": "docker",
+                    "pull_count": 15722123,
+                    "repository_type": "image",
+                    "star_count": 7,
+                    "status": 1,
+                    "status_description": "active",
+                    "storage_size": 488723114800
+                  },
+                  {
+                    "affiliation": "",
+                    "categories": [
+                      {
+                        "name": "Languages \u0026 frameworks",
+                        "slug": "languages-and-frameworks"
+                      },
+                      {
+                        "name": "Integration \u0026 delivery",
+                        "slug": "integration-and-delivery"
+                      }
+                    ],
+                    "content_types": [
+                      "image"
+                    ],
+                    "date_registered": "2015-06-09T18:16:36.527329Z",
+                    "description": "An image for use in the Docker demo tutorial",
+                    "is_private": false,
+                    "last_modified": "2024-10-16T13:48:34.145251Z",
+                    "last_updated": "2015-06-19T19:06:27.388123Z",
+                    "media_types": [
+                      "application/vnd.docker.distribution.manifest.v1+prettyjws"
+                    ],
+                    "name": "whalesay",
+                    "namespace": "docker",
+                    "pull_count": 130737682,
+                    "repository_type": null,
+                    "star_count": 757,
+                    "status": 1,
+                    "status_description": "active",
+                    "storage_size": 103666708
+                  }
+                ]
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/list_repositories_response"
+          }
+        }
+      },
+      "description": "List of repositories"
+    },
+    "400": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "invalid_ordering": {
+              "summary": "Invalid ordering value",
+              "value": {
+                "fields": {
+                  "ordering": [
+                    "Invalid ordering value. Must be one of: name, -name, last_updated, -last_updated, pull_count, -pull_count"
+                  ]
+                },
+                "text": "Invalid ordering value"
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/error"
+          }
+        }
+      },
+      "description": "Bad Request - Invalid request parameters"
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/forbidden"
+    },
+    "404": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "error": {
+              "summary": "Example error response",
+              "value": {
+                "errinfo": null,
+                "message": "not found"
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/error"
+          }
+        }
+      },
+      "description": "Page not found - occurs when requesting a page number `\u003e1` that exceeds the available results"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    },
+    {}
+  ],
+  "summary": "List repositories in a namespace",
+  "tags": [
+    "repositories"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/v2/namespaces/&lt;NAMESPACE&gt;/repositories&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>This example uses the first authentication alternative. Review the complete requirements.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfSxcbiAge31cbl0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiTmFtZXNwYWNlIG9mIHRoZSByZXBvc2l0b3J5LCBzdWNoIGFzIGEgdXNlciBvciBvcmdhbml6YXRpb24gbmFtZS5cIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZXNwYWNlXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFuYW1lc3BhY2VzfjF7bmFtZXNwYWNlfX4xcmVwb3NpdG9yaWVzL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlBhZ2UgbnVtYmVyIHRvIGdldC4gRGVmYXVsdHMgdG8gMS5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInBhZ2VcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFyZXBvc2l0b3JpZXMvZ2V0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJkZWZhdWx0XCI6IDEsXG4gICAgXCJtaW5pbXVtXCI6IDEsXG4gICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiTnVtYmVyIG9mIHJlcG9zaXRvcmllcyB0byBnZXQgcGVyIHBhZ2UuIERlZmF1bHRzIHRvIDEwLiBNYXggb2YgMTAwLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGFnZV9zaXplXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFuYW1lc3BhY2VzfjF7bmFtZXNwYWNlfX4xcmVwb3NpdG9yaWVzL2dldC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiZGVmYXVsdFwiOiAxMCxcbiAgICBcIm1heGltdW1cIjogMTAwLFxuICAgIFwibWluaW11bVwiOiAxLFxuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIkZpbHRlciByZXBvc2l0b3JpZXMgYnkgbmFtZSAocGFydGlhbCBtYXRjaCkuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJuYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFuYW1lc3BhY2VzfjF7bmFtZXNwYWNlfX4xcmVwb3NpdG9yaWVzL2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiT3JkZXIgcmVwb3NpdG9yaWVzIGJ5IHRoZSBzcGVjaWZpZWQgZmllbGQuIFByZWZpeCB3aXRoICctJyBmb3IgZGVzY2VuZGluZyBvcmRlci5cXG5BdmFpbGFibGUgb3B0aW9uczpcXG4tIGBuYW1lYCAvIGAtbmFtZWA6IFJlcG9zaXRvcnkgbmFtZSAoYXNjZW5kaW5nL2Rlc2NlbmRpbmcpXFxuLSBgbGFzdF91cGRhdGVkYCAvIGAtbGFzdF91cGRhdGVkYDogTGFzdCB1cGRhdGUgdGltZSAoYXNjZW5kaW5nL2Rlc2NlbmRpbmcpXFxuLSBgcHVsbF9jb3VudGAgLyBgLXB1bGxfY291bnRgOiBOdW1iZXIgb2YgcHVsbHMgKGFzY2VuZGluZy9kZXNjZW5kaW5nKVxcblwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwib3JkZXJpbmdcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFyZXBvc2l0b3JpZXMvZ2V0L3BhcmFtZXRlcnMvM1wiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJlbnVtXCI6IFtcbiAgICAgIFwibmFtZVwiLFxuICAgICAgXCItbmFtZVwiLFxuICAgICAgXCJsYXN0X3VwZGF0ZWRcIixcbiAgICAgIFwiLWxhc3RfdXBkYXRlZFwiLFxuICAgICAgXCJwdWxsX2NvdW50XCIsXG4gICAgICBcIi1wdWxsX2NvdW50XCJcbiAgICBdLFxuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9saXN0X3JlcG9zaXRvcmllc19yZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSJd"></template>

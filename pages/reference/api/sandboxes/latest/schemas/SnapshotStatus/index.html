@@ -1,0 +1,21 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/SnapshotStatus.md>Markdown</a></div><meta data-pagefind-meta="title:SnapshotStatus — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>SnapshotStatus</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>SnapshotStatus is snapshot readiness state.</p><p>Values:
+unspecified: unspecified is never a concrete known state.
+creating: creating means capture has not completed.
+ready: ready means the snapshot can be restored.
+failed: failed means capture reached a terminal failure.
+deleted: deleted means the backend exposes a retained delete tombstone.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "SnapshotStatus is snapshot readiness state.\n\nValues:\nunspecified: unspecified is never a concrete known state.\ncreating: creating means capture has not completed.\nready: ready means the snapshot can be restored.\nfailed: failed means capture reached a terminal failure.\ndeleted: deleted means the backend exposes a retained delete tombstone.",
+  "enum": [
+    "unspecified",
+    "creating",
+    "ready",
+    "failed",
+    "deleted"
+  ],
+  "title": "SnapshotStatus",
+  "type": "string"
+}</code></pre></details></article>

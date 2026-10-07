@@ -1,0 +1,37 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/OutputRetention.md>Markdown</a></div><meta data-pagefind-meta="title:OutputRetention — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>OutputRetention</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">OutputRetention records minimum reconnect coverage independently of location.
+output retention requires a duration or byte floor</div><details class=api-field open><summary><code>minBytes</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">min_bytes retains at least this many recent bytes per process when nonzero.
+a byte retention floor must be zero or at least 64 KiB</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "min_bytes retains at least this many recent bytes per process when nonzero.\na byte retention floor must be zero or at least 64 KiB",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>minDuration</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">min_duration retains each process's output for at least this age when set.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "min_duration retains each process's output for at least this age when set."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "OutputRetention records minimum reconnect coverage independently of location.\noutput retention requires a duration or byte floor",
+  "properties": {
+    "minBytes": {
+      "description": "min_bytes retains at least this many recent bytes per process when nonzero.\na byte retention floor must be zero or at least 64 KiB",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "minDuration": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "min_duration retains each process's output for at least this age when set."
+    }
+  },
+  "title": "OutputRetention",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,25 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/Protocol.md>Markdown</a></div><meta data-pagefind-meta="title:Protocol — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>Protocol</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>Protocol names the transport protocol for a published port.</p><p>Values:
+unspecified: unspecified means the backend default, TCP.
+tcp: tcp publishes TCP traffic.
+udp: udp publishes UDP traffic.
+tcp4: tcp4 publishes IPv4 TCP traffic.
+tcp6: tcp6 publishes IPv6 TCP traffic.
+udp4: udp4 publishes IPv4 UDP traffic.
+udp6: udp6 publishes IPv6 UDP traffic.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Protocol names the transport protocol for a published port.\n\nValues:\nunspecified: unspecified means the backend default, TCP.\ntcp: tcp publishes TCP traffic.\nudp: udp publishes UDP traffic.\ntcp4: tcp4 publishes IPv4 TCP traffic.\ntcp6: tcp6 publishes IPv6 TCP traffic.\nudp4: udp4 publishes IPv4 UDP traffic.\nudp6: udp6 publishes IPv6 UDP traffic.",
+  "enum": [
+    "unspecified",
+    "tcp",
+    "udp",
+    "tcp4",
+    "tcp6",
+    "udp4",
+    "udp6"
+  ],
+  "title": "Protocol",
+  "type": "string"
+}</code></pre></details></article>

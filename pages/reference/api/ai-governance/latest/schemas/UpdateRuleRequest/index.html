@@ -1,0 +1,47 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/UpdateRuleRequest.md>Markdown</a></div><meta data-pagefind-meta="title:UpdateRuleRequest — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>UpdateRuleRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Partial update. Only fields present in the body are updated; absent fields are left unchanged.</div><details class=api-field open><summary><code>actions</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/RuleActions/><code>RuleActions</code></a></p></details><details class=api-field open><summary><code>decision</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/RuleDecision/><code>RuleDecision</code></a></p></details><details class=api-field open><summary><code>http_resources</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/HTTPResources/><code>HTTPResources</code></a></p></details><details class=api-field open><summary><code>name</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Human-readable label for the rule.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Human-readable label for the rule.",
+  "examples": [
+    "allow research mirrors"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>resources</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/RuleResources/><code>RuleResources</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Partial update. Only fields present in the body are updated; absent fields are left unchanged.",
+  "not": {
+    "required": [
+      "resources",
+      "http_resources"
+    ],
+    "type": "object"
+  },
+  "properties": {
+    "actions": {
+      "$ref": "#/components/schemas/RuleActions"
+    },
+    "decision": {
+      "$ref": "#/components/schemas/RuleDecision"
+    },
+    "http_resources": {
+      "$ref": "#/components/schemas/HTTPResources"
+    },
+    "name": {
+      "description": "Human-readable label for the rule.",
+      "examples": [
+        "allow research mirrors"
+      ],
+      "type": "string"
+    },
+    "resources": {
+      "$ref": "#/components/schemas/RuleResources"
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

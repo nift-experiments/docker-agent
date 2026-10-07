@@ -1,0 +1,36 @@
+<blockquote class="admonition admonition-note admonition not-prose" data-export-alert-marker="WyFOT1RFXQ=="><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Swarm mode is an advanced feature for managing a cluster of Docker daemons.</p><p>Use Swarm mode if you intend to use Swarm as a production runtime environment.</p><p>If you're not planning on deploying with Swarm, use
+<a class=link href=/compose/>Docker Compose</a> instead.
+If you're developing for a Kubernetes deployment, consider using the
+<a class=link href=https://docs.docker.com/desktop/use-desktop/kubernetes/>integrated Kubernetes feature</a> in Docker Desktop.</p></div></blockquote><p>Current versions of Docker include Swarm mode for natively managing a cluster
+of Docker Engines called a swarm. Use the Docker CLI to create a swarm, deploy
+application services to a swarm, and manage swarm behavior.</p><p>Docker Swarm mode is built into the Docker Engine. Do not confuse Docker Swarm mode
+with <a class=link href=https://github.com/docker/classicswarm rel=noopener>Docker Classic Swarm</a>
+which is no longer actively developed.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=feature-highlights><a class="text-black dark:text-white no-underline hover:underline" href=#feature-highlights>Feature highlights</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=cluster-management-integrated-with-docker-engine><a class="text-black dark:text-white no-underline hover:underline" href=#cluster-management-integrated-with-docker-engine>Cluster management integrated with Docker Engine</a></h3><p>Use the Docker Engine CLI to create a swarm of Docker Engines where you can deploy application
+services. You don't need additional orchestration software to create or manage
+a swarm.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=decentralized-design><a class="text-black dark:text-white no-underline hover:underline" href=#decentralized-design>Decentralized design</a></h3><p>Instead of handling differentiation between node roles at deployment time, the Docker Engine handles any specialization at runtime. You can deploy both kinds of nodes, managers and workers, using the
+Docker Engine. This means you can build an entire swarm from a single disk
+image.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=declarative-service-model><a class="text-black dark:text-white no-underline hover:underline" href=#declarative-service-model>Declarative service model</a></h3><p>Docker Engine uses a declarative approach to
+let you define the desired state of the various services in your application
+stack. For example, you might describe an application comprised of a web front
+end service with message queueing services and a database backend.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=scaling><a class="text-black dark:text-white no-underline hover:underline" href=#scaling>Scaling</a></h3><p>For each service, you can declare the number of tasks you want to
+run. When you scale up or down, the swarm manager automatically adapts by
+adding or removing tasks to maintain the desired state.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=desired-state-reconciliation><a class="text-black dark:text-white no-underline hover:underline" href=#desired-state-reconciliation>Desired state reconciliation</a></h3><p>The swarm manager node constantly monitors
+the cluster state and reconciles any differences between the actual state and your
+expressed desired state. For example, if you set up a service to run 10
+replicas of a container, and a worker machine hosting two of those replicas
+crashes, the manager creates two new replicas to replace the replicas that
+crashed. The swarm manager assigns the new replicas to workers that are
+running and available.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=multi-host-networking><a class="text-black dark:text-white no-underline hover:underline" href=#multi-host-networking>Multi-host networking</a></h3><p>You can specify an overlay network for your
+services. The swarm manager automatically assigns addresses to the containers
+on the overlay network when it initializes or updates the application.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=service-discovery><a class="text-black dark:text-white no-underline hover:underline" href=#service-discovery>Service discovery</a></h3><p>Swarm manager nodes assign each service in the swarm a
+unique DNS name and load balance running containers. You can query every
+container running in the swarm through a DNS server embedded in the swarm.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=load-balancing><a class="text-black dark:text-white no-underline hover:underline" href=#load-balancing>Load balancing</a></h3><p>You can expose the ports for services to an
+external load balancer. Internally, the swarm lets you specify how to distribute
+service containers between nodes.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=secure-by-default><a class="text-black dark:text-white no-underline hover:underline" href=#secure-by-default>Secure by default</a></h3><p>Each node in the swarm enforces TLS mutual
+authentication and encryption to secure communications between itself and all
+other nodes. You have the option to use self-signed root certificates or
+certificates from a custom root CA.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=rolling-updates><a class="text-black dark:text-white no-underline hover:underline" href=#rolling-updates>Rolling updates</a></h3><p>At rollout time you can apply service updates to nodes
+incrementally. The swarm manager lets you control the delay between service
+deployment to different sets of nodes. If anything goes wrong, you can
+roll back to a previous version of the service.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=whats-next><a class="text-black dark:text-white no-underline hover:underline" href=#whats-next>What's next?</a></h2><ul><li>Learn Swarm mode <a class=link href=https://docs.docker.com/engine/swarm/key-concepts/>key concepts</a>.</li><li>Get started with the <a class=link href=https://docs.docker.com/engine/swarm/swarm-tutorial/>Swarm mode tutorial</a>.</li><li>Explore Swarm mode CLI commands<ul><li><a class=link href=/reference/cli/docker/swarm/init/>swarm init</a></li><li><a class=link href=/reference/cli/docker/swarm/join/>swarm join</a></li><li><a class=link href=/reference/cli/docker/service/create/>service create</a></li><li><a class=link href=/reference/cli/docker/service/inspect/>service inspect</a></li><li><a class=link href=/reference/cli/docker/service/ls/>service ls</a></li><li><a class=link href=/reference/cli/docker/service/rm/>service rm</a></li><li><a class=link href=/reference/cli/docker/service/scale/>service scale</a></li><li><a class=link href=/reference/cli/docker/service/ps/>service ps</a></li><li><a class=link href=/reference/cli/docker/service/update/>service update</a></li></ul></li></ul>

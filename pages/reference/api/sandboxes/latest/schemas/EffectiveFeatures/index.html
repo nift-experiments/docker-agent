@@ -1,0 +1,49 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EffectiveFeatures.md>Markdown</a></div><meta data-pagefind-meta="title:EffectiveFeatures — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EffectiveFeatures</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EffectiveFeatures is emitted only through the composition representation.</div><details class=api-field open><summary><code>lifecycle</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EffectiveCoreLifecycle/><code>EffectiveCoreLifecycle</code></a></p><div class="prose dark:prose-invert">lifecycle is required even when no optional feature is selected.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/EffectiveCoreLifecycle",
+  "description": "lifecycle is required even when no optional feature is selected."
+}</code></pre></details></details><details class=api-field open><summary><code>managedVolumes</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EffectiveManagedVolumes/><code>EffectiveManagedVolumes</code></a></p><div class="prose dark:prose-invert">managed_volumes records stable volume identities and concrete attachment modes.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/EffectiveManagedVolumes",
+  "description": "managed_volumes records stable volume identities and concrete attachment modes."
+}</code></pre></details></details><details class=api-field open><summary><code>outputRetention</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/OutputRetention/><code>OutputRetention</code></a></p><div class="prose dark:prose-invert">output_retention is the persisted per-process reconnect guarantee.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/OutputRetention",
+  "description": "output_retention is the persisted per-process reconnect guarantee."
+}</code></pre></details></details><details class=api-field open><summary><code>timeouts</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/EffectiveTimeouts/><code>EffectiveTimeouts</code></a></p><div class="prose dark:prose-invert">timeouts records frozen defaults and the currently armed deadline, if any.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/EffectiveTimeouts",
+  "description": "timeouts records frozen defaults and the currently armed deadline, if any."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "EffectiveFeatures is emitted only through the composition representation.",
+  "properties": {
+    "lifecycle": {
+      "$ref": "#/components/schemas/EffectiveCoreLifecycle",
+      "description": "lifecycle is required even when no optional feature is selected."
+    },
+    "managedVolumes": {
+      "$ref": "#/components/schemas/EffectiveManagedVolumes",
+      "description": "managed_volumes records stable volume identities and concrete attachment modes."
+    },
+    "outputRetention": {
+      "$ref": "#/components/schemas/OutputRetention",
+      "description": "output_retention is the persisted per-process reconnect guarantee."
+    },
+    "timeouts": {
+      "$ref": "#/components/schemas/EffectiveTimeouts",
+      "description": "timeouts records frozen defaults and the currently armed deadline, if any."
+    }
+  },
+  "required": [
+    "lifecycle",
+    "outputRetention"
+  ],
+  "title": "EffectiveFeatures",
+  "type": "object"
+}</code></pre></details></article>

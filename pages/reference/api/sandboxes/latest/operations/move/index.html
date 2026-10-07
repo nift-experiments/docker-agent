@@ -1,0 +1,179 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/move.md>Markdown</a></div><meta data-pagefind-meta="title:Move renames or moves a path. — Docker Sandboxes API v1"><h1>Move renames or moves a path.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/files<wbr>/move</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Move renames or moves a path. The destination is exact: an existing regular
+file is replaced, the source basename is never appended, and a directory
+destination is refused unchanged. A source or destination that leaves the jail
+through a symlink refuses with FAILED_PRECONDITION and a error reason.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1files~1move/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FilesMoveRequest/><code>FilesMoveRequest</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1move/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FilesMoveResponse/><code>FilesMoveResponse</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1move/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert"><p>The path resolves through a symlink that does not resolve to a target inside the sandbox jail.</p><p>The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.</p><p><code>from</code> names a regular file and <code>to</code> an existing directory, which <code>Move</code> refuses rather than moving the file into it.</p><p><code>from</code> names a directory and <code>to</code> an existing path, which <code>Move</code> refuses rather than replacing.</p><p><code>from</code> and <code>to</code> are on different filesystems, and <code>Move</code> never copies the contents to cross the boundary.</p></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>move_crosses_filesystem</option><option value=1>move_destination_is_directory</option><option value=2>move_destination_occupied</option><option value=3>path_authority_nonregular_object</option><option value=4>path_authority_symlink_escape</option></select></label><div data-api-example=0><h4>move_crosses_filesystem</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;move_crosses_filesystem: `from` and `to` are on different filesystems, and `Move` never copies the contents to cross the boundary.&#34;
+}</code></pre></div><div data-api-example=1><h4>move_destination_is_directory</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;move_destination_is_directory: `from` names a regular file and `to` an existing directory, which `Move` refuses rather than moving the file into it.&#34;
+}</code></pre></div><div data-api-example=2><h4>move_destination_occupied</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;move_destination_occupied: `from` names a directory and `to` an existing path, which `Move` refuses rather than replacing.&#34;
+}</code></pre></div><div data-api-example=3><h4>path_authority_nonregular_object</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;path_authority_nonregular_object: The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.&#34;
+}</code></pre></div><div data-api-example=4><h4>path_authority_symlink_escape</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;path_authority_symlink_escape: The path resolves through a symlink that does not resolve to a target inside the sandbox jail.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1files~1move/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesMoveRequest/>#/components/schemas/FilesMoveRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/FilesMoveResponse/>#/components/schemas/FilesMoveResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Move renames or moves a path. The destination is exact: an existing regular\nfile is replaced, the source basename is never appended, and a directory\ndestination is refused unchanged. A source or destination that leaves the jail\nthrough a symlink refuses with FAILED_PRECONDITION and a error reason.",
+  "operationId": "move",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/FilesMoveRequest"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/FilesMoveResponse"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "move_crosses_filesystem": {
+              "summary": "`from` and `to` are on different filesystems, and `Move` never copies the contents to cross the boundary.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "move_crosses_filesystem: `from` and `to` are on different filesystems, and `Move` never copies the contents to cross the boundary."
+              }
+            },
+            "move_destination_is_directory": {
+              "summary": "`from` names a regular file and `to` an existing directory, which `Move` refuses rather than moving the file into it.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "move_destination_is_directory: `from` names a regular file and `to` an existing directory, which `Move` refuses rather than moving the file into it."
+              }
+            },
+            "move_destination_occupied": {
+              "summary": "`from` names a directory and `to` an existing path, which `Move` refuses rather than replacing.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "move_destination_occupied: `from` names a directory and `to` an existing path, which `Move` refuses rather than replacing."
+              }
+            },
+            "path_authority_nonregular_object": {
+              "summary": "The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "path_authority_nonregular_object: The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required."
+              }
+            },
+            "path_authority_symlink_escape": {
+              "summary": "The path resolves through a symlink that does not resolve to a target inside the sandbox jail.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "path_authority_symlink_escape: The path resolves through a symlink that does not resolve to a target inside the sandbox jail."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The path resolves through a symlink that does not resolve to a target inside the sandbox jail.\n\nThe path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.\n\n`from` names a regular file and `to` an existing directory, which `Move` refuses rather than moving the file into it.\n\n`from` names a directory and `to` an existing path, which `Move` refuses rather than replacing.\n\n`from` and `to` are on different filesystems, and `Move` never copies the contents to cross the boundary."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "Move renames or moves a path.",
+  "tags": [
+    "Files"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The path resolves through a symlink that does not resolve to a target inside the sandbox jail.",
+      "reason": "path_authority_symlink_escape"
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The path names an existing socket, FIFO, device, or other non-regular object where a regular file is required.",
+      "reason": "path_authority_nonregular_object"
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "`from` names a regular file and `to` an existing directory, which `Move` refuses rather than moving the file into it.",
+      "reason": "move_destination_is_directory"
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "`from` names a directory and `to` an existing path, which `Move` refuses rather than replacing.",
+      "reason": "move_destination_occupied"
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "`from` and `to` are on different filesystems, and `Move` never copies the contents to cross the boundary.",
+      "reason": "move_crosses_filesystem"
+    }
+  ],
+  "x-sbx-plane": "data",
+  "x-sbx-required-permissions": [
+    "sandboxesFilesWrite"
+  ],
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://sandbox.invalid/v1/files/move&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0ZpbGVzTW92ZVJlcXVlc3RcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0ZpbGVzTW92ZVJlc3BvbnNlXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

@@ -1,0 +1,44 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/QuotaFailureErrorDetail.md>Markdown</a></div><meta data-pagefind-meta="title:QuotaFailureErrorDetail — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>QuotaFailureErrorDetail</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert"><p>Describes how a quota check failed.</p><p>For example if a daily limit was exceeded for the calling project,
+a service could respond with a QuotaFailure detail containing the project
+id and the description of the quota limit that was exceeded. If the
+calling project hasn't enabled the service in the developer console, then
+a service could respond with the project id and set <code>service_disabled</code>
+to true.</p><p>Also see RetryInfo and Help types for other details about handling a
+quota failure.</p></div><details class=api-field open><summary><code>@type</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "const": "type.googleapis.com/google.rpc.QuotaFailure",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>violations</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">Describes all quota violations.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/QuotaFailureViolation/><code>QuotaFailureViolation</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes all quota violations.",
+  "items": {
+    "$ref": "#/components/schemas/QuotaFailureViolation"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Describes how a quota check failed.\n\nFor example if a daily limit was exceeded for the calling project,\na service could respond with a QuotaFailure detail containing the project\nid and the description of the quota limit that was exceeded.  If the\ncalling project hasn't enabled the service in the developer console, then\na service could respond with the project id and set `service_disabled`\nto true.\n\nAlso see RetryInfo and Help types for other details about handling a\nquota failure.",
+  "properties": {
+    "@type": {
+      "const": "type.googleapis.com/google.rpc.QuotaFailure",
+      "type": "string"
+    },
+    "violations": {
+      "description": "Describes all quota violations.",
+      "items": {
+        "$ref": "#/components/schemas/QuotaFailureViolation"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "@type"
+  ],
+  "title": "QuotaFailureErrorDetail",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,293 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/AuditLogs_ListAuditLogs.md>Markdown</a></div><meta data-pagefind-meta="title:List audit log events — Docker Hub API 2-beta"><h1>List audit log events</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/auditlogs<wbr>/{account}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>List audit log events for a given namespace.</p><p>This operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.</p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=account><h3><code>account</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Namespace to query audit logs for.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=action><h3><code>action</code>
+<small>query</small></h3><div class="prose dark:prose-invert">action name one of ["repo.tag.push", ...]. Optional parameter to filter specific audit log actions.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>query</small></h3><div class="prose dark:prose-invert">name. Optional parameter to filter audit log events to a specific name. For repository events, this is the name of the repository. For organization events, this is the name of the organization. For team member events, this is the username of the team member.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=actor><h3><code>actor</code>
+<small>query</small></h3><div class="prose dark:prose-invert">actor name. Optional parameter to filter audit log events to the specific user who triggered the event.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=from><h3><code>from</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Start of the time window you wish to query audit events for.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "format": "date-time",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=to><h3><code>to</code>
+<small>query</small></h3><div class="prose dark:prose-invert">End of the time window you wish to query audit events for.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "format": "date-time",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=page><h3><code>page</code>
+<small>query</small></h3><div class="prose dark:prose-invert">page - specify page number. Page number to get.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "default": 1,
+  "format": "int32",
+  "type": "integer"
+}</code></pre></details></section><section class=api-field data-api-parameter=page_size><h3><code>page_size</code>
+<small>query</small></h3><div class="prose dark:prose-invert">page_size - specify page size. Number of events to return per page.</div><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "default": 25,
+  "format": "int32",
+  "type": "integer"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1auditlogs~1{account}/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">A successful response.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/GetAuditLogsResponse/><code>GetAuditLogsResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>response</h4><pre><code>{
+  &#34;logs&#34;: [
+    {
+      &#34;account&#34;: &#34;docker&#34;,
+      &#34;action&#34;: &#34;repo.tag.push&#34;,
+      &#34;action_description&#34;: &#34;pushed the tag latest with the digest sha256:c1ae9c435032a to the repository docker/example\n&#34;,
+      &#34;actor&#34;: &#34;docker&#34;,
+      &#34;data&#34;: {
+        &#34;digest&#34;: &#34;sha256:c1ae9c435032a276f80220c7d9b40f76266bbe79243d34f9cda30b76fe114dfa&#34;,
+        &#34;tag&#34;: &#34;latest&#34;
+      },
+      &#34;name&#34;: &#34;docker/example&#34;,
+      &#34;timestamp&#34;: &#34;2021-02-19T01:34:35Z&#34;
+    },
+    {
+      &#34;account&#34;: &#34;docker&#34;,
+      &#34;action&#34;: &#34;offload.lease.end&#34;,
+      &#34;action_description&#34;: &#34;offload lease &#39;l_3EgPuRCjtUqT279CFPOQWcO8zOf&#39; ended, ran for &#39;12m22s&#39;&#34;,
+      &#34;actor&#34;: &#34;docker&#34;,
+      &#34;data&#34;: {
+        &#34;lease_id&#34;: &#34;l_3EgPuRCjtUqT279CFPOQWcO8zOf&#34;,
+        &#34;org_id&#34;: &#34;b908ca6e-b9a9-4a53-a9a5-6bec96f72432&#34;,
+        &#34;resource_type&#34;: &#34;run_4cpu_8mem&#34;,
+        &#34;started_at&#34;: &#34;2026-06-04T18:24:21Z&#34;,
+        &#34;updated_at&#34;: &#34;2026-06-04T18:36:43Z&#34;,
+        &#34;user_id&#34;: &#34;ecae6747-e42c-43cb-925d-cfce1ab32b02&#34;
+      },
+      &#34;name&#34;: &#34;docker&#34;,
+      &#34;timestamp&#34;: &#34;2026-06-04T18:36:43Z&#34;
+    }
+  ]
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1auditlogs~1{account}/get/responses/429/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{}</code></pre></details><div data-api-examples><div data-api-example=0><h4>response</h4><pre><code>{
+  &#34;detail&#34;: &#34;Rate limit exceeded&#34;,
+  &#34;error&#34;: false
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1auditlogs~1{account}/get/responses/500/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;internal error&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1auditlogs~1{account}/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">An unexpected error response.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;internal error&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/GetAuditLogsResponse/>#/components/schemas/GetAuditLogsResponse</a></p><p><a href=/reference/api/hub/latest/schemas/error/>#/components/schemas/error</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "List audit log events for a given namespace.\n\nThis operation accepts bearer tokens issued from organization access tokens (OATs). The token must have the required resource access and scopes.\n",
+  "operationId": "AuditLogs_ListAuditLogs",
+  "parameters": [
+    {
+      "description": "Namespace to query audit logs for.",
+      "in": "path",
+      "name": "account",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "action name one of [\"repo.tag.push\", ...]. Optional parameter to filter specific audit log actions.\n",
+      "in": "query",
+      "name": "action",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "name. Optional parameter to filter audit log events to a specific name. For repository events, this is the name of the repository. For organization events, this is the name of the organization. For team member events, this is the username of the team member.\n",
+      "in": "query",
+      "name": "name",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "actor name. Optional parameter to filter audit log events to the specific user who triggered the event.\n",
+      "in": "query",
+      "name": "actor",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Start of the time window you wish to query audit events for.",
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+        "format": "date-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "End of the time window you wish to query audit events for.",
+      "in": "query",
+      "name": "to",
+      "required": false,
+      "schema": {
+        "format": "date-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "page - specify page number. Page number to get.",
+      "in": "query",
+      "name": "page",
+      "required": false,
+      "schema": {
+        "default": 1,
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "page_size - specify page size. Number of events to return per page.",
+      "in": "query",
+      "name": "page_size",
+      "required": false,
+      "schema": {
+        "default": 25,
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "logs": [
+                  {
+                    "account": "docker",
+                    "action": "repo.tag.push",
+                    "action_description": "pushed the tag latest with the digest sha256:c1ae9c435032a to the repository docker/example\n",
+                    "actor": "docker",
+                    "data": {
+                      "digest": "sha256:c1ae9c435032a276f80220c7d9b40f76266bbe79243d34f9cda30b76fe114dfa",
+                      "tag": "latest"
+                    },
+                    "name": "docker/example",
+                    "timestamp": "2021-02-19T01:34:35Z"
+                  },
+                  {
+                    "account": "docker",
+                    "action": "offload.lease.end",
+                    "action_description": "offload lease 'l_3EgPuRCjtUqT279CFPOQWcO8zOf' ended, ran for '12m22s'",
+                    "actor": "docker",
+                    "data": {
+                      "lease_id": "l_3EgPuRCjtUqT279CFPOQWcO8zOf",
+                      "org_id": "b908ca6e-b9a9-4a53-a9a5-6bec96f72432",
+                      "resource_type": "run_4cpu_8mem",
+                      "started_at": "2026-06-04T18:24:21Z",
+                      "updated_at": "2026-06-04T18:36:43Z",
+                      "user_id": "ecae6747-e42c-43cb-925d-cfce1ab32b02"
+                    },
+                    "name": "docker",
+                    "timestamp": "2026-06-04T18:36:43Z"
+                  }
+                ]
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/GetAuditLogsResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "429": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "detail": "Rate limit exceeded",
+                "error": false
+              }
+            }
+          },
+          "schema": {}
+        }
+      },
+      "description": ""
+    },
+    "500": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "error": {
+              "summary": "Example error response",
+              "value": {
+                "errinfo": null,
+                "message": "internal error"
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/error"
+          }
+        }
+      },
+      "description": ""
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "error": {
+              "summary": "Example error response",
+              "value": {
+                "errinfo": null,
+                "message": "internal error"
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/error"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "List audit log events",
+  "tags": [
+    "audit-logs"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/v2/auditlogs/&lt;ACCOUNT&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lc3BhY2UgdG8gcXVlcnkgYXVkaXQgbG9ncyBmb3IuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcImFjY291bnRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWF1ZGl0bG9nc34xe2FjY291bnR9L2dldC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJhY3Rpb24gbmFtZSBvbmUgb2YgW1xcXCJyZXBvLnRhZy5wdXNoXFxcIiwgLi4uXS4gT3B0aW9uYWwgcGFyYW1ldGVyIHRvIGZpbHRlciBzcGVjaWZpYyBhdWRpdCBsb2cgYWN0aW9ucy5cXG5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcImFjdGlvblwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xYXVkaXRsb2dzfjF7YWNjb3VudH0vZ2V0L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJuYW1lLiBPcHRpb25hbCBwYXJhbWV0ZXIgdG8gZmlsdGVyIGF1ZGl0IGxvZyBldmVudHMgdG8gYSBzcGVjaWZpYyBuYW1lLiBGb3IgcmVwb3NpdG9yeSBldmVudHMsIHRoaXMgaXMgdGhlIG5hbWUgb2YgdGhlIHJlcG9zaXRvcnkuIEZvciBvcmdhbml6YXRpb24gZXZlbnRzLCB0aGlzIGlzIHRoZSBuYW1lIG9mIHRoZSBvcmdhbml6YXRpb24uIEZvciB0ZWFtIG1lbWJlciBldmVudHMsIHRoaXMgaXMgdGhlIHVzZXJuYW1lIG9mIHRoZSB0ZWFtIG1lbWJlci5cXG5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcIm5hbWVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWF1ZGl0bG9nc34xe2FjY291bnR9L2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiYWN0b3IgbmFtZS4gT3B0aW9uYWwgcGFyYW1ldGVyIHRvIGZpbHRlciBhdWRpdCBsb2cgZXZlbnRzIHRvIHRoZSBzcGVjaWZpYyB1c2VyIHdobyB0cmlnZ2VyZWQgdGhlIGV2ZW50LlxcblwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwiYWN0b3JcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWF1ZGl0bG9nc34xe2FjY291bnR9L2dldC9wYXJhbWV0ZXJzLzNcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiU3RhcnQgb2YgdGhlIHRpbWUgd2luZG93IHlvdSB3aXNoIHRvIHF1ZXJ5IGF1ZGl0IGV2ZW50cyBmb3IuXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJmcm9tXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjFhdWRpdGxvZ3N+MXthY2NvdW50fS9nZXQvcGFyYW1ldGVycy80XCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImZvcm1hdFwiOiBcImRhdGUtdGltZVwiLFxuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiRW5kIG9mIHRoZSB0aW1lIHdpbmRvdyB5b3Ugd2lzaCB0byBxdWVyeSBhdWRpdCBldmVudHMgZm9yLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwidG9cIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWF1ZGl0bG9nc34xe2FjY291bnR9L2dldC9wYXJhbWV0ZXJzLzVcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiZm9ybWF0XCI6IFwiZGF0ZS10aW1lXCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJwYWdlIC0gc3BlY2lmeSBwYWdlIG51bWJlci4gUGFnZSBudW1iZXIgdG8gZ2V0LlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGFnZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xYXVkaXRsb2dzfjF7YWNjb3VudH0vZ2V0L3BhcmFtZXRlcnMvNlwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJkZWZhdWx0XCI6IDEsXG4gICAgXCJmb3JtYXRcIjogXCJpbnQzMlwiLFxuICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcInBhZ2Vfc2l6ZSAtIHNwZWNpZnkgcGFnZSBzaXplLiBOdW1iZXIgb2YgZXZlbnRzIHRvIHJldHVybiBwZXIgcGFnZS5cIixcbiAgXCJpblwiOiBcInF1ZXJ5XCIsXG4gIFwibmFtZVwiOiBcInBhZ2Vfc2l6ZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xYXVkaXRsb2dzfjF7YWNjb3VudH0vZ2V0L3BhcmFtZXRlcnMvN1wiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJkZWZhdWx0XCI6IDI1LFxuICAgIFwiZm9ybWF0XCI6IFwiaW50MzJcIixcbiAgICBcInR5cGVcIjogXCJpbnRlZ2VyXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0dldEF1ZGl0TG9nc1Jlc3BvbnNlXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSJd"></template>

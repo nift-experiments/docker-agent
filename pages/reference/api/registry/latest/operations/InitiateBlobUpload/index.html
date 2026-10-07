@@ -1,0 +1,197 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/InitiateBlobUpload.md>Markdown</a></div><meta data-pagefind-meta="title:Initiate blob upload or attempt cross-repository blob mount — Registry API 2"><h1>Initiate blob upload or attempt cross-repository blob mount</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v2<wbr>/{name}<wbr>/blobs<wbr>/uploads<wbr>/</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Initiate an upload session for a blob (layer or config) in a repository.</p><p>This is the first step in uploading a blob. It returns a <code>Location</code> URL where the blob can be uploaded using <code>PATCH</code> (chunked) or <code>PUT</code> (monolithic).</p><p>Instead of uploading a blob, a client may attempt to mount a blob from another repository (if it has read access) by including the <code>mount</code> and <code>from</code> query parameters.</p><p>If successful, the registry responds with <code>201 Created</code> and the blob is reused without re-upload.</p><p>If the mount fails, the upload proceeds as usual and returns a <code>202 Accepted</code>.</p><p>You must authenticate with <code>push</code> access to the target repository.</p></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the target repository</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=mount><h3><code>mount</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Digest of the blob to mount from another repository</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=from><h3><code>from</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Source repository to mount the blob from</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1/post/responses/201 data-api-media><h3><span>Response</span>
+<code class=api-status>201</code></h3><div class="prose dark:prose-invert">Blob successfully mounted from another repository.</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Always zero</p><pre><code>{
+  "description": "Always zero",
+  "example": 0,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div><div class=api-field><code>Docker-Content-Digest</code><p>Canonical digest of the mounted blob</p><pre><code>{
+  "description": "Canonical digest of the mounted blob",
+  "example": "sha256:abc123...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Location</code><p>URL where the mounted blob is accessible</p><pre><code>{
+  "description": "URL where the mounted blob is accessible",
+  "example": "/v2/library/ubuntu/blobs/sha256:abc123...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1/post/responses/202 data-api-media><h3><span>Response</span>
+<code class=api-status>202</code></h3><div class="prose dark:prose-invert">Upload initiated successfully (fallback if mount fails).</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Always zero</p><pre><code>{
+  "description": "Always zero",
+  "example": 0,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div><div class=api-field><code>Docker-Upload-UUID</code><p>Server-generated UUID for the upload session</p><pre><code>{
+  "description": "Server-generated UUID for the upload session",
+  "example": "abc123",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Location</code><p>Upload location URL for `PATCH` or `PUT` requests</p><pre><code>{
+  "description": "Upload location URL for `PATCH` or `PUT` requests",
+  "example": "/v2/library/ubuntu/blobs/uploads/abc123",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Range</code><p>Current upload byte range (typically `0-0` at init)</p><pre><code>{
+  "description": "Current upload byte range (typically `0-0` at init)",
+  "example": "0-0",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1/post/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1/post/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1/post/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Repository not found.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1/post/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests.</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Initiate an upload session for a blob (layer or config) in a repository.\n\nThis is the first step in uploading a blob. It returns a `Location` URL where the blob can be uploaded using `PATCH` (chunked) or `PUT` (monolithic).\n\nInstead of uploading a blob, a client may attempt to mount a blob from another repository (if it has read access) by including the `mount` and `from` query parameters.\n\nIf successful, the registry responds with `201 Created` and the blob is reused without re-upload.\n\nIf the mount fails, the upload proceeds as usual and returns a `202 Accepted`.\n\nYou must authenticate with `push` access to the target repository.\n",
+  "operationId": "InitiateBlobUpload",
+  "parameters": [
+    {
+      "description": "Name of the target repository",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Digest of the blob to mount from another repository",
+      "example": "sha256:abc123def456...",
+      "in": "query",
+      "name": "mount",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Source repository to mount the blob from",
+      "example": "library/busybox",
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "201": {
+      "description": "Blob successfully mounted from another repository.",
+      "headers": {
+        "Content-Length": {
+          "description": "Always zero",
+          "example": 0,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "Docker-Content-Digest": {
+          "description": "Canonical digest of the mounted blob",
+          "example": "sha256:abc123...",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Location": {
+          "description": "URL where the mounted blob is accessible",
+          "example": "/v2/library/ubuntu/blobs/sha256:abc123...",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "202": {
+      "description": "Upload initiated successfully (fallback if mount fails).",
+      "headers": {
+        "Content-Length": {
+          "description": "Always zero",
+          "example": 0,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "Docker-Upload-UUID": {
+          "description": "Server-generated UUID for the upload session",
+          "example": "abc123",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Location": {
+          "description": "Upload location URL for `PATCH` or `PUT` requests",
+          "example": "/v2/library/ubuntu/blobs/uploads/abc123",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Range": {
+          "description": "Current upload byte range (typically `0-0` at init)",
+          "example": "0-0",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Authentication required."
+    },
+    "403": {
+      "description": "Access denied."
+    },
+    "404": {
+      "description": "Repository not found."
+    },
+    "429": {
+      "description": "Too many requests."
+    }
+  },
+  "summary": "Initiate blob upload or attempt cross-repository blob mount",
+  "tags": [
+    "Blobs"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL (Initiate Standard Upload)",
+      "lang": "Bash",
+      "source": "# Initiate a standard blob upload session\ncurl -i -X POST \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  https://registry-1.docker.io/v2/library/ubuntu/blobs/uploads/\n"
+    },
+    {
+      "label": "cURL (Cross-Repository Blob Mount)",
+      "lang": "Bash",
+      "source": "# Attempt a cross-repository blob mount\ncurl -i -X POST \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  \"https://registry-1.docker.io/v2/library/ubuntu/blobs/uploads/?mount=sha256:abc123def456...\u0026from=library/busybox\"\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/blobs/uploads/?mount=sha256%3Aabc123def456...&amp;from=library%2Fbusybox&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSB0YXJnZXQgcmVwb3NpdG9yeVwiLFxuICBcImV4YW1wbGVcIjogXCJsaWJyYXJ5L3VidW50dVwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJuYW1lXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYyfjF7bmFtZX1+MWJsb2JzfjF1cGxvYWRzfjEvcG9zdC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJEaWdlc3Qgb2YgdGhlIGJsb2IgdG8gbW91bnQgZnJvbSBhbm90aGVyIHJlcG9zaXRvcnlcIixcbiAgXCJleGFtcGxlXCI6IFwic2hhMjU2OmFiYzEyM2RlZjQ1Ni4uLlwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwibW91bnRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXtuYW1lfX4xYmxvYnN+MXVwbG9hZHN+MS9wb3N0L3BhcmFtZXRlcnMvMVwiLFxuICBcInJlcXVpcmVkXCI6IGZhbHNlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJTb3VyY2UgcmVwb3NpdG9yeSB0byBtb3VudCB0aGUgYmxvYiBmcm9tXCIsXG4gIFwiZXhhbXBsZVwiOiBcImxpYnJhcnkvYnVzeWJveFwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwiZnJvbVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xL3Bvc3QvcGFyYW1ldGVycy8yXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJDb250ZW50LUxlbmd0aFwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIkFsd2F5cyB6ZXJvXCIsXG4gICAgXCJleGFtcGxlXCI6IDAsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgfVxuICB9LFxuICBcIkRvY2tlci1Db250ZW50LURpZ2VzdFwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIkNhbm9uaWNhbCBkaWdlc3Qgb2YgdGhlIG1vdW50ZWQgYmxvYlwiLFxuICAgIFwiZXhhbXBsZVwiOiBcInNoYTI1NjphYmMxMjMuLi5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJMb2NhdGlvblwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIlVSTCB3aGVyZSB0aGUgbW91bnRlZCBibG9iIGlzIGFjY2Vzc2libGVcIixcbiAgICBcImV4YW1wbGVcIjogXCIvdjIvbGlicmFyeS91YnVudHUvYmxvYnMvc2hhMjU2OmFiYzEyMy4uLlwiLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgfVxuICB9XG59IiwgIntcbiAgXCJDb250ZW50LUxlbmd0aFwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIkFsd2F5cyB6ZXJvXCIsXG4gICAgXCJleGFtcGxlXCI6IDAsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwiaW50ZWdlclwiXG4gICAgfVxuICB9LFxuICBcIkRvY2tlci1VcGxvYWQtVVVJRFwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIlNlcnZlci1nZW5lcmF0ZWQgVVVJRCBmb3IgdGhlIHVwbG9hZCBzZXNzaW9uXCIsXG4gICAgXCJleGFtcGxlXCI6IFwiYWJjMTIzXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwiTG9jYXRpb25cIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJVcGxvYWQgbG9jYXRpb24gVVJMIGZvciBgUEFUQ0hgIG9yIGBQVVRgIHJlcXVlc3RzXCIsXG4gICAgXCJleGFtcGxlXCI6IFwiL3YyL2xpYnJhcnkvdWJ1bnR1L2Jsb2JzL3VwbG9hZHMvYWJjMTIzXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwiUmFuZ2VcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJDdXJyZW50IHVwbG9hZCBieXRlIHJhbmdlICh0eXBpY2FsbHkgYDAtMGAgYXQgaW5pdClcIixcbiAgICBcImV4YW1wbGVcIjogXCIwLTBcIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSJd"></template>

@@ -1,0 +1,26 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/PolicyLayer.md>Markdown</a></div><meta data-pagefind-meta="title:PolicyLayer — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>PolicyLayer</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>PolicyLayer identifies where an effective rule came from. ORG and OWNER are
+the two governance scopes; exactly one governs a caller, so a conforming effective view never mixes them.</p><p>Values:
+unspecified: unspecified means the layer is unknown or not reported.
+org: org is org-level governance policy.
+owner: owner is owner-level governance policy.
+kit: kit is the sandbox-scoped policy a kit contributes.
+attached: attached is a governance policy bound to the sandbox: an inline document or a referenced policy id, materialized and bound by the governance plane at create.
+gateway: gateway is an enforced runtime-owned gateway policy contribution, not a backend service-route exemption.
+default: default is an explicit installed default-policy contribution, not a substitute for unknown provenance or an owner-level policy.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "PolicyLayer identifies where an effective rule came from. ORG and OWNER are\nthe two governance scopes; exactly one governs a caller, so a conforming effective view never mixes them.\n\nValues:\nunspecified: unspecified means the layer is unknown or not reported.\norg: org is org-level governance policy.\nowner: owner is owner-level governance policy.\nkit: kit is the sandbox-scoped policy a kit contributes.\nattached: attached is a governance policy bound to the sandbox: an inline document or a referenced policy id, materialized and bound by the governance plane at create.\ngateway: gateway is an enforced runtime-owned gateway policy contribution, not a backend service-route exemption.\ndefault: default is an explicit installed default-policy contribution, not a substitute for unknown provenance or an owner-level policy.",
+  "enum": [
+    "unspecified",
+    "org",
+    "owner",
+    "kit",
+    "attached",
+    "gateway",
+    "default"
+  ],
+  "title": "PolicyLayer",
+  "type": "string"
+}</code></pre></details></article>

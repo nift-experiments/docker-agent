@@ -1,0 +1,95 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/McpConfigurationReportErrorDetail.md>Markdown</a></div><meta data-pagefind-meta="title:McpConfigurationReportErrorDetail — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>McpConfigurationReportErrorDetail</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">McpConfigurationReport is also returned in Error.details on accepted provisioning failure.</div><details class=api-field open><summary><code>@type</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "const": "type.googleapis.com/docker.sandboxes.v1.McpConfigurationReport",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>complete</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">complete means every active requested server is applied or explicitly permitted to skip.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "complete means every active requested server is applied or explicitly permitted to skip.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>dormantServers</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">dormant_servers retains earlier minted intent while attached; it is empty in minted modes.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpServer/><code>McpServer</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "dormant_servers retains earlier minted intent while attached; it is empty in minted modes.",
+  "items": {
+    "$ref": "#/components/schemas/McpServer"
+  },
+  "maxItems": 256,
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>generation</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">generation is an opaque durable fence, never ordered or synthesized by callers.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "generation is an opaque durable fence, never ordered or synthesized by callers.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>mode</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpConfigurationMode/><code>McpConfigurationMode</code></a></p><div class="prose dark:prose-invert">mode separates minted discovery behavior from read-only attachment.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/McpConfigurationMode",
+  "description": "mode separates minted discovery behavior from read-only attachment.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>servers</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">servers is the complete active requested set; together with dormant_servers it matches McpGateway.servers.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpConfiguredServer/><code>McpConfiguredServer</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "servers is the complete active requested set; together with dormant_servers it matches McpGateway.servers.",
+  "items": {
+    "$ref": "#/components/schemas/McpConfiguredServer"
+  },
+  "maxItems": 256,
+  "type": "array"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "McpConfigurationReport is also returned in Error.details on accepted provisioning failure.",
+  "properties": {
+    "@type": {
+      "const": "type.googleapis.com/docker.sandboxes.v1.McpConfigurationReport",
+      "type": "string"
+    },
+    "complete": {
+      "description": "complete means every active requested server is applied or explicitly permitted to skip.",
+      "type": "boolean"
+    },
+    "dormantServers": {
+      "description": "dormant_servers retains earlier minted intent while attached; it is empty in minted modes.",
+      "items": {
+        "$ref": "#/components/schemas/McpServer"
+      },
+      "maxItems": 256,
+      "type": "array"
+    },
+    "generation": {
+      "description": "generation is an opaque durable fence, never ordered or synthesized by callers.",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/components/schemas/McpConfigurationMode",
+      "description": "mode separates minted discovery behavior from read-only attachment.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "servers": {
+      "description": "servers is the complete active requested set; together with dormant_servers it matches McpGateway.servers.",
+      "items": {
+        "$ref": "#/components/schemas/McpConfiguredServer"
+      },
+      "maxItems": 256,
+      "type": "array"
+    }
+  },
+  "required": [
+    "generation",
+    "mode",
+    "@type"
+  ],
+  "title": "McpConfigurationReportErrorDetail",
+  "type": "object"
+}</code></pre></details></article>

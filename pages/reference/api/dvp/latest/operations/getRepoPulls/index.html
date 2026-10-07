@@ -1,0 +1,119 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/operations/getRepoPulls.md>Markdown</a></div><meta data-pagefind-meta="title:Get pull data — Publisher analytics API 1.0.0"><h1>Get pull data</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/namespaces<wbr>/{namespace}<wbr>/repos<wbr>/{repo}<wbr>/pulls</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Gets pulls for the given repo.</div><h2>Connection and access</h2><p><a href=/reference/api/dvp/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/api/publisher/analytics/v1</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>HubAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=namespace><h3><code>namespace</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Namespace to fetch data for</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=repo><h3><code>repo</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Repository to fetch data for</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=timespan><h3><code>timespan</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Timespan type for fetching data</div><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/TimespanType/><code>TimespanType</code></a></p></section><section class=api-field data-api-parameter=period><h3><code>period</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Relative period of the period to fetch data</div><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/PeriodType/><code>PeriodType</code></a></p></section><section class=api-field data-api-parameter=group><h3><code>group</code>
+<small>query</small></h3><div class="prose dark:prose-invert">Field to group the data by</div><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/GroupType/><code>GroupType</code></a></p></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1namespaces~1{namespace}~1repos~1{repo}~1pulls/get/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/dvp/latest/schemas/PullData/><code>PullData</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>Schema example</option><option value=1>Schema example</option></select></label><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;pulls&#34;: [
+    {
+      &#34;end&#34;: &#34;2022-08-07T00:00:00Z&#34;,
+      &#34;ipCount&#34;: 10,
+      &#34;pullCount&#34;: 11,
+      &#34;repo&#34;: &#34;neo4j-admin&#34;,
+      &#34;start&#34;: &#34;2022-08-01T00:00:00Z&#34;
+    },
+    {
+      &#34;end&#34;: &#34;2022-08-14T00:00:00Z&#34;,
+      &#34;ipCount&#34;: 10,
+      &#34;pullCount&#34;: 11,
+      &#34;repo&#34;: &#34;neo4j-admin&#34;,
+      &#34;start&#34;: &#34;2022-08-08T00:00:00Z&#34;
+    }
+  ]
+}</code></pre></div><div data-api-example=1><h4>Schema example</h4><pre><code>{
+  &#34;pulls&#34;: null
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1namespaces~1{namespace}~1repos~1{repo}~1pulls/get/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not found - repo doesn't exist or user does not have permission to access it</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><p><a href=/reference/api/dvp/latest/schemas/GroupType/>#/components/schemas/GroupType</a></p><p><a href=/reference/api/dvp/latest/schemas/PeriodType/>#/components/schemas/PeriodType</a></p><p><a href=/reference/api/dvp/latest/schemas/PullData/>#/components/schemas/PullData</a></p><p><a href=/reference/api/dvp/latest/schemas/TimespanType/>#/components/schemas/TimespanType</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Gets pulls for the given repo.",
+  "operationId": "getRepoPulls",
+  "parameters": [
+    {
+      "description": "Namespace to fetch data for",
+      "in": "path",
+      "name": "namespace",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Repository to fetch data for",
+      "in": "path",
+      "name": "repo",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Timespan type for fetching data",
+      "in": "query",
+      "name": "timespan",
+      "required": false,
+      "schema": {
+        "$ref": "#/components/schemas/TimespanType"
+      }
+    },
+    {
+      "description": "Relative period of the period to fetch data",
+      "in": "query",
+      "name": "period",
+      "required": false,
+      "schema": {
+        "$ref": "#/components/schemas/PeriodType"
+      }
+    },
+    {
+      "description": "Field to group the data by",
+      "in": "query",
+      "name": "group",
+      "required": false,
+      "schema": {
+        "$ref": "#/components/schemas/GroupType"
+      }
+    }
+  ],
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/PullData"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "404": {
+      "description": "Not found - repo doesn't exist or user does not have permission to access it"
+    }
+  },
+  "summary": "Get pull data",
+  "tags": [
+    "namespaces"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  &#39;https://hub.docker.com/api/publisher/analytics/v1/namespaces/&lt;NAMESPACE&gt;/repos/&lt;REPO&gt;/pulls&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcIkh1YkF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lc3BhY2UgdG8gZmV0Y2ggZGF0YSBmb3JcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZXNwYWNlXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFyZXBvc34xe3JlcG99fjFwdWxscy9nZXQvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiUmVwb3NpdG9yeSB0byBmZXRjaCBkYXRhIGZvclwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJyZXBvXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFyZXBvc34xe3JlcG99fjFwdWxscy9nZXQvcGFyYW1ldGVycy8xXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiVGltZXNwYW4gdHlwZSBmb3IgZmV0Y2hpbmcgZGF0YVwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwidGltZXNwYW5cIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xbmFtZXNwYWNlc34xe25hbWVzcGFjZX1+MXJlcG9zfjF7cmVwb31+MXB1bGxzL2dldC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1RpbWVzcGFuVHlwZVwiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiUmVsYXRpdmUgcGVyaW9kIG9mIHRoZSBwZXJpb2QgdG8gZmV0Y2ggZGF0YVwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwicGVyaW9kXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MW5hbWVzcGFjZXN+MXtuYW1lc3BhY2V9fjFyZXBvc34xe3JlcG99fjFwdWxscy9nZXQvcGFyYW1ldGVycy8zXCIsXG4gIFwicmVxdWlyZWRcIjogZmFsc2UsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9QZXJpb2RUeXBlXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJGaWVsZCB0byBncm91cCB0aGUgZGF0YSBieVwiLFxuICBcImluXCI6IFwicXVlcnlcIixcbiAgXCJuYW1lXCI6IFwiZ3JvdXBcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xbmFtZXNwYWNlc34xe25hbWVzcGFjZX1+MXJlcG9zfjF7cmVwb31+MXB1bGxzL2dldC9wYXJhbWV0ZXJzLzRcIixcbiAgXCJyZXF1aXJlZFwiOiBmYWxzZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0dyb3VwVHlwZVwiXG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9QdWxsRGF0YVwiXG59Il0="></template>

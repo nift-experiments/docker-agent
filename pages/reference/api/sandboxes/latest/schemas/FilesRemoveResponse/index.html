@@ -1,0 +1,49 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FilesRemoveResponse.md>Markdown</a></div><meta data-pagefind-meta="title:FilesRemoveResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FilesRemoveResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">RemoveResponse reports partial recursive progress to every caller: check failed_path,
+not the operation status, when Remove stops partway. Effects are never rolled back.</div><details class=api-field open><summary><code>completedCount</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">completed_count is the total number of paths removed, which may exceed
+len(completed_paths).</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "completed_count is the total number of paths removed, which may exceed\nlen(completed_paths).",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>completedPaths</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">completed_paths lists removed paths in traversal order, bounded to the
+first 1000; completed_count carries the
+true total when it exceeds that bound.</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "completed_paths lists removed paths in traversal order, bounded to the\nfirst 1000; completed_count carries the\ntrue total when it exceeds that bound.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>failedPath</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">failed_path is the path where a recursive removal stopped; empty on full
+success. Every path in completed_paths was removed before this one.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "failed_path is the path where a recursive removal stopped; empty on full\nsuccess. Every path in completed_paths was removed before this one.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "RemoveResponse reports partial recursive progress to every caller: check failed_path,\nnot the operation status, when Remove stops partway. Effects are never rolled back.",
+  "properties": {
+    "completedCount": {
+      "description": "completed_count is the total number of paths removed, which may exceed\nlen(completed_paths).",
+      "type": "integer"
+    },
+    "completedPaths": {
+      "description": "completed_paths lists removed paths in traversal order, bounded to the\nfirst 1000; completed_count carries the\ntrue total when it exceeds that bound.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "failedPath": {
+      "description": "failed_path is the path where a recursive removal stopped; empty on full\nsuccess. Every path in completed_paths was removed before this one.",
+      "type": "string"
+    }
+  },
+  "title": "RemoveResponse",
+  "type": "object"
+}</code></pre></details></article>

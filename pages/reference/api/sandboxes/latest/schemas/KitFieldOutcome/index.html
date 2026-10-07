@@ -1,0 +1,99 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/KitFieldOutcome.md>Markdown</a></div><meta data-pagefind-meta="title:KitFieldOutcome — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>KitFieldOutcome</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">KitFieldOutcome identifies one non-applied declaration without exposing its value.</div><details class=api-field open><summary><code>digest</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">digest is the resolved content identity when resolution succeeded.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "digest is the resolved content identity when resolution succeeded.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>disposition</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/KitFieldDisposition/><code>KitFieldDisposition</code></a></p><div class="prose dark:prose-invert">disposition never claims that an accepted declaration has executed.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/KitFieldDisposition",
+  "description": "disposition never claims that an accepted declaration has executed.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>fieldPath</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">field_path is an RFC 6901 pointer into the pinned JSON artifact.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "field_path is an RFC 6901 pointer into the pinned JSON artifact.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>kitIndex</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">kit_index is the zero-based position in the originating request's kits.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "kit_index is the zero-based position in the originating request's kits.",
+  "exclusiveMaximum": 64,
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>reason</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/KitFieldReason/><code>KitFieldReason</code></a></p><div class="prose dark:prose-invert">reason is a bounded category, not caller-controlled diagnostic content.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/KitFieldReason",
+  "description": "reason is a bounded category, not caller-controlled diagnostic content.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>reasonText</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">reason_text contains nonsecret explanatory text, never values or command content.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "reason_text contains nonsecret explanatory text, never values or command content.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>ref</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">ref preserves the exact requested kit reference.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ref preserves the exact requested kit reference.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "KitFieldOutcome identifies one non-applied declaration without exposing its value.",
+  "properties": {
+    "digest": {
+      "description": "digest is the resolved content identity when resolution succeeded.",
+      "type": "string"
+    },
+    "disposition": {
+      "$ref": "#/components/schemas/KitFieldDisposition",
+      "description": "disposition never claims that an accepted declaration has executed.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "fieldPath": {
+      "description": "field_path is an RFC 6901 pointer into the pinned JSON artifact.",
+      "type": "string"
+    },
+    "kitIndex": {
+      "description": "kit_index is the zero-based position in the originating request's kits.",
+      "exclusiveMaximum": 64,
+      "type": "integer"
+    },
+    "reason": {
+      "$ref": "#/components/schemas/KitFieldReason",
+      "description": "reason is a bounded category, not caller-controlled diagnostic content.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "reasonText": {
+      "description": "reason_text contains nonsecret explanatory text, never values or command content.",
+      "type": "string"
+    },
+    "ref": {
+      "description": "ref preserves the exact requested kit reference.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "ref",
+    "fieldPath",
+    "disposition",
+    "reason"
+  ],
+  "title": "KitFieldOutcome",
+  "type": "object"
+}</code></pre></details></article>

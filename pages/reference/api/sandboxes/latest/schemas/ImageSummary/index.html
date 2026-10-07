@@ -1,0 +1,149 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ImageSummary.md>Markdown</a></div><meta data-pagefind-meta="title:ImageSummary — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ImageSummary</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ImageSummary is the list view of an image.
+uid must equal the immutable resource ID in name</div><details class=api-field open><summary><code>captureMode</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/CaptureMode/><code>CaptureMode</code></a></p><div class="prose dark:prose-invert">capture_mode records whether captured content includes memory.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/CaptureMode",
+  "description": "capture_mode records whether captured content includes memory."
+}</code></pre></details></details><details class=api-field open><summary><code>createdAt</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">created_at is the creation timestamp.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "created_at is the creation timestamp."
+}</code></pre></details></details><details class=api-field open><summary><code>displayName</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">display_name is a scoped label and never selects the resource.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "display_name is a scoped label and never selects the resource.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>imageDigest</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">image_digest is the content digest when known.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "image_digest is the content digest when known.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>imageRef</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">image_ref is the registry or backend image reference when available.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "image_ref is the registry or backend image reference when available.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>name</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">name ends in the immutable backing ID and never changes with display_name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "name ends in the immutable backing ID and never changes with display_name.",
+  "pattern": "^images/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>platform</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Platform/><code>Platform</code></a></p><div class="prose dark:prose-invert">platform is the image platform.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Platform",
+  "description": "platform is the image platform."
+}</code></pre></details></details><details class=api-field open><summary><code>source</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ImageSource/><code>ImageSource</code></a></p><div class="prose dark:prose-invert">source records how the image was created.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ImageSource",
+  "description": "source records how the image was created."
+}</code></pre></details></details><details class=api-field open><summary><code>status</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ImageStatus/><code>ImageStatus</code></a></p><div class="prose dark:prose-invert">status is the image readiness state.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ImageStatus",
+  "description": "status is the image readiness state.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>totalSizeBytes</code></summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">total_size_bytes is the approximate stored image size.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "total_size_bytes is the approximate stored image size.",
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>uid</code>
+· required
+· response only</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.",
+  "minLength": 1,
+  "readOnly": true,
+  "type": [
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>updatedAt</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">updated_at is the last update timestamp.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "updated_at is the last update timestamp."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ImageSummary is the list view of an image.\nuid must equal the immutable resource ID in name",
+  "properties": {
+    "captureMode": {
+      "$ref": "#/components/schemas/CaptureMode",
+      "description": "capture_mode records whether captured content includes memory."
+    },
+    "createdAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "created_at is the creation timestamp."
+    },
+    "displayName": {
+      "description": "display_name is a scoped label and never selects the resource.",
+      "type": "string"
+    },
+    "imageDigest": {
+      "description": "image_digest is the content digest when known.",
+      "type": "string"
+    },
+    "imageRef": {
+      "description": "image_ref is the registry or backend image reference when available.",
+      "type": "string"
+    },
+    "name": {
+      "description": "name ends in the immutable backing ID and never changes with display_name.",
+      "pattern": "^images/[^/]+$",
+      "type": "string"
+    },
+    "platform": {
+      "$ref": "#/components/schemas/Platform",
+      "description": "platform is the image platform."
+    },
+    "source": {
+      "$ref": "#/components/schemas/ImageSource",
+      "description": "source records how the image was created."
+    },
+    "status": {
+      "$ref": "#/components/schemas/ImageStatus",
+      "description": "status is the image readiness state.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "totalSizeBytes": {
+      "description": "total_size_bytes is the approximate stored image size.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "uid": {
+      "description": "(IMMUTABLE) uid is the existing backing ID, equal to the resource name's terminal segment.",
+      "minLength": 1,
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "updatedAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "updated_at is the last update timestamp."
+    }
+  },
+  "required": [
+    "uid",
+    "name",
+    "status",
+    "createdAt",
+    "updatedAt"
+  ],
+  "title": "ImageSummary",
+  "type": "object"
+}</code></pre></details></article>

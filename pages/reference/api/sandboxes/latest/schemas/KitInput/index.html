@@ -1,0 +1,38 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/KitInput.md>Markdown</a></div><meta data-pagefind-meta="title:KitInput — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>KitInput</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">KitInput is one kit in either shape.</div><details class=api-field open><summary>Exactly one alternative must match</summary><p class=api-type>Type:
+<code>object</code></p><details class=api-field><summary><code>artifact</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/KitArtifactInput/><code>KitArtifactInput</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "artifact": {
+      "$ref": "#/components/schemas/KitArtifactInput"
+    }
+  },
+  "required": [
+    "artifact"
+  ],
+  "title": "artifact",
+  "type": "object"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "KitInput is one kit in either shape.",
+  "oneOf": [
+    {
+      "properties": {
+        "artifact": {
+          "$ref": "#/components/schemas/KitArtifactInput"
+        }
+      },
+      "required": [
+        "artifact"
+      ],
+      "title": "artifact",
+      "type": "object"
+    }
+  ],
+  "title": "KitInput",
+  "type": "object",
+  "unevaluatedProperties": false
+}</code></pre></details></article>

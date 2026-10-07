@@ -1,0 +1,174 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/getV2Scim20ResourceTypes.md>Markdown</a></div><meta data-pagefind-meta="title:List resource types — Docker Hub API 2-beta"><h1>List resource types</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v2<wbr>/scim<wbr>/2.0<wbr>/ResourceTypes</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Returns all resource types supported for the SCIM configuration.</div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>scimToken</code></li></ul><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/scim+json>application/scim+json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1ResourceTypes/get/responses/200/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/scim+json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>Resources</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_resource_type/><code>scim_resource_type</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/scim_resource_type"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>schemas</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse",
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>totalResults</code></summary><p class=api-type>Type:
+<code>integer</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": 1,
+  "type": "integer"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "Resources": [
+        {
+          "description": "User",
+          "endpoint": "/Users",
+          "id": "User",
+          "name": "User",
+          "schema": "urn:ietf:params:scim:schemas:core:2.0:User",
+          "schemas": [
+            "urn:ietf:params:scim:schemas:core:2.0:ResourceType"
+          ]
+        }
+      ],
+      "schemas": [
+        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+      ],
+      "totalResults": 1
+    }
+  ],
+  "properties": {
+    "Resources": {
+      "items": {
+        "$ref": "#/components/schemas/scim_resource_type"
+      },
+      "type": "array"
+    },
+    "schemas": {
+      "items": {
+        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "totalResults": {
+      "example": 1,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;Resources&#34;: [
+    {
+      &#34;description&#34;: &#34;User&#34;,
+      &#34;endpoint&#34;: &#34;/Users&#34;,
+      &#34;id&#34;: &#34;User&#34;,
+      &#34;name&#34;: &#34;User&#34;,
+      &#34;schema&#34;: &#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;,
+      &#34;schemas&#34;: [
+        &#34;urn:ietf:params:scim:schemas:core:2.0:ResourceType&#34;
+      ]
+    }
+  ],
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:ListResponse&#34;
+  ],
+  &#34;totalResults&#34;: 1
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1ResourceTypes/get/responses/401/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "401"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "401"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "401"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;401&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1ResourceTypes/get/responses/500/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal Error</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "500"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "500"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "500"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;500&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Returns all resource types supported for the SCIM configuration.\n",
+  "operationId": "getV2Scim20ResourceTypes",
+  "responses": {
+    "200": {
+      "$ref": "#/components/responses/scim_get_resource_types_resp"
+    },
+    "401": {
+      "$ref": "#/components/responses/scim_unauthorized"
+    },
+    "500": {
+      "$ref": "#/components/responses/scim_error"
+    }
+  },
+  "security": [
+    {
+      "scimToken": []
+    }
+  ],
+  "summary": "List resource types",
+  "tags": [
+    "scim"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request GET \
+  --header &#34;Authorization: Bearer ${SCIM_TOKEN}&#34; \
+  --header &#39;Accept: application/scim&#43;json&#39; \
+  &#39;https://hub.docker.com/v2/scim/2.0/ResourceTypes&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNjaW1Ub2tlblwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJleGFtcGxlc1wiOiBbXG4gICAge1xuICAgICAgXCJSZXNvdXJjZXNcIjogW1xuICAgICAgICB7XG4gICAgICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIlVzZXJcIixcbiAgICAgICAgICBcImVuZHBvaW50XCI6IFwiL1VzZXJzXCIsXG4gICAgICAgICAgXCJpZFwiOiBcIlVzZXJcIixcbiAgICAgICAgICBcIm5hbWVcIjogXCJVc2VyXCIsXG4gICAgICAgICAgXCJzY2hlbWFcIjogXCJ1cm46aWV0ZjpwYXJhbXM6c2NpbTpzY2hlbWFzOmNvcmU6Mi4wOlVzZXJcIixcbiAgICAgICAgICBcInNjaGVtYXNcIjogW1xuICAgICAgICAgICAgXCJ1cm46aWV0ZjpwYXJhbXM6c2NpbTpzY2hlbWFzOmNvcmU6Mi4wOlJlc291cmNlVHlwZVwiXG4gICAgICAgICAgXVxuICAgICAgICB9XG4gICAgICBdLFxuICAgICAgXCJzY2hlbWFzXCI6IFtcbiAgICAgICAgXCJ1cm46aWV0ZjpwYXJhbXM6c2NpbTphcGk6bWVzc2FnZXM6Mi4wOkxpc3RSZXNwb25zZVwiXG4gICAgICBdLFxuICAgICAgXCJ0b3RhbFJlc3VsdHNcIjogMVxuICAgIH1cbiAgXSxcbiAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICBcIlJlc291cmNlc1wiOiB7XG4gICAgICBcIml0ZW1zXCI6IHtcbiAgICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV9yZXNvdXJjZV90eXBlXCJcbiAgICAgIH0sXG4gICAgICBcInR5cGVcIjogXCJhcnJheVwiXG4gICAgfSxcbiAgICBcInNjaGVtYXNcIjoge1xuICAgICAgXCJpdGVtc1wiOiB7XG4gICAgICAgIFwiZXhhbXBsZVwiOiBcInVybjppZXRmOnBhcmFtczpzY2ltOmFwaTptZXNzYWdlczoyLjA6TGlzdFJlc3BvbnNlXCIsXG4gICAgICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gICAgICB9LFxuICAgICAgXCJ0eXBlXCI6IFwiYXJyYXlcIlxuICAgIH0sXG4gICAgXCJ0b3RhbFJlc3VsdHNcIjoge1xuICAgICAgXCJleGFtcGxlXCI6IDEsXG4gICAgICBcInR5cGVcIjogXCJpbnRlZ2VyXCJcbiAgICB9XG4gIH0sXG4gIFwidHlwZVwiOiBcIm9iamVjdFwiXG59IiwgIntcbiAgXCJhbGxPZlwiOiBbXG4gICAge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV9lcnJvclwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiNDAxXCJcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fZXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIjUwMFwiXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iXQ=="></template>

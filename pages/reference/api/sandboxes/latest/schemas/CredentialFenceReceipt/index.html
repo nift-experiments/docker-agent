@@ -1,0 +1,45 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/CredentialFenceReceipt.md>Markdown</a></div><meta data-pagefind-meta="title:CredentialFenceReceipt — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>CredentialFenceReceipt</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">CredentialFenceReceipt acknowledges one completed generation without granting current use.</div><details class=api-field open><summary><code>generation</code>
+· required</summary><p class=api-type>Type:
+<code>integer | string</code></p><div class="prose dark:prose-invert">generation increases for each accepted material/rule replacement on that target.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "generation increases for each accepted material/rule replacement on that target.",
+  "exclusiveMinimum": 0,
+  "format": "int64",
+  "type": [
+    "integer",
+    "string"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>target</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">target is the complete Sandbox or Secret resource name bound to this receipt.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "target is the complete Sandbox or Secret resource name bound to this receipt.",
+  "pattern": "^(sandboxes|secrets)/[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "CredentialFenceReceipt acknowledges one completed generation without granting current use.",
+  "properties": {
+    "generation": {
+      "description": "generation increases for each accepted material/rule replacement on that target.",
+      "exclusiveMinimum": 0,
+      "format": "int64",
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "target": {
+      "description": "target is the complete Sandbox or Secret resource name bound to this receipt.",
+      "pattern": "^(sandboxes|secrets)/[^/]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "target",
+    "generation"
+  ],
+  "title": "CredentialFenceReceipt",
+  "type": "object"
+}</code></pre></details></article>

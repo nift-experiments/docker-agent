@@ -1,0 +1,167 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/CompleteBlobUpload.md>Markdown</a></div><meta data-pagefind-meta="title:Complete blob upload — Registry API 2"><h1>Complete blob upload</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v2<wbr>/{name}<wbr>/blobs<wbr>/uploads<wbr>/{uuid}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Complete the upload of a blob by finalizing an upload session.</p><p>This request must include the <code>digest</code> query parameter and optionally the last chunk of data. When the registry receives this request, it verifies the digest and stores the blob.</p><p>This endpoint supports:</p><ul><li>Monolithic uploads (upload entire blob in this request)</li><li>Finalizing chunked uploads (last chunk plus <code>digest</code>)</li></ul></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Repository name</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=uuid><h3><code>uuid</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Upload session UUID returned from the POST request</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=digest><h3><code>digest</code>
+<small>query</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Digest of the uploaded blob</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/octet-stream>application/octet-stream</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/requestBody/content/application~1octet-stream data-api-media=application/octet-stream><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/octet-stream</code></p><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "format": "binary",
+  "type": "string"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>layer-upload</h4><pre><code>&lt;binary data not shown&gt;</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/201 data-api-media><h3><span>Response</span>
+<code class=api-status>201</code></h3><div class="prose dark:prose-invert">Upload completed successfully</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Always zero for completed uploads</p><pre><code>{
+  "description": "Always zero for completed uploads",
+  "example": 0,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div><div class=api-field><code>Docker-Content-Digest</code><p>Canonical digest of the stored blob</p><pre><code>{
+  "description": "Canonical digest of the stored blob",
+  "example": "sha256:abcd1234...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><div class=api-field><code>Location</code><p>URL where the blob is now accessible</p><pre><code>{
+  "description": "URL where the blob is now accessible",
+  "example": "/v2/library/ubuntu/blobs/sha256:abcd1234...",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/400 data-api-media><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Invalid digest or missing parameters</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Upload session not found</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/416 data-api-media><h3><span>Response</span>
+<code class=api-status>416</code></h3><div class="prose dark:prose-invert">Requested range not satisfiable (if used in chunked mode)</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/put/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Complete the upload of a blob by finalizing an upload session.\n\nThis request must include the `digest` query parameter and optionally the last chunk of data. When the registry receives this request, it verifies the digest and stores the blob.\n\nThis endpoint supports:\n- Monolithic uploads (upload entire blob in this request)\n- Finalizing chunked uploads (last chunk plus `digest`)\n",
+  "operationId": "CompleteBlobUpload",
+  "parameters": [
+    {
+      "description": "Repository name",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Upload session UUID returned from the POST request",
+      "example": "abc123",
+      "in": "path",
+      "name": "uuid",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Digest of the uploaded blob",
+      "example": "sha256:abcd1234...",
+      "in": "query",
+      "name": "digest",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/octet-stream": {
+        "examples": {
+          "layer-upload": {
+            "summary": "Layer tarball blob",
+            "value": "\u003cbinary data not shown\u003e"
+          }
+        },
+        "schema": {
+          "format": "binary",
+          "type": "string"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "201": {
+      "description": "Upload completed successfully",
+      "headers": {
+        "Content-Length": {
+          "description": "Always zero for completed uploads",
+          "example": 0,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "Docker-Content-Digest": {
+          "description": "Canonical digest of the stored blob",
+          "example": "sha256:abcd1234...",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Location": {
+          "description": "URL where the blob is now accessible",
+          "example": "/v2/library/ubuntu/blobs/sha256:abcd1234...",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "400": {
+      "description": "Invalid digest or missing parameters"
+    },
+    "401": {
+      "description": "Authentication required"
+    },
+    "403": {
+      "description": "Access denied"
+    },
+    "404": {
+      "description": "Upload session not found"
+    },
+    "416": {
+      "description": "Requested range not satisfiable (if used in chunked mode)"
+    },
+    "429": {
+      "description": "Too many requests"
+    }
+  },
+  "summary": "Complete blob upload",
+  "tags": [
+    "Blobs"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# PUT – complete upload (monolithic or final chunk)\ncurl -X PUT \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  -H \"Content-Type: application/octet-stream\" \\\n  --data-binary @layer.tar.gz \\\n  \"https://registry-1.docker.io/v2/library/ubuntu/blobs/uploads/abc123?digest=sha256:abcd1234...\"\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  --header &#39;Content-Type: application/octet-stream&#39; \
+  --data-binary @request-body \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/blobs/uploads/abc123?digest=sha256%3Aabcd1234...&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBvc2l0b3J5IG5hbWVcIixcbiAgXCJleGFtcGxlXCI6IFwibGlicmFyeS91YnVudHVcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwibmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xe3V1aWR9L3B1dC9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJVcGxvYWQgc2Vzc2lvbiBVVUlEIHJldHVybmVkIGZyb20gdGhlIFBPU1QgcmVxdWVzdFwiLFxuICBcImV4YW1wbGVcIjogXCJhYmMxMjNcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwidXVpZFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xe3V1aWR9L3B1dC9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJEaWdlc3Qgb2YgdGhlIHVwbG9hZGVkIGJsb2JcIixcbiAgXCJleGFtcGxlXCI6IFwic2hhMjU2OmFiY2QxMjM0Li4uXCIsXG4gIFwiaW5cIjogXCJxdWVyeVwiLFxuICBcIm5hbWVcIjogXCJkaWdlc3RcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXtuYW1lfX4xYmxvYnN+MXVwbG9hZHN+MXt1dWlkfS9wdXQvcGFyYW1ldGVycy8yXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImZvcm1hdFwiOiBcImJpbmFyeVwiLFxuICBcInR5cGVcIjogXCJzdHJpbmdcIlxufSIsICJ7XG4gIFwiQ29udGVudC1MZW5ndGhcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJBbHdheXMgemVybyBmb3IgY29tcGxldGVkIHVwbG9hZHNcIixcbiAgICBcImV4YW1wbGVcIjogMCxcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJpbnRlZ2VyXCJcbiAgICB9XG4gIH0sXG4gIFwiRG9ja2VyLUNvbnRlbnQtRGlnZXN0XCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiQ2Fub25pY2FsIGRpZ2VzdCBvZiB0aGUgc3RvcmVkIGJsb2JcIixcbiAgICBcImV4YW1wbGVcIjogXCJzaGEyNTY6YWJjZDEyMzQuLi5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfSxcbiAgXCJMb2NhdGlvblwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcIlVSTCB3aGVyZSB0aGUgYmxvYiBpcyBub3cgYWNjZXNzaWJsZVwiLFxuICAgIFwiZXhhbXBsZVwiOiBcIi92Mi9saWJyYXJ5L3VidW50dS9ibG9icy9zaGEyNTY6YWJjZDEyMzQuLi5cIixcbiAgICBcInNjaGVtYVwiOiB7XG4gICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgIH1cbiAgfVxufSJd"></template>

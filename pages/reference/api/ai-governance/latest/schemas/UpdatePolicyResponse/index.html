@@ -1,0 +1,24 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/schemas/UpdatePolicyResponse.md>Markdown</a></div><meta data-pagefind-meta="title:UpdatePolicyResponse — AI Governance API 1"><p class=api-eyebrow>Schema</p><h1>UpdatePolicyResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">The full policy before and after the update.</div><details class=api-field open><summary><code>new</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Policy/><code>Policy</code></a></p></details><details class=api-field open><summary><code>old</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Policy/><code>Policy</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The full policy before and after the update.",
+  "properties": {
+    "new": {
+      "$ref": "#/components/schemas/Policy"
+    },
+    "old": {
+      "$ref": "#/components/schemas/Policy"
+    }
+  },
+  "required": [
+    "old",
+    "new"
+  ],
+  "type": "object"
+}</code></pre></details></article>

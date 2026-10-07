@@ -1,0 +1,35 @@
+<table><thead><tr><th>Term</th><th>Definition</th></tr></thead><tbody><tr><td class=not-prose><a class="-top-16 relative" name=docker-cli></a>Docker CLI</td><td>The Docker CLI is the command-line interface for interacting with the Docker
+Engine. It provides commands like <code>docker run</code>, <code>docker build</code>, <code>docker ps</code>,
+and others to manage Docker containers, images, and services.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=docker-compose></a>Docker Compose</td><td>Docker Compose is a tool for defining and running multi-container Docker
+applications using a YAML file (<code>compose.yaml</code>). With a single command, you
+can start all services defined in the configuration.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=docker-desktop></a>Docker Desktop</td><td>Docker Desktop is an easy-to-install application for Windows, macOS, and Linux
+that provides a local Docker development environment. It includes Docker
+Engine, Docker CLI, Docker Compose, and a Kubernetes cluster.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=docker-engine></a>Docker Engine</td><td>Docker Engine is the client-server technology that creates and runs Docker
+containers. It includes the Docker daemon (<code>dockerd</code>), REST API, and the
+Docker CLI client.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=docker-hub></a>Docker Hub</td><td>Docker Hub is Docker’s public registry service where users can store, share,
+and manage container images. It hosts Docker Official Images, Verified
+Publisher content, and community-contributed images.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=base-image></a>base image</td><td>A base image is an image you designate in a <code>FROM</code> directive in a Dockerfile.
+It defines the starting point for your build.
+Dockerfile instructions create additional layers on top of the base image.
+A Dockerfile with the <code>FROM scratch</code> directive uses an empty base image.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=build></a>build</td><td>Build is the process of building Docker images using a Dockerfile. The build
+uses a Dockerfile and a "context". The context is the set of files in the
+directory in which the image is built.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=container></a>container</td><td>A container is a runnable instance of an image. You can start, stop, move, or
+delete a container using the Docker CLI or API. Containers are isolated from
+one another and the host system but share the OS kernel. They provide a
+lightweight and consistent way to run applications.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=context></a>context</td><td>A Docker context contains endpoint configuration for the Docker CLI to connect
+to different Docker environments, such as remote Docker hosts or Docker
+Desktop. Use <code>docker context use</code> to switch between contexts.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=image></a>image</td><td>An image is a read-only template used to create containers. It typically
+includes a base operating system and application code packaged together using
+a Dockerfile. Images are versioned using tags and can be pushed to or pulled
+from a container registry like Docker Hub.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=layer></a>layer</td><td>In an image, a layer is a modification represented by an instruction in the
+Dockerfile. Layers are applied in sequence to the base image to create the
+final image. Unchanged layers are cached, making image builds faster and more
+efficient.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=multi-architecture-image></a>multi-architecture image</td><td>A multi-architecture image is a Docker image that supports multiple CPU
+architectures, like <code>amd64</code> or <code>arm64</code>. Docker automatically pulls the correct
+architecture image for your platform when using a multi-arch image.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=persistent-storage></a>persistent storage</td><td>Persistent storage or volume storage provides a way for containers to retain
+data beyond their lifecycle. This storage can exist on the host machine or an
+external storage system and is not tied to the container's runtime.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=registry></a>registry</td><td>A registry is a storage and content delivery system for Docker images. The
+default public registry is Docker Hub, but you can also set up private
+registries using Docker Distribution.</td></tr><tr><td class=not-prose><a class="-top-16 relative" name=volume></a>volume</td><td>A volume is a special directory within a container that bypasses the Union
+File System. Volumes are designed to persist data independently of the
+container lifecycle. Docker supports host, anonymous, and named volumes.</td></tr></tbody></table>

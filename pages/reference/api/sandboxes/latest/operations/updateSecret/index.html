@@ -1,0 +1,258 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/updateSecret.md>Markdown</a></div><meta data-pagefind-meta="title:UpdateSecret replaces secret metadata and material. — Docker Sandboxes API v1"><h1>UpdateSecret replaces secret metadata and material.</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v1<wbr>/secrets<wbr>/{secret}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>UpdateSecret replaces secret metadata and material.</p><p>Returns unimplemented when this operation is unavailable. Support does not grant permission.</p></div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://connect.docker.com/sandboxes</code>
+—
+The API base URL. Append the /v1 paths while preserving this URL's path prefix.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=secret><h3><code>secret</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The secret id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=Idempotency-Key><h3><code>Idempotency-Key</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+  "title": "Idempotency-Key",
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=If-Match><h3><code>If-Match</code>
+<small>header</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">etag is the required precondition, the value the target's last read returned.
+An absent one refuses etag_required and a stale one etag_mismatch.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+  "title": "If-Match",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/UpdateSecretBody/><code>UpdateSecretBody</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><h4>Headers</h4><div class=api-field><code>ETag</code><p>The etag of the resource this response carries, which the next mutation of it sends as If-Match.</p><pre><code>{
+  "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+  "schema": {
+    "type": "string"
+  }
+}</code></pre></div><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Secret/><code>Secret</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert">The Idempotency-Key was already used with a different payload.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>failedPrecondition</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;The Idempotency-Key was already used with a different payload.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/responses/412/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>412</code></h3><div class="prose dark:prose-invert">The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_mismatch</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;details&#34;: [
+    {
+      &#34;@type&#34;: &#34;type.googleapis.com/docker.sandboxes.v1.EtagMismatch&#34;,
+      &#34;currentEtag&#34;: &#34;v2&#34;
+    }
+  ],
+  &#34;message&#34;: &#34;etag_mismatch: The precondition is not the resource&#39;s current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/responses/428/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>428</code></h3><div class="prose dark:prose-invert">No precondition was sent. The body carries failedPrecondition naming etag_required.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>etag_required</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/responses/501/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>501</code></h3><div class="prose dark:prose-invert">This operation is not available on this service.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>unimplemented</h4><pre><code>{
+  &#34;code&#34;: &#34;unimplemented&#34;,
+  &#34;message&#34;: &#34;This operation is not available on this service.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1secrets~1{secret}/put/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Secret/>#/components/schemas/Secret</a></p><p><a href=/reference/api/sandboxes/latest/schemas/UpdateSecretBody/>#/components/schemas/UpdateSecretBody</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "UpdateSecret replaces secret metadata and material.\n\nReturns unimplemented when this operation is unavailable. Support does not grant permission.",
+  "operationId": "updateSecret",
+  "parameters": [
+    {
+      "description": "The secret id.",
+      "in": "path",
+      "name": "secret",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.",
+      "in": "header",
+      "name": "Idempotency-Key",
+      "schema": {
+        "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+        "title": "Idempotency-Key",
+        "type": "string"
+      }
+    },
+    {
+      "description": "The complete quoted strong entity-tag observed on the resource, including its quotes. Every mutation of an existing resource requires it: an absent value answers 428 and a stale one 412, each carrying failedPrecondition in the body.",
+      "in": "header",
+      "name": "If-Match",
+      "required": true,
+      "schema": {
+        "description": "etag is the required precondition, the value the target's last read returned.\nAn absent one refuses etag_required and a stale one etag_mismatch.",
+        "title": "If-Match",
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/UpdateSecretBody"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Secret"
+          }
+        }
+      },
+      "description": "Success",
+      "headers": {
+        "ETag": {
+          "description": "The etag of the resource this response carries, which the next mutation of it sends as If-Match.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "failedPrecondition": {
+              "summary": "The Idempotency-Key was already used with a different payload.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "The Idempotency-Key was already used with a different payload."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The Idempotency-Key was already used with a different payload."
+    },
+    "412": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_mismatch": {
+              "summary": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value.",
+              "value": {
+                "code": "failedPrecondition",
+                "details": [
+                  {
+                    "@type": "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+                    "currentEtag": "v2"
+                  }
+                ],
+                "message": "etag_mismatch: The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The precondition is not the resource's current etag. The body carries failedPrecondition naming etag_mismatch and an EtagMismatch detail with the current value."
+    },
+    "428": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "etag_required": {
+              "summary": "No precondition was sent. The body carries failedPrecondition naming etag_required.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "etag_required: No precondition was sent. The body carries failedPrecondition naming etag_required."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "No precondition was sent. The body carries failedPrecondition naming etag_required."
+    },
+    "501": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "unimplemented": {
+              "summary": "This operation is not available on this service.",
+              "value": {
+                "code": "unimplemented",
+                "message": "This operation is not available on this service."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "This operation is not available on this service."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "summary": "UpdateSecret replaces secret metadata and material.",
+  "tags": [
+    "Secrets"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "UNIMPLEMENTED",
+      "description": "This operation is not available on this service."
+    },
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The Idempotency-Key was already used with a different payload."
+    }
+  ],
+  "x-sbx-plane": "control",
+  "x-sbx-required-permissions": [
+    "secretsWrite"
+  ],
+  "x-sbx-serving-surface": "management"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#39;If-Match: &lt;IF-MATCH&gt;&#39; \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://connect.docker.com/sandboxes/v1/secrets/&lt;SECRET&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBzZWNyZXQgaWQuXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInNlY3JldFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xc2VjcmV0c34xe3NlY3JldH0vcHV0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlJlcGxheSBrZXkuIFJldXNpbmcgaXQgd2l0aCBhIGRpZmZlcmVudCBwYXlsb2FkIGZhaWxzIHdpdGggZmFpbGVkUHJlY29uZGl0aW9uOyBhY2NlcHRlZCBrZXlzIGFyZSByZXRhaW5lZCBmb3IgYXQgbGVhc3QgMjQgaG91cnMuXCIsXG4gIFwiaW5cIjogXCJoZWFkZXJcIixcbiAgXCJuYW1lXCI6IFwiSWRlbXBvdGVuY3ktS2V5XCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFzZWNyZXRzfjF7c2VjcmV0fS9wdXQvcGFyYW1ldGVycy8xXCIsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiSWRlbXBvdGVuY3kga2V5LiBBIHJlcGxheSByZXR1cm5zIHRoZSBmaXJzdCByZXN1bHQ7IHRoZSBzYW1lIGtleSB3aXRoIGEgZGlmZmVyZW50IHBheWxvYWQgZmFpbHMgd2l0aCBGQUlMRURfUFJFQ09ORElUSU9OOyByZXRhaW5lZCBhdCBsZWFzdCAyNCBob3Vycy5cIixcbiAgICBcInRpdGxlXCI6IFwiSWRlbXBvdGVuY3ktS2V5XCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgY29tcGxldGUgcXVvdGVkIHN0cm9uZyBlbnRpdHktdGFnIG9ic2VydmVkIG9uIHRoZSByZXNvdXJjZSwgaW5jbHVkaW5nIGl0cyBxdW90ZXMuIEV2ZXJ5IG11dGF0aW9uIG9mIGFuIGV4aXN0aW5nIHJlc291cmNlIHJlcXVpcmVzIGl0OiBhbiBhYnNlbnQgdmFsdWUgYW5zd2VycyA0MjggYW5kIGEgc3RhbGUgb25lIDQxMiwgZWFjaCBjYXJyeWluZyBmYWlsZWRQcmVjb25kaXRpb24gaW4gdGhlIGJvZHkuXCIsXG4gIFwiaW5cIjogXCJoZWFkZXJcIixcbiAgXCJuYW1lXCI6IFwiSWYtTWF0Y2hcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjF+MXNlY3JldHN+MXtzZWNyZXR9L3B1dC9wYXJhbWV0ZXJzLzJcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJkZXNjcmlwdGlvblwiOiBcImV0YWcgaXMgdGhlIHJlcXVpcmVkIHByZWNvbmRpdGlvbiwgdGhlIHZhbHVlIHRoZSB0YXJnZXQncyBsYXN0IHJlYWQgcmV0dXJuZWQuXFxuQW4gYWJzZW50IG9uZSByZWZ1c2VzIGV0YWdfcmVxdWlyZWQgYW5kIGEgc3RhbGUgb25lIGV0YWdfbWlzbWF0Y2guXCIsXG4gICAgXCJ0aXRsZVwiOiBcIklmLU1hdGNoXCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1VwZGF0ZVNlY3JldEJvZHlcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL1NlY3JldFwiXG59IiwgIntcbiAgXCJFVGFnXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiVGhlIGV0YWcgb2YgdGhlIHJlc291cmNlIHRoaXMgcmVzcG9uc2UgY2Fycmllcywgd2hpY2ggdGhlIG5leHQgbXV0YXRpb24gb2YgaXQgc2VuZHMgYXMgSWYtTWF0Y2guXCIsXG4gICAgXCJzY2hlbWFcIjoge1xuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH1cbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

@@ -1,0 +1,68 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EffectiveTimeouts.md>Markdown</a></div><meta data-pagefind-meta="title:EffectiveTimeouts — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EffectiveTimeouts</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EffectiveTimeouts retains the selected behavior and current action deadline.
+DELETE and STOP retain a resume timeout; RESTART (and its deprecated alias KEEP) does not use one</div><details class=api-field open><summary><code>autoResume</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">auto_resume is explicit; endpoint authorization still precedes any wake-up.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "auto_resume is explicit; endpoint authorization still precedes any wake-up.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>expiresAt</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">expires_at is present only while a deadline is armed, not before first readiness or while stopped.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "expires_at is present only while a deadline is armed, not before first readiness or while stopped."
+}</code></pre></details></details><details class=api-field open><summary><code>initialTimeout</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">Records the accepted initial TTL, not the recurring interval for RESTART or KEEP.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "Records the accepted initial TTL, not the recurring interval for RESTART or KEEP."
+}</code></pre></details></details><details class=api-field open><summary><code>onTimeout</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/TimeoutAction/><code>TimeoutAction</code></a></p><div class="prose dark:prose-invert">on_timeout remains the accepted disposition through renewal and restart.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/TimeoutAction",
+  "description": "on_timeout remains the accepted disposition through renewal and restart.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>resumeTimeout</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Duration/><code>Duration</code></a></p><div class="prose dark:prose-invert">Freezes the action's default for later starts; RESTART and KEEP manage their own interval.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Duration",
+  "description": "Freezes the action's default for later starts; RESTART and KEEP manage their own interval."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "EffectiveTimeouts retains the selected behavior and current action deadline.\nDELETE and STOP retain a resume timeout; RESTART (and its deprecated alias KEEP) does not use one",
+  "properties": {
+    "autoResume": {
+      "description": "auto_resume is explicit; endpoint authorization still precedes any wake-up.",
+      "type": "boolean"
+    },
+    "expiresAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "expires_at is present only while a deadline is armed, not before first readiness or while stopped."
+    },
+    "initialTimeout": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "Records the accepted initial TTL, not the recurring interval for RESTART or KEEP."
+    },
+    "onTimeout": {
+      "$ref": "#/components/schemas/TimeoutAction",
+      "description": "on_timeout remains the accepted disposition through renewal and restart.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "resumeTimeout": {
+      "$ref": "#/components/schemas/Duration",
+      "description": "Freezes the action's default for later starts; RESTART and KEEP manage their own interval."
+    }
+  },
+  "required": [
+    "onTimeout",
+    "initialTimeout"
+  ],
+  "title": "EffectiveTimeouts",
+  "type": "object"
+}</code></pre></details></article>

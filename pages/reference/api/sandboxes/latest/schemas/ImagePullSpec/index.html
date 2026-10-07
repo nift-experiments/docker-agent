@@ -1,0 +1,58 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ImagePullSpec.md>Markdown</a></div><meta data-pagefind-meta="title:ImagePullSpec — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ImagePullSpec</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ImagePullSpec describes short-lived pull material for placement.</div><details class=api-field open><summary><code>config</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ImageBlobRef/><code>ImageBlobRef</code></a></p><div class="prose dark:prose-invert">config is the image config blob.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ImageBlobRef",
+  "description": "config is the image config blob."
+}</code></pre></details></details><details class=api-field open><summary><code>expiresAt</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Timestamp/><code>Timestamp</code></a></p><div class="prose dark:prose-invert">expires_at is when the pull material expires.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/Timestamp",
+  "description": "expires_at is when the pull material expires."
+}</code></pre></details></details><details class=api-field open><summary><code>layers</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">layers are the image layer blobs.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ImageBlobRef/><code>ImageBlobRef</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "layers are the image layer blobs.",
+  "items": {
+    "$ref": "#/components/schemas/ImageBlobRef"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>manifestDigest</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">manifest_digest is the manifest digest.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "manifest_digest is the manifest digest.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>manifestMediaType</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">manifest_media_type is the manifest media type.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "manifest_media_type is the manifest media type.",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ImagePullSpec describes short-lived pull material for placement.",
+  "properties": {
+    "config": {
+      "$ref": "#/components/schemas/ImageBlobRef",
+      "description": "config is the image config blob."
+    },
+    "expiresAt": {
+      "$ref": "#/components/schemas/Timestamp",
+      "description": "expires_at is when the pull material expires."
+    },
+    "layers": {
+      "description": "layers are the image layer blobs.",
+      "items": {
+        "$ref": "#/components/schemas/ImageBlobRef"
+      },
+      "type": "array"
+    },
+    "manifestDigest": {
+      "description": "manifest_digest is the manifest digest.",
+      "type": "string"
+    },
+    "manifestMediaType": {
+      "description": "manifest_media_type is the manifest media type.",
+      "type": "string"
+    }
+  },
+  "title": "ImagePullSpec",
+  "type": "object"
+}</code></pre></details></article>

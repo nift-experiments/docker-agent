@@ -1,0 +1,42 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/dvp/latest/>Publisher analytics</a> /
+<span>API 1.0.0</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/dvp/latest/ selected>1.0.0</option></select></label><a href=https://docs.docker.com/docker-hub/repos/manage/trusted-content/insights-analytics/>Product manual</a><a href=/reference/api/dvp/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/dvp/latest/schemas/Users2FALoginRequest.md>Markdown</a></div><meta data-pagefind-meta="title:Users2FALoginRequest — Publisher analytics API 1.0.0"><p class=api-eyebrow>Schema</p><h1>Users2FALoginRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Second factor user login details</div><details class=api-field open><summary><code>code</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The Time-based One-Time Password of the Docker Hub account to authenticate with.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The Time-based One-Time Password of the Docker Hub account to authenticate with.",
+  "example": "123456",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>login_2fa_token</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The intermediate 2FA token returned from <code>/v2/users/login</code> API.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The intermediate 2FA token returned from `/v2/users/login` API.",
+  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Second factor user login details",
+  "examples": [
+    {
+      "code": "123456",
+      "login_2fa_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    }
+  ],
+  "properties": {
+    "code": {
+      "description": "The Time-based One-Time Password of the Docker Hub account to authenticate with.",
+      "example": "123456",
+      "type": "string"
+    },
+    "login_2fa_token": {
+      "description": "The intermediate 2FA token returned from `/v2/users/login` API.",
+      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "type": "string"
+    }
+  },
+  "required": [
+    "login_2fa_token",
+    "code"
+  ],
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,95 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/registry/latest/>Registry</a> /
+<span>API 2</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/registry/latest/ selected>2</option></select></label><a href=https://docs.docker.com/docker-hub/repos/>Product manual</a><a href=/reference/api/registry/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/registry/latest/operations/CancelBlobUpload.md>Markdown</a></div><meta data-pagefind-meta="title:Cancel blob upload — Registry API 2"><h1>Cancel blob upload</h1><div class=api-signature><span class=api-method data-method=DELETE>DELETE</span><code><wbr>/v2<wbr>/{name}<wbr>/blobs<wbr>/uploads<wbr>/{uuid}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Cancel an in-progress blob upload session.</p><p>This operation discards any data that has been uploaded and invalidates the upload session.</p><p>Use this when:</p><ul><li>An upload fails or is aborted mid-process</li><li>The client wants to clean up unused upload sessions</li></ul><p>After cancellation, the UUID is no longer valid and a new <code>POST</code> must be issued to restart the upload.</p></div><h2>Connection and access</h2><p><a href=/reference/api/registry/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://registry-1.docker.io</code>
+—
+Docker Hub registry API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>registryToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=name><h3><code>name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Name of the repository</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=uuid><h3><code>uuid</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Upload session UUID</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/delete/responses/204 data-api-media><h3><span>Response</span>
+<code class=api-status>204</code></h3><div class="prose dark:prose-invert">Upload session cancelled successfully. No body is returned.</div><p>No response content is declared.</p><h4>Headers</h4><div class=api-field><code>Content-Length</code><p>Always zero</p><pre><code>{
+  "description": "Always zero",
+  "example": 0,
+  "schema": {
+    "type": "integer"
+  }
+}</code></pre></div></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/delete/responses/401 data-api-media><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication required</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/delete/responses/403 data-api-media><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Access denied</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/delete/responses/404 data-api-media><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Upload session not found</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v2~1{name}~1blobs~1uploads~1{uuid}/delete/responses/429 data-api-media><h3><span>Response</span>
+<code class=api-status>429</code></h3><div class="prose dark:prose-invert">Too many requests</div><p>No response content is declared.</p></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Cancel an in-progress blob upload session.\n\nThis operation discards any data that has been uploaded and invalidates the upload session.\n\nUse this when:\n- An upload fails or is aborted mid-process\n- The client wants to clean up unused upload sessions\n\nAfter cancellation, the UUID is no longer valid and a new `POST` must be issued to restart the upload.\n",
+  "operationId": "CancelBlobUpload",
+  "parameters": [
+    {
+      "description": "Name of the repository",
+      "example": "library/ubuntu",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Upload session UUID",
+      "example": "abc123",
+      "in": "path",
+      "name": "uuid",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "204": {
+      "description": "Upload session cancelled successfully. No body is returned.",
+      "headers": {
+        "Content-Length": {
+          "description": "Always zero",
+          "example": 0,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Authentication required"
+    },
+    "403": {
+      "description": "Access denied"
+    },
+    "404": {
+      "description": "Upload session not found"
+    },
+    "429": {
+      "description": "Too many requests"
+    }
+  },
+  "summary": "Cancel blob upload",
+  "tags": [
+    "Blobs"
+  ],
+  "x-codeSamples": [
+    {
+      "label": "cURL",
+      "lang": "Bash",
+      "source": "# DELETE – cancel an upload session\ncurl -X DELETE \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  https://registry-1.docker.io/v2/library/ubuntu/blobs/uploads/abc123`\n"
+    }
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request DELETE \
+  --header &#34;Authorization: Bearer ${REGISTRY_TOKEN}&#34; \
+  &#39;https://registry-1.docker.io/v2/library%2Fubuntu/blobs/uploads/abc123&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInJlZ2lzdHJ5VG9rZW5cIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJOYW1lIG9mIHRoZSByZXBvc2l0b3J5XCIsXG4gIFwiZXhhbXBsZVwiOiBcImxpYnJhcnkvdWJ1bnR1XCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcIm5hbWVcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXtuYW1lfX4xYmxvYnN+MXVwbG9hZHN+MXt1dWlkfS9kZWxldGUvcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImRlc2NyaXB0aW9uXCI6IFwiVXBsb2FkIHNlc3Npb24gVVVJRFwiLFxuICBcImV4YW1wbGVcIjogXCJhYmMxMjNcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwidXVpZFwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2Mn4xe25hbWV9fjFibG9ic34xdXBsb2Fkc34xe3V1aWR9L2RlbGV0ZS9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiQ29udGVudC1MZW5ndGhcIjoge1xuICAgIFwiZGVzY3JpcHRpb25cIjogXCJBbHdheXMgemVyb1wiLFxuICAgIFwiZXhhbXBsZVwiOiAwLFxuICAgIFwic2NoZW1hXCI6IHtcbiAgICAgIFwidHlwZVwiOiBcImludGVnZXJcIlxuICAgIH1cbiAgfVxufSJd"></template>

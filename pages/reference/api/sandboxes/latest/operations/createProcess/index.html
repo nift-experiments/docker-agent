@@ -1,0 +1,132 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/createProcess.md>Markdown</a></div><meta data-pagefind-meta="title:CreateProcess starts a durable interactive process and returns its resource name. — Docker Sandboxes API v1"><h1>CreateProcess starts a durable interactive process and returns its resource name.</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v1<wbr>/processes</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">CreateProcess starts a durable interactive process and returns its resource name.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=Idempotency-Key><h3><code>Idempotency-Key</code>
+<small>header</small></h3><div class="prose dark:prose-invert">Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.</div><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+  "title": "Idempotency-Key",
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1processes/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/CreateProcessRequest/><code>CreateProcessRequest</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1processes/post/responses/201/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>201</code></h3><div class="prose dark:prose-invert">Success</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Process/><code>Process</code></a></p></section><section class=api-variant data-api-variant=/paths/~1v1~1processes/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert"><p>Creation conflicts with an existing resource (ALREADY_EXISTS).</p><p>The Idempotency-Key was already used with a different payload.</p></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>failedPrecondition</h4><pre><code>{
+  &#34;code&#34;: &#34;failedPrecondition&#34;,
+  &#34;message&#34;: &#34;The Idempotency-Key was already used with a different payload.&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v1~1processes/post/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/CreateProcessRequest/>#/components/schemas/CreateProcessRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/Process/>#/components/schemas/Process</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "CreateProcess starts a durable interactive process and returns its resource name.",
+  "operationId": "createProcess",
+  "parameters": [
+    {
+      "description": "Replay key. Reusing it with a different payload fails with failedPrecondition; accepted keys are retained for at least 24 hours.",
+      "in": "header",
+      "name": "Idempotency-Key",
+      "schema": {
+        "description": "Idempotency key. A replay returns the first result; the same key with a different payload fails with FAILED_PRECONDITION; retained at least 24 hours.",
+        "title": "Idempotency-Key",
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/CreateProcessRequest"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Process"
+          }
+        }
+      },
+      "description": "Success"
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "failedPrecondition": {
+              "summary": "The Idempotency-Key was already used with a different payload.",
+              "value": {
+                "code": "failedPrecondition",
+                "message": "The Idempotency-Key was already used with a different payload."
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "Creation conflicts with an existing resource (ALREADY_EXISTS).\n\nThe Idempotency-Key was already used with a different payload."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "CreateProcess starts a durable interactive process and returns its resource name.",
+  "tags": [
+    "Processes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-error-responses": [
+    {
+      "code": "FAILED_PRECONDITION",
+      "description": "The Idempotency-Key was already used with a different payload."
+    }
+  ],
+  "x-sbx-plane": "data",
+  "x-sbx-required-permissions": [
+    "sandboxesExec"
+  ],
+  "x-sbx-serving-surface": "sandboxEndpoint"
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-binary @request-body \
+  &#39;https://sandbox.invalid/v1/processes&#39;</code></pre><button type=button data-api-copy>Copy request</button><p>Prepare request-body using the selected media type and schema.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXBsYXkga2V5LiBSZXVzaW5nIGl0IHdpdGggYSBkaWZmZXJlbnQgcGF5bG9hZCBmYWlscyB3aXRoIGZhaWxlZFByZWNvbmRpdGlvbjsgYWNjZXB0ZWQga2V5cyBhcmUgcmV0YWluZWQgZm9yIGF0IGxlYXN0IDI0IGhvdXJzLlwiLFxuICBcImluXCI6IFwiaGVhZGVyXCIsXG4gIFwibmFtZVwiOiBcIklkZW1wb3RlbmN5LUtleVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjF2MX4xcHJvY2Vzc2VzL3Bvc3QvcGFyYW1ldGVycy8wXCIsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcImRlc2NyaXB0aW9uXCI6IFwiSWRlbXBvdGVuY3kga2V5LiBBIHJlcGxheSByZXR1cm5zIHRoZSBmaXJzdCByZXN1bHQ7IHRoZSBzYW1lIGtleSB3aXRoIGEgZGlmZmVyZW50IHBheWxvYWQgZmFpbHMgd2l0aCBGQUlMRURfUFJFQ09ORElUSU9OOyByZXRhaW5lZCBhdCBsZWFzdCAyNCBob3Vycy5cIixcbiAgICBcInRpdGxlXCI6IFwiSWRlbXBvdGVuY3ktS2V5XCIsXG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0NyZWF0ZVByb2Nlc3NSZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9Qcm9jZXNzXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

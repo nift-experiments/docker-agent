@@ -1,0 +1,65 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ExactDestination.md>Markdown</a></div><meta data-pagefind-meta="title:ExactDestination — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ExactDestination</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ExactDestination uses canonical selector values, never legacy glob syntax.
+dnsLabelPrefix requires a canonical DNS label prefix and suffix</div><details class=api-field open><summary><code>kind</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactDestinationKind/><code>ExactDestinationKind</code></a></p><div class="prose dark:prose-invert">kind selects a matching rule; dnsLabelPrefix requires destination.v2.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactDestinationKind",
+  "description": "kind selects a matching rule; dnsLabelPrefix requires destination.v2.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>port</code></summary><p class=api-type>Type:
+<code>integer | null</code></p><div class="prose dark:prose-invert">An absent port matches all numeric ports; zero is invalid when present.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "An absent port matches all numeric ports; zero is invalid when present.",
+  "maximum": 65535,
+  "minimum": 1,
+  "type": [
+    "integer",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>value</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">For dnsLabelPrefix, crl.digicert.com matches a first label starting with crl
+and remaining labels exactly digicert.com; every value label is canonical ASCII DNS.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "For dnsLabelPrefix, crl.digicert.com matches a first label starting with crl\nand remaining labels exactly digicert.com; every value label is canonical ASCII DNS.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ExactDestination uses canonical selector values, never legacy glob syntax.\ndnsLabelPrefix requires a canonical DNS label prefix and suffix",
+  "properties": {
+    "kind": {
+      "$ref": "#/components/schemas/ExactDestinationKind",
+      "description": "kind selects a matching rule; dnsLabelPrefix requires destination.v2.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "port": {
+      "description": "An absent port matches all numeric ports; zero is invalid when present.",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "value": {
+      "description": "For dnsLabelPrefix, crl.digicert.com matches a first label starting with crl\nand remaining labels exactly digicert.com; every value label is canonical ASCII DNS.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "value"
+  ],
+  "title": "ExactDestination",
+  "type": "object"
+}</code></pre></details></article>

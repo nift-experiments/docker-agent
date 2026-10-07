@@ -1,0 +1,44 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/KitRef.md>Markdown</a></div><meta data-pagefind-meta="title:KitRef — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>KitRef</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">KitRef names a kit to apply.</div><details class=api-field open><summary><code>kind</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">kind is "sandbox", "mixin", or empty to defer to the kit's own manifest.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "kind is \"sandbox\", \"mixin\", or empty to defer to the kit's own manifest.",
+  "enum": [
+    "",
+    "sandbox",
+    "mixin"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>ref</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">ref names the kit source.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ref names the kit source.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "KitRef names a kit to apply.",
+  "properties": {
+    "kind": {
+      "description": "kind is \"sandbox\", \"mixin\", or empty to defer to the kit's own manifest.",
+      "enum": [
+        "",
+        "sandbox",
+        "mixin"
+      ],
+      "type": "string"
+    },
+    "ref": {
+      "description": "ref names the kit source.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "ref"
+  ],
+  "title": "KitRef",
+  "type": "object"
+}</code></pre></details></article>

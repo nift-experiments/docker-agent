@@ -1,0 +1,34 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FilesWriteFileRequest.md>Markdown</a></div><meta data-pagefind-meta="title:FilesWriteFileRequest — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FilesWriteFileRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">WriteFileRequest replaces one file.</div><details class=api-field open><summary><code>data</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">data is the complete new content; empty writes an empty file.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "data is the complete new content; empty writes an empty file.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>header</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileHeader/><code>FileHeader</code></a></p><div class="prose dark:prose-invert">header names the path and mode, as an Upload header does.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/FileHeader",
+  "description": "header names the path and mode, as an Upload header does."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "WriteFileRequest replaces one file.",
+  "properties": {
+    "data": {
+      "description": "data is the complete new content; empty writes an empty file.",
+      "format": "byte",
+      "type": "string"
+    },
+    "header": {
+      "$ref": "#/components/schemas/FileHeader",
+      "description": "header names the path and mode, as an Upload header does."
+    }
+  },
+  "required": [
+    "header"
+  ],
+  "title": "WriteFileRequest",
+  "type": "object"
+}</code></pre></details></article>

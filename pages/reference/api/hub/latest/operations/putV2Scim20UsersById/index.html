@@ -1,0 +1,337 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/putV2Scim20UsersById.md>Markdown</a></div><meta data-pagefind-meta="title:Update a user — Docker Hub API 2-beta"><h1>Update a user</h1><div class=api-signature><span class=api-method data-method=PUT>PUT</span><code><wbr>/v2<wbr>/scim<wbr>/2.0<wbr>/Users<wbr>/{id}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Updates a user. This route is used to change the user's name, activate, and deactivate the user.</div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>scimToken</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=id><h3><code>id</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The user ID.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/scim+json>application/scim+json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/requestBody/content/application~1scim+json data-api-media=application/scim+json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/scim+json</code></p><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>active</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">Whether the user is active. Defaults to false when omitted.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "default": false,
+  "description": "Whether the user is active. Defaults to false when omitted.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>name</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_user_name/><code>scim_user_name</code></a></p></details><details class=api-field open><summary><code>schemas</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_user_schemas/><code>scim_user_schemas</code></a></p></details><details class=api-field open><summary><code>userName</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_user_username/><code>scim_user_username</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "examples": [
+    {
+      "active": true,
+      "name": {
+        "familyName": "Snow",
+        "givenName": "Jon"
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ],
+      "userName": "jon.snow@docker.com"
+    }
+  ],
+  "properties": {
+    "active": {
+      "default": false,
+      "description": "Whether the user is active. Defaults to false when omitted.",
+      "type": "boolean"
+    },
+    "name": {
+      "$ref": "#/components/schemas/scim_user_name"
+    },
+    "schemas": {
+      "$ref": "#/components/schemas/scim_user_schemas"
+    },
+    "userName": {
+      "$ref": "#/components/schemas/scim_user_username"
+    }
+  },
+  "required": [
+    "schemas",
+    "userName"
+  ],
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;active&#34;: true,
+  &#34;name&#34;: {
+    &#34;familyName&#34;: &#34;Snow&#34;,
+    &#34;givenName&#34;: &#34;Jon&#34;
+  },
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;
+  ],
+  &#34;userName&#34;: &#34;jon.snow@docker.com&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/200/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/scim+json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_user/><code>scim_user</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;active&#34;: true,
+  &#34;displayName&#34;: &#34;jonsnow&#34;,
+  &#34;emails&#34;: [
+    {
+      &#34;display&#34;: &#34;jon.snow@docker.com&#34;,
+      &#34;primary&#34;: true,
+      &#34;value&#34;: &#34;jon.snow@docker.com&#34;
+    }
+  ],
+  &#34;groups&#34;: [
+    {
+      &#34;display&#34;: &#34;nightswatch&#34;,
+      &#34;value&#34;: &#34;nightswatch&#34;
+    }
+  ],
+  &#34;id&#34;: &#34;d80f7c79-7730-49d8-9a41-7c42fb622d9c&#34;,
+  &#34;meta&#34;: {
+    &#34;created&#34;: &#34;2022-05-20T00:54:18Z&#34;,
+    &#34;lastModified&#34;: &#34;2022-05-20T00:54:18Z&#34;,
+    &#34;location&#34;: &#34;https://hub.docker.com/v2/scim/2.0/Users/d80f7c79-7730-49d8-9a41-7c42fb622d9c&#34;,
+    &#34;resourceType&#34;: &#34;User&#34;
+  },
+  &#34;name&#34;: {
+    &#34;familyName&#34;: &#34;Snow&#34;,
+    &#34;givenName&#34;: &#34;Jon&#34;
+  },
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;
+  ],
+  &#34;userName&#34;: &#34;jon.snow@docker.com&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/400/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>scimType</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Some types of errors will return this per the specification.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Some types of errors will return this per the specification.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "400"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "scimType": {
+      "description": "Some types of errors will return this per the specification.",
+      "type": "string"
+    },
+    "status": {
+      "example": "400"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "scimType": {
+          "description": "Some types of errors will return this per the specification.",
+          "type": "string"
+        },
+        "status": {
+          "example": "400"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;400&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/401/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "401"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "401"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "401"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;401&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/403/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Forbidden</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "403"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "403"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "403"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;403&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/404/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not Found</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "404"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "404"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "404"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;404&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/409/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert">Conflict</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "409"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "409"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "409"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;409&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1scim~12.0~1Users~1{id}/put/responses/500/content/application~1scim+json data-api-media=application/scim+json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal Error</div><p class=api-media><code>application/scim+json</code></p><details class=api-field open><summary>All constraints apply</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/scim_error/><code>scim_error</code></a></p><details class=api-field><summary><code>status</code></summary><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "500"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "status": {
+      "example": "500"
+    }
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/scim_error"
+    },
+    {
+      "properties": {
+        "status": {
+          "example": "500"
+        }
+      }
+    }
+  ]
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:api:messages:2.0:Error&#34;
+  ],
+  &#34;status&#34;: &#34;500&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Updates a user. This route is used to change the user's name, activate, and deactivate the user.\n",
+  "operationId": "putV2Scim20UsersById",
+  "requestBody": {
+    "$ref": "#/components/requestBodies/scim_update_user_request"
+  },
+  "responses": {
+    "200": {
+      "$ref": "#/components/responses/scim_update_user_resp"
+    },
+    "400": {
+      "$ref": "#/components/responses/scim_bad_request"
+    },
+    "401": {
+      "$ref": "#/components/responses/scim_unauthorized"
+    },
+    "403": {
+      "$ref": "#/components/responses/scim_forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/scim_not_found"
+    },
+    "409": {
+      "$ref": "#/components/responses/scim_conflict"
+    },
+    "500": {
+      "$ref": "#/components/responses/scim_error"
+    }
+  },
+  "security": [
+    {
+      "scimToken": []
+    }
+  ],
+  "summary": "Update a user",
+  "tags": [
+    "scim"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PUT \
+  --header &#34;Authorization: Bearer ${SCIM_TOKEN}&#34; \
+  --header &#39;Accept: application/scim&#43;json&#39; \
+  --header &#39;Content-Type: application/scim&#43;json&#39; \
+  --data-raw &#39;{
+  &#34;active&#34;: true,
+  &#34;name&#34;: {
+    &#34;familyName&#34;: &#34;Snow&#34;,
+    &#34;givenName&#34;: &#34;Jon&#34;
+  },
+  &#34;schemas&#34;: [
+    &#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;
+  ],
+  &#34;userName&#34;: &#34;jon.snow@docker.com&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/scim/2.0/Users/d80f7c79-7730-49d8-9a41-7c42fb622d9c&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNjaW1Ub2tlblwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSB1c2VyIElELlwiLFxuICBcImV4YW1wbGVcIjogXCJkODBmN2M3OS03NzMwLTQ5ZDgtOWE0MS03YzQyZmI2MjJkOWNcIixcbiAgXCJpblwiOiBcInBhdGhcIixcbiAgXCJuYW1lXCI6IFwiaWRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MXNjaW1+MTIuMH4xVXNlcnN+MXtpZH0vcGFyYW1ldGVycy8wXCIsXG4gIFwicmVxdWlyZWRcIjogdHJ1ZSxcbiAgXCJzY2hlbWFcIjoge1xuICAgIFwidHlwZVwiOiBcInN0cmluZ1wiXG4gIH1cbn0iLCAie1xuICBcImV4YW1wbGVzXCI6IFtcbiAgICB7XG4gICAgICBcImFjdGl2ZVwiOiB0cnVlLFxuICAgICAgXCJuYW1lXCI6IHtcbiAgICAgICAgXCJmYW1pbHlOYW1lXCI6IFwiU25vd1wiLFxuICAgICAgICBcImdpdmVuTmFtZVwiOiBcIkpvblwiXG4gICAgICB9LFxuICAgICAgXCJzY2hlbWFzXCI6IFtcbiAgICAgICAgXCJ1cm46aWV0ZjpwYXJhbXM6c2NpbTpzY2hlbWFzOmNvcmU6Mi4wOlVzZXJcIlxuICAgICAgXSxcbiAgICAgIFwidXNlck5hbWVcIjogXCJqb24uc25vd0Bkb2NrZXIuY29tXCJcbiAgICB9XG4gIF0sXG4gIFwicHJvcGVydGllc1wiOiB7XG4gICAgXCJhY3RpdmVcIjoge1xuICAgICAgXCJkZWZhdWx0XCI6IGZhbHNlLFxuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIldoZXRoZXIgdGhlIHVzZXIgaXMgYWN0aXZlLiBEZWZhdWx0cyB0byBmYWxzZSB3aGVuIG9taXR0ZWQuXCIsXG4gICAgICBcInR5cGVcIjogXCJib29sZWFuXCJcbiAgICB9LFxuICAgIFwibmFtZVwiOiB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX3VzZXJfbmFtZVwiXG4gICAgfSxcbiAgICBcInNjaGVtYXNcIjoge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV91c2VyX3NjaGVtYXNcIlxuICAgIH0sXG4gICAgXCJ1c2VyTmFtZVwiOiB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX3VzZXJfdXNlcm5hbWVcIlxuICAgIH1cbiAgfSxcbiAgXCJyZXF1aXJlZFwiOiBbXG4gICAgXCJzY2hlbWFzXCIsXG4gICAgXCJ1c2VyTmFtZVwiXG4gIF0sXG4gIFwidHlwZVwiOiBcIm9iamVjdFwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV91c2VyXCJcbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX2Vycm9yXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwic2NpbVR5cGVcIjoge1xuICAgICAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJTb21lIHR5cGVzIG9mIGVycm9ycyB3aWxsIHJldHVybiB0aGlzIHBlciB0aGUgc3BlY2lmaWNhdGlvbi5cIixcbiAgICAgICAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICAgICAgICB9LFxuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiNDAwXCJcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fZXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIjQwMVwiXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX2Vycm9yXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwic3RhdHVzXCI6IHtcbiAgICAgICAgICBcImV4YW1wbGVcIjogXCI0MDNcIlxuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICBdXG59IiwgIntcbiAgXCJhbGxPZlwiOiBbXG4gICAge1xuICAgICAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvc2NpbV9lcnJvclwiXG4gICAgfSxcbiAgICB7XG4gICAgICBcInByb3BlcnRpZXNcIjoge1xuICAgICAgICBcInN0YXR1c1wiOiB7XG4gICAgICAgICAgXCJleGFtcGxlXCI6IFwiNDA0XCJcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgXVxufSIsICJ7XG4gIFwiYWxsT2ZcIjogW1xuICAgIHtcbiAgICAgIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3NjaW1fZXJyb3JcIlxuICAgIH0sXG4gICAge1xuICAgICAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICAgICAgXCJzdGF0dXNcIjoge1xuICAgICAgICAgIFwiZXhhbXBsZVwiOiBcIjQwOVwiXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIF1cbn0iLCAie1xuICBcImFsbE9mXCI6IFtcbiAgICB7XG4gICAgICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9zY2ltX2Vycm9yXCJcbiAgICB9LFxuICAgIHtcbiAgICAgIFwicHJvcGVydGllc1wiOiB7XG4gICAgICAgIFwic3RhdHVzXCI6IHtcbiAgICAgICAgICBcImV4YW1wbGVcIjogXCI1MDBcIlxuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICBdXG59Il0="></template>

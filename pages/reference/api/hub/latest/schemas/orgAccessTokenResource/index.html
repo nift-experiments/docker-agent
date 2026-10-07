@@ -1,0 +1,65 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/orgAccessTokenResource.md>Markdown</a></div><meta data-pagefind-meta="title:orgAccessTokenResource — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>orgAccessTokenResource</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>path</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>The path of the resource. The format of this will change depending on the type of resource.</p><p>For TYPE_REPO resources:</p><ul><li>Must be an existing repository name (e.g., "myorg/myrepo")</li><li>Can use glob patterns (e.g., "myorg/*" for all repositories in the organization)</li><li>Use "<em>/</em>/public" to reference all public repositories</li></ul></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The path of the resource. The format of this will change depending on the type of resource.\n\nFor TYPE_REPO resources:\n- Must be an existing repository name (e.g., \"myorg/myrepo\")\n- Can use glob patterns (e.g., \"myorg/*\" for all repositories in the organization)\n- Use \"*/*/public\" to reference all public repositories\n",
+  "example": "myorg/myrepo",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>scopes</code>
+· required</summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">The scopes this token has access to</div><details class=api-field><summary>Array item</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "example": "scope-image-pull",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The scopes this token has access to",
+  "items": {
+    "example": "scope-image-pull",
+    "type": "string"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>type</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The type of resource</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The type of resource",
+  "enum": [
+    "TYPE_REPO",
+    "TYPE_ORG"
+  ],
+  "example": "TYPE_REPO",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "path": {
+      "description": "The path of the resource. The format of this will change depending on the type of resource.\n\nFor TYPE_REPO resources:\n- Must be an existing repository name (e.g., \"myorg/myrepo\")\n- Can use glob patterns (e.g., \"myorg/*\" for all repositories in the organization)\n- Use \"*/*/public\" to reference all public repositories\n",
+      "example": "myorg/myrepo",
+      "type": "string"
+    },
+    "scopes": {
+      "description": "The scopes this token has access to",
+      "items": {
+        "example": "scope-image-pull",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "type": {
+      "description": "The type of resource",
+      "enum": [
+        "TYPE_REPO",
+        "TYPE_ORG"
+      ],
+      "example": "TYPE_REPO",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "path",
+    "scopes"
+  ],
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,25 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ImageStatus.md>Markdown</a></div><meta data-pagefind-meta="title:ImageStatus — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ImageStatus</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>ImageStatus is the image readiness state.</p><p>Values:
+unspecified: unspecified is never a concrete known state.
+pending: pending means an asynchronous build has not started or reported progress.
+waitingForPush: waitingForPush means the backend is waiting for OCI content upload.
+preparing: preparing means the backend is preparing pushed or captured content.
+completed: completed means the image is ready to use.
+failed: failed means image preparation reached a terminal failure.
+deleted: deleted means the backend exposes a retained delete tombstone.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ImageStatus is the image readiness state.\n\nValues:\nunspecified: unspecified is never a concrete known state.\npending: pending means an asynchronous build has not started or reported progress.\nwaitingForPush: waitingForPush means the backend is waiting for OCI content upload.\npreparing: preparing means the backend is preparing pushed or captured content.\ncompleted: completed means the image is ready to use.\nfailed: failed means image preparation reached a terminal failure.\ndeleted: deleted means the backend exposes a retained delete tombstone.",
+  "enum": [
+    "unspecified",
+    "pending",
+    "waitingForPush",
+    "preparing",
+    "completed",
+    "failed",
+    "deleted"
+  ],
+  "title": "ImageStatus",
+  "type": "string"
+}</code></pre></details></article>

@@ -1,0 +1,126 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/AuthCreateAccessToken.md>Markdown</a></div><meta data-pagefind-meta="title:Create access token — Docker Hub API 2-beta"><h1>Create access token</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/v2<wbr>/auth<wbr>/token</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Creates and returns a short-lived access token in JWT format for use as a bearer when calling Docker APIs.</p><p>If successful, the access token returned should be used in the HTTP Authorization header like
+<code>Authorization: Bearer {access_token}</code>.</p><p><em><strong>If your organization has SSO enforced, you must use a personal access token (PAT) instead of a password.</strong></em></p></div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>No HTTP authentication requirement is declared for this
+operation. Transport access controls can still apply.</p><h2>Parameters</h2><p>No parameters are declared.</p><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1auth~1token/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">Request to create access token</div><details class=api-field open><summary><code>identifier</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The identifier of the account to create an access token for. If using a password or personal access token,
+this must be a username. If using an organization access token, this must be an organization name.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The identifier of the account to create an access token for. If using a password or personal access token,\nthis must be a username. If using an organization access token, this must be an organization name.\n",
+  "example": "myusername",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>secret</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The secret of the account to create an access token for. This can be a password, personal access token, or
+organization access token.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The secret of the account to create an access token for. This can be a password, personal access token, or\norganization access token.\n",
+  "example": "dckr_pat_124509ugsdjga93",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Request to create access token",
+  "examples": [
+    {
+      "identifier": "myusername",
+      "secret": "dckr_pat_124509ugsdjga93"
+    }
+  ],
+  "properties": {
+    "identifier": {
+      "description": "The identifier of the account to create an access token for. If using a password or personal access token,\nthis must be a username. If using an organization access token, this must be an organization name.\n",
+      "example": "myusername",
+      "type": "string"
+    },
+    "secret": {
+      "description": "The secret of the account to create an access token for. This can be a password, personal access token, or\norganization access token.\n",
+      "example": "dckr_pat_124509ugsdjga93",
+      "type": "string"
+    }
+  },
+  "required": [
+    "identifier",
+    "secret"
+  ],
+  "type": "object"
+}</code></pre></details><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;identifier&#34;: &#34;myusername&#34;,
+  &#34;secret&#34;: &#34;dckr_pat_124509ugsdjga93&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1auth~1token/post/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">Token created</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/AuthCreateTokenResponse/><code>AuthCreateTokenResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;access_token&#34;: &#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1auth~1token/post/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Authentication failed</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/AuthCreateTokenResponse/>#/components/schemas/AuthCreateTokenResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Creates and returns a short-lived access token in JWT format for use as a bearer when calling Docker APIs.\n\nIf successful, the access token returned should be used in the HTTP Authorization header like \n`Authorization: Bearer {access_token}`.\n\n_**If your organization has SSO enforced, you must use a personal access token (PAT) instead of a password.**_\n",
+  "operationId": "AuthCreateAccessToken",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Request to create access token",
+          "examples": [
+            {
+              "identifier": "myusername",
+              "secret": "dckr_pat_124509ugsdjga93"
+            }
+          ],
+          "properties": {
+            "identifier": {
+              "description": "The identifier of the account to create an access token for. If using a password or personal access token,\nthis must be a username. If using an organization access token, this must be an organization name.\n",
+              "example": "myusername",
+              "type": "string"
+            },
+            "secret": {
+              "description": "The secret of the account to create an access token for. This can be a password, personal access token, or\norganization access token.\n",
+              "example": "dckr_pat_124509ugsdjga93",
+              "type": "string"
+            }
+          },
+          "required": [
+            "identifier",
+            "secret"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/AuthCreateTokenResponse"
+          }
+        }
+      },
+      "description": "Token created"
+    },
+    "401": {
+      "$ref": "#/components/responses/unauthorized",
+      "description": "Authentication failed"
+    }
+  },
+  "security": [],
+  "summary": "Create access token",
+  "tags": [
+    "authentication-api"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;identifier&#34;: &#34;myusername&#34;,
+  &#34;secret&#34;: &#34;dckr_pat_124509ugsdjga93&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/auth/token&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJSZXF1ZXN0IHRvIGNyZWF0ZSBhY2Nlc3MgdG9rZW5cIixcbiAgXCJleGFtcGxlc1wiOiBbXG4gICAge1xuICAgICAgXCJpZGVudGlmaWVyXCI6IFwibXl1c2VybmFtZVwiLFxuICAgICAgXCJzZWNyZXRcIjogXCJkY2tyX3BhdF8xMjQ1MDl1Z3NkamdhOTNcIlxuICAgIH1cbiAgXSxcbiAgXCJwcm9wZXJ0aWVzXCI6IHtcbiAgICBcImlkZW50aWZpZXJcIjoge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBpZGVudGlmaWVyIG9mIHRoZSBhY2NvdW50IHRvIGNyZWF0ZSBhbiBhY2Nlc3MgdG9rZW4gZm9yLiBJZiB1c2luZyBhIHBhc3N3b3JkIG9yIHBlcnNvbmFsIGFjY2VzcyB0b2tlbixcXG50aGlzIG11c3QgYmUgYSB1c2VybmFtZS4gSWYgdXNpbmcgYW4gb3JnYW5pemF0aW9uIGFjY2VzcyB0b2tlbiwgdGhpcyBtdXN0IGJlIGFuIG9yZ2FuaXphdGlvbiBuYW1lLlxcblwiLFxuICAgICAgXCJleGFtcGxlXCI6IFwibXl1c2VybmFtZVwiLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9LFxuICAgIFwic2VjcmV0XCI6IHtcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJUaGUgc2VjcmV0IG9mIHRoZSBhY2NvdW50IHRvIGNyZWF0ZSBhbiBhY2Nlc3MgdG9rZW4gZm9yLiBUaGlzIGNhbiBiZSBhIHBhc3N3b3JkLCBwZXJzb25hbCBhY2Nlc3MgdG9rZW4sIG9yXFxub3JnYW5pemF0aW9uIGFjY2VzcyB0b2tlbi5cXG5cIixcbiAgICAgIFwiZXhhbXBsZVwiOiBcImRja3JfcGF0XzEyNDUwOXVnc2RqZ2E5M1wiLFxuICAgICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgICB9XG4gIH0sXG4gIFwicmVxdWlyZWRcIjogW1xuICAgIFwiaWRlbnRpZmllclwiLFxuICAgIFwic2VjcmV0XCJcbiAgXSxcbiAgXCJ0eXBlXCI6IFwib2JqZWN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9BdXRoQ3JlYXRlVG9rZW5SZXNwb25zZVwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvZXJyb3JcIlxufSJd"></template>

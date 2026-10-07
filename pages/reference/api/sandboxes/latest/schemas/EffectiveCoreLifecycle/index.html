@@ -1,0 +1,56 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EffectiveCoreLifecycle.md>Markdown</a></div><meta data-pagefind-meta="title:EffectiveCoreLifecycle — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EffectiveCoreLifecycle</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EffectiveCoreLifecycle is persisted at admission and cannot silently degrade.</div><details class=api-field open><summary><code>autoResume</code></summary><p class=api-type>Type:
+<code>boolean | null</code></p><div class="prose dark:prose-invert">auto_resume is the configured authenticated auto-resume setting; absent means unknown.
+Snapshot readback preserves the capture-time value, not current support or a resume guarantee.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "auto_resume is the configured authenticated auto-resume setting; absent means unknown.\nSnapshot readback preserves the capture-time value, not current support or a resume guarantee.",
+  "type": [
+    "boolean",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>canCaptureMemory</code></summary><p class=api-type>Type:
+<code>boolean</code></p><div class="prose dark:prose-invert">can_capture_memory is this sandbox's ALL snapshot support, independently set.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "can_capture_memory is this sandbox's ALL snapshot support, independently set.",
+  "type": "boolean"
+}</code></pre></details></details><details class=api-field open><summary><code>stopMemoryOutcome</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/StopMemoryOutcome/><code>StopMemoryOutcome</code></a></p><div class="prose dark:prose-invert">stop_memory_outcome is the selected stop/start guarantee for this sandbox.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/StopMemoryOutcome",
+  "description": "stop_memory_outcome is the selected stop/start guarantee for this sandbox.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "EffectiveCoreLifecycle is persisted at admission and cannot silently degrade.",
+  "properties": {
+    "autoResume": {
+      "description": "auto_resume is the configured authenticated auto-resume setting; absent means unknown.\nSnapshot readback preserves the capture-time value, not current support or a resume guarantee.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "canCaptureMemory": {
+      "description": "can_capture_memory is this sandbox's ALL snapshot support, independently set.",
+      "type": "boolean"
+    },
+    "stopMemoryOutcome": {
+      "$ref": "#/components/schemas/StopMemoryOutcome",
+      "description": "stop_memory_outcome is the selected stop/start guarantee for this sandbox.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    }
+  },
+  "required": [
+    "stopMemoryOutcome"
+  ],
+  "title": "EffectiveCoreLifecycle",
+  "type": "object"
+}</code></pre></details></article>

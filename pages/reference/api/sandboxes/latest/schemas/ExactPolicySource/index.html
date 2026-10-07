@@ -1,0 +1,45 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/ExactPolicySource.md>Markdown</a></div><meta data-pagefind-meta="title:ExactPolicySource — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>ExactPolicySource</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ExactPolicySource identifies the nonsecret authority of a leaf expression.</div><details class=api-field open><summary><code>id</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">id identifies that source without exposing credentials or policy content.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "id identifies that source without exposing credentials or policy content.",
+  "minLength": 1,
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>origin</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ExactPolicyOrigin/><code>ExactPolicyOrigin</code></a></p><div class="prose dark:prose-invert">origin distinguishes the authority that supplied this leaf.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ExactPolicyOrigin",
+  "description": "origin distinguishes the authority that supplied this leaf.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "ExactPolicySource identifies the nonsecret authority of a leaf expression.",
+  "properties": {
+    "id": {
+      "description": "id identifies that source without exposing credentials or policy content.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "origin": {
+      "$ref": "#/components/schemas/ExactPolicyOrigin",
+      "description": "origin distinguishes the authority that supplied this leaf.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    }
+  },
+  "required": [
+    "origin",
+    "id"
+  ],
+  "title": "ExactPolicySource",
+  "type": "object"
+}</code></pre></details></article>

@@ -1,0 +1,57 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/UnknownErrorDetail.md>Markdown</a></div><meta data-pagefind-meta="title:UnknownErrorDetail — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>UnknownErrorDetail</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">A structured error detail identified by @type. Its decoded JSON fields appear beside the type URL.</div><details class=api-field open><summary><code>@type</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "not": {
+    "enum": [
+      "type.googleapis.com/google.rpc.BadRequest",
+      "type.googleapis.com/google.rpc.DebugInfo",
+      "type.googleapis.com/google.rpc.ErrorInfo",
+      "type.googleapis.com/google.rpc.Help",
+      "type.googleapis.com/google.rpc.LocalizedMessage",
+      "type.googleapis.com/google.rpc.PreconditionFailure",
+      "type.googleapis.com/google.rpc.QuotaFailure",
+      "type.googleapis.com/google.rpc.RequestInfo",
+      "type.googleapis.com/google.rpc.ResourceInfo",
+      "type.googleapis.com/google.rpc.RetryInfo",
+      "type.googleapis.com/buf.validate.Violations",
+      "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+      "type.googleapis.com/docker.sandboxes.v1.KitFieldOutcomeReport",
+      "type.googleapis.com/docker.sandboxes.v1.McpConfigurationReport"
+    ]
+  },
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": true,
+  "description": "A structured error detail identified by @type. Its decoded JSON fields appear beside the type URL.",
+  "properties": {
+    "@type": {
+      "not": {
+        "enum": [
+          "type.googleapis.com/google.rpc.BadRequest",
+          "type.googleapis.com/google.rpc.DebugInfo",
+          "type.googleapis.com/google.rpc.ErrorInfo",
+          "type.googleapis.com/google.rpc.Help",
+          "type.googleapis.com/google.rpc.LocalizedMessage",
+          "type.googleapis.com/google.rpc.PreconditionFailure",
+          "type.googleapis.com/google.rpc.QuotaFailure",
+          "type.googleapis.com/google.rpc.RequestInfo",
+          "type.googleapis.com/google.rpc.ResourceInfo",
+          "type.googleapis.com/google.rpc.RetryInfo",
+          "type.googleapis.com/buf.validate.Violations",
+          "type.googleapis.com/docker.sandboxes.v1.EtagMismatch",
+          "type.googleapis.com/docker.sandboxes.v1.KitFieldOutcomeReport",
+          "type.googleapis.com/docker.sandboxes.v1.McpConfigurationReport"
+        ]
+      },
+      "type": "string"
+    }
+  },
+  "required": [
+    "@type"
+  ],
+  "type": "object"
+}</code></pre></details></article>

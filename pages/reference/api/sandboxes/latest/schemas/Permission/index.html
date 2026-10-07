@@ -1,0 +1,39 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/Permission.md>Markdown</a></div><meta data-pagefind-meta="title:Permission — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>Permission</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">The actions a credential is allowed to perform. Each operation declares its required permissions; service support does not grant permission.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "The actions a credential is allowed to perform. Each operation declares its required permissions; service support does not grant permission.",
+  "enum": [
+    "unspecified",
+    "sandboxesRead",
+    "sandboxesCreate",
+    "sandboxesExec",
+    "sandboxesFilesRead",
+    "sandboxesFilesWrite",
+    "imagesPull",
+    "secretsWrite",
+    "sandboxesDelete",
+    "sandboxesLifecycle",
+    "sandboxesKits",
+    "sandboxesPorts",
+    "sandboxesCredential",
+    "sandboxesSsh",
+    "imagesRead",
+    "imagesWrite",
+    "secretsRead",
+    "networkPoliciesRead",
+    "volumesRead",
+    "volumesWrite",
+    "snapshotsRead",
+    "snapshotsWrite",
+    "mcpRead",
+    "mcpWrite",
+    "credentialsExchange",
+    "sandboxesRename",
+    "secretsResolve",
+    "operator"
+  ],
+  "title": "Permission",
+  "type": "string"
+}</code></pre></details></article>

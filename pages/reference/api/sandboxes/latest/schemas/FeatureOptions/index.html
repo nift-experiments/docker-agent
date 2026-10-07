@@ -1,0 +1,36 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FeatureOptions.md>Markdown</a></div><meta data-pagefind-meta="title:FeatureOptions — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FeatureOptions</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">FeatureOptions carries typed admission intent; unknown fields are refused.</div><details class=api-field open><summary><code>managedVolumes</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ManagedVolumeOptions/><code>ManagedVolumeOptions</code></a></p><div class="prose dark:prose-invert">managed_volumes selects persistent resources and guest targets.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/ManagedVolumeOptions",
+  "description": "managed_volumes selects persistent resources and guest targets."
+}</code></pre></details></details><details class=api-field open><summary><code>storedSecrets</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/StoredSecretOptions/><code>StoredSecretOptions</code></a></p><div class="prose dark:prose-invert">stored_secrets selects authorized stored references, never raw material.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/StoredSecretOptions",
+  "description": "stored_secrets selects authorized stored references, never raw material."
+}</code></pre></details></details><details class=api-field open><summary><code>timeouts</code></summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/TimeoutOptions/><code>TimeoutOptions</code></a></p><div class="prose dark:prose-invert">timeouts enables an explicit deadline; omission enables none.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/TimeoutOptions",
+  "description": "timeouts enables an explicit deadline; omission enables none."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "FeatureOptions carries typed admission intent; unknown fields are refused.",
+  "properties": {
+    "managedVolumes": {
+      "$ref": "#/components/schemas/ManagedVolumeOptions",
+      "description": "managed_volumes selects persistent resources and guest targets."
+    },
+    "storedSecrets": {
+      "$ref": "#/components/schemas/StoredSecretOptions",
+      "description": "stored_secrets selects authorized stored references, never raw material."
+    },
+    "timeouts": {
+      "$ref": "#/components/schemas/TimeoutOptions",
+      "description": "timeouts enables an explicit deadline; omission enables none."
+    }
+  },
+  "title": "FeatureOptions",
+  "type": "object"
+}</code></pre></details></article>

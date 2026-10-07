@@ -1,0 +1,158 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/operations/interact.md>Markdown</a></div><meta data-pagefind-meta="title:Interact binds the complete process name from the path to the first Attach frame. — Docker Sandboxes API v1"><h1>Interact binds the complete process name from the path to the first Attach frame.</h1><div class=api-signature><span class=api-method data-method=GET>GET</span><code><wbr>/v1<wbr>/processes<wbr>/{process}<wbr>/interact</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Interact binds the complete process name from the path to the first Attach frame.
+A conflicting name is INVALID_ARGUMENT before any attach.</div><h2>Connection and access</h2><p><a href=/reference/api/sandboxes/latest/#authentication>API connection and authentication guidance</a></p><p><code>{endpoint}</code></p><p><code>endpoint</code>: The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control.</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>sandboxBearer</code></li><li><code>sandboxWebSocketBearer</code></li></ul><section><h2>WebSocket session</h2><p>Subprotocol: <code>sandboxes.v1</code></p><p>Use exactly one sandbox-scoped Authorization bearer credential or, when endpoint credentialTransports advertises webSocketSubprotocol, offer sandboxes.bearer.v1. followed by canonical unpadded base64url of that credential alongside sandboxes.v1. The decoded token is limited to 4096 bytes. The server echoes only sandboxes.v1; mixed or duplicate credentials, query credentials and cookie-only authentication are refused.</p><p>Open a WSS endpoint using its scoped credential. Browsers may send cookies; the server ignores them as authority and permits cross-origin explicit bearer authentication. Browser WebSocket errors do not expose pre-upgrade HTTP status or bodies; only post-upgrade Error frames are typed. No reconnect or input replay is automatic.</p><p>Acquire a fresh scoped credential, open a new connection, and send attach with attach.resumeFrom set to the last received chunk.streamSequence. Resume replays output only; never replay stdin or process creation.</p><p>The last text frame before a close carries the one error body, because a close reason holds at most 123 bytes.</p><h3>Client frames</h3><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/InteractRequest/><code>InteractRequest</code></a></p><h3>Server frames</h3><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/ProcessOutput/><code>ProcessOutput</code></a></p><h3>Error frames</h3><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><details><summary>Handshake, resume fields, and close codes</summary><pre><code>{
+  "authentication": "Use exactly one sandbox-scoped Authorization bearer credential or, when endpoint credentialTransports advertises webSocketSubprotocol, offer sandboxes.bearer.v1. followed by canonical unpadded base64url of that credential alongside sandboxes.v1. The decoded token is limited to 4096 bytes. The server echoes only sandboxes.v1; mixed or duplicate credentials, query credentials and cookie-only authentication are refused.",
+  "bearerSubprotocolPrefix": "sandboxes.bearer.v1.",
+  "browser": "Open a WSS endpoint using its scoped credential. Browsers may send cookies; the server ignores them as authority and permits cross-origin explicit bearer authentication. Browser WebSocket errors do not expose pre-upgrade HTTP status or bodies; only post-upgrade Error frames are typed. No reconnect or input replay is automatic.",
+  "closeCode": {
+    "1000": "The service ended the stream, or the caller cancelled it.",
+    "1002": "The handshake negotiated no subprotocol.",
+    "1003": "A frame arrived as binary; every frame is text.",
+    "1007": "A frame was not the public JSON request message.",
+    "1008": "The service refused with a 4xx error, or the endpoint credential expired.",
+    "1009": "A frame exceeded the route’s frame limit.",
+    "1011": "The service failed with a code the front door maps to a 5xx."
+  },
+  "errorFrame": {
+    "$ref": "#/components/schemas/Error"
+  },
+  "firstRequestField": "attach",
+  "maxBearerTokenBytes": 4096,
+  "preUpgradeStatus": {
+    "400": "The request has an invalid subprotocol offer, mixed or malformed credentials, an oversized credential, or a query parameter.",
+    "401": "The scoped credential is missing, invalid or expired.",
+    "403": "The scoped credential does not grant this endpoint permission.",
+    "404": "The scoped credential does not address this sandbox endpoint."
+  },
+  "reconnect": "Acquire a fresh scoped credential, open a new connection, and send attach with attach.resumeFrom set to the last received chunk.streamSequence. Resume replays output only; never replay stdin or process creation.",
+  "requestFrame": {
+    "$ref": "#/components/schemas/InteractRequest"
+  },
+  "responseFrame": {
+    "$ref": "#/components/schemas/ProcessOutput"
+  },
+  "resumeRequestField": "attach.resumeFrom",
+  "resumeResponseField": "chunk.streamSequence",
+  "subprotocol": "sandboxes.v1",
+  "terminalFrame": "The last text frame before a close carries the one error body, because a close reason holds at most 123 bytes."
+}</code></pre></details></section><h2>Parameters</h2><section class=api-field data-api-parameter=process><h3><code>process</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">The process id.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v1~1processes~1{process}~1interact/get/responses/101 data-api-media><h3><span>Response</span>
+<code class=api-status>101</code></h3><div class="prose dark:prose-invert">The connection becomes a sandboxes.v1 session: one InteractRequest per inbound text frame and one ProcessOutput per outbound one. Path parameters identify the target; the first attach frame must agree. Refusals after upgrade carry an error frame followed by a close code.</div><p>No response content is declared.</p></section><section class=api-variant data-api-variant=/paths/~1v1~1processes~1{process}~1interact/get/responses/default/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>default</code></h3><div class="prose dark:prose-invert">The structured Error body identifies the failure with a stable code and optional typed details.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;code&#34;: &#34;notFound&#34;,
+  &#34;details&#34;: [],
+  &#34;message&#34;: &#34;sandbox not found&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/sandboxes/latest/schemas/Error/>#/components/schemas/Error</a></p><p><a href=/reference/api/sandboxes/latest/schemas/InteractRequest/>#/components/schemas/InteractRequest</a></p><p><a href=/reference/api/sandboxes/latest/schemas/ProcessOutput/>#/components/schemas/ProcessOutput</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Interact binds the complete process name from the path to the first Attach frame.\nA conflicting name is INVALID_ARGUMENT before any attach.",
+  "operationId": "interact",
+  "parameters": [
+    {
+      "description": "The process id.",
+      "in": "path",
+      "name": "process",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "responses": {
+    "101": {
+      "description": "The connection becomes a sandboxes.v1 session: one InteractRequest per inbound text frame and one ProcessOutput per outbound one. Path parameters identify the target; the first attach frame must agree. Refusals after upgrade carry an error frame followed by a close code."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "description": "The structured Error body identifies the failure with a stable code and optional typed details."
+    }
+  },
+  "security": [
+    {
+      "sandboxBearer": []
+    },
+    {
+      "sandboxWebSocketBearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "variables": {
+        "endpoint": {
+          "default": "https://sandbox.invalid",
+          "description": "The sandbox API base URL from Sandbox.core.endpoint.uri; preserve its path prefix when appending /v1 routes. HTTP endpoints require a scoped endpoint bearer; direct Unix sockets use socket access control."
+        }
+      }
+    }
+  ],
+  "summary": "Interact binds the complete process name from the path to the first Attach frame.",
+  "tags": [
+    "Processes"
+  ],
+  "x-sbx-authenticated-only": false,
+  "x-sbx-conditional-permissions": [],
+  "x-sbx-plane": "data",
+  "x-sbx-request-schema": {
+    "$ref": "#/components/schemas/InteractRequest"
+  },
+  "x-sbx-required-permissions": [
+    "sandboxesExec"
+  ],
+  "x-sbx-response-schema": {
+    "$ref": "#/components/schemas/ProcessOutput"
+  },
+  "x-sbx-serving-surface": "sandboxEndpoint",
+  "x-websocket": {
+    "authentication": "Use exactly one sandbox-scoped Authorization bearer credential or, when endpoint credentialTransports advertises webSocketSubprotocol, offer sandboxes.bearer.v1. followed by canonical unpadded base64url of that credential alongside sandboxes.v1. The decoded token is limited to 4096 bytes. The server echoes only sandboxes.v1; mixed or duplicate credentials, query credentials and cookie-only authentication are refused.",
+    "bearerSubprotocolPrefix": "sandboxes.bearer.v1.",
+    "browser": "Open a WSS endpoint using its scoped credential. Browsers may send cookies; the server ignores them as authority and permits cross-origin explicit bearer authentication. Browser WebSocket errors do not expose pre-upgrade HTTP status or bodies; only post-upgrade Error frames are typed. No reconnect or input replay is automatic.",
+    "closeCode": {
+      "1000": "The service ended the stream, or the caller cancelled it.",
+      "1002": "The handshake negotiated no subprotocol.",
+      "1003": "A frame arrived as binary; every frame is text.",
+      "1007": "A frame was not the public JSON request message.",
+      "1008": "The service refused with a 4xx error, or the endpoint credential expired.",
+      "1009": "A frame exceeded the route’s frame limit.",
+      "1011": "The service failed with a code the front door maps to a 5xx."
+    },
+    "errorFrame": {
+      "$ref": "#/components/schemas/Error"
+    },
+    "firstRequestField": "attach",
+    "maxBearerTokenBytes": 4096,
+    "preUpgradeStatus": {
+      "400": "The request has an invalid subprotocol offer, mixed or malformed credentials, an oversized credential, or a query parameter.",
+      "401": "The scoped credential is missing, invalid or expired.",
+      "403": "The scoped credential does not grant this endpoint permission.",
+      "404": "The scoped credential does not address this sandbox endpoint."
+    },
+    "reconnect": "Acquire a fresh scoped credential, open a new connection, and send attach with attach.resumeFrom set to the last received chunk.streamSequence. Resume replays output only; never replay stdin or process creation.",
+    "requestFrame": {
+      "$ref": "#/components/schemas/InteractRequest"
+    },
+    "responseFrame": {
+      "$ref": "#/components/schemas/ProcessOutput"
+    },
+    "resumeRequestField": "attach.resumeFrom",
+    "resumeResponseField": "chunk.streamSequence",
+    "subprotocol": "sandboxes.v1",
+    "terminalFrame": "The last text frame before a close carries the one error body, because a close reason holds at most 123 bytes."
+  }
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>WebSocket client</h2></div><p>Use a WebSocket client with the subprotocol, credential transport, and frame schemas documented for this operation.</p></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcInNhbmRib3hCZWFyZXJcIjogW11cbiAgfSxcbiAge1xuICAgIFwic2FuZGJveFdlYlNvY2tldEJlYXJlclwiOiBbXVxuICB9XG5dIiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlRoZSBwcm9jZXNzIGlkLlwiLFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJwcm9jZXNzXCIsXG4gIFwicG9pbnRlclwiOiBcIi9wYXRocy9+MXYxfjFwcm9jZXNzZXN+MXtwcm9jZXNzfX4xaW50ZXJhY3QvZ2V0L3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSJd"></template>

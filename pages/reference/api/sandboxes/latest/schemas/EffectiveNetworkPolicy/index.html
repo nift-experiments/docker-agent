@@ -1,0 +1,63 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/EffectiveNetworkPolicy.md>Markdown</a></div><meta data-pagefind-meta="title:EffectiveNetworkPolicy — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>EffectiveNetworkPolicy</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">EffectiveNetworkPolicy is the policy after layering and fail-closed defaults.</div><details class=api-field open><summary><code>allowNetworks</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">allow_networks are effective allowed rules with attribution.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/AttributedRule/><code>AttributedRule</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "allow_networks are effective allowed rules with attribution.",
+  "items": {
+    "$ref": "#/components/schemas/AttributedRule"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>denyNetworks</code></summary><p class=api-type>Type:
+<code>array</code></p><div class="prose dark:prose-invert">deny_networks are effective denied rules with attribution.</div><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/AttributedRule/><code>AttributedRule</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "deny_networks are effective denied rules with attribution.",
+  "items": {
+    "$ref": "#/components/schemas/AttributedRule"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>mode</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/NetworkPolicyMode/><code>NetworkPolicyMode</code></a></p><div class="prose dark:prose-invert">mode is the effective mode and is always concrete in conforming responses.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/NetworkPolicyMode",
+  "description": "mode is the effective mode and is always concrete in conforming responses.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "EffectiveNetworkPolicy is the policy after layering and fail-closed defaults.",
+  "properties": {
+    "allowNetworks": {
+      "description": "allow_networks are effective allowed rules with attribution.",
+      "items": {
+        "$ref": "#/components/schemas/AttributedRule"
+      },
+      "type": "array"
+    },
+    "denyNetworks": {
+      "description": "deny_networks are effective denied rules with attribution.",
+      "items": {
+        "$ref": "#/components/schemas/AttributedRule"
+      },
+      "type": "array"
+    },
+    "mode": {
+      "$ref": "#/components/schemas/NetworkPolicyMode",
+      "description": "mode is the effective mode and is always concrete in conforming responses.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "title": "EffectiveNetworkPolicy",
+  "type": "object"
+}</code></pre></details></article>

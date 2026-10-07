@@ -1,0 +1,152 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Manage sandboxes declaratively from an sbxenv.yaml file</td></tr><tr><th class="text-left w-32">Usage</th><td><code>sbx env COMMAND</code></td></tr></tbody></table></div><div class="px-4 border-l-2 border-l-magenta-light dark:border-l-magenta-dark"><p class="not-prose flex gap-2 items-center text-magenta-light dark:text-magenta-dark"><span class="icon-svg pb-1"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M10.5 3.798v5.02a3 3 0 01-.879 2.121l-2.377 2.377a9.845 9.845.0 015.091 1.013 8.315 8.315.0 005.713.636l.285-.071-3.954-3.955A3 3 0 0113.5 8.818v-5.02a23.614 23.614.0 00-3 0zm4.5.138a.75.75.0 00.093-1.495A24.837 24.837.0 0012 2.25a25.048 25.048.0 00-3.093.191A.75.75.0 009 3.936v4.882a1.5 1.5.0 01-.44 1.06l-6.293 6.294c-1.62 1.621-.903 4.475 1.471 4.88 2.686.46 5.447.698 8.262.698 2.816.0 5.576-.239 8.262-.697 2.373-.406 3.092-3.26 1.47-4.881L15.44 9.879A1.5 1.5.0 0115 8.818V3.936z" clip-rule="evenodd"/></svg>
+</span><strong>Experimental</strong></p><p><strong>This command is experimental.</strong></p><p>Experimental features are intended for testing and feedback as their
+functionality or design may change between releases without warning or
+can be removed entirely in a future release.</p></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Manage a sandbox environment declared in an sbxenv.yaml file.</p><p>The file describes the agent, optional mixin kits, workspace mounts,
+environment variables, secrets to provision, and per-service credential
+bindings. Secrets are provisioned at the environment's sandbox scope so
+<code>sbx env rm</code> can remove everything it created.</p><p>A secret with <code>command</code> or <code>ref</code> can set <code>snapshot: true</code> to resolve on
+the host after approval and store the result as a literal. This works locally
+and with --cloud. Snapshots do not refresh; recreate the environment to rotate
+them. A snapshot cannot set refresh or noVerify.</p><p>Command secrets run from a fresh temporary directory on the host during
+verification and refresh. The host temporary directory must be absolute and must
+remain outside writable sandbox mounts. Relative references such as ./helper or
+cat token no longer resolve against the project or daemon working directory. Use an absolute
+helper path outside shared workspaces. sbx does not copy helpers, inspect their
+dependencies, or confine their execution. Helpers and any code or configuration
+they load must remain outside writable sandbox mounts. Explicit paths into shared
+workspaces and broad mounts exposing host configuration or the host temporary
+directory remain unsafe, including mounts added later with sbx mount.</p><p>secrets:
+github:
+command: gh auth token
+snapshot: true</p><p>A file may declare its own inputs in an <code>args:</code> block, each with a default or
+<code>required: true</code> and an optional description, enum, or pattern. Reference one
+as <code>${{ env.args.NAME }}</code> anywhere a value appears and supply it with
+<code>--env-arg NAME=VALUE</code>.</p><p>A <code>kits:</code> entry is either a bare reference or a mapping carrying the
+arguments that kit declares, which <code>--kit-arg</code> overrides per invocation:</p><p>kits:
+- ./mixins/base
+- source: ./mixins/tool
+args:
+version: ${{ env.args.channel }}</p><p>A kit source written as an explicit relative path — <code>./…</code>, <code>../…</code>, <code>.</code>, <code>..</code>, or one
+ending in <code>.zip</code> — is resolved against the directory of the file that declares
+it, so a checked-in file reaches the same kits from wherever <code>sbx</code> is run. Write a
+local kit that way: a bare <code>kits/tool</code> is as much a registry reference as a
+directory, so it is left as written and resolves from the current directory.</p><p>A <code>workspace:</code> names the directory mounted read/write into the sandbox. A
+relative path resolves against the directory of the file that declares it — as
+a relative kit source does — so <code>workspace: .</code> mounts the directory the file
+sits in. ${{ env.projectDir }} names the project directory (the one holding the
+first PATH, or the current directory when none is named) and ${{ env.fileDir }}
+the declaring file's own, for a value that spells its anchor out. Declaring
+none mounts nothing — as omitting PATH does for <code>sbx create</code> — and the agent
+works in the container's own filesystem instead of on your files. Unless the file sets <code>name:</code> or --name overrides it,
+the sandbox is named after the mounted directory, or after the project directory
+when nothing is mounted, so an environment that mounts nothing is still the same
+sandbox every time.</p><p>A <code>lifecycle:</code> block declares commands that run on the host — outside
+the sandbox, with your own privileges — around the sandbox's life:</p><p>lifecycle:
+initialize:
+- command: test -d app || git clone <a class=link href=https://github.com/acme/app rel=noopener>https://github.com/acme/app</a>
+postCreate:
+- command: ./scripts/seed-fixtures.sh
+preRemove:
+- command: ./scripts/archive-state.sh</p><p>Each runs through your shell from the project directory — the one holding the
+first PATH, or the current directory when none is named; ${{ env.projectDir }}
+names the same place, and commands merged in from a file elsewhere share it.
+Change it per command with <code>workdir:</code>, and cap a command's runtime with
+<code>timeout:</code>.</p><p>"initialize" runs on every "create" and every "run", including one that only
+attaches, so it can produce the workspace the sandbox mounts; write it to be
+repeatable. "postCreate" runs once the sandbox exists, and "preRemove" after
+"sbx env rm" is confirmed but before it deletes anything. Whatever stops
+preRemove is only a warning, so a teardown that cannot run still cannot make an
+environment unremovable; what one adds to the environment instead — a stored
+credential, an approved domain — stops the removal, since what follows would
+delete it without a plan row ever naming it. "sbx env exec" runs no commands at
+all.</p><p>Commands appear in the environment plan with the directory each runs in, and are
+approved with it before the invocation does any work. An environment that declares
+any of them asks on every invocation, whether or not this one is what runs them,
+since approving a command also trusts whatever it invokes, including a script
+whose contents change after the answer. Use --skip-host-commands to run none of
+them.</p><p>Everything an environment sets up — host commands, credentials, bindings, MCP
+registrations, directories, published ports, the sandbox itself and the
+variables it runs with — is shown as a plan and approved before anything runs:</p><p>── ENVIRONMENT PLAN
+claude-proj</p><pre><code> secrets:
+</code></pre><ul><li><p>anthropic:</p></li><li><pre><code> ref: op://vault/anthropic/key
+</code></pre></li><li><pre><code> refresh: 55m
+</code></pre><p>lifecycle:
+initialize:
+~ - command: make setup -> make setup && make seed
+workdir: /Users/me/proj</p><p>Plan: + 1 to add, ~ 1 to change, - 0 to destroy.</p><p>Approve this plan? [y/N]</p></li></ul><p>The plan is your file: the same keys, nested the same way, in the order the
+blocks are declared in, so a line is looked up where it was written. What the
+plan adds is the margin, and the two values a line moves between. The totals
+name every symbol the margin can carry: "+ to add" and "~ to change" above,
+"- to destroy" for what "sbx env rm" takes away, "> to run" for a command that
+runs again — a command converges to nothing, so it runs on every apply that
+reaches it — and "! to forget" for a resource this environment applied and no
+longer declares. Where the file has nothing to
+say, a note in the margin does: that a resource is missing, or that the work
+waits for the next create, since a port, a credential, a kit or a postCreate
+command comes with the sandbox, so attaching to one that already exists leaves it
+for the next one that is built. A resource that is as it was, and already
+approved, is left out: what is on screen is what there is to read.</p><p>An attribute shows what the environment declares, so an edited kit argument or
+variable reads as what it was against what it becomes, and a "command:" or "ref:"
+secret shows where the credential comes from — a command that resolves one runs on
+this machine. A secret's literal "value:" is the one exception: a plan is both shown
+here and written to state, so it is named and stands in as a "sha256:" digest.</p><pre><code> kits:
+</code></pre><p>~ - source: ./mixins/tool
+~ args:
+~ version: 1.2.3 -> 1.2.4
+env:
+~ GOFLAGS: -mod=mod -> -mod=readonly</p><p>What an attribute was is what this environment last applied here, or — for one it
+approved and never applied, such as a binding or a port answered for while
+attaching to a sandbox that already exists — what was approved. Either way an
+edit shows the value the question is about, whatever the row itself does.</p><p>An environment file that a mount would hand over read-write — which is what
+mounting the project directory holding it does — is bound read-only at its own
+path inside that mount, leaving the rest of it writable. The file decides what a
+later invocation runs on this machine, so an agent able to edit it decides what
+the next plan asks about. Declare "sandboxOptions.writableEnvFiles: true" where an
+agent is meant to edit it; the plan then says the file is writable, as it says
+when a file sits below a mount's own directory, where renaming that directory
+reaches it again.</p><p>What was approved is recorded per environment under sbx's state directory, not
+next to the file, so a later invocation asks only about what moved — and applies
+silently when nothing did. An environment that declares commands running on this
+machine is asked about on every invocation, changed or not: the answer is about
+the invocation, and what a command does depends on what the project holds when it
+runs rather than on the text approved before. "sbx env plan" prints the plan and
+changes nothing.</p><p>Use --auto-approve (-y) where there is no terminal to answer on. Where an
+environment's commands are your own and run many times a day,
+"sbx settings set env.rememberHostCommands true" asks about them only when
+they change.</p><p>With --cloud, create, run, exec, rm and plan manage a cloud sandbox from the same
+file. Supported declarations are agents and kits, sandbox environment variables,
+CPU and memory sizing, literal or snapshot secrets and bindings for supported providers, and
+host lifecycle commands. Kits can publish TCP ports through cloud endpoints.
+Stored cloud secrets are inherited as with cloud create/run; sandbox-scoped secrets
+override account defaults, and secrets declared in the file override both. The plan
+shows inherited credentials. Removal deletes only secrets provisioned by this environment.</p><p>Bindings merge into the same global credentials.yaml as local environments and
+are retained on removal unless --prune-bindings is passed. Cloud must advertise
+kit credential support. Third-party kit domains must be approved by the binding;
+creation refuses implicit provider-default routing for a bound secret. Bindings
+and secrets are provisioned at creation; editing them requires recreating the sandbox.</p><p>Snapshot references use the host's supported CLI resolvers (such as op:// and AWS
+Secrets Manager ARNs); the sdk backend is unsupported. An interrupted secret
+upload reuses the saved value in the host credential store. If that value is
+unavailable, resolution is not repeated: follow the recovery error before cleanup.</p><p>workspace, additionalWorkspaces and clone name host directories, which a cloud
+sandbox cannot mount; remove them and clone the project inside the sandbox from a
+kit instead. Host port bindings, registry credentials, MCP definitions, custom
+credential providers, local sandbox options and dynamic secret sources are also
+rejected before host commands or provisioning. Initialize commands may prepare
+local kit sources; kit validation follows initialization and precedes cloud baking.</p><p>State belongs to this machine, the selected cloud endpoint, Docker identity and
+ordered environment files. Use the same target and files for subsequent commands.
+DOCKER_ACCESS_TOKEN uses a token-specific state scope: changing the token starts
+with separate state. Use sbx login for state that survives token refresh.</p><p>If creation is interrupted, retry the same command and declaration within 23 hours.
+Removal waits for unresolved writes to be recovered. Older unresolved attempts
+retain their journal; the error names its path. Before deleting that journal,
+confirm the original requests have finished and remove their sandbox and secrets
+using ordinary cloud commands in the same account and endpoint. If the outcome
+cannot be confirmed, retain the journal and contact support.</p><p>Lifecycle commands inherit the cloud endpoint and expose SBX_SANDBOX_ID after
+creation. Sandbox env values apply to new sessions; rejoining a live agent keeps
+that process's existing environment.</p><p>sbx --cloud env plan ./sbxenv.yaml
+sbx --cloud env run --auto-approve --detached ./sbxenv.yaml
+sbx --cloud env exec ./sbxenv.yaml -- git status
+sbx --cloud env rm --force ./sbxenv.yaml</p><h2 class="scroll-mt-20 flex items-center gap-2" id=commands><a class="text-black dark:text-white no-underline hover:underline" href=#commands>Commands</a></h2><table><thead><tr><th class=text-left>Command</th><th class=text-left>Description</th></tr></thead><tbody><tr><td class=text-left><a class=link href=https://docs.docker.com/reference/cli/sbx/env/create/><code>sbx env create</code></a></td><td class=text-left><span class="inline-flex items-center gap-2"><span class="not-prose bg-violet-500 dark:bg-violet-400 rounded-sm px-1 text-xs text-white">experimental
+</span>Create a sandbox environment from sbxenv.yaml</span></td></tr><tr><td class=text-left><a class=link href=https://docs.docker.com/reference/cli/sbx/env/exec/><code>sbx env exec</code></a></td><td class=text-left><span class="inline-flex items-center gap-2"><span class="not-prose bg-violet-500 dark:bg-violet-400 rounded-sm px-1 text-xs text-white">experimental
+</span>Execute a command inside a sandbox environment</span></td></tr><tr><td class=text-left><a class=link href=https://docs.docker.com/reference/cli/sbx/env/plan/><code>sbx env plan</code></a></td><td class=text-left><span class="inline-flex items-center gap-2"><span class="not-prose bg-violet-500 dark:bg-violet-400 rounded-sm px-1 text-xs text-white">experimental
+</span>Show what an environment would change outside the sandbox</span></td></tr><tr><td class=text-left><a class=link href=https://docs.docker.com/reference/cli/sbx/env/rm/><code>sbx env rm</code></a></td><td class=text-left><span class="inline-flex items-center gap-2"><span class="not-prose bg-violet-500 dark:bg-violet-400 rounded-sm px-1 text-xs text-white">experimental
+</span>Remove a sandbox environment and its scoped resources</span></td></tr><tr><td class=text-left><a class=link href=https://docs.docker.com/reference/cli/sbx/env/run/><code>sbx env run</code></a></td><td class=text-left><span class="inline-flex items-center gap-2"><span class="not-prose bg-violet-500 dark:bg-violet-400 rounded-sm px-1 text-xs text-white">experimental
+</span>Create (if needed) and attach to a sandbox environment</span></td></tr></tbody></table><h2 class="scroll-mt-20 flex items-center gap-2" id=global-options><a class="text-black dark:text-white no-underline hover:underline" href=#global-options>Global options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr><td><code>--cloud</code></td><td></td><td><span class="inline-flex items-center gap-2">Dispatch to Docker Cloud Sandboxes API instead of local sandboxd (supported by a growing set of verbs — run 'sbx --cloud --help' for the current list)</span></td></tr><tr><td><code>-D, --debug</code></td><td></td><td><span class="inline-flex items-center gap-2">Enable debug logging</span></td></tr></tbody></table></div>

@@ -1,0 +1,94 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/operations/patchV2AccessTokensByUuid.md>Markdown</a></div><meta data-pagefind-meta="title:Update personal access token — Docker Hub API 2-beta"><h1>Update personal access token</h1><div class=api-signature><span class=api-method data-method=PATCH>PATCH</span><code><wbr>/v2<wbr>/access-tokens<wbr>/{uuid}</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert">Updates a personal access token partially. You can either update the token's label or enable/disable it.</div><h2>Connection and access</h2><p><a href=/reference/api/hub/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com</code>
+—
+Docker HUB API</p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=uuid><h3><code>uuid</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">UUID of the personal access token.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/patch/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert"></div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/patchAccessTokenRequest/><code>patchAccessTokenRequest</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;is_active&#34;: false,
+  &#34;token_label&#34;: &#34;My read only token&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/patch/responses/200/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>200</code></h3><div class="prose dark:prose-invert">OK</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/patchAccessTokenResponse/><code>patchAccessTokenResponse</code></a></p><div data-api-examples><div data-api-example=0><h4>Schema example</h4><pre><code>{
+  &#34;client_id&#34;: &#34;HUB&#34;,
+  &#34;created_at&#34;: &#34;2021-07-20T12:00:00.000000Z&#34;,
+  &#34;creator_ip&#34;: &#34;127.0.0.1&#34;,
+  &#34;creator_ua&#34;: &#34;some user agent&#34;,
+  &#34;expires_at&#34;: &#34;2021-10-28T18:30:19.520861Z&#34;,
+  &#34;generated_by&#34;: &#34;manual&#34;,
+  &#34;is_active&#34;: true,
+  &#34;last_used&#34;: null,
+  &#34;scopes&#34;: [
+    &#34;repo:read&#34;
+  ],
+  &#34;token&#34;: &#34;***&#34;,
+  &#34;token_label&#34;: &#34;My read only token&#34;,
+  &#34;uuid&#34;: &#34;b30bbf97-506c-4ecd-aabc-842f3cb484fb&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/patch/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad Request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;bad request&#34;
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1v2~1access-tokens~1{uuid}/patch/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Unauthorized</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/error/><code>error</code></a></p><div data-api-examples><div data-api-example=0><h4>error</h4><pre><code>{
+  &#34;errinfo&#34;: null,
+  &#34;message&#34;: &#34;unauthorized&#34;
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/hub/latest/schemas/patchAccessTokenRequest/>#/components/schemas/patchAccessTokenRequest</a></p><p><a href=/reference/api/hub/latest/schemas/patchAccessTokenResponse/>#/components/schemas/patchAccessTokenResponse</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Updates a personal access token partially. You can either update the token's label or enable/disable it.\n",
+  "operationId": "patchV2AccessTokensByUuid",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/patchAccessTokenRequest"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/patchAccessTokenResponse"
+          }
+        }
+      },
+      "description": "OK"
+    },
+    "400": {
+      "$ref": "#/components/responses/BadRequest"
+    },
+    "401": {
+      "$ref": "#/components/responses/Unauthorized"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "summary": "Update personal access token",
+  "tags": [
+    "access-tokens"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request PATCH \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;is_active&#34;: false,
+  &#34;token_label&#34;: &#34;My read only token&#34;
+}&#39; \
+  &#39;https://hub.docker.com/v2/access-tokens/&lt;UUID&gt;&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJVVUlEIG9mIHRoZSBwZXJzb25hbCBhY2Nlc3MgdG9rZW4uXCIsXG4gIFwiaW5cIjogXCJwYXRoXCIsXG4gIFwibmFtZVwiOiBcInV1aWRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xdjJ+MWFjY2Vzcy10b2tlbnN+MXt1dWlkfS9wYXJhbWV0ZXJzLzBcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL3BhdGNoQWNjZXNzVG9rZW5SZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9wYXRjaEFjY2Vzc1Rva2VuUmVzcG9uc2VcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL2Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9lcnJvclwiXG59Il0="></template>

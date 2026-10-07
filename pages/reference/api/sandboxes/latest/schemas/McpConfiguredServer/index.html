@@ -1,0 +1,51 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/McpConfiguredServer.md>Markdown</a></div><meta data-pagefind-meta="title:McpConfiguredServer — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>McpConfiguredServer</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">McpConfiguredServer preserves one canonical requested identity and its provisioning outcome.</div><details class=api-field open><summary><code>outcome</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpConfigurationOutcome/><code>McpConfigurationOutcome</code></a></p><div class="prose dark:prose-invert">outcome is concrete even when the gateway remains ready after a failed add.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/McpConfigurationOutcome",
+  "description": "outcome is concrete even when the gateway remains ready after a failed add.",
+  "not": {
+    "enum": [
+      "unspecified"
+    ]
+  }
+}</code></pre></details></details><details class=api-field open><summary><code>reason</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">reason is nonsecret context and never carries credentials or credential-bearing URLs.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "reason is nonsecret context and never carries credentials or credential-bearing URLs.",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>server</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/McpServer/><code>McpServer</code></a></p><div class="prose dark:prose-invert">server is the resolved requested server; its type cannot silently change within retained intent.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/McpServer",
+  "description": "server is the resolved requested server; its type cannot silently change within retained intent."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "McpConfiguredServer preserves one canonical requested identity and its provisioning outcome.",
+  "properties": {
+    "outcome": {
+      "$ref": "#/components/schemas/McpConfigurationOutcome",
+      "description": "outcome is concrete even when the gateway remains ready after a failed add.",
+      "not": {
+        "enum": [
+          "unspecified"
+        ]
+      }
+    },
+    "reason": {
+      "description": "reason is nonsecret context and never carries credentials or credential-bearing URLs.",
+      "type": "string"
+    },
+    "server": {
+      "$ref": "#/components/schemas/McpServer",
+      "description": "server is the resolved requested server; its type cannot silently change within retained intent."
+    }
+  },
+  "required": [
+    "server",
+    "outcome"
+  ],
+  "title": "McpConfiguredServer",
+  "type": "object"
+}</code></pre></details></article>

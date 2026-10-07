@@ -1,0 +1,164 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/hub/latest/>Docker Hub</a> /
+<span>API 2-beta</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/hub/latest/ selected>2-beta</option></select></label><a href=https://docs.docker.com/docker-hub/>Product manual</a><a href=/reference/api/hub/latest.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/hub/latest/schemas/image.md>Markdown</a></div><meta data-pagefind-meta="title:image — Docker Hub API 2-beta"><p class=api-eyebrow>Schema</p><h1>image</h1><p class=api-type>Type:
+<code>object</code></p><details class=api-field open><summary><code>architecture</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">CPU architecture</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "CPU architecture",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>digest</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">image digest</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "image digest",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>features</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">CPU features</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "CPU features",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>last_pulled</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">datetime of last pull</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "datetime of last pull",
+  "example": "2021-01-05T21:06:53.506400Z",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>last_pushed</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">datetime of last push</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "datetime of last push",
+  "example": "2021-01-05T21:06:53.506400Z",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>layers</code></summary><p class=api-type>Type:
+<code>array</code></p><details class=api-field><summary>Array item</summary><p class=api-ref>Schema:
+<a href=/reference/api/hub/latest/schemas/layer/><code>layer</code></a></p></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "items": {
+    "$ref": "#/components/schemas/layer"
+  },
+  "type": "array"
+}</code></pre></details></details><details class=api-field open><summary><code>os</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">operating system</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "operating system",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>os_features</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">OS features</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "OS features",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>os_version</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">OS version</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "OS version",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-field open><summary><code>size</code></summary><p class=api-type>Type:
+<code>integer</code></p><div class="prose dark:prose-invert">size of the image</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "size of the image",
+  "type": "integer"
+}</code></pre></details></details><details class=api-field open><summary><code>status</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">Status of the image</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "Status of the image",
+  "enum": [
+    "active",
+    "inactive"
+  ],
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>variant</code></summary><p class=api-type>Type:
+<code>string | null</code></p><div class="prose dark:prose-invert">CPU variant</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "CPU variant",
+  "type": [
+    "string",
+    "null"
+  ]
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "properties": {
+    "architecture": {
+      "description": "CPU architecture",
+      "type": "string"
+    },
+    "digest": {
+      "description": "image digest",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "features": {
+      "description": "CPU features",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_pulled": {
+      "description": "datetime of last pull",
+      "example": "2021-01-05T21:06:53.506400Z",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_pushed": {
+      "description": "datetime of last push",
+      "example": "2021-01-05T21:06:53.506400Z",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "layers": {
+      "items": {
+        "$ref": "#/components/schemas/layer"
+      },
+      "type": "array"
+    },
+    "os": {
+      "description": "operating system",
+      "type": "string"
+    },
+    "os_features": {
+      "description": "OS features",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "os_version": {
+      "description": "OS version",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "size": {
+      "description": "size of the image",
+      "type": "integer"
+    },
+    "status": {
+      "description": "Status of the image",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "type": "string"
+    },
+    "variant": {
+      "description": "CPU variant",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "type": "object"
+}</code></pre></details></article>

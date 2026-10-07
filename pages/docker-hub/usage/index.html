@@ -1,0 +1,13 @@
+<p>The following table provides an overview of the included usage and limits for each
+user type, subject to fair use:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>User type</th><th class=p-2>Pull rate limit per 6 hours</th><th class=p-2>Number of public repositories</th><th class=p-2>Number of private repositories</th></tr></thead><tbody><tr><td class=p-2>Business (authenticated)</td><td class=p-2>Unlimited</td><td class=p-2>Unlimited</td><td class=p-2>Unlimited</td></tr><tr><td class=p-2>Team (authenticated)</td><td class=p-2>Unlimited</td><td class=p-2>Unlimited</td><td class=p-2>Unlimited</td></tr><tr><td class=p-2>Pro (authenticated)</td><td class=p-2>Unlimited</td><td class=p-2>Unlimited</td><td class=p-2>Unlimited</td></tr><tr><td class=p-2>Personal (authenticated)</td><td class=p-2>200</td><td class=p-2>Unlimited</td><td class=p-2>Up to 1</td></tr><tr><td class=p-2>Unauthenticated users</td><td class=p-2>100 per IPv4 address or IPv6 /64 subnet</td><td class=p-2>Not applicable</td><td class=p-2>Not applicable</td></tr></tbody></table></div><p>For more details, see <a class=link href=https://docs.docker.com/docker-hub/usage/pulls/>Pull usage and limits</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=fair-use><a class="text-black dark:text-white no-underline hover:underline" href=#fair-use>Fair use</a></h2><p>When utilizing the Docker Platform, users should be aware that excessive data
+transfer, pull rates, or data storage can lead to throttling, or additional
+charges. To ensure fair resource usage and maintain service quality, we reserve
+the right to impose restrictions or apply additional charges to accounts
+exhibiting excessive data and storage consumption.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=abuse-rate-limit><a class="text-black dark:text-white no-underline hover:underline" href=#abuse-rate-limit>Abuse rate limit</a></h3><p>Docker Hub has an abuse rate limit to protect the application and
+infrastructure. This limit applies to all requests to Hub properties including
+web pages, APIs, and image pulls. The limit is applied per IPv4 address or per
+IPv6 /64 subnet, and while the limit changes over time depending on load and
+other factors, it's in the order of thousands of requests per minute. The abuse
+limit applies to all users equally regardless of account level.</p><p>You can differentiate between the pull rate limit and abuse rate limit by
+looking at the error code. The abuse limit returns a simple <code>429 Too Many Requests</code> response. The pull limit returns a longer error message that includes
+a link to documentation.</p>

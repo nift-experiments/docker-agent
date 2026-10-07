@@ -1,0 +1,319 @@
+<article class=api-reference data-api-view=operation><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/ai-governance/latest/>AI Governance</a> /
+<span>API 1</span></nav><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/ai-governance/latest/ selected>1</option></select></label><a href=https://docs.docker.com/ai/sandboxes/governance/>Product manual</a><a href=/reference/api/ai-governance/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/ai-governance/latest/operations/createRule.md>Markdown</a></div><meta data-pagefind-meta="title:Create rule — AI Governance API 1"><h1>Create rule</h1><div class=api-signature><span class=api-method data-method=POST>POST</span><code><wbr>/orgs<wbr>/{org_name}<wbr>/governance<wbr>/policies<wbr>/{policy_id}<wbr>/rules</code></div><div class=api-operation-grid><div class=api-reading><div class="api-description prose dark:prose-invert"><p>Adds a rule to the policy's rule set. All rules in a policy must share
+the same domain (<code>network</code>, which includes HTTP, or <code>filesystem</code>);
+mixing domains is rejected. A single rule cannot mix L4 network and L7
+HTTP actions.</p><p><strong>Network</strong> actions: <code>connect:tcp</code>, <code>connect:udp</code>. Resources are
+hostnames (for example, <code>example.com</code>), wildcard subdomains (<code>*.example.com</code>
+for one level, <code>**.example.com</code> for any depth), hostnames with an optional
+port (for example, <code>example.com:443</code>), or CIDRs in IPv4 or IPv6 notation
+(for example, <code>10.0.0.0/8</code> or <code>2001:db8::/32</code>).</p><p><strong>Filesystem</strong> actions: <code>read</code>, <code>write</code>. Resources are paths (for example,
+<code>/data</code>). Use <code>*</code> to match within a single path segment and <code>**</code> to match
+recursively across segments (for example, <code>/data/**</code>).</p><p><strong>HTTP</strong> actions identify request methods, such as <code>request:get</code> and
+<code>request:post</code>. Use <code>http_resources</code> to identify the host, optional port,
+and absolute path glob. HTTP rules must not supply <code>resources</code>.</p><p>Changes may take up to five minutes to reach developer machines.</p></div><h2>Connection and access</h2><p><a href=/reference/api/ai-governance/latest/#authentication>API connection and authentication guidance</a></p><p><code>https://hub.docker.com/v2</code></p><p>Use one of these alternatives. Requirements within an
+alternative apply together.</p><ul><li><code>bearerAuth</code></li></ul><h2>Parameters</h2><section class=api-field data-api-parameter=org_name><h3><code>org_name</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Docker Hub organization name.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><section class=api-field data-api-parameter=policy_id><h3><code>policy_id</code>
+<small>path</small>
+<small class=api-required>Required</small></h3><div class="prose dark:prose-invert">Unique policy identifier.</div><p class=api-type>Type:
+<code>string</code></p><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "type": "string"
+}</code></pre></details></section><h2>Request and responses</h2><label>Media type
+<select data-api-media-select><option value>All media types</option><option value=application/json>application/json</option></select></label><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/requestBody/content/application~1json data-api-media=application/json><h3><span>Request</span></h3><div class="prose dark:prose-invert">Rule definition including actions, matching resources, and decision.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/CreateRuleRequest/><code>CreateRuleRequest</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>filesystem</option><option value=1>http</option><option value=2>network</option></select></label><div data-api-example=0><h4>filesystem</h4><pre><code>{
+  &#34;actions&#34;: [
+    &#34;read&#34;,
+    &#34;write&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;name&#34;: &#34;allow data directory&#34;,
+  &#34;resources&#34;: [
+    &#34;/data&#34;
+  ]
+}</code></pre></div><div data-api-example=1><h4>http</h4><pre><code>{
+  &#34;actions&#34;: [
+    &#34;request:get&#34;,
+    &#34;request:head&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;http_resources&#34;: [
+    {
+      &#34;host&#34;: &#34;api.github.com&#34;,
+      &#34;path&#34;: &#34;/repos/docker/**&#34;,
+      &#34;port&#34;: 443
+    }
+  ],
+  &#34;name&#34;: &#34;read GitHub repositories&#34;
+}</code></pre></div><div data-api-example=2><h4>network</h4><pre><code>{
+  &#34;actions&#34;: [
+    &#34;connect:tcp&#34;,
+    &#34;connect:udp&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;name&#34;: &#34;allow research mirrors&#34;,
+  &#34;resources&#34;: [
+    &#34;research.mitre.org&#34;,
+    &#34;cve.mitre.org&#34;
+  ]
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/201/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>201</code></h3><div class="prose dark:prose-invert">Rule created and added to the policy's rule set.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Rule/><code>Rule</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>filesystem</option><option value=1>http</option><option value=2>network</option></select></label><div data-api-example=0><h4>filesystem</h4><pre><code>{
+  &#34;actions&#34;: [
+    &#34;read&#34;,
+    &#34;write&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;id&#34;: &#34;rule_07fwtnr0kn2qetl1b9olfbyz8kob&#34;,
+  &#34;name&#34;: &#34;allow data directory&#34;,
+  &#34;resources&#34;: [
+    &#34;/data&#34;
+  ]
+}</code></pre></div><div data-api-example=1><h4>http</h4><pre><code>{
+  &#34;actions&#34;: [
+    &#34;request:get&#34;,
+    &#34;request:head&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;http_resources&#34;: [
+    {
+      &#34;host&#34;: &#34;api.github.com&#34;,
+      &#34;path&#34;: &#34;/repos/docker/**&#34;,
+      &#34;port&#34;: 443
+    }
+  ],
+  &#34;id&#34;: &#34;rule_08gxuos1lo3rfum2c0pmgcz09lpc&#34;,
+  &#34;name&#34;: &#34;read GitHub repositories&#34;
+}</code></pre></div><div data-api-example=2><h4>network</h4><pre><code>{
+  &#34;actions&#34;: [
+    &#34;connect:tcp&#34;,
+    &#34;connect:udp&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;id&#34;: &#34;rule_06evsm9qjm1pdsk0a8nkfaxy7jna&#34;,
+  &#34;name&#34;: &#34;allow research mirrors&#34;,
+  &#34;resources&#34;: [
+    &#34;research.mitre.org&#34;,
+    &#34;cve.mitre.org&#34;
+  ]
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/400/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>400</code></h3><div class="prose dark:prose-invert">Bad request</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;invalid_argument&#34;,
+    &#34;message&#34;: &#34;name is required&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/401/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>401</code></h3><div class="prose dark:prose-invert">Missing or invalid credentials</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;unauthenticated&#34;,
+    &#34;message&#34;: &#34;unauthenticated&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/403/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>403</code></h3><div class="prose dark:prose-invert">Caller lacks the required permission for this org, the org is not entitled to use governance (<code>permission_denied</code>), or a creation limit has been reached (<code>limit_exceeded</code>): the org already has the maximum number of policies, or the policy already has the maximum number of rules.</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><label>Example
+<select data-api-example-select><option value=0>limit_exceeded</option><option value=1>permission_denied</option></select></label><div data-api-example=0><h4>limit_exceeded</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;limit_exceeded&#34;,
+    &#34;message&#34;: &#34;organization has reached the maximum of 100 policies&#34;
+  }
+}</code></pre></div><div data-api-example=1><h4>permission_denied</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;permission_denied&#34;,
+    &#34;message&#34;: &#34;permission denied&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/404/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>404</code></h3><div class="prose dark:prose-invert">Not found</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;not_found&#34;,
+    &#34;message&#34;: &#34;policy not found&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/409/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>409</code></h3><div class="prose dark:prose-invert">Conflict</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;conflict&#34;,
+    &#34;message&#34;: &#34;policy name already in use&#34;
+  }
+}</code></pre></div></div></section><section class=api-variant data-api-variant=/paths/~1orgs~1{org_name}~1governance~1policies~1{policy_id}~1rules/post/responses/500/content/application~1json data-api-media=application/json><h3><span>Response</span>
+<code class=api-status>500</code></h3><div class="prose dark:prose-invert">Internal server error</div><p class=api-media><code>application/json</code></p><p class=api-ref>Schema:
+<a href=/reference/api/ai-governance/latest/schemas/Error/><code>Error</code></a></p><div data-api-examples><div data-api-example=0><h4>default</h4><pre><code>{
+  &#34;error&#34;: {
+    &#34;code&#34;: &#34;internal&#34;,
+    &#34;message&#34;: &#34;internal error&#34;
+  }
+}</code></pre></div></div></section><h2>Referenced schemas</h2><p><a href=/reference/api/ai-governance/latest/schemas/CreateRuleRequest/>#/components/schemas/CreateRuleRequest</a></p><p><a href=/reference/api/ai-governance/latest/schemas/Rule/>#/components/schemas/Rule</a></p><details><summary>Complete operation contract</summary><pre><code>{
+  "description": "Adds a rule to the policy's rule set. All rules in a policy must share\nthe same domain (`network`, which includes HTTP, or `filesystem`);\nmixing domains is rejected. A single rule cannot mix L4 network and L7\nHTTP actions.\n\n**Network** actions: `connect:tcp`, `connect:udp`. Resources are\nhostnames (for example, `example.com`), wildcard subdomains (`*.example.com`\nfor one level, `**.example.com` for any depth), hostnames with an optional\nport (for example, `example.com:443`), or CIDRs in IPv4 or IPv6 notation\n(for example, `10.0.0.0/8` or `2001:db8::/32`).\n\n**Filesystem** actions: `read`, `write`. Resources are paths (for example,\n`/data`). Use `*` to match within a single path segment and `**` to match\nrecursively across segments (for example, `/data/**`).\n\n**HTTP** actions identify request methods, such as `request:get` and\n`request:post`. Use `http_resources` to identify the host, optional port,\nand absolute path glob. HTTP rules must not supply `resources`.\n\nChanges may take up to five minutes to reach developer machines.\n",
+  "operationId": "createRule",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "examples": {
+          "filesystem": {
+            "summary": "Filesystem rule",
+            "value": {
+              "actions": [
+                "read",
+                "write"
+              ],
+              "decision": "allow",
+              "name": "allow data directory",
+              "resources": [
+                "/data"
+              ]
+            }
+          },
+          "http": {
+            "summary": "HTTP rule",
+            "value": {
+              "actions": [
+                "request:get",
+                "request:head"
+              ],
+              "decision": "allow",
+              "http_resources": [
+                {
+                  "host": "api.github.com",
+                  "path": "/repos/docker/**",
+                  "port": 443
+                }
+              ],
+              "name": "read GitHub repositories"
+            }
+          },
+          "network": {
+            "summary": "Network rule",
+            "value": {
+              "actions": [
+                "connect:tcp",
+                "connect:udp"
+              ],
+              "decision": "allow",
+              "name": "allow research mirrors",
+              "resources": [
+                "research.mitre.org",
+                "cve.mitre.org"
+              ]
+            }
+          }
+        },
+        "schema": {
+          "$ref": "#/components/schemas/CreateRuleRequest"
+        }
+      }
+    },
+    "description": "Rule definition including actions, matching resources, and decision.",
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "filesystem": {
+              "summary": "Filesystem rule",
+              "value": {
+                "actions": [
+                  "read",
+                  "write"
+                ],
+                "decision": "allow",
+                "id": "rule_07fwtnr0kn2qetl1b9olfbyz8kob",
+                "name": "allow data directory",
+                "resources": [
+                  "/data"
+                ]
+              }
+            },
+            "http": {
+              "summary": "HTTP rule",
+              "value": {
+                "actions": [
+                  "request:get",
+                  "request:head"
+                ],
+                "decision": "allow",
+                "http_resources": [
+                  {
+                    "host": "api.github.com",
+                    "path": "/repos/docker/**",
+                    "port": 443
+                  }
+                ],
+                "id": "rule_08gxuos1lo3rfum2c0pmgcz09lpc",
+                "name": "read GitHub repositories"
+              }
+            },
+            "network": {
+              "summary": "Network rule",
+              "value": {
+                "actions": [
+                  "connect:tcp",
+                  "connect:udp"
+                ],
+                "decision": "allow",
+                "id": "rule_06evsm9qjm1pdsk0a8nkfaxy7jna",
+                "name": "allow research mirrors",
+                "resources": [
+                  "research.mitre.org",
+                  "cve.mitre.org"
+                ]
+              }
+            }
+          },
+          "schema": {
+            "$ref": "#/components/schemas/Rule"
+          }
+        }
+      },
+      "description": "Rule created and added to the policy's rule set."
+    },
+    "400": {
+      "$ref": "#/components/responses/InvalidArgument"
+    },
+    "401": {
+      "$ref": "#/components/responses/Unauthenticated"
+    },
+    "403": {
+      "$ref": "#/components/responses/Forbidden"
+    },
+    "404": {
+      "$ref": "#/components/responses/NotFound"
+    },
+    "409": {
+      "$ref": "#/components/responses/Conflict"
+    },
+    "500": {
+      "$ref": "#/components/responses/InternalError"
+    }
+  },
+  "summary": "Create rule",
+  "tags": [
+    "rules"
+  ]
+}</code></pre></details></div><aside class=api-request><div class=api-request-heading><h2>Example request</h2><span>Shell</span></div><p>Replace placeholders and supply the required credentials or
+request body.</p><pre><code data-api-copy-source>curl \
+  --request POST \
+  --header &#34;Authorization: Bearer ${TOKEN}&#34; \
+  --header &#39;Accept: application/json&#39; \
+  --header &#39;Content-Type: application/json&#39; \
+  --data-raw &#39;{
+  &#34;actions&#34;: [
+    &#34;read&#34;,
+    &#34;write&#34;
+  ],
+  &#34;decision&#34;: &#34;allow&#34;,
+  &#34;name&#34;: &#34;allow data directory&#34;,
+  &#34;resources&#34;: [
+    &#34;/data&#34;
+  ]
+}&#39; \
+  &#39;https://hub.docker.com/v2/orgs/&lt;ORG_NAME&gt;/governance/policies/&lt;POLICY_ID&gt;/rules&#39;</code></pre><button type=button data-api-copy>Copy request</button></aside></div></article><template data-export-contracts="WyJbXG4gIHtcbiAgICBcImJlYXJlckF1dGhcIjogW11cbiAgfVxuXSIsICJ7XG4gIFwiZGVzY3JpcHRpb25cIjogXCJEb2NrZXIgSHViIG9yZ2FuaXphdGlvbiBuYW1lLlwiLFxuICBcImV4YW1wbGVzXCI6IHtcbiAgICBcImRlZmF1bHRcIjoge1xuICAgICAgXCJ2YWx1ZVwiOiBcIm15LW9yZ1wiXG4gICAgfVxuICB9LFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJvcmdfbmFtZVwiLFxuICBcInBvaW50ZXJcIjogXCIvcGF0aHMvfjFvcmdzfjF7b3JnX25hbWV9fjFnb3Zlcm5hbmNlfjFwb2xpY2llc34xe3BvbGljeV9pZH1+MXJ1bGVzL3BhcmFtZXRlcnMvMFwiLFxuICBcInJlcXVpcmVkXCI6IHRydWUsXG4gIFwic2NoZW1hXCI6IHtcbiAgICBcInR5cGVcIjogXCJzdHJpbmdcIlxuICB9XG59IiwgIntcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlVuaXF1ZSBwb2xpY3kgaWRlbnRpZmllci5cIixcbiAgXCJleGFtcGxlc1wiOiB7XG4gICAgXCJkZWZhdWx0XCI6IHtcbiAgICAgIFwidmFsdWVcIjogXCJwb2xfMDZldnNtcDI0cjFwZzcxY204NTAwNTQ2cGtiblwiXG4gICAgfVxuICB9LFxuICBcImluXCI6IFwicGF0aFwiLFxuICBcIm5hbWVcIjogXCJwb2xpY3lfaWRcIixcbiAgXCJwb2ludGVyXCI6IFwiL3BhdGhzL34xb3Jnc34xe29yZ19uYW1lfX4xZ292ZXJuYW5jZX4xcG9saWNpZXN+MXtwb2xpY3lfaWR9fjFydWxlcy9wYXJhbWV0ZXJzLzFcIixcbiAgXCJyZXF1aXJlZFwiOiB0cnVlLFxuICBcInNjaGVtYVwiOiB7XG4gICAgXCJ0eXBlXCI6IFwic3RyaW5nXCJcbiAgfVxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0NyZWF0ZVJ1bGVSZXF1ZXN0XCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9SdWxlXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iLCAie1xuICBcIiRyZWZcIjogXCIjL2NvbXBvbmVudHMvc2NoZW1hcy9FcnJvclwiXG59IiwgIntcbiAgXCIkcmVmXCI6IFwiIy9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3JcIlxufSIsICJ7XG4gIFwiJHJlZlwiOiBcIiMvY29tcG9uZW50cy9zY2hlbWFzL0Vycm9yXCJcbn0iXQ=="></template>

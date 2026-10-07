@@ -1,0 +1,34 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/FilesReadFileResponse.md>Markdown</a></div><meta data-pagefind-meta="title:FilesReadFileResponse — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>FilesReadFileResponse</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">ReadFileResponse carries the whole file; HTTP selects data as its raw response body.</div><details class=api-field open><summary><code>data</code></summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">data is the complete content; a file above the message cap is refused.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "data is the complete content; a file above the message cap is refused.",
+  "format": "byte",
+  "type": "string"
+}</code></pre></details></details><details class=api-field open><summary><code>info</code>
+· required</summary><p class=api-ref>Schema:
+<a href=/reference/api/sandboxes/latest/schemas/FileInfo/><code>FileInfo</code></a></p><div class="prose dark:prose-invert">info remains available to the internal adapter; HTTP clients use Stat for metadata.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "$ref": "#/components/schemas/FileInfo",
+  "description": "info remains available to the internal adapter; HTTP clients use Stat for metadata."
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "ReadFileResponse carries the whole file; HTTP selects data as its raw response body.",
+  "properties": {
+    "data": {
+      "description": "data is the complete content; a file above the message cap is refused.",
+      "format": "byte",
+      "type": "string"
+    },
+    "info": {
+      "$ref": "#/components/schemas/FileInfo",
+      "description": "info remains available to the internal adapter; HTTP clients use Stat for metadata."
+    }
+  },
+  "required": [
+    "info"
+  ],
+  "title": "ReadFileResponse",
+  "type": "object"
+}</code></pre></details></article>

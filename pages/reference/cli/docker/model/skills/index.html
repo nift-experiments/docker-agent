@@ -1,0 +1,9 @@
+<div class=overflow-x-auto><table><tbody><tr><th class="text-left w-32">Description</th><td>Install Docker Model Runner skills for AI coding assistants</td></tr><tr><th class="text-left w-32">Usage</th><td><code>docker model skills</code></td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=description><a class="text-black dark:text-white no-underline hover:underline" href=#description>Description</a></h2><p>Install Docker Model Runner skills for AI coding assistants.</p><p>Skills are configuration files that help AI coding assistants understand
+how to use Docker Model Runner effectively for local model inference.</p><p>Supported targets:
+--codex Install to ~/.codex/skills (OpenAI Codex CLI)
+--claude Install to ~/.claude/skills (Claude Code)
+--opencode Install to ~/.config/opencode/skills (OpenCode)
+--dest Install to a custom directory</p><p>Example:
+docker model skills --claude
+docker model skills --codex --claude
+docker model skills --dest /path/to/skills</p><h2 class="scroll-mt-20 flex items-center gap-2" id=options><a class="text-black dark:text-white no-underline hover:underline" href=#options>Options</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Default</th><th class=p-2>Description</th></tr></thead><tbody><tr class=p-2><td><code>--claude</code></td><td></td><td>Install skills for Claude Code (~/.claude/skills)</td></tr><tr class=p-2><td><code>--codex</code></td><td></td><td>Install skills for OpenAI Codex CLI (~/.codex/skills)</td></tr><tr class=p-2><td><code>--dest</code></td><td></td><td>Install skills to a custom directory</td></tr><tr class=p-2><td><code>-f, --force</code></td><td></td><td>Overwrite existing skills without prompting</td></tr><tr class=p-2><td><code>--opencode</code></td><td></td><td>Install skills for OpenCode (~/.config/opencode/skills)</td></tr></tbody></table></div>

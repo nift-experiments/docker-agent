@@ -1,0 +1,19 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/StreamType.md>Markdown</a></div><meta data-pagefind-meta="title:StreamType — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>StreamType</h1><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert"><p>StreamType identifies the source of an output chunk.</p><p>Values:
+unspecified: unspecified is not a concrete output stream.
+stdout: stdout is stdout.
+stderr: stderr is stderr.
+pty: pty is merged PTY output.</p></div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "StreamType identifies the source of an output chunk.\n\nValues:\nunspecified: unspecified is not a concrete output stream.\nstdout: stdout is stdout.\nstderr: stderr is stderr.\npty: pty is merged PTY output.",
+  "enum": [
+    "unspecified",
+    "stdout",
+    "stderr",
+    "pty"
+  ],
+  "title": "StreamType",
+  "type": "string"
+}</code></pre></details></article>

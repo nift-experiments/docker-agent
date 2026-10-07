@@ -1,0 +1,42 @@
+<article class=api-reference data-api-view=schema><nav class=api-crumbs aria-label="API breadcrumb"><a href=/reference/api/>APIs</a> /
+<a href=/reference/api/sandboxes/latest/>Docker Sandboxes</a> /
+<span>API v1</span></nav><p class=api-label>Experimental</p><div class=api-tools><label>API version
+<select data-api-version><option value=/reference/api/sandboxes/latest/ selected>v1</option></select></label><a href=https://docs.docker.com/ai/sandboxes-api/>Product manual</a><a href=/reference/api/sandboxes/api.yaml>Download OpenAPI specification</a><a href=https://docs.docker.com/reference/api/sandboxes/latest/schemas/CreateVolumeRequest.md>Markdown</a></div><meta data-pagefind-meta="title:CreateVolumeRequest — Docker Sandboxes API v1"><p class=api-eyebrow>Schema</p><h1>CreateVolumeRequest</h1><p class=api-type>Type:
+<code>object</code></p><div class="prose dark:prose-invert">CreateVolumeRequest creates one volume.</div><details class=api-field open><summary><code>displayName</code>
+· required</summary><p class=api-type>Type:
+<code>string</code></p><div class="prose dark:prose-invert">display_name is a scoped label; the backend assigns the immutable resource ID.</div><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "description": "display_name is a scoped label; the backend assigns the immutable resource ID.",
+  "minLength": 1,
+  "not": {
+    "enum": [
+      ".",
+      ".."
+    ],
+    "type": "string"
+  },
+  "pattern": "^[^/]+$",
+  "type": "string"
+}</code></pre></details></details><details class=api-constraints><summary>All schema constraints and annotations</summary><pre><code>{
+  "additionalProperties": false,
+  "description": "CreateVolumeRequest creates one volume.",
+  "properties": {
+    "displayName": {
+      "description": "display_name is a scoped label; the backend assigns the immutable resource ID.",
+      "minLength": 1,
+      "not": {
+        "enum": [
+          ".",
+          ".."
+        ],
+        "type": "string"
+      },
+      "pattern": "^[^/]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "displayName"
+  ],
+  "title": "CreateVolumeRequest",
+  "type": "object"
+}</code></pre></details></article>
