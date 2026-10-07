@@ -1,0 +1,160 @@
+<p>MCP access policies let organization administrators control which Model
+Context Protocol (MCP) servers developers can register and what agents can do
+through Docker's MCP gateway. Use these policies to approve trusted servers,
+withdraw access to a server, require approval for tool calls, and restrict
+host-run servers. To register MCP servers and connect them to sandboxes, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/mcp-gateway/>MCP gateway</a>.</p><p>MCP access policies apply only to server registration and requests handled by
+Docker's MCP gateway. They don't govern an MCP server that an agent or MCP
+client configures and connects to directly from inside the sandbox. A direct
+connection to a remote MCP server is outbound sandbox traffic, so
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/>network access policy</a> determines whether the sandbox can reach
+the server. To prevent access through both paths, block the server in MCP
+access policy and block its network destination in network access policy.</p><p>Unlike <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/>network access policies</a> and
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/filesystem/>filesystem access policies</a>, MCP policies are organization
+policies written in Cedar. Docker defines the <code>MCP</code> namespace, including the
+actions, resource types, attributes, and approval behavior that policies can
+match. This page focuses on representative access patterns. For Docker's exact
+policy surface, see the <a class=link href=https://docs.docker.com/ai/sandboxes/governance/reference/mcp-policy/>MCP policy reference</a>. For
+Cedar syntax and language semantics, see the
+<a class=link href=https://docs.cedarpolicy.com/ rel=noopener>Cedar documentation</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=govern-the-server-lifecycle><a class="text-black dark:text-white no-underline hover:underline" href=#govern-the-server-lifecycle>Govern the server lifecycle</a></h2><p>MCP policy applies at two points in a server's lifecycle. A rule for one point
+doesn't automatically govern the other.</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Admin decision</th><th class=p-2>Evaluation point</th><th class=p-2>Match with</th></tr></thead><tbody><tr><td class=p-2>Whether a server can be registered</td><td class=p-2>When a developer runs <code>sbx mcp add</code></td><td class=p-2>The registered name and resolved server attributes, such as <code>identityURL</code></td></tr><tr><td class=p-2>What agents can do through the MCP gateway</td><td class=p-2>When the gateway handles a governed request</td><td class=p-2>The registered server name, tool annotations, resource URI, or prompt name</td></tr></tbody></table></div><p>Registration rules affect future registrations. They don't remove a saved
+registration or prevent an existing registration from being loaded with
+<code>sbx mcp load</code>. Use-time rules govern tool calls, resource reads, and prompt
+retrieval from servers that are already registered or loaded.</p><p>Server names are chosen during registration. Registration rules can match the
+chosen name and resolved server identity together. At use time, tools,
+resources, and prompts are associated with the registered name, so rules for an
+existing server must match every name under which it was registered.</p><p>Built-in gateway tools, such as <code>mcp-add</code>, <code>code-mode</code>, and OAuth authorization
+helpers, are also governed at use time. They are <code>MCP::Primordial</code> resources
+rather than tools associated with a registered server. For details, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/mcp-gateway/#built-in-gateway-tools>Built-in gateway tools</a>.</p><p>Use-time policy doesn't hide or remove existing registrations. Tool and
+resource listings can also include entries that policy denies when an agent
+tries to use them.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-an-access-posture><a class="text-black dark:text-white no-underline hover:underline" href=#choose-an-access-posture>Choose an access posture</a></h2><p>When MCP policy enforcement is active for a user, registration and governed MCP
+requests are denied unless a matching <code>permit</code> allows them. A matching <code>forbid</code>
+overrides any <code>permit</code>, including a permit with <code>@requireApproval</code>.</p><p>Use permits for an allowlist policy. For a blocklist policy that grants MCP
+activity except for explicit restrictions, start with an actionless permit:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'cGVybWl0IChwcmluY2lwYWwsIGFjdGlvbiwgcmVzb3VyY2UpOw==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>permit (principal, action, resource);</span></span></code></pre></div></div></div></div><p>This statement permits every MCP action that reaches Cedar evaluation. Add
+<code>forbid</code> statements for the restrictions the policy must enforce.</p><p>Policy scope supplies the principal. Use organization or team scope instead of
+matching users, teams, tenants, or roles in Cedar. If MCP policy enforcement
+isn't active for a user, the gateway doesn't evaluate Cedar policy and permits
+MCP activity. MCP doesn't have a local preset equivalent to network policy.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=approve-a-server><a class="text-black dark:text-white no-underline hover:underline" href=#approve-a-server>Approve a server</a></h2><p>For an allowlist, approve both the server registration and its use-time
+capabilities. The following policy approves a remote server only when it is
+registered as <code>example</code> with the expected identity URL. It permits read-only
+tool calls, resource reads, and prompt retrieval from that registered server:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Ly8gUGVybWl0IHJlZ2lzdHJhdGlvbiB3aXRoIHRoZSBleHBlY3RlZCBuYW1lIGFuZCBpZGVudGl0eSBVUkwuCnBlcm1pdCAocHJpbmNpcGFsLCBhY3Rpb24gPT0gTUNQOjpBY3Rpb246OiJyZWdpc3RlciIsIHJlc291cmNlKQp3aGVuIHsKICByZXNvdXJjZSBpbiBNQ1A6OlNlcnZlcjo6ImV4YW1wbGUiICYmCiAgcmVzb3VyY2UuaWRlbnRpdHlVUkwgPT0gImh0dHBzOi8vbWNwLmV4YW1wbGUuY29tL21jcCIKfTsKCi8vIFBlcm1pdCByZWFkLW9ubHkgdG9vbCBjYWxscy4KcGVybWl0IChwcmluY2lwYWwsIGFjdGlvbiA9PSBNQ1A6OkFjdGlvbjo6Imludm9rZVRvb2wiLCByZXNvdXJjZSkKd2hlbiB7CiAgcmVzb3VyY2UgaW4gTUNQOjpTZXJ2ZXI6OiJleGFtcGxlIiAmJgogIHJlc291cmNlLnJlYWRPbmx5ID09IHRydWUKfTsKCi8vIFBlcm1pdCByZXNvdXJjZSByZWFkcy4KcGVybWl0IChwcmluY2lwYWwsIGFjdGlvbiA9PSBNQ1A6OkFjdGlvbjo6InJlYWRSZXNvdXJjZSIsIHJlc291cmNlKQp3aGVuIHsgcmVzb3VyY2UgaW4gTUNQOjpTZXJ2ZXI6OiJleGFtcGxlIiB9OwoKLy8gUGVybWl0IHByb21wdCByZXRyaWV2YWwuCnBlcm1pdCAocHJpbmNpcGFsLCBhY3Rpb24gPT0gTUNQOjpBY3Rpb246OiJnZXRQcm9tcHQiLCByZXNvdXJjZSkKd2hlbiB7IHJlc291cmNlIGluIE1DUDo6U2VydmVyOjoiZXhhbXBsZSIgfTs=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>// Permit registration with the expected name and identity URL.
+</span></span><span class=line><span class=cl>permit (principal, action == MCP::Action::&#34;register&#34;, resource)
+</span></span><span class=line><span class=cl>when {
+</span></span><span class=line><span class=cl>  resource in MCP::Server::&#34;example&#34; &amp;&amp;
+</span></span><span class=line><span class=cl>  resource.identityURL == &#34;https://mcp.example.com/mcp&#34;
+</span></span><span class=line><span class=cl>};
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>// Permit read-only tool calls.
+</span></span><span class=line><span class=cl>permit (principal, action == MCP::Action::&#34;invokeTool&#34;, resource)
+</span></span><span class=line><span class=cl>when {
+</span></span><span class=line><span class=cl>  resource in MCP::Server::&#34;example&#34; &amp;&amp;
+</span></span><span class=line><span class=cl>  resource.readOnly == true
+</span></span><span class=line><span class=cl>};
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>// Permit resource reads.
+</span></span><span class=line><span class=cl>permit (principal, action == MCP::Action::&#34;readResource&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource in MCP::Server::&#34;example&#34; };
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>// Permit prompt retrieval.
+</span></span><span class=line><span class=cl>permit (principal, action == MCP::Action::&#34;getPrompt&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource in MCP::Server::&#34;example&#34; };</span></span></code></pre></div></div></div></div><p>Matching both the name and identity URL establishes a canonical registration.
+It prevents a developer from registering another endpoint under the approved
+name or registering the approved endpoint under another name. Remove the
+resource or prompt permit if users don't need that capability.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=require-confirmation-with-mcp-elicitation><a class="text-black dark:text-white no-underline hover:underline" href=#require-confirmation-with-mcp-elicitation>Require confirmation with MCP elicitation</a></h2><p>Use <code>@requireApproval</code> to require per-request confirmation through MCP. When a
+request matches the annotated <code>permit</code>, the gateway sends an
+<code>elicitation/create</code> request to the same MCP client session that made the
+governed request. In a human-driven client, the person operating the agent sees
+the prompt and decides whether to proceed.</p><p>The following policy requires confirmation for non-read-only tools on a server
+registered as <code>example</code>. Use it alongside any permits needed to register the
+server or use its other capabilities. The annotation string becomes the reason
+shown in the elicitation:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'QHJlcXVpcmVBcHByb3ZhbCgibm9uLXJlYWQtb25seSB0b29sIGNhbGwiKQpwZXJtaXQgKHByaW5jaXBhbCwgYWN0aW9uID09IE1DUDo6QWN0aW9uOjoiaW52b2tlVG9vbCIsIHJlc291cmNlKQp3aGVuIHsKICByZXNvdXJjZSBpbiBNQ1A6OlNlcnZlcjo6ImV4YW1wbGUiICYmCiAgcmVzb3VyY2UucmVhZE9ubHkgPT0gZmFsc2UKfTs=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>@requireApproval(&#34;non-read-only tool call&#34;)
+</span></span><span class=line><span class=cl>permit (principal, action == MCP::Action::&#34;invokeTool&#34;, resource)
+</span></span><span class=line><span class=cl>when {
+</span></span><span class=line><span class=cl>  resource in MCP::Server::&#34;example&#34; &amp;&amp;
+</span></span><span class=line><span class=cl>  resource.readOnly == false
+</span></span><span class=line><span class=cl>};</span></span></code></pre></div></div></div></div><p>Tool annotations are supplied by the server and are advisory. <code>readOnly</code>
+defaults to <code>false</code> for tools that don't declare it, so this pattern requires
+confirmation for unannotated tools.</p><p>The gateway handles a matching request as follows:</p><pre class="mermaid not-prose my-4 flex justify-center bg-transparent" data-pagefind-ignore>flowchart TD
+  request[&#34;Agent sends a governed MCP request&#34;] --&gt; evaluate[&#34;Gateway evaluates MCP policy&#34;]
+  evaluate --&gt;|&#34;Normal permit&#34;| forward[&#34;Forward request&#34;]
+  evaluate --&gt;|&#34;No permit or matching forbid&#34;| deny[&#34;Deny request&#34;]
+  evaluate --&gt;|&#34;Permit with @requireApproval&#34;| elicit[&#34;Send MCP elicitation to connected client&#34;]
+  elicit --&gt; confirm{&#34;Client returns explicit confirmation?&#34;}
+  confirm --&gt;|&#34;No, unsupported, or error&#34;| deny
+  confirm --&gt;|&#34;Yes&#34;| reevaluate[&#34;Re-evaluate with approval digest&#34;]
+  reevaluate --&gt;|&#34;Allowed&#34;| forward
+  reevaluate --&gt;|&#34;Denied or changed&#34;| deny</pre><p>The prompt identifies the server or gateway tool and includes the annotation
+reason. It doesn't include raw tool arguments. Each matching request requires a
+new confirmation. After confirmation, the gateway re-evaluates the request with
+a digest that binds the response to the evaluated authorization request.</p><p>Use this mechanism as a confirmation guardrail for human-driven clients. It
+doesn't create administrator approval or separation of duties. An autonomous
+MCP client can respond to an in-protocol elicitation programmatically. Use
+<code>forbid</code> for operations that must never run.</p><p>The request is denied if the originating client session can't handle MCP
+elicitation, the user declines, the elicitation fails, or re-evaluation doesn't
+allow the request. <code>sbx mcp add</code> can't present an elicitation, so a registration
+permit with <code>@requireApproval</code> results in a denial. Tool calls made from an
+execution context that can't relay an elicitation, including calls from inside
+<code>code-mode</code>, are also denied.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=withdraw-server-access><a class="text-black dark:text-white no-underline hover:underline" href=#withdraw-server-access>Withdraw server access</a></h2><p>To withdraw access from a server that broader rules permit, block it at
+registration and at use time. Registration policy controls future <code>sbx mcp add</code>
+operations, while use-time policy controls requests from servers that are
+already registered or loaded.</p><p>Prevent future registrations of the server by matching its identity URL:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Zm9yYmlkIChwcmluY2lwYWwsIGFjdGlvbiA9PSBNQ1A6OkFjdGlvbjo6InJlZ2lzdGVyIiwgcmVzb3VyY2UpCndoZW4geyByZXNvdXJjZS5pZGVudGl0eVVSTCA9PSAiaHR0cHM6Ly9tY3AuZXhhbXBsZS5jb20vbWNwIiB9Ow==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>forbid (principal, action == MCP::Action::&#34;register&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource.identityURL == &#34;https://mcp.example.com/mcp&#34; };</span></span></code></pre></div></div></div></div><p>Deny use-time requests for each registered name that refers to the server:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Zm9yYmlkIChwcmluY2lwYWwsIGFjdGlvbiA9PSBNQ1A6OkFjdGlvbjo6Imludm9rZVRvb2wiLCByZXNvdXJjZSkKd2hlbiB7IHJlc291cmNlIGluIE1DUDo6U2VydmVyOjoiZXhhbXBsZSIgfTsKCmZvcmJpZCAocHJpbmNpcGFsLCBhY3Rpb24gPT0gTUNQOjpBY3Rpb246OiJyZWFkUmVzb3VyY2UiLCByZXNvdXJjZSkKd2hlbiB7IHJlc291cmNlIGluIE1DUDo6U2VydmVyOjoiZXhhbXBsZSIgfTsKCmZvcmJpZCAocHJpbmNpcGFsLCBhY3Rpb24gPT0gTUNQOjpBY3Rpb246OiJnZXRQcm9tcHQiLCByZXNvdXJjZSkKd2hlbiB7IHJlc291cmNlIGluIE1DUDo6U2VydmVyOjoiZXhhbXBsZSIgfTs=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>forbid (principal, action == MCP::Action::&#34;invokeTool&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource in MCP::Server::&#34;example&#34; };
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>forbid (principal, action == MCP::Action::&#34;readResource&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource in MCP::Server::&#34;example&#34; };
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>forbid (principal, action == MCP::Action::&#34;getPrompt&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource in MCP::Server::&#34;example&#34; };</span></span></code></pre></div></div></div></div><p>The registration remains saved and can still be listed or loaded. These rules
+prevent another registration for the identity URL and deny governed use under
+the registered name. If the server was registered under other names, add
+use-time rules for those names as well.</p><p>An OAuth authorization helper is a built-in gateway tool, not a child of the
+registered server. To prevent agents from starting authorization for the
+server, govern the helper separately:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Zm9yYmlkIChwcmluY2lwYWwsIGFjdGlvbiA9PSBNQ1A6OkFjdGlvbjo6Imludm9rZVByaW1vcmRpYWwiLCByZXNvdXJjZSkKd2hlbiB7IHJlc291cmNlIGluIE1DUDo6UHJpbW9yZGlhbDo6ImV4YW1wbGUtYXV0aG9yaXplIiB9Ow==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>forbid (principal, action == MCP::Action::&#34;invokePrimordial&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource in MCP::Primordial::&#34;example-authorize&#34; };</span></span></code></pre></div></div></div></div><h2 class="scroll-mt-20 flex items-center gap-2" id=restrict-host-run-servers><a class="text-black dark:text-white no-underline hover:underline" href=#restrict-host-run-servers>Restrict host-run servers</a></h2><p>Local stdio servers run on the host, outside the sandbox VM. This includes
+explicit host commands and OCI-packaged stdio servers started with host Docker.
+For details about this boundary, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/security/isolation/#docker-engine-isolation>Docker Engine isolation</a>.</p><p>In a blocklist policy that otherwise permits registration, deny the host-run
+server type:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Zm9yYmlkIChwcmluY2lwYWwsIGFjdGlvbiA9PSBNQ1A6OkFjdGlvbjo6InJlZ2lzdGVyIiwgcmVzb3VyY2UpCndoZW4geyByZXNvdXJjZS50eXBlID09ICJsb2NhbC1zdGRpbyIgfTs=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>forbid (principal, action == MCP::Action::&#34;register&#34;, resource)
+</span></span><span class=line><span class=cl>when { resource.type == &#34;local-stdio&#34; };</span></span></code></pre></div></div></div></div><p><code>local-stdio</code> covers explicit commands, including commands that start a Docker
+container, and OCI-packaged stdio servers resolved from registry or manifest
+metadata with <code>--local</code>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=related-information><a class="text-black dark:text-white no-underline hover:underline" href=#related-information>Related information</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#mcp-policies>MCP policy concepts</a>: policy model and rule
+evaluation.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/reference/mcp-policy/>MCP policy reference</a>: exact action, resource,
+attribute, context, and approval behavior.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>Organization policies</a>: policy creation and scope.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/audit/>MCP policy audit logs</a>: policy decision
+records.</li></ul>
