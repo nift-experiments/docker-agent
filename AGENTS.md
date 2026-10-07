@@ -4,7 +4,7 @@ Read HANDOVER.md before substantial work. It contains project checkpoints and th
 
 - Maintain already-rendered HTML directly. Convert once during migration; avoid Markdown parsing/rendering in normal builds unless a concrete reason is documented. Keep published Markdown/LLM exports consistent with HTML edits.
 - Report the different authoring models and transformation costs explicitly in the final comparison.
-- This checkpoint authorizes setup and investigation only. Await the next migration instruction before migrating the corpus.
+- The user approved the full C1–C7 migration campaign on 7 October 2026. Proceed checkpoint-by-checkpoint without further approval, committing/pushing each checkpoint and leaving clean working trees. Stop and report genuine Nift blockers or major parity/Markdown architectural compromises before implementing them.
 - Do not modify Nift, its libraries, or its installation. Confirm and document a real blocker, stop that line of work, and report it.
 - Do not alter upstream source to simplify migration. Preserve ../docker-upstream and ../docker-baseline and all baseline artifacts.
 - Never delete/replace .git, rewrite history, destructively clean repositories, or tag releases.
