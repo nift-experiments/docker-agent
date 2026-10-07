@@ -23,4 +23,4 @@ Shared layouts live under `layouts/`; navigation and publication bindings live u
 
 ## Evidence
 
-See [HANDOVER.md](HANDOVER.md), [baseline provenance](investigation/BASELINE.md), [initial C6 benchmarks](investigation/C6-BENCHMARKS.md), and [C6 optimization](investigation/C6-OPTIMIZATION.md). C7 will contain the complete comparison after fresh-checkout measurements. Initial evidence is immutable; reruns must use a new evidence output directory.
+See [HANDOVER.md](HANDOVER.md), [baseline provenance](investigation/BASELINE.md), [initial C6 benchmarks](investigation/C6-BENCHMARKS.md), and [C6 optimization](investigation/C6-OPTIMIZATION.md). See [the final C7 comparison](investigation/C7-COMPARISON.md) for initial versus optimized timings, correctness and maintenance recommendations. Initial evidence is immutable; reruns must use a new evidence output directory.
