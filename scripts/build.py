@@ -6,6 +6,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from publication.chrome import Chrome
 from publication.ownership import reconcile
 from publication.publish import publish
+from publication.analysis import prepare as analyze_bodies
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser();parser.add_argument('--all',action='store_true');parser.add_argument('--setup',action='store_true');args=parser.parse_args()
 if args.setup:
@@ -16,18 +17,18 @@ def write_changed(file,value):
     if not file.exists() or file.read_text()!=value:file.write_text(value)
 def emit(file):
     literal=json.dumps(file);return '@dep('+literal+')$[rawHtml('+literal+')]'
-start=time.perf_counter();publication_model=json.loads((ROOT/'data/publication.json').read_text());chrome=Chrome(ROOT,publication_model,force=args.all);manifest=json.loads((ROOT/'data/composition.json').read_text());reconcile(ROOT,manifest)
+start=time.perf_counter();publication_model=json.loads((ROOT/'data/publication.json').read_text());chrome=Chrome(ROOT,publication_model,force=args.all);manifest=json.loads((ROOT/'data/composition.json').read_text());reconcile(ROOT,manifest);analysis,analysis_report=analyze_bodies(ROOT,manifest,publication_model,args.all);chrome.analysis=analysis
 for record in manifest['pages']:
     dependencies=chrome.render(record)
-    source=''.join('@dep('+json.dumps(v)+')' for v in dependencies)+'@dep("data/composition.json")'+''.join(emit(piece if piece else record['body']) for piece in record['pieces'])
+    source='@dep("scripts/build.py")'+''.join('@dep('+json.dumps(v)+')' for v in dependencies)+'@dep("data/composition.json")'+''.join(emit(piece if piece else record['body']) for piece in record['pieces'])
     write_changed(ROOT/'.generated/content'/((record['name'] if record['name']!='/' else 'index')+'.html'),source)
-chrome.close();prepare=time.perf_counter()-start;asset_start=time.perf_counter();count=0
+chrome.close();prepare=time.perf_counter()-start-analysis_report['body_analysis_s'];asset_start=time.perf_counter();count=0
 for file in (ROOT/'public-assets').rglob('*'):
     if not file.is_file():continue
     target=ROOT/'public'/file.relative_to(ROOT/'public-assets');target.parent.mkdir(parents=True,exist_ok=True)
     if not target.exists() or target.stat().st_size!=file.stat().st_size or target.read_bytes()!=file.read_bytes():shutil.copy2(file,target)
     count+=1
 assets=time.perf_counter()-asset_start;compose_start=time.perf_counter();subprocess.run(['nift','build',*(['--all'] if args.all else [])],cwd=ROOT,check=True)
-nift_wall=time.perf_counter()-compose_start;publication_report=publish(model=publication_model,force=args.all)
-report={'model':'maintained HTML → Nift composition','composition_prepare_s':prepare,'asset_publication_s':assets,'asset_files':count,'nift_composition_s':nift_wall,'total_s':time.perf_counter()-start,'publication':publication_report}
+nift_wall=time.perf_counter()-compose_start;publication_report=publish(model=publication_model,force=args.all,analysis=analysis)
+report={'model':'maintained HTML → Nift composition','composition_prepare_s':prepare,'asset_publication_s':assets,'asset_files':count,'nift_composition_s':nift_wall,'total_s':time.perf_counter()-start,'publication':publication_report,'body_analysis':analysis_report}
 write_changed(ROOT/'.generated/build-report.json',json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
