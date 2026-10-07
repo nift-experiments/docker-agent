@@ -1,0 +1,174 @@
+<p>This is a guided example of using the
+<a class=link href=https://docs.docker.com/dhi/tools/api/>DHI API</a>
+to fetch VEX statements and suppressed CVEs for a Docker Hardened Image (DHI)
+by digest, using the <code>imagePackagesForImageCoords</code> query. The query takes an
+image digest and returns every package, every CVE reported against it,
+whether Docker suppresses that CVE, and why.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>For one-off lookups or local scanning workflows,
+<a class=link href=https://docs.docker.com/dhi/how-to/scan/#export-vex-attestations><code>docker scout vex get</code></a> may be simpler.
+Use the API described here when you need to query many images
+programmatically.</p></div></blockquote><p>For the API endpoint and authentication, see
+<a class=link href=https://docs.docker.com/dhi/tools/api/>Use the DHI
+API</a>. This page assumes you already have a valid
+token.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=query-suppressed-cves><a class="text-black dark:text-white no-underline hover:underline" href=#query-suppressed-cves>Query suppressed CVEs</a></h2><p>This is the <code>imagePackagesForImageCoords</code> query used in this example. It
+fetches every package in an image, every CVE reported against it, and
+whether Docker suppresses that CVE:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'cXVlcnkgQmFzZVZleCgkY3R4OiBDb250ZXh0ISwgJHE6IElwSW1hZ2VQYWNrYWdlc0ZvckltYWdlQ29vcmRzUXVlcnkhKSB7CiAgaW1hZ2VQYWNrYWdlc0ZvckltYWdlQ29vcmRzKGNvbnRleHQ6ICRjdHgsIHF1ZXJ5OiAkcSkgewogICAgaW1hZ2VQYWNrYWdlcyB7CiAgICAgIHBhY2thZ2VzIHsKICAgICAgICBwYWNrYWdlIHsKICAgICAgICAgIHB1cmwKICAgICAgICAgIG5hbWUKICAgICAgICAgIHZlcnNpb24KICAgICAgICAgIHZ1bG5lcmFiaWxpdGllcyB7CiAgICAgICAgICAgIHNvdXJjZUlkCiAgICAgICAgICAgIGlzRXhjZXB0ZWQKICAgICAgICAgICAgZml4ZWRCeQogICAgICAgICAgICBjdnNzIHsKICAgICAgICAgICAgICBzZXZlcml0eQogICAgICAgICAgICB9CiAgICAgICAgICAgIHZ1bG5lcmFiaWxpdHlFeGNlcHRpb25zIHsKICAgICAgICAgICAgICBpZAogICAgICAgICAgICAgIHNvdXJjZVR5cGUKICAgICAgICAgICAgICB0eXBlCiAgICAgICAgICAgICAganVzdGlmaWNhdGlvbgogICAgICAgICAgICAgIGFkZGl0aW9uYWxEZXRhaWxzCiAgICAgICAgICAgICAgaXNEaGlTdGF0ZW1lbnQKICAgICAgICAgICAgfQogICAgICAgICAgfQogICAgICAgIH0KICAgICAgfQogICAgfQogIH0KfQ==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-graphql data-lang=graphql><span class=line><span class=cl><span class=kd>query</span><span class=w> </span><span class=nc>BaseVex</span><span class=p>(</span><span class=nv>$ctx</span><span class=p>:</span><span class=w> </span><span class=nc>Context</span><span class=p>!,</span><span class=w> </span><span class=nv>$q</span><span class=p>:</span><span class=w> </span><span class=nc>IpImagePackagesForImageCoordsQuery</span><span class=p>!)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=py>imagePackagesForImageCoords</span><span class=p>(</span><span class=py>context</span><span class=p>:</span><span class=w> </span><span class=nv>$ctx</span><span class=p>,</span><span class=w> </span><span class=nc>query</span><span class=p>:</span><span class=w> </span><span class=nv>$q</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=py>imagePackages</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=py>packages</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=py>package</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=py>purl</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=py>name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=py>version</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=py>vulnerabilities</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=py>sourceId</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=py>isExcepted</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=py>fixedBy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=py>cvss</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=py>severity</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=py>vulnerabilityExceptions</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=py>id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=py>sourceType</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=kd>type</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=nc>justification</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=py>additionalDetails</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>              </span><span class=py>isDhiStatement</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><p>With variables:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJjdHgiOiB7ICJvcmdhbml6YXRpb24iOiAieW91ci1vcmciIH0sCiAgInEiOiB7CiAgICAiZGlnZXN0IjogInNoYTI1Njo8cGxhdGZvcm0tbWFuaWZlc3QtZGlnZXN0PiIsCiAgICAiaG9zdE5hbWUiOiAiaHViLmRvY2tlci5jb20iLAogICAgInJlcG9OYW1lIjogInlvdXItb3JnL3lvdXItcmVwbyIsCiAgICAiaW5jbHVkZUV4Y2VwdGVkIjogdHJ1ZSwKICAgICJpbmNsdWRlTm9kc2EiOiB0cnVlCiAgfQp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;ctx&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;organization&#34;</span><span class=p>:</span> <span class=s2>&#34;your-org&#34;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;q&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;digest&#34;</span><span class=p>:</span> <span class=s2>&#34;sha256:&lt;platform-manifest-digest&gt;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;hostName&#34;</span><span class=p>:</span> <span class=s2>&#34;hub.docker.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;repoName&#34;</span><span class=p>:</span> <span class=s2>&#34;your-org/your-repo&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;includeExcepted&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;includeNodsa&#34;</span><span class=p>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><p>For the full argument reference, see
+<a class=link href=https://docs.docker.com/dhi/tools/api/#imagepackagesforimagecoords><code>imagePackagesForImageCoords</code></a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=get-an-access-token><a class="text-black dark:text-white no-underline hover:underline" href=#get-an-access-token>Get an access token</a></h3><p>Exchange your organization access token (OAT) or personal access token (PAT)
+for an access token, as described in
+<a class=link href=https://docs.docker.com/dhi/tools/api/#authentication>Use the DHI
+API</a>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBESElfQVBJX1RPS0VOPSQoY3VybCAtcyAtWCBQT1NUIGh0dHBzOi8vaHViLmRvY2tlci5jb20vdjIvYXV0aC90b2tlbiBcCiAgLUggIkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbiIgXAogIC1kICJ7XCJpZGVudGlmaWVyXCI6IFwiPGlkZW50aWZpZXI+XCIsIFwic2VjcmV0XCI6IFwiPHRva2VuPlwifSIgXAogIHwganEgLXIgLmFjY2Vzc190b2tlbik=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> <span class=nv>DHI_API_TOKEN</span><span class=o>=</span><span class=k>$(</span>curl -s -X POST https://hub.docker.com/v2/auth/token <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>  -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>  -d &#34;{\&#34;identifier\&#34;: \&#34;&lt;identifier&gt;\&#34;, \&#34;secret\&#34;: \&#34;&lt;token&gt;\&#34;}&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>  | jq -r .access_token)
+</span></span></span></code></pre></div></div></div></div><p>Use your Docker Hub username as <code>identifier</code> for a PAT, or your organization
+name for an OAT.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=send-the-request><a class="text-black dark:text-white no-underline hover:underline" href=#send-the-request>Send the request</a></h3><p>Combine the query and variables into the request body described in
+<a class=link href=https://docs.docker.com/dhi/tools/api/#request-format>Use the
+DHI API</a>. The following example
+uses <code>jq</code> to build the body safely, since the query spans multiple lines:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBRVUVSWT0ncXVlcnkgQmFzZVZleCgkY3R4OiBDb250ZXh0ISwgJHE6IElwSW1hZ2VQYWNrYWdlc0ZvckltYWdlQ29vcmRzUXVlcnkhKSB7CiAgaW1hZ2VQYWNrYWdlc0ZvckltYWdlQ29vcmRzKGNvbnRleHQ6ICRjdHgsIHF1ZXJ5OiAkcSkgewogICAgaW1hZ2VQYWNrYWdlcyB7CiAgICAgIHBhY2thZ2VzIHsKICAgICAgICBwYWNrYWdlIHsKICAgICAgICAgIHB1cmwKICAgICAgICAgIG5hbWUKICAgICAgICAgIHZlcnNpb24KICAgICAgICAgIHZ1bG5lcmFiaWxpdGllcyB7CiAgICAgICAgICAgIHNvdXJjZUlkCiAgICAgICAgICAgIGlzRXhjZXB0ZWQKICAgICAgICAgICAgZml4ZWRCeQogICAgICAgICAgICBjdnNzIHsKICAgICAgICAgICAgICBzZXZlcml0eQogICAgICAgICAgICB9CiAgICAgICAgICAgIHZ1bG5lcmFiaWxpdHlFeGNlcHRpb25zIHsKICAgICAgICAgICAgICBpZAogICAgICAgICAgICAgIHNvdXJjZVR5cGUKICAgICAgICAgICAgICB0eXBlCiAgICAgICAgICAgICAganVzdGlmaWNhdGlvbgogICAgICAgICAgICAgIGFkZGl0aW9uYWxEZXRhaWxzCiAgICAgICAgICAgICAgaXNEaGlTdGF0ZW1lbnQKICAgICAgICAgICAgfQogICAgICAgICAgfQogICAgICAgIH0KICAgICAgfQogICAgfQogIH0KfScKCiQgY3VybCBodHRwczovL2FwaS5kc28uZG9ja2VyLmNvbS92MS9ncmFwaHFsIFwKICAtSCAiQXV0aG9yaXphdGlvbjogQmVhcmVyICRESElfQVBJX1RPS0VOIiBcCiAgLUggIkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbiIgXAogIC1kICIkKGpxIC1uIC0tYXJnIHF1ZXJ5ICIkUVVFUlkiICd7CiAgICBxdWVyeTogJHF1ZXJ5LAogICAgdmFyaWFibGVzOiB7CiAgICAgIGN0eDogeyBvcmdhbml6YXRpb246ICJ5b3VyLW9yZyIgfSwKICAgICAgcTogewogICAgICAgIGRpZ2VzdDogInNoYTI1Njo8cGxhdGZvcm0tbWFuaWZlc3QtZGlnZXN0PiIsCiAgICAgICAgaG9zdE5hbWU6ICJodWIuZG9ja2VyLmNvbSIsCiAgICAgICAgcmVwb05hbWU6ICJ5b3VyLW9yZy95b3VyLXJlcG8iLAogICAgICAgIGluY2x1ZGVFeGNlcHRlZDogdHJ1ZSwKICAgICAgICBpbmNsdWRlTm9kc2E6IHRydWUKICAgICAgfQogICAgfQogIH0nKSI=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> <span class=nv>QUERY</span><span class=o>=</span><span class=err>&#39;</span>query BaseVex<span class=o>(</span><span class=nv>$ctx</span>: Context!, <span class=nv>$q</span>: IpImagePackagesForImageCoordsQuery!<span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl><span class=go>  imagePackagesForImageCoords(context: $ctx, query: $q) {
+</span></span></span><span class=line><span class=cl><span class=go>    imagePackages {
+</span></span></span><span class=line><span class=cl><span class=go>      packages {
+</span></span></span><span class=line><span class=cl><span class=go>        package {
+</span></span></span><span class=line><span class=cl><span class=go>          purl
+</span></span></span><span class=line><span class=cl><span class=go>          name
+</span></span></span><span class=line><span class=cl><span class=go>          version
+</span></span></span><span class=line><span class=cl><span class=go>          vulnerabilities {
+</span></span></span><span class=line><span class=cl><span class=go>            sourceId
+</span></span></span><span class=line><span class=cl><span class=go>            isExcepted
+</span></span></span><span class=line><span class=cl><span class=go>            fixedBy
+</span></span></span><span class=line><span class=cl><span class=go>            cvss {
+</span></span></span><span class=line><span class=cl><span class=go>              severity
+</span></span></span><span class=line><span class=cl><span class=go>            }
+</span></span></span><span class=line><span class=cl><span class=go>            vulnerabilityExceptions {
+</span></span></span><span class=line><span class=cl><span class=go>              id
+</span></span></span><span class=line><span class=cl><span class=go>              sourceType
+</span></span></span><span class=line><span class=cl><span class=go>              type
+</span></span></span><span class=line><span class=cl><span class=go>              justification
+</span></span></span><span class=line><span class=cl><span class=go>              additionalDetails
+</span></span></span><span class=line><span class=cl><span class=go>              isDhiStatement
+</span></span></span><span class=line><span class=cl><span class=go>            }
+</span></span></span><span class=line><span class=cl><span class=go>          }
+</span></span></span><span class=line><span class=cl><span class=go>        }
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  }
+</span></span></span><span class=line><span class=cl><span class=go>}&#39;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> curl https://api.dso.docker.com/v1/graphql <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>  -H &#34;Authorization: Bearer $DHI_API_TOKEN&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>  -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>  -d &#34;$(jq -n --arg query &#34;$QUERY&#34; &#39;{
+</span></span></span><span class=line><span class=cl><span class=go>    query: $query,
+</span></span></span><span class=line><span class=cl><span class=go>    variables: {
+</span></span></span><span class=line><span class=cl><span class=go>      ctx: { organization: &#34;your-org&#34; },
+</span></span></span><span class=line><span class=cl><span class=go>      q: {
+</span></span></span><span class=line><span class=cl><span class=go>        digest: &#34;sha256:&lt;platform-manifest-digest&gt;&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        hostName: &#34;hub.docker.com&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        repoName: &#34;your-org/your-repo&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        includeExcepted: true,
+</span></span></span><span class=line><span class=cl><span class=go>        includeNodsa: true
+</span></span></span><span class=line><span class=cl><span class=go>      }
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  }&#39;)&#34;
+</span></span></span></code></pre></div></div></div></div><p>Substitute your organization, digest, host, and repository.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=sample-response><a class="text-black dark:text-white no-underline hover:underline" href=#sample-response>Sample response</a></h2><p>The following example is trimmed to a single package:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJwYWNrYWdlIjogewogICAgInB1cmwiOiAicGtnOmRlYi9kZWJpYW4vdGFyQDEuMzUlMkJkZnNnLTMuMSUyQmRoaTE/b3NfZGlzdHJvPXRyaXhpZSZvc19uYW1lPWRlYmlhbiZvc192ZXJzaW9uPTEzIiwKICAgICJuYW1lIjogInRhciIsCiAgICAidmVyc2lvbiI6ICIxLjM1K2Rmc2ctMy4xK2RoaTEiLAogICAgInZ1bG5lcmFiaWxpdGllcyI6IFsKICAgICAgewogICAgICAgICJzb3VyY2VJZCI6ICJDVkUtMjAyNS00NTU4MiIsCiAgICAgICAgImN2c3MiOiB7ICJzZXZlcml0eSI6ICJNRURJVU0iIH0sCiAgICAgICAgImZpeGVkQnkiOiBudWxsLAogICAgICAgICJpc0V4Y2VwdGVkIjogZmFsc2UsCiAgICAgICAgInZ1bG5lcmFiaWxpdHlFeGNlcHRpb25zIjogW10KICAgICAgfSwKICAgICAgewogICAgICAgICJzb3VyY2VJZCI6ICJDVkUtMjAyNi0xODQ3NyIsCiAgICAgICAgImN2c3MiOiB7ICJzZXZlcml0eSI6ICJNRURJVU0iIH0sCiAgICAgICAgImZpeGVkQnkiOiBudWxsLAogICAgICAgICJpc0V4Y2VwdGVkIjogdHJ1ZSwKICAgICAgICAidnVsbmVyYWJpbGl0eUV4Y2VwdGlvbnMiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJpZCI6ICJkZWJpYW4tbm9kc2EtQ1ZFLTIwMjYtMTg0NzciLAogICAgICAgICAgICAic291cmNlVHlwZSI6ICJFWFRFUk5BTCIsCiAgICAgICAgICAgICJ0eXBlIjogIkZBTFNFX1BPU0lUSVZFIiwKICAgICAgICAgICAgImp1c3RpZmljYXRpb24iOiBudWxsLAogICAgICAgICAgICAiYWRkaXRpb25hbERldGFpbHMiOiAiRGViaWFuIE5PRFNBIiwKICAgICAgICAgICAgImlzRGhpU3RhdGVtZW50IjogZmFsc2UKICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0KICAgIF0KICB9Cn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;package&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;purl&#34;</span><span class=p>:</span> <span class=s2>&#34;pkg:deb/debian/tar@1.35%2Bdfsg-3.1%2Bdhi1?os_distro=trixie&amp;os_name=debian&amp;os_version=13&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;tar&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;1.35+dfsg-3.1+dhi1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;vulnerabilities&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;sourceId&#34;</span><span class=p>:</span> <span class=s2>&#34;CVE-2025-45582&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;cvss&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;severity&#34;</span><span class=p>:</span> <span class=s2>&#34;MEDIUM&#34;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;fixedBy&#34;</span><span class=p>:</span> <span class=kc>null</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;isExcepted&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;vulnerabilityExceptions&#34;</span><span class=p>:</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>      <span class=p>},</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;sourceId&#34;</span><span class=p>:</span> <span class=s2>&#34;CVE-2026-18477&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;cvss&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;severity&#34;</span><span class=p>:</span> <span class=s2>&#34;MEDIUM&#34;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;fixedBy&#34;</span><span class=p>:</span> <span class=kc>null</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;isExcepted&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&#34;vulnerabilityExceptions&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>          <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&#34;id&#34;</span><span class=p>:</span> <span class=s2>&#34;debian-nodsa-CVE-2026-18477&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&#34;sourceType&#34;</span><span class=p>:</span> <span class=s2>&#34;EXTERNAL&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;FALSE_POSITIVE&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&#34;justification&#34;</span><span class=p>:</span> <span class=kc>null</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&#34;additionalDetails&#34;</span><span class=p>:</span> <span class=s2>&#34;Debian NODSA&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&#34;isDhiStatement&#34;</span><span class=p>:</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>          <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><p>Use <code>isExcepted</code> to tell whether a CVE is suppressed. For the full response
+field reference and the OpenVEX mapping, see
+<a class=link href=https://docs.docker.com/dhi/tools/api/#imagepackagesforimagecoords><code>imagePackagesForImageCoords</code></a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=query-customization-images><a class="text-black dark:text-white no-underline hover:underline" href=#query-customization-images>Query customization images</a></h2><p>DHI VEX statements apply directly to images built with the
+<a class=link href=https://docs.docker.com/dhi/how-to/customize/>customization
+feature</a>. Query the customized image's own
+digest to get its packages, CVEs, and suppressions in a single call. You
+don't need to query the base image separately.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=caveats><a class="text-black dark:text-white no-underline hover:underline" href=#caveats>Caveats</a></h2><p>The suppression set for a given digest can change as new advisories and
+assessments are published. Cache results per digest with a short TTL rather
+than treating a response as permanent.</p>

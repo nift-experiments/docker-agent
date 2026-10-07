@@ -1,0 +1,194 @@
+<p>While
+<a class=link href=/reference/cli/docker/builder/prune/><code>docker builder prune</code></a>
+or
+<a class=link href=/reference/cli/docker/buildx/prune/><code>docker buildx prune</code></a>
+commands run at once, Garbage Collection (GC) runs periodically and follows an
+ordered list of prune policies. The BuildKit daemon clears the build cache when
+the cache size becomes too big, or when the cache age expires.</p><p>For most users, the default GC behavior is sufficient and doesn't require any
+intervention. Advanced users, particularly those working with large-scale
+builds, self-managed builders, or constrained storage environments, might
+benefit from customizing these settings to better align with their workflow
+needs. The following sections explain how GC works and provide guidance on
+tailoring its behavior through custom configuration.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=garbage-collection-policies><a class="text-black dark:text-white no-underline hover:underline" href=#garbage-collection-policies>Garbage collection policies</a></h2><p>GC policies define a set of rules that determine how the build cache is managed
+and cleaned up. These policies include criteria for when to remove cache
+entries, such as the age of the cache, the amount of space being used, and the
+type of cache records to prune.</p><p>Each GC policy is evaluated in sequence, starting with the most specific
+criteria, and proceeds to broader rules if previous policies do not free up
+enough cache. This lets BuildKit prioritize cache entries, preserving the most
+valuable cache while ensuring the system maintains performance and
+availability.</p><p>For example, say you have the following GC policies:</p><ol><li>Find "stale" cache records that haven't been used in the past 48 hours, and
+delete records until there's maximum 5GB of "stale" cache left.</li><li>If the build cache size exceeds 10GB, delete records until the total cache
+size is no more than 10GB.</li></ol><p>The first rule is more specific, prioritizing stale cache records and setting a
+lower limit for a less valuable type of cache. The second rule imposes a higher
+hard limit that applies to any type of cache records. With these policies, if
+you have 11GB worth of build cache, where:</p><ul><li>7GB of which is "stale" cache</li><li>4GB is other, more valuable cache</li></ul><p>A GC sweep would delete 2GB of stale cache as part of the 1st policy, leaving
+9GB of cache in total, meaning the 2nd policy does not need to clear any more
+cache.</p><p>The default GC policies are (approximately):</p><ol><li>Remove cache that can be easily regenerated, such as build contexts from
+local directories or remote Git repositories, and cache mounts, if hasn't
+been used for more than 48 hours.</li><li>Remove cache that hasn't been used in a build for more than 60 days.</li><li>Remove unshared cache that exceeds the build cache size limit. Unshared
+cache records refers to layer blobs that are not used by other resources
+(typically, as image layers).</li><li>Remove any build cache that exceeds the build cache size limit.</li></ol><p>The precise algorithm and the means of configuring the policies differ slightly
+depending on what kind of builder you're using. Refer to
+<a class=link href=#configuration>Configuration</a> for more details.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=configuration><a class="text-black dark:text-white no-underline hover:underline" href=#configuration>Configuration</a></h2><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>If you're satisfied with the default garbage collection behavior and don't
+need to fine-tune its settings, you can skip this section. Default
+configurations work well for most use cases and require no additional setup.</p></div></blockquote><p>Depending on the type of <a class=link href=https://docs.docker.com/build/builders/drivers/>build driver</a> you use,
+you will use different configuration files to change the builder's GC settings:</p><ul><li>If you use the default builder for Docker Engine (the <code>docker</code> driver), use
+the <a class=link href=#docker-daemon-configuration-file>Docker daemon configuration file</a>.</li><li>If you use a custom builder, use a <a class=link href=#buildkit-configuration-file>BuildKit configuration file</a>.</li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-daemon-configuration-file><a class="text-black dark:text-white no-underline hover:underline" href=#docker-daemon-configuration-file>Docker daemon configuration file</a></h3><p>If you're using the default <a class=link href=https://docs.docker.com/build/builders/drivers/docker/><code>docker</code> driver</a>,
+GC is configured in the
+<a class=link href=https://docs.docker.com/reference/cli/dockerd/#daemon-configuration-file><code>daemon.json</code> configuration file</a>,
+or if you use Docker Desktop, in
+<a class=link href=https://docs.docker.com/desktop/settings-and-maintenance/settings/><strong>Settings > Docker Engine</strong></a>.</p><p>The following snippet shows the default builder configuration for the <code>docker</code>
+driver for Docker Desktop users:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJidWlsZGVyIjogewogICAgImdjIjogewogICAgICAiZGVmYXVsdEtlZXBTdG9yYWdlIjogIjIwR0IiLAogICAgICAiZW5hYmxlZCI6IHRydWUKICAgIH0KICB9Cn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;builder&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;gc&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;defaultKeepStorage&#34;</span><span class=p>:</span> <span class=s2>&#34;20GB&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;enabled&#34;</span><span class=p>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><p>The <code>defaultKeepStorage</code> option configures the size limit of the build cache,
+which influences the GC policies. The default policies for the <code>docker</code> driver
+work as follows:</p><ol><li>Remove ephemeral, unused build cache older than 48 hours if it exceeds 13.8%
+of <code>defaultKeepStorage</code>, or at minimum 512MB.</li><li>Remove unused build cache older than 60 days.</li><li>Remove unshared build cache that exceeds the <code>defaultKeepStorage</code> limit.</li><li>Remove any build cache that exceeds the <code>defaultKeepStorage</code> limit.</li></ol><p>Given the Docker Desktop default value for <code>defaultKeepStorage</code> of 20GB, the
+default GC policies resolve to:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJidWlsZGVyIjogewogICAgImdjIjogewogICAgICAiZW5hYmxlZCI6IHRydWUsCiAgICAgICJwb2xpY3kiOiBbCiAgICAgICAgewogICAgICAgICAgInJlc2VydmVkU3BhY2UiOiAiMi43NjRHQiIsCiAgICAgICAgICAia2VlcER1cmF0aW9uIjogIjQ4aCIsCiAgICAgICAgICAiZmlsdGVyIjogWwogICAgICAgICAgICAidHlwZT1zb3VyY2UubG9jYWwsdHlwZT1leGVjLmNhY2hlbW91bnQsdHlwZT1zb3VyY2UuZ2l0LmNoZWNrb3V0IgogICAgICAgICAgXQogICAgICAgIH0sCiAgICAgICAgeyAicmVzZXJ2ZWRTcGFjZSI6ICIyMEdCIiwgImtlZXBEdXJhdGlvbiI6IFsiMTQ0MGgiXSB9LAogICAgICAgIHsgInJlc2VydmVkU3BhY2UiOiAiMjBHQiIgfSwKICAgICAgICB7ICJyZXNlcnZlZFNwYWNlIjogIjIwR0IiLCAiYWxsIjogdHJ1ZSB9CiAgICAgIF0KICAgIH0KICB9Cn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;builder&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;gc&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;enabled&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;policy&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;2.764GB&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;keepDuration&#34;</span><span class=p>:</span> <span class=s2>&#34;48h&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>          <span class=nt>&#34;filter&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;type=source.local,type=exec.cachemount,type=source.git.checkout&#34;</span>
+</span></span><span class=line><span class=cl>          <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;20GB&#34;</span><span class=p>,</span> <span class=nt>&#34;keepDuration&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;1440h&#34;</span><span class=p>]</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;20GB&#34;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;20GB&#34;</span><span class=p>,</span> <span class=nt>&#34;all&#34;</span><span class=p>:</span> <span class=kc>true</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><p>The easiest way to tweak the build cache configuration for the <code>docker</code> driver
+is to adjust the <code>defaultKeepStorage</code> option:</p><ul><li>Increase the limit if you feel like you think the GC is too aggressive.</li><li>Decrease the limit if you need to preserve space.</li></ul><h4 class="scroll-mt-20 flex items-center gap-2" id=custom-gc-policies-in-the-docker-daemon-configuration-file><a class="text-black dark:text-white no-underline hover:underline" href=#custom-gc-policies-in-the-docker-daemon-configuration-file>Custom GC policies in the Docker daemon configuration file</a></h4><p>If you need even more control, you can define your own GC policies directly.
+The following example defines a more conservative GC configuration with the
+following policies:</p><ol><li>Remove unused cache entries older than 1440 hours, or 60 days, if build cache exceeds 50GB.</li><li>Remove unshared cache entries if build cache exceeds 50GB.</li><li>Remove any cache entries if build cache exceeds 100GB.</li></ol><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJidWlsZGVyIjogewogICAgImdjIjogewogICAgICAiZW5hYmxlZCI6IHRydWUsCiAgICAgICJwb2xpY3kiOiBbCiAgICAgICAgeyAicmVzZXJ2ZWRTcGFjZSI6ICI1MEdCIiwgImtlZXBEdXJhdGlvbiI6IFsiMTQ0MGgiXSB9LAogICAgICAgIHsgInJlc2VydmVkU3BhY2UiOiAiNTBHQiIgfSwKICAgICAgICB7ICJyZXNlcnZlZFNwYWNlIjogIjEwMEdCIiwgImFsbCI6IHRydWUgfQogICAgICBdCiAgICB9CiAgfQp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;builder&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;gc&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;enabled&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nt>&#34;policy&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;50GB&#34;</span><span class=p>,</span> <span class=nt>&#34;keepDuration&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;1440h&#34;</span><span class=p>]</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;50GB&#34;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nt>&#34;reservedSpace&#34;</span><span class=p>:</span> <span class=s2>&#34;100GB&#34;</span><span class=p>,</span> <span class=nt>&#34;all&#34;</span><span class=p>:</span> <span class=kc>true</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>In the Docker daemon configuration file, the "equals" operator in GC filters
+is denoted using a single <code>=</code>, whereas BuildKit's configuration file uses
+<code>==</code>:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2><code>daemon.json</code></th><th class=p-2><code>buildkitd.toml</code></th></tr></thead><tbody><tr><td class=p-2><code>type=source.local</code></td><td class=p-2><code>type==source.local</code></td></tr><tr><td class=p-2><code>private=true</code></td><td class=p-2><code>private==true</code></td></tr><tr><td class=p-2><code>shared=true</code></td><td class=p-2><code>shared==true</code></td></tr></tbody></table></div><p>See
+<a class=link href=/reference/cli/docker/buildx/prune/#filter>prune filters</a> for
+information about available GC filters. GC configuration in <code>daemon.json</code>
+supports all filters except <code>mutable</code> and <code>immutable</code>.</p></div></blockquote><h3 class="scroll-mt-20 flex items-center gap-2" id=buildkit-configuration-file><a class="text-black dark:text-white no-underline hover:underline" href=#buildkit-configuration-file>BuildKit configuration file</a></h3><p>For build drivers other than <code>docker</code>, GC is configured using a
+<a class=link href=https://docs.docker.com/build/buildkit/toml-configuration/><code>buildkitd.toml</code></a> configuration file. This
+file uses the following high-level configuration options that you can use to
+tweak the thresholds for how much disk space BuildKit should use for cache:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Option</th><th class=p-2>Description</th><th class=p-2>Default value</th></tr></thead><tbody><tr><td class=p-2><code>reservedSpace</code></td><td class=p-2>The minimum amount of disk space BuildKit is allowed to allocate for cache. Usage below this threshold will not be reclaimed during garbage collection.</td><td class=p-2>10% of total disk space or 10GB (whichever is lower)</td></tr><tr><td class=p-2><code>maxUsedSpace</code></td><td class=p-2>The maximum amount of disk space that BuildKit is allowed to use. Usage above this threshold will be reclaimed during garbage collection.</td><td class=p-2>60% of total disk space or 100GB (whichever is lower)</td></tr><tr><td class=p-2><code>minFreeSpace</code></td><td class=p-2>The amount of disk space that must be kept free.</td><td class=p-2>20GB</td></tr></tbody></table></div><p>You can set these options either as number of bytes, a unit string (for
+example, <code>512MB</code>), or as a percentage of the total disk size. Changing these
+options influences the default GC policies used by the BuildKit worker. With
+the default thresholds, the GC policies resolve as follows:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBHbG9iYWwgZGVmYXVsdHMKW3dvcmtlci5vY2ldCiAgZ2MgPSB0cnVlCiAgcmVzZXJ2ZWRTcGFjZSA9ICIxMEdCIgogIG1heFVzZWRTcGFjZSA9ICIxMDBHQiIKICBtaW5GcmVlU3BhY2UgPSAiMjAlIgoKIyBQb2xpY3kgMQpbW3dvcmtlci5vY2kuZ2Nwb2xpY3ldXQogIGZpbHRlcnMgPSBbICJ0eXBlPT1zb3VyY2UubG9jYWwiLCAidHlwZT09ZXhlYy5jYWNoZW1vdW50IiwgInR5cGU9PXNvdXJjZS5naXQuY2hlY2tvdXQiIF0KICBrZWVwRHVyYXRpb24gPSAiNDhoIgogIG1heFVzZWRTcGFjZSA9ICI1MTJNQiIKCiMgUG9saWN5IDIKW1t3b3JrZXIub2NpLmdjcG9saWN5XV0KICBrZWVwRHVyYXRpb24gPSAiMTQ0MGgiICMgNjAgZGF5cwogIHJlc2VydmVkU3BhY2UgPSAiMTBHQiIKICBtYXhVc2VkU3BhY2UgPSAiMTAwR0IiCgojIFBvbGljeSAzCltbd29ya2VyLm9jaS5nY3BvbGljeV1dCiAgcmVzZXJ2ZWRTcGFjZSA9ICIxMEdCIgogIG1heFVzZWRTcGFjZSA9ICIxMDBHQiIKCiMgUG9saWN5IDQKW1t3b3JrZXIub2NpLmdjcG9saWN5XV0KICBhbGwgPSB0cnVlCiAgcmVzZXJ2ZWRTcGFjZSA9ICIxMEdCIgogIG1heFVzZWRTcGFjZSA9ICIxMDBHQiI=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=c># Global defaults</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>gc</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;10GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;100GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>minFreeSpace</span> <span class=p>=</span> <span class=s2>&#34;20%&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Policy 1</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>filters</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;type==source.local&#34;</span><span class=p>,</span> <span class=s2>&#34;type==exec.cachemount&#34;</span><span class=p>,</span> <span class=s2>&#34;type==source.git.checkout&#34;</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>keepDuration</span> <span class=p>=</span> <span class=s2>&#34;48h&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;512MB&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Policy 2</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>keepDuration</span> <span class=p>=</span> <span class=s2>&#34;1440h&#34;</span> <span class=c># 60 days</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;10GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;100GB&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Policy 3</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;10GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;100GB&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Policy 4</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>all</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;10GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;100GB&#34;</span></span></span></code></pre></div></div></div></div><p>In practical terms, this means:</p><ul><li>Policy 1: If the build cache exceeds 512MB, BuildKit removes cache records
+for local build contexts, remote Git contexts, and cache mounts that haven’t
+been used in the last 48 hours.</li><li>Policy 2: If disk usage exceeds 100GB, unshared build cache older than 60
+days is removed, ensuring at least 10GB of disk space is reserved for cache.</li><li>Policy 3: If disk usage exceeds 100GB, any unshared cache is removed,
+ensuring at least 10GB of disk space is reserved for cache.</li><li>Policy 4: If disk usage exceeds 100GB, all cache—including shared and
+internal records—is removed, ensuring at least 10GB of disk space is reserved
+for cache.</li></ul><p><code>reservedSpace</code> has the highest priority in defining the lower limit for build
+cache size. If <code>maxUsedSpace</code> or <code>minFreeSpace</code> would define a lower value, the
+minimum cache size would never be brought below <code>reservedSpace</code>.</p><p>If both <code>reservedSpace</code> and <code>maxUsedSpace</code> are set, a GC sweep results in a
+cache size between those thresholds. For example, if <code>reservedSpace</code> is set to
+10GB, and <code>maxUsedSpace</code> is set to 20GB, the resulting amount of cache after a
+GC run is less than 20GB, but at least 10GB.</p><p>You can also define completely custom GC policies. Custom policies also let you
+define filters, which lets you pinpoint the types of cache entries that a given
+policy is allowed to prune.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=custom-gc-policies-in-buildkit><a class="text-black dark:text-white no-underline hover:underline" href=#custom-gc-policies-in-buildkit>Custom GC policies in BuildKit</a></h4><p>Custom GC policies let you fine-tune how BuildKit manages its cache, and gives
+you full control over cache retention based on criteria such as cache type,
+duration, or disk space thresholds. If you need full control over the cache
+thresholds and how cache records should be prioritized, defining custom GC
+policies is the way to go.</p><p>To define a custom GC policy, use the <code>[[worker.oci.gcpolicy]]</code> configuration
+block in <code>buildkitd.toml</code>. Each policy define the thresholds that will be used
+for that policy. The global values for <code>reservedSpace</code>, <code>maxUsedSpace</code>, and
+<code>minFreeSpace</code> do not apply if you use custom policies.</p><p>Here’s an example configuration:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyBDdXN0b20gR0MgUG9saWN5IDE6IFJlbW92ZSB1bnVzZWQgbG9jYWwgY29udGV4dHMgb2xkZXIgdGhhbiAyNCBob3VycwpbW3dvcmtlci5vY2kuZ2Nwb2xpY3ldXQogIGZpbHRlcnMgPSBbInR5cGU9PXNvdXJjZS5sb2NhbCJdCiAga2VlcER1cmF0aW9uID0gIjI0aCIKICByZXNlcnZlZFNwYWNlID0gIjVHQiIKICBtYXhVc2VkU3BhY2UgPSAiNTBHQiIKCiMgQ3VzdG9tIEdDIFBvbGljeSAyOiBSZW1vdmUgcmVtb3RlIEdpdCBjb250ZXh0cyBvbGRlciB0aGFuIDMwIGRheXMKW1t3b3JrZXIub2NpLmdjcG9saWN5XV0KICBmaWx0ZXJzID0gWyJ0eXBlPT1zb3VyY2UuZ2l0LmNoZWNrb3V0Il0KICBrZWVwRHVyYXRpb24gPSAiNzIwaCIKICByZXNlcnZlZFNwYWNlID0gIjVHQiIKICBtYXhVc2VkU3BhY2UgPSAiMzBHQiIKCiMgQ3VzdG9tIEdDIFBvbGljeSAzOiBBZ2dyZXNzaXZlbHkgY2xlYW4gYWxsIGNhY2hlIGlmIGRpc2sgdXNhZ2UgZXhjZWVkcyA5MEdCCltbd29ya2VyLm9jaS5nY3BvbGljeV1dCiAgYWxsID0gdHJ1ZQogIHJlc2VydmVkU3BhY2UgPSAiNUdCIgogIG1heFVzZWRTcGFjZSA9ICI5MEdCIg==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=c># Custom GC Policy 1: Remove unused local contexts older than 24 hours</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>filters</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;type==source.local&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>keepDuration</span> <span class=p>=</span> <span class=s2>&#34;24h&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;5GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;50GB&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Custom GC Policy 2: Remove remote Git contexts older than 30 days</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>filters</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;type==source.git.checkout&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>keepDuration</span> <span class=p>=</span> <span class=s2>&#34;720h&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;5GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;30GB&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Custom GC Policy 3: Aggressively clean all cache if disk usage exceeds 90GB</span>
+</span></span><span class=line><span class=cl><span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>all</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;5GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;90GB&#34;</span></span></span></code></pre></div></div></div></div><p>In addition to the <code>reservedSpace</code>, <code>maxUsedSpace</code>, and <code>minFreeSpace</code> threshold,
+when defining a GC policy you have two additional configuration options:</p><ul><li><code>all</code>: By default, BuildKit will exclude some cache records from being pruned
+during GC. Setting this option to <code>true</code> will allow any cache records to be
+pruned.</li><li><code>filters</code>: Filters let you specify specific types of cache records that a GC
+policy is allowed to prune.</li></ul><p>See
+<a class=link href=/reference/cli/docker/buildx/prune/#filter>buildx prune filters</a> for
+information about available GC filters.</p>

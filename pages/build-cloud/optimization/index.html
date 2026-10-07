@@ -1,0 +1,39 @@
+<p>Docker Build Cloud runs your builds remotely, and not on the machine where you
+invoke the build. This means that file transfers between the client and builder
+happen over the network.</p><p>Transferring files over the network has a higher latency and lower bandwidth
+than local transfers. Docker Build Cloud has several features to mitigate this:</p><ul><li>It uses attached storage volumes for build cache, which makes reading and
+writing cache very fast.</li><li>Loading build results back to the client only pulls the layers that were
+changed compared to previous builds.</li></ul><p>Despite these optimizations, building remotely can still yield slow context
+transfers and image loads, for large projects or if the network connection is
+slow. Here are some ways that you can optimize your builds to make the transfer
+more efficient:</p><ul><li><a class=link href=#dockerignore-files>Dockerignore files</a></li><li><a class=link href=#slim-base-images>Slim base images</a></li><li><a class=link href=#multi-stage-builds>Multi-stage builds</a></li><li><a class=link href=#fetch-remote-files-in-build>Fetch remote files in build</a></li><li><a class=link href=#multi-threaded-tools>Multi-threaded tools</a></li></ul><p>For more information on how to optimize your builds, see
+<a class=link href=https://docs.docker.com/build/building/best-practices/>Building best practices</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=dockerignore-files><a class="text-black dark:text-white no-underline hover:underline" href=#dockerignore-files>Dockerignore files</a></h3><p>Using a
+<a class=link href=https://docs.docker.com/build/concepts/context/#dockerignore-files><code>.dockerignore</code> file</a>,
+you can be explicit about which local files you don’t want to include in the
+build context. Files caught by the glob patterns you specify in your
+ignore-file aren't transferred to the remote builder.</p><p>Some examples of things you might want to add to your <code>.dockerignore</code> file are:</p><ul><li><code>.git</code> — skip sending the version control history in the build context. Note
+that this means you won’t be able to run Git commands in your build steps,
+such as <code>git rev-parse</code>.</li><li>Directories containing build artifacts, such as binaries. Build artifacts
+created locally during development.</li><li>Vendor directories for package managers, such as <code>node_modules</code>.</li></ul><p>In general, the contents of your <code>.dockerignore</code> file should be similar to what
+you have in your <code>.gitignore</code>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=slim-base-images><a class="text-black dark:text-white no-underline hover:underline" href=#slim-base-images>Slim base images</a></h3><p>Selecting smaller images for your <code>FROM</code> instructions in your Dockerfile can
+help reduce the size of the final image. The <a class=link href=https://hub.docker.com/_/alpine rel=noopener>Alpine image</a>
+is a good example of a minimal Docker image that provides all of the OS
+utilities you would expect from a Linux container.</p><p>There’s also the <a class=link href=https://hub.docker.com/_/scratch rel=noopener>special <code>scratch</code> image</a>,
+which contains nothing at all. Useful for creating images of statically linked
+binaries, for example.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=multi-stage-builds><a class="text-black dark:text-white no-underline hover:underline" href=#multi-stage-builds>Multi-stage builds</a></h3><p><a class=link href=/build/building/multi-stage/>Multi-stage builds</a> can make your build run faster,
+because stages can run in parallel. It can also make your end-result smaller.
+Write your Dockerfile in such a way that the final runtime stage uses the
+smallest possible base image, with only the resources that your program requires
+to run.</p><p>It’s also possible to
+<a class=link href=/build/building/multi-stage/#name-your-build-stages>copy resources from other images or stages</a>,
+using the Dockerfile <code>COPY --from</code> instruction. This technique can reduce the
+number of layers, and the size of those layers, in the final stage.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=fetch-remote-files-in-build><a class="text-black dark:text-white no-underline hover:underline" href=#fetch-remote-files-in-build>Fetch remote files in build</a></h3><p>When possible, you should fetch files from a remote location in the build,
+rather than bundling the files into the build context. Downloading files on the
+Docker Build Cloud server directly is better, because it will likely be faster
+than transferring the files with the build context.</p><p>You can fetch remote files during the build using the
+<a class=link href=/reference/dockerfile/#add>Dockerfile <code>ADD</code> instruction</a>,
+or in your <code>RUN</code> instructions with tools like <code>wget</code> and <code>rsync</code>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=multi-threaded-tools><a class="text-black dark:text-white no-underline hover:underline" href=#multi-threaded-tools>Multi-threaded tools</a></h3><p>Some tools that you use in your build instructions may not utilize multiple
+cores by default. One such example is <code>make</code> which uses a single thread by
+default, unless you specify the <code>make --jobs=&lt;n></code> option. For build steps
+involving such tools, try checking if you can optimize the execution with
+parallelization.</p>

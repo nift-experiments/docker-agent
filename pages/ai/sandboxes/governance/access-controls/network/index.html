@@ -1,0 +1,123 @@
+<p>The governance described here applies to local sandboxes. Cloud sandboxes
+use separate network policy configuration. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/network-policy/>Cloud network policy</a> for cloud controls.</p><p>Network access policies control outbound connections from sandboxes. Each
+policy contains one or more rules that allow the domains, IP ranges, and ports a
+workflow needs, or block destinations that should stay unavailable. Rules can
+also match the HTTP method and path of a request, so a policy can allow part of
+an API without allowing all of it.</p><p>You can configure network access in two places:</p><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/>Local policy</a>, which applies to sandboxes on one developer machine
+when organization governance is not active.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>Organization policies</a>, which apply centrally across an
+organization or to selected teams.</li></ul><p>When organization governance is active, only organization allow rules grant
+network access. Local allow rules are inactive until organization governance no
+longer applies, while local deny rules still apply on top of the organization
+policy. See <a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#precedence>Precedence</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=rule-syntax><a class="text-black dark:text-white no-underline hover:underline" href=#rule-syntax>Rule syntax</a></h2><p>Network rules use <code>connect:tcp</code> for TCP and <code>connect:udp</code> for UDP. Resources are
+hostnames, CIDR ranges, ports, or hostnames with ports. UDP requires
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#allow-outbound-udp>experimental outbound UDP</a>. ICMP is blocked.</p><p>Examples:</p><ul><li><code>api.example.com</code></li><li><code>*.example.com</code></li><li><code>**.example.com</code></li><li><code>example.com:443</code></li><li><code>10.0.0.0/8</code></li></ul><p>For exact wildcard behavior and CIDR support, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#network-rules>Network rules</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=http-method-and-path-rules><a class="text-black dark:text-white no-underline hover:underline" href=#http-method-and-path-rules>HTTP method and path rules</a></h2><p>A network rule matches a destination, so it allows or blocks everything a
+sandbox sends there. An HTTP rule narrows the match to specific HTTP methods
+and URL paths on that destination, which lets a policy allow reads from an API
+without allowing writes to it.</p><p>HTTP rules layer on top of network rules. A network allow is the baseline for
+a destination and HTTP rules carve into it, while a network deny blocks the
+destination outright and no HTTP allow can reopen it. For the pattern syntax
+and the full matching table, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#http-method-and-path>HTTP rules</a>.</p><p>Configure them in either place:</p><ul><li>Organization policies, in the network rule composer in Docker Home. Set the
+rule <strong>Type</strong> to <strong>HTTP</strong>, then select the methods and path patterns. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/#add-a-network-rule>Add a network rule</a>.</li><li>Local policies, with <code>--method</code> and <code>--path</code> on <code>sbx policy</code>. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#http-method-and-path-rules>HTTP method and path rules</a>.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=local-network-rules><a class="text-black dark:text-white no-underline hover:underline" href=#local-network-rules>Local network rules</a></h2><p>Use <code>sbx policy allow network</code> and <code>sbx policy deny network</code> to manage local
+network rules:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBzYnggcG9saWN5IGFsbG93IG5ldHdvcmsgYXBpLmV4YW1wbGUuY29tCiQgc2J4IHBvbGljeSBkZW55IG5ldHdvcmsgYWRzLmV4YW1wbGUuY29t', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> sbx policy allow network api.example.com
+</span></span><span class=line><span class=cl><span class=gp>$</span> sbx policy deny network ads.example.com
+</span></span></code></pre></div></div></div></div><p>For presets, sandbox-scoped rules, testing, and troubleshooting, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/>Local policy</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=organization-network-rules><a class="text-black dark:text-white no-underline hover:underline" href=#organization-network-rules>Organization network rules</a></h2><p>Organization network rules belong to policies that can apply to the whole
+organization or to selected teams. For setup steps and team scoping, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>Organization policies</a>.</p><p>Use <a class=link href=https://docs.docker.com/ai/sandboxes/governance/monitor-and-enforce/monitoring/>Monitoring policies</a> to inspect
+which network rules are active on a developer machine.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=approval-required-access><a class="text-black dark:text-white no-underline hover:underline" href=#approval-required-access>Approval-required access</a></h2><p>An organization network policy can require approval instead of granting access
+outright. Destinations the policy allows aren't reachable until the developer
+confirms them, which keeps an allowlist broad enough to be usable while still
+putting a person in front of each destination an agent reaches for.</p><p>Without organization governance, a request with no matching allow or deny rule
+also asks for approval rather than being denied outright, so access opens up as
+the developer approves each destination.</p><p>Under organization governance, approval is a property of the policy rather
+than of individual rules, so turning it on applies it to every allow rule in
+that policy. A destination stays directly reachable only when no policy that
+allows it requires approval. If a policy that requires approval also matches,
+the request needs approval regardless of what the other policies allow.</p><p>Only a destination the developer has already approved satisfies the
+requirement. Preset rules,
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/capabilities/com.docker.sandbox/network-policy@1.md rel=noopener>kit-defined rules</a>,
+and rules the developer added with <code>sbx policy allow network</code> don't answer it.
+An approval also can't reach a destination the organization doesn't allow at
+all, and it can't override a deny rule. To withdraw a destination, add a deny
+rule, which takes precedence over any approval already recorded.</p><p>To require approval on an organization policy, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/#require-approval-for-a-network-policy>Organization policies</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=respond-to-an-approval-request><a class="text-black dark:text-white no-underline hover:underline" href=#respond-to-an-approval-request>Respond to an approval request</a></h3><p>When a destination needs approval, a sandbox can't reach it until you confirm
+it. The request is blocked and the sandbox receives a message naming the
+destination:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'QXBwcm92YWwgcmVxdWlyZWQgZm9yIGFwaS5leGFtcGxlLmNvbS4KClJldmlldyBhbmQgcmVzcG9uZCB3aXRoOgogIHNieCBwb2xpY3kgYXBwcm92YWwgbHM=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>Approval required for api.example.com.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Review and respond with:
+</span></span><span class=line><span class=cl>  sbx policy approval ls</span></span></code></pre></div></div></div></div><p>If your organization
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/#configure-a-support-message>configures a support message</a>, it
+appears after the approval instructions.</p><p>The request that triggers the prompt doesn't wait for an answer. It's denied,
+and approving the destination affects later requests. Agents that retry a
+failed request pick up the new access on their next attempt. For others, run
+the operation again.</p><p>List the destinations waiting for a response:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBzYnggcG9saWN5IGFwcHJvdmFsIGxzCkFQUFJPVkFMICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNBTkRCT1ggICAgICBUSVRMRSAgICAgICAgICAgICAgICAgREVUQUlMICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgT1BUSU9OUwpuZXR3b3JrOmNXdE4tNHhVck5qeGg0b3VlemNzdGdqcmt5NlJnNTdRZmVSZTNXRWt5eVkgICBteS1zYW5kYm94ICAgYXBpLmV4YW1wbGUuY29tOjQ0MyAgIFByb3RvY29sOiBUQ1AgUmVzb3VyY2UgdHlwZTogZG9tYWluIGFwcHJvdmFsIHJlcXVpcmVkIGJ5IHBvbGljeSAiZGVmYXVsdCBuZXR3b3JrIiAgIGFsbG93IChBbGxvdyksIGRpc21pc3MgKERpc21pc3Mp', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> sbx policy approval ls
+</span></span><span class=line><span class=cl><span class=go>APPROVAL                                              SANDBOX      TITLE                 DETAIL                                                                              OPTIONS
+</span></span></span><span class=line><span class=cl><span class=go>network:cWtN-4xUrNjxh4ouezcstgjrky6Rg57QfeRe3WEkyyY   my-sandbox   api.example.com:443   Protocol: TCP Resource type: domain approval required by policy &#34;default network&#34;   allow (Allow), dismiss (Dismiss)
+</span></span></span></code></pre></div></div></div></div><p>Each entry names the destination, the sandbox that asked for it, and why it
+needs approval. Under organization governance that reason names the policy, as
+shown. Without it, the reason is that no matching allow rule covers the
+destination. A request that an HTTP rule matches also shows the method and
+path, such as <code>GET api.example.com:443/v1/data</code>.</p><p>To inspect a single entry, pass its ID to <code>sbx policy approval inspect</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBzYnggcG9saWN5IGFwcHJvdmFsIGluc3BlY3QgbmV0d29yazpjV3ROLTR4VXJOanhoNG91ZXpjc3RnanJreTZSZzU3UWZlUmUzV0VreXlZCkFQUFJPVkFMIG5ldHdvcms6Y1d0Ti00eFVyTmp4aDRvdWV6Y3N0Z2pya3k2Umc1N1FmZVJlM1dFa3l5WSAgKHNhbmRib3g6IG15LXNhbmRib3gpCiAgYXBpLmV4YW1wbGUuY29tOjQ0MwogIFByb3RvY29sOiBUQ1AKICBSZXNvdXJjZSB0eXBlOiBkb21haW4KICBhcHByb3ZhbCByZXF1aXJlZCBieSBwb2xpY3kgImRlZmF1bHQgbmV0d29yayIKCiAgT1BUSU9OICAgIExBQkVMCiAgYWxsb3cgICAgIEFsbG93CiAgZGlzbWlzcyAgIERpc21pc3M=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> sbx policy approval inspect network:cWtN-4xUrNjxh4ouezcstgjrky6Rg57QfeRe3WEkyyY
+</span></span><span class=line><span class=cl><span class=go>APPROVAL network:cWtN-4xUrNjxh4ouezcstgjrky6Rg57QfeRe3WEkyyY  (sandbox: my-sandbox)
+</span></span></span><span class=line><span class=cl><span class=go>  api.example.com:443
+</span></span></span><span class=line><span class=cl><span class=go>  Protocol: TCP
+</span></span></span><span class=line><span class=cl><span class=go>  Resource type: domain
+</span></span></span><span class=line><span class=cl><span class=go>  approval required by policy &#34;default network&#34;
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>  OPTION    LABEL
+</span></span></span><span class=line><span class=cl><span class=go>  allow     Allow
+</span></span></span><span class=line><span class=cl><span class=go>  dismiss   Dismiss
+</span></span></span></code></pre></div></div></div></div><p>Respond by selecting one of the options the entry offers:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBzYnggcG9saWN5IGFwcHJvdmFsIHJlc3BvbmQgbmV0d29yazpjV3ROLTR4VXJOanhoNG91ZXpjc3RnanJreTZSZzU3UWZlUmUzV0VreXlZIC0tb3B0aW9uIGFsbG93ClJlY29yZGVkOiBBbGxvdw==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> sbx policy approval respond network:cWtN-4xUrNjxh4ouezcstgjrky6Rg57QfeRe3WEkyyY --option allow
+</span></span><span class=line><span class=cl><span class=go>Recorded: Allow
+</span></span></span></code></pre></div></div></div></div><p>Choosing <code>allow</code> grants access to that destination. Choosing <code>dismiss</code> leaves
+it blocked, and the destination is requested again the next time the sandbox
+tries to reach it. Repeated attempts collapse into a single entry, so a sandbox
+retrying in a loop leaves one request to answer, not a queue of duplicates.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=what-approving-grants><a class="text-black dark:text-white no-underline hover:underline" href=#what-approving-grants>What approving grants</a></h4><p>Approving records a rule that allows the destination the sandbox actually
+asked for, scoped to the sandbox that asked. Three things follow from that:</p><ul><li>The rule covers one destination, not the pattern the policy rule used. A
+policy that allows <code>*.example.com</code> with approval asks about
+<code>api.example.com</code> and <code>cdn.example.com</code> separately.</li><li>A destination includes its port, so <code>api.example.com:443</code> and
+<code>api.example.com:8443</code> are approved separately.</li><li>Another sandbox reaching the same destination asks again.</li></ul><p>When an <a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#http-method-and-path>HTTP rule</a> in the policy matches
+the request, approving covers the method and exact path the sandbox requested
+rather than the whole destination. <code>GET /v1/data</code> and <code>POST /v1/data</code> on the
+same host are approved separately. A request whose method or path can't be
+recorded as a rule, such as a path with percent-encoding, is blocked without an
+entry to respond to.</p><p>Approved destinations stay allowed until the rule is removed. List them with
+<code>sbx policy ls --wide --created-via approval</code>, and remove one the same way as
+any other local rule, with <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#managing-rules><code>sbx policy rm network</code></a>.</p><p>Approvals live in the local policy store, so <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#resetting><code>sbx policy reset</code></a>
+removes all of them along with your other local rules. Each destination is
+requested again the next time a sandbox reaches it.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>To manage Model Context Protocol (MCP) server registration and requests
+through Docker's MCP gateway, use <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/>MCP access policies</a>. These
+policies apply only to the gateway. Direct MCP connections from a sandbox
+don't use the gateway, but you can control access to remote MCP servers with
+network policy.</p></div></blockquote>

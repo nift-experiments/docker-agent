@@ -1,0 +1,52 @@
+<p>The Docker Scout Dashboard and Docker Desktop provide a user-friendly interface
+for creating
+<a class=link href=https://docs.docker.com/scout/explore/exceptions/>exceptions</a> for
+vulnerabilities found in container images. Exceptions let you acknowledge
+accepted risks or address false positives in image analysis.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=prerequisites><a class="text-black dark:text-white no-underline hover:underline" href=#prerequisites>Prerequisites</a></h2><p>To create an in the Docker Scout Dashboard or Docker Desktop, you need a Docker
+account with <strong>Editor</strong> or <strong>Owner</strong> permissions for the Docker organization
+that owns the image.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=steps><a class="text-black dark:text-white no-underline hover:underline" href=#steps>Steps</a></h2><p>To create an exception for a vulnerability in an image using the Docker Scout
+Dashboard or Docker Desktop:</p><div class=tabs x-data="{ selected: 'Docker-Scout-Dashboard' }" aria-role=tabpanel><div aria-role=tablist class=tablist><button class=tab-item :class="selected === 'Docker-Scout-Dashboard' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'Docker-Scout-Dashboard'">
+Docker Scout Dashboard
+</button>
+<button class=tab-item :class="selected === 'Docker-Desktop' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'Docker-Desktop'">
+Docker Desktop</button></div><div><div aria-role=tab :class="selected !== 'Docker-Scout-Dashboard' && 'hidden'"><ol><li>Go to the <a class=link href=https://scout.docker.com/reports/images rel=noopener>Images page</a>.</li><li>Select the image tag that contains the vulnerability you want to create an
+exception for.</li><li>Open the <strong>Image layers</strong> tab.</li><li>Select the layer that contains the vulnerability you want to create an
+exception for.</li><li>In the <strong>Vulnerabilities</strong> tab, find the vulnerability you want to create an
+exception for. Vulnerabilities are grouped by package. Find the package that
+contains the vulnerability you want to create an exception for, and then
+expand the package.</li><li>Select the <strong>Create exception</strong> button next to the vulnerability.</li></ol><p>Selecting the <strong>Create exception</strong> button opens the <strong>Create exception</strong> side panel.
+In this panel, you can provide the details of the exception:</p><ul><li><p><strong>Exception type</strong>: The type of exception. The only supported types are:</p><ul><li><p><strong>Accepted risk</strong>: The vulnerability is not addressed due to its minimal
+security risk, high remediation costs, dependence on an upstream fix, or
+similar.</p></li><li><p><strong>False positive</strong>: The vulnerability presents no security risk in your
+specific use case, configuration, or because of measures in place that
+block exploitation</p><p>If you select <strong>False positive</strong>, you must provide a justification for why
+the vulnerability is a false positive:</p></li></ul></li><li><p><strong>Additional details</strong>: Any additional information that you want to
+provide about the exception.</p></li><li><p><strong>Scope</strong>: The scope of the exception. The scope can be:</p><ul><li><strong>Image</strong>: The exception applies to the selected image.</li><li><strong>All images in repository</strong>: The exception applies to all images in the
+repository.</li><li><strong>Specific repository</strong>: The exception applies to all images in the
+specified repositories.</li><li><strong>All images in my organization</strong>: The exception applies to all images in
+your organization.</li></ul></li><li><p><strong>Package scope</strong>: The scope of the exception. The package scope can be:</p><ul><li><strong>Selected package</strong>: The exception applies to the selected package.</li><li><strong>Any packages</strong>: The exception applies to all packages vulnerable to this
+CVE.</li></ul></li></ul><p>When you've filled in the details, select the <strong>Create</strong> button to create the
+exception.</p><p>The exception is now created and factored into the analysis results for the
+images that you selected. The exception is also listed on the <strong>Exceptions</strong>
+tab of the <a class=link href=https://scout.docker.com/reports/vulnerabilities/exceptions rel=noopener>Vulnerabilities page</a>
+in the Docker Scout Dashboard.</p></div><div aria-role=tab :class="selected !== 'Docker-Desktop' && 'hidden'"><ol><li>Open the <strong>Images</strong> view in Docker Desktop.</li><li>Open the <strong>Hub</strong> tab.</li><li>Select the image tag that contains the vulnerability you want to create an
+exception for.</li><li>Select the layer that contains the vulnerability you want to create an
+exception for.</li><li>In the <strong>Vulnerabilities</strong> tab, find the vulnerability you want to create an
+exception for.</li><li>Select the <strong>Create exception</strong> button next to the vulnerability.</li></ol><p>Selecting the <strong>Create exception</strong> button opens the <strong>Create exception</strong> side panel.
+In this panel, you can provide the details of the exception:</p><ul><li><p><strong>Exception type</strong>: The type of exception. The only supported types are:</p><ul><li><p><strong>Accepted risk</strong>: The vulnerability is not addressed due to its minimal
+security risk, high remediation costs, dependence on an upstream fix, or
+similar.</p></li><li><p><strong>False positive</strong>: The vulnerability presents no security risk in your
+specific use case, configuration, or because of measures in place that
+block exploitation</p><p>If you select <strong>False positive</strong>, you must provide a justification for why
+the vulnerability is a false positive:</p></li></ul></li><li><p><strong>Additional details</strong>: Any additional information that you want to
+provide about the exception.</p></li><li><p><strong>Scope</strong>: The scope of the exception. The scope can be:</p><ul><li><strong>Image</strong>: The exception applies to the selected image.</li><li><strong>All images in repository</strong>: The exception applies to all images in the
+repository.</li><li><strong>Specific repository</strong>: The exception applies to all images in the
+specified repositories.</li><li><strong>All images in my organization</strong>: The exception applies to all images in
+your organization.</li></ul></li><li><p><strong>Package scope</strong>: The scope of the exception. The package scope can be:</p><ul><li><strong>Selected package</strong>: The exception applies to the selected package.</li><li><strong>Any packages</strong>: The exception applies to all packages vulnerable to this
+CVE.</li></ul></li></ul><p>When you've filled in the details, select the <strong>Create</strong> button to create the
+exception.</p><p>The exception is now created and factored into the analysis results for the
+images that you selected. The exception is also listed on the <strong>Exceptions</strong>
+tab of the <a class=link href=https://scout.docker.com/reports/vulnerabilities/exceptions rel=noopener>Vulnerabilities page</a>
+in the Docker Scout Dashboard.</p></div></div></div>

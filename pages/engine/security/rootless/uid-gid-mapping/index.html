@@ -1,0 +1,8 @@
+<p>Rootless mode and <a class=link href=https://docs.docker.com/engine/security/userns-remap/><code>userns-remap</code> mode</a> map container UIDs
+and GIDs to the host differently.</p><ul><li>In <code>userns-remap</code> mode, container UID <code>0</code> is mapped to the first subordinate
+UID listed in <code>/etc/subuid</code> for the remap user, and container UID <code>n</code> is
+mapped to <code>subuid + n</code>.</li><li>In rootless mode, container UID <code>0</code> is mapped to the host UID of the user
+running rootless Docker (the result of <code>id -u</code>); container UID <code>n</code> (for
+<code>n >= 1</code>) is mapped to <code>subuid + (n - 1)</code>.</li></ul><p>GIDs follow the same rules using <code>/etc/subgid</code>.</p><p>This difference matters when setting file permissions on bind-mounted
+directories: in rootless mode, files owned by your host user appear as owned
+by <code>root</code> inside the container.</p>

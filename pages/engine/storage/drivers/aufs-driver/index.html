@@ -1,0 +1,124 @@
+<blockquote class="admonition not-prose"><p><strong>Deprecated</strong></p><p>The AuFS storage driver has been deprecated, and is removed in Docker Engine
+v24.0. If you are using AufS, you must migrate to a supported storage driver
+before upgrading to Docker Engine v24.0. Read the <a class=link href=https://docs.docker.com/engine/storage/drivers/select-storage-driver/>Docker storage drivers</a>
+page for supported storage drivers.</p></blockquote><p>AUFS is a <em>union filesystem</em>. The <code>aufs</code> storage driver was previously the default
+storage driver used for managing images and layers on Docker for Ubuntu, and for
+Debian versions prior to Stretch. If your Linux kernel is version 4.0 or higher,
+and you use Docker Engine - Community, consider using the newer
+<a class=link href=https://docs.docker.com/engine/storage/drivers/overlayfs-driver/>overlay2</a>, which has
+potential performance advantages over the <code>aufs</code> storage driver.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=prerequisites><a class="text-black dark:text-white no-underline hover:underline" href=#prerequisites>Prerequisites</a></h2><ul><li>For Docker Engine - Community, AUFS is supported on Ubuntu, and on Debian versions prior to
+Stretch.</li><li>If you use Ubuntu, you need to add the AUFS module to the kernel. If you do
+not install these packages, you need to use <code>overlay2</code>.</li><li>AUFS cannot use the following backing filesystems: <code>aufs</code>, <code>btrfs</code>, or
+<code>ecryptfs</code>. This means that the filesystem which contains
+<code>/var/lib/docker/aufs</code> cannot be one of these filesystem types.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=configure-docker-with-the-aufs-storage-driver><a class="text-black dark:text-white no-underline hover:underline" href=#configure-docker-with-the-aufs-storage-driver>Configure Docker with the <code>aufs</code> storage driver</a></h2><p>If the AUFS driver is loaded into the kernel when you start Docker, and no other
+storage driver is configured, Docker uses it by default.</p><ol><li><p>Use the following command to verify that your kernel supports AUFS.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBncmVwIGF1ZnMgL3Byb2MvZmlsZXN5c3RlbXMKCm5vZGV2ICAgYXVmcw==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> grep aufs /proc/filesystems
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>nodev   aufs
+</span></span></span></code></pre></div></div></div></div></li><li><p>Check which storage driver Docker is using.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgaW5mbwoKPHRydW5jYXRlZCBvdXRwdXQ+ClN0b3JhZ2UgRHJpdmVyOiBhdWZzCiBSb290IERpcjogL3Zhci9saWIvZG9ja2VyL2F1ZnMKIEJhY2tpbmcgRmlsZXN5c3RlbTogZXh0ZnMKIERpcnM6IDAKIERpcnBlcm0xIFN1cHBvcnRlZDogdHJ1ZQo8dHJ1bmNhdGVkIG91dHB1dD4=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker info
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>&lt;truncated output&gt;
+</span></span></span><span class=line><span class=cl><span class=go>Storage Driver: aufs
+</span></span></span><span class=line><span class=cl><span class=go> Root Dir: /var/lib/docker/aufs
+</span></span></span><span class=line><span class=cl><span class=go> Backing Filesystem: extfs
+</span></span></span><span class=line><span class=cl><span class=go> Dirs: 0
+</span></span></span><span class=line><span class=cl><span class=go> Dirperm1 Supported: true
+</span></span></span><span class=line><span class=cl><span class=go>&lt;truncated output&gt;
+</span></span></span></code></pre></div></div></div></div></li><li><p>If you are using a different storage driver, either AUFS is not included in
+the kernel (in which case a different default driver is used) or that
+Docker has been explicitly configured to use a different driver. Check
+<code>/etc/docker/daemon.json</code> or the output of <code>ps auxw | grep dockerd</code> to see
+if Docker has been started with the <code>--storage-driver</code> flag.</p></li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=how-the-aufs-storage-driver-works><a class="text-black dark:text-white no-underline hover:underline" href=#how-the-aufs-storage-driver-works>How the <code>aufs</code> storage driver works</a></h2><p>AUFS is a <em>union filesystem</em>, which means that it layers multiple directories on
+a single Linux host and presents them as a single directory. These directories
+are called <em>branches</em> in AUFS terminology, and <em>layers</em> in Docker terminology.</p><p>The unification process is referred to as a <em>union mount</em>.</p><p>The diagram below shows a Docker container based on the <code>ubuntu:latest</code> image.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/engine/storage/drivers/images/aufs_layers.webp alt="Layers of an Ubuntu container" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/engine/storage/drivers/images/aufs_layers.webp alt="Layers of an Ubuntu container"></div></template></figure><p>Each image layer, and the container layer, are represented on the Docker host as
+subdirectories within <code>/var/lib/docker/</code>. The union mount provides the unified
+view of all layers. The directory names do not directly correspond to the IDs
+of the layers themselves.</p><p>AUFS uses the Copy-on-Write (CoW) strategy to maximize storage efficiency and
+minimize overhead.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=example-image-and-container-on-disk-constructs><a class="text-black dark:text-white no-underline hover:underline" href=#example-image-and-container-on-disk-constructs>Example: Image and container on-disk constructs</a></h3><p>The following <code>docker pull</code> command shows a Docker host downloading a Docker
+image comprising five layers.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgcHVsbCB1YnVudHUKClVzaW5nIGRlZmF1bHQgdGFnOiBsYXRlc3QKbGF0ZXN0OiBQdWxsaW5nIGZyb20gbGlicmFyeS91YnVudHUKYjZmODkyYzAwNDNiOiBQdWxsIGNvbXBsZXRlCjU1MDEwZjMzMmIwNDogUHVsbCBjb21wbGV0ZQoyOTU1ZmI4MjdjOTQ6IFB1bGwgY29tcGxldGUKM2RlZWYzZmNiZDMwOiBQdWxsIGNvbXBsZXRlCmNmOTcyMmU1MDZhYTogUHVsbCBjb21wbGV0ZQpEaWdlc3Q6IHNoYTI1NjozODI0NTJmODJhOGJiZDM0NDQzYjJjNzI3NjUwYWY0NmFjZWQwZjk0YTQ0NDYzYzYyYTk4NDgxMzNlY2IxYWE4ClN0YXR1czogRG93bmxvYWRlZCBuZXdlciBpbWFnZSBmb3IgdWJ1bnR1OmxhdGVzdA==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker pull ubuntu
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>Using default tag: latest
+</span></span></span><span class=line><span class=cl><span class=go>latest: Pulling from library/ubuntu
+</span></span></span><span class=line><span class=cl><span class=go>b6f892c0043b: Pull complete
+</span></span></span><span class=line><span class=cl><span class=go>55010f332b04: Pull complete
+</span></span></span><span class=line><span class=cl><span class=go>2955fb827c94: Pull complete
+</span></span></span><span class=line><span class=cl><span class=go>3deef3fcbd30: Pull complete
+</span></span></span><span class=line><span class=cl><span class=go>cf9722e506aa: Pull complete
+</span></span></span><span class=line><span class=cl><span class=go>Digest: sha256:382452f82a8bbd34443b2c727650af46aced0f94a44463c62a9848133ecb1aa8
+</span></span></span><span class=line><span class=cl><span class=go>Status: Downloaded newer image for ubuntu:latest
+</span></span></span></code></pre></div></div></div></div><h4 class="scroll-mt-20 flex items-center gap-2" id=the-image-layers><a class="text-black dark:text-white no-underline hover:underline" href=#the-image-layers>The image layers</a></h4><blockquote class="admonition admonition-warning admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_2018" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="2" width="24" height="21"><path d="M11.9998 9.99999V14m0 4H12.0098M10.6151 4.89171 2.39019 19.0983c-.45621.788-.68431 1.182-.6506 1.5054C1.769 20.8857 1.91677 21.142 2.14613 21.3088 2.40908 21.5 2.86435 21.5 3.77487 21.5H20.2246C21.1352 21.5 21.5904 21.5 21.8534 21.3088 22.0827 21.142 22.2305 20.8857 22.2599 20.6037 22.2936 20.2803 22.0655 19.8863 21.6093 19.0983L13.3844 4.89171C12.9299 4.10654 12.7026 3.71396 12.4061 3.58211c-.258700000000001-.11501-.554-.11501-.8126.0C11.2969 3.71396 11.0696 4.10655 10.6151 4.89171z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_2018)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Warning</span></div><div class=admonition-content><p><code>/var/lib/docker/</code>. These files and directories are managed by Docker.</p></div></blockquote><p>All of the information about the image and container layers is stored in
+subdirectories of <code>/var/lib/docker/aufs/</code>.</p><ul><li><code>diff/</code>: the <strong>contents</strong> of each layer, each stored in a separate
+subdirectory</li><li><code>layers/</code>: metadata about how image layers are stacked. This directory
+contains one file for each image or container layer on the Docker host. Each
+file contains the IDs of all the layers below it in the stack (its parents).</li><li><code>mnt/</code>: Mount points, one per image or container layer, which are used to
+assemble and mount the unified filesystem for a container. For images, which
+are read-only, these directories are always empty.</li></ul><h4 class="scroll-mt-20 flex items-center gap-2" id=the-container-layer><a class="text-black dark:text-white no-underline hover:underline" href=#the-container-layer>The container layer</a></h4><p>If a container is running, the contents of <code>/var/lib/docker/aufs/</code> change in the
+following ways:</p><ul><li><code>diff/</code>: Differences introduced in the writable container layer, such as new
+or modified files.</li><li><code>layers/</code>: Metadata about the writable container layer's parent layers.</li><li><code>mnt/</code>: A mount point for each running container's unified filesystem, exactly
+as it appears from within the container.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=how-container-reads-and-writes-work-with-aufs><a class="text-black dark:text-white no-underline hover:underline" href=#how-container-reads-and-writes-work-with-aufs>How container reads and writes work with <code>aufs</code></a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=reading-files><a class="text-black dark:text-white no-underline hover:underline" href=#reading-files>Reading files</a></h3><p>Consider three scenarios where a container opens a file for read access with
+aufs.</p><ul><li><p><strong>The file does not exist in the container layer</strong>: If a container opens a
+file for read access and the file does not already exist in the container
+layer, the storage driver searches for the file in the image layers,
+starting with the layer just below the container layer. It is read from the
+layer where it is found.</p></li><li><p><strong>The file only exists in the container layer</strong>: If a container opens a file
+for read access and the file exists in the container layer, it is read from
+there.</p></li><li><p><strong>The file exists in both the container layer and the image layer</strong>: If a
+container opens a file for read access and the file exists in the container
+layer and one or more image layers, the file is read from the container layer.
+Files in the container layer obscure files with the same name in the image
+layers.</p></li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=modifying-files-or-directories><a class="text-black dark:text-white no-underline hover:underline" href=#modifying-files-or-directories>Modifying files or directories</a></h3><p>Consider some scenarios where files in a container are modified.</p><ul><li><p><strong>Writing to a file for the first time</strong>: The first time a container writes
+to an existing file, that file does not exist in the container (<code>upperdir</code>).
+The <code>aufs</code> driver performs a <em>copy_up</em> operation to copy the file from the
+image layer where it exists to the writable container layer. The container
+then writes the changes to the new copy of the file in the container layer.</p><p>However, AUFS works at the file level rather than the block level. This
+means that all copy_up operations copy the entire file, even if the file is
+very large and only a small part of it is being modified. This can have a
+noticeable impact on container write performance. AUFS can suffer
+noticeable latencies when searching for files in images with many layers.
+However, it is worth noting that the copy_up operation only occurs the first
+time a given file is written to. Subsequent writes to the same file operate
+against the copy of the file already copied up to the container.</p></li><li><p><strong>Deleting files and directories</strong>:</p><ul><li><p>When a <em>file</em> is deleted within a container, a <em>whiteout</em> file is created
+in the container layer. The version of the file in the image layer is not
+deleted (because the image layers are read-only). However, the whiteout
+file prevents it from being available to the container.</p></li><li><p>When a <em>directory</em> is deleted within a container, an <em>opaque file</em> is
+created in the container layer. This works in the same way as a
+whiteout file and effectively prevents the directory from being accessed,
+even though it still exists in the image layer.</p></li></ul></li><li><p><strong>Renaming directories</strong>: Calling <code>rename(2)</code> for a directory is not fully
+supported on AUFS. It returns <code>EXDEV</code> ("cross-device link not permitted"),
+even when both of the source and the destination path are on a same AUFS
+layer, unless the directory has no children. Your application needs to be
+designed to handle <code>EXDEV</code> and fall back to a "copy and unlink" strategy.</p></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=aufs-and-docker-performance><a class="text-black dark:text-white no-underline hover:underline" href=#aufs-and-docker-performance>AUFS and Docker performance</a></h2><p>To summarize some of the performance related aspects already mentioned:</p><ul><li><p>The AUFS storage driver is less performant than the <code>overlay2</code> driver, but is
+a good choice for PaaS and other similar use-cases where container density is
+important. This is because AUFS efficiently shares images between multiple
+running containers, enabling fast container start times and minimal use of
+disk space.</p></li><li><p>The underlying mechanics of how AUFS shares files between image layers and
+containers uses the page cache very efficiently.</p></li><li><p>The AUFS storage driver can introduce significant latencies into container
+write performance. This is because the first time a container writes to any
+file, the file needs to be located and copied into the containers top writable
+layer. These latencies increase and are compounded when these files exist below
+many image layers and the files themselves are large.</p></li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=performance-best-practices><a class="text-black dark:text-white no-underline hover:underline" href=#performance-best-practices>Performance best practices</a></h3><p>The following generic performance best practices also apply to AUFS.</p><ul><li><p><strong>Solid State Devices (SSD)</strong> provide faster reads and writes than spinning
+disks.</p></li><li><p><strong>Use volumes for write-heavy workloads</strong>: Volumes provide the best and most
+predictable performance for write-heavy workloads. This is because they bypass
+the storage driver and do not incur any of the potential overheads introduced
+by thin provisioning and copy-on-write. Volumes have other benefits, such as
+allowing you to share data among containers and persisting even when no
+running container is using them.</p></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=related-information><a class="text-black dark:text-white no-underline hover:underline" href=#related-information>Related information</a></h2><ul><li><a class=link href=https://docs.docker.com/engine/storage/volumes/>Volumes</a></li><li><a class=link href=https://docs.docker.com/engine/storage/drivers/>Understand images, containers, and storage drivers</a></li><li><a class=link href=https://docs.docker.com/engine/storage/drivers/select-storage-driver/>Select a storage driver</a></li></ul>

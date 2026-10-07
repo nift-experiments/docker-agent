@@ -1,0 +1,56 @@
+<div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Subscription:</span>
+<span>Business</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M4.5 2.25a.75.75.0 000 1.5v16.5h-.75a.75.75.0 000 1.5h16.5a.75.75.0 000-1.5h-.75V3.75a.75.75.0 000-1.5h-15zM9 6a.75.75.0 000 1.5h1.5a.75.75.0 000-1.5H9zm-.75 3.75A.75.75.0 019 9h1.5a.75.75.0 010 1.5H9a.75.75.0 01-.75-.75zM9 12a.75.75.0 000 1.5h1.5a.75.75.0 000-1.5H9zm3.75-5.25A.75.75.0 0113.5 6H15a.75.75.0 010 1.5h-1.5a.75.75.0 01-.75-.75zM13.5 9a.75.75.0 000 1.5H15A.75.75.0 0015 9h-1.5zm-.75 3.75a.75.75.0 01.75-.75H15a.75.75.0 010 1.5h-1.5a.75.75.0 01-.75-.75zM9 19.5v-2.25a.75.75.0 01.75-.75h4.5a.75.75.0 01.75.75v2.25a.75.75.0 01-.75.75h-4.5A.75.75.0 019 19.5z" clip-rule="evenodd"/></svg></span></div><div class="flex flex-wrap gap-1"><span class=font-bold>For:</span>
+<span>Administrators</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M12.516 2.17a.75.75.0 00-1.032.0A11.209 11.209.0 013.607 5.25a.75.75.0 00-.722.515A12.74 12.74.0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749.0 00.374.0c5.499-1.415 9.563-6.406 9.563-12.348.0-1.39-.223-2.73-.635-3.985a.75.75.0 00-.722-.516l-.143.001c-2.996.0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></div></div><p>Just-in-Time (JIT) provisioning creates and updates user accounts during SSO
+authentication. JIT verifies that users belong to the organization and assigns
+them to teams based on your identity provider (IdP) configuration. JIT doesn't
+deprovision users.</p><p>When you create an SSO connection, Docker turns on JIT provisioning by
+default. Before adding SCIM, review
+<a class=link href=https://docs.docker.com/security/provisioning/scim/#choose-how-scim-works-with-jit>how SCIM works with JIT</a>.</p><p>This page explains the SSO authentication flows with JIT turned on and off.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=prerequisites><a class="text-black dark:text-white no-underline hover:underline" href=#prerequisites>Prerequisites</a></h2><p>Before you begin, you must have:</p><ul><li>SSO configured for your organization</li><li>Administrator access to Docker Home and your identity provider</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=sso-authentication-with-jit-provisioning-enabled><a class="text-black dark:text-white no-underline hover:underline" href=#sso-authentication-with-jit-provisioning-enabled>SSO authentication with JIT provisioning enabled</a></h2><p>When a user signs in with SSO and you have JIT provisioning enabled, the
+following steps occur automatically:</p><ol><li><p>The system checks if a Docker account exists for the user's email address.</p><ul><li>If an account exists: The system uses the existing account and updates
+the user's full name if necessary.</li><li>If no account exists: A new Docker account is created using basic user
+attributes (email, name, and surname). A unique username is generated
+based on the user's email, name, and random numbers to ensure all
+usernames are unique across the platform.</li></ul></li><li><p>The system checks for any pending invitations to the SSO organization.</p><ul><li>Invitation found: The invitation is automatically accepted.</li><li>Invitation includes a specific group: The user is added to that group
+within the SSO organization.</li></ul></li><li><p>The system verifies if the IdP has shared group mappings during
+authentication.</p><ul><li>Group mappings provided: The user is assigned to the relevant
+organizations and teams.</li><li>No group mappings provided: The system checks if the user is already
+part of the organization. If not, the user is added to the default
+organization and team configured in the SSO connection.</li></ul></li></ol><p>The following graphic provides an overview of SSO authentication with JIT
+enabled:</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/security/images/jit-enabled-flow.svg alt="JIT provisioning enabled workflow" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/security/images/jit-enabled-flow.svg alt="JIT provisioning enabled workflow"></div></template></figure><h2 class="scroll-mt-20 flex items-center gap-2" id=sso-authentication-with-jit-provisioning-disabled><a class="text-black dark:text-white no-underline hover:underline" href=#sso-authentication-with-jit-provisioning-disabled>SSO authentication with JIT provisioning disabled</a></h2><p>When JIT provisioning is disabled, the following actions occur during SSO
+authentication:</p><ol><li><p>The system checks if a Docker account exists for the user's email address.</p><ul><li>If an account exists: The system uses the existing account and updates
+the user's full name if necessary.</li><li>If no account exists: A new Docker account is created using basic user
+attributes (email, name, and surname). A unique username is generated
+based on the user's email, name, and random numbers to ensure all
+usernames are unique across the platform.</li></ul></li><li><p>The system checks for any pending invitations to the SSO organization.</p><ul><li>Invitation found: If the user is a member of the organization or has a
+pending invitation, sign-in is successful, and the invitation is
+automatically accepted.</li><li>No invitation found: If the user is not a member of the organization and
+has no pending invitation, the sign-in fails, and an <code>Access denied</code>
+error appears. The user must contact an administrator to be invited to
+the organization.</li></ul></li></ol><p>With JIT disabled, group mapping is only available if you have
+<a class=link href=https://docs.docker.com/security/provisioning/scim/provision-scim/#enable-scim-in-docker>SCIM enabled</a>.
+If SCIM is not enabled, users won't be auto-provisioned to groups.</p><p>The following graphic provides an overview of SSO authentication with JIT
+disabled:</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/security/images/jit-disabled-flow.svg alt="JIT provisioning disabled workflow" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/security/images/jit-disabled-flow.svg alt="JIT provisioning disabled workflow"></div></template></figure><h2 class="scroll-mt-20 flex items-center gap-2" id=disable-jit-provisioning><a class="text-black dark:text-white no-underline hover:underline" href=#disable-jit-provisioning>Disable JIT provisioning</a></h2><blockquote class="admonition admonition-warning admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_2018" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="2" width="24" height="21"><path d="M11.9998 9.99999V14m0 4H12.0098M10.6151 4.89171 2.39019 19.0983c-.45621.788-.68431 1.182-.6506 1.5054C1.769 20.8857 1.91677 21.142 2.14613 21.3088 2.40908 21.5 2.86435 21.5 3.77487 21.5H20.2246C21.1352 21.5 21.5904 21.5 21.8534 21.3088 22.0827 21.142 22.2305 20.8857 22.2599 20.6037 22.2936 20.2803 22.0655 19.8863 21.6093 19.0983L13.3844 4.89171C12.9299 4.10654 12.7026 3.71396 12.4061 3.58211c-.258700000000001-.11501-.554-.11501-.8126.0C11.2969 3.71396 11.0696 4.10655 10.6151 4.89171z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_2018)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Warning</span></div><div class=admonition-content><p>Disabling JIT provisioning may disrupt your users' access and workflows. With
+JIT disabled, users aren't automatically added to your organization during
+SSO sign-in. Users must be organization members, have pending invitations, or
+be provisioned through SCIM to sign in successfully.</p></div></blockquote><p>You may want to disable JIT provisioning for reasons such as the following:</p><ul><li>You have multiple organizations, have SCIM enabled, and want SCIM to be the
+source of truth for provisioning</li><li>You want to control and restrict usage based on your organization's
+security configuration, and want to use SCIM to provision access</li></ul><p>Users are provisioned with JIT by default. If you enable SCIM, you can disable
+JIT:</p><ol><li>Go to <a class=link href=https://app.docker.com/ rel=noopener>Docker Home</a> and select your organization
+from the top-left account drop-down.</li><li>Select <strong>Identity & auth</strong>, then <strong>SSO and SCIM</strong>.</li><li>In the <strong>SSO connections</strong> table, select the <strong>Action</strong> icon, then select
+<strong>Disable JIT provisioning</strong>.</li><li>Select <strong>Disable</strong> to confirm.</li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=next-steps><a class="text-black dark:text-white no-underline hover:underline" href=#next-steps>Next steps</a></h2><ul><li>Review
+<a class=link href=https://docs.docker.com/security/provisioning/scim/#choose-how-scim-works-with-jit>how SCIM works with JIT</a>
+before you configure SCIM.</li><li>Set up
+<a class=link href=https://docs.docker.com/security/provisioning/scim/group-mapping/>group mapping</a>
+to automatically assign users to teams.</li><li>Review
+<a class=link href=https://docs.docker.com/security/provisioning/troubleshoot-provisioning/>Troubleshoot provisioning</a>.</li></ul>

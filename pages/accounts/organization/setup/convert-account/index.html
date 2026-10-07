@@ -1,0 +1,53 @@
+<div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Subscription:</span>
+<span>Team</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75.0 117.5.0 3.75 3.75.0 01-7.5.0zm7.5 3a3 3 0 116 0 3 3 0 01-6 0zm-13.5.0a3 3 0 116 0 3 3 0 01-6 0zm4.06 5.367A6.745 6.745.0 0112 12a6.745 6.745.0 016.709 7.498.75.75.0 01-.372.568A12.696 12.696.0 0112 21.75c-2.305.0-4.47-.612-6.337-1.684a.75.75.0 01-.372-.568 6.787 6.787.0 011.019-4.38z" clip-rule="evenodd"/><path d="M5.082 14.254a8.287 8.287.0 00-1.308 5.135 9.687 9.687.0 01-1.764-.44l-.115-.04a.563.563.0 01-.373-.487l-.01-.121a3.75 3.75.0 013.57-4.047zm15.144 5.135a8.287 8.287.0 00-1.308-5.135 3.75 3.75.0 013.57 4.047l-.01.121a.563.563.0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z"/></svg>
+</span><span>Business</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M4.5 2.25a.75.75.0 000 1.5v16.5h-.75a.75.75.0 000 1.5h16.5a.75.75.0 000-1.5h-.75V3.75a.75.75.0 000-1.5h-15zM9 6a.75.75.0 000 1.5h1.5a.75.75.0 000-1.5H9zm-.75 3.75A.75.75.0 019 9h1.5a.75.75.0 010 1.5H9a.75.75.0 01-.75-.75zM9 12a.75.75.0 000 1.5h1.5a.75.75.0 000-1.5H9zm3.75-5.25A.75.75.0 0113.5 6H15a.75.75.0 010 1.5h-1.5a.75.75.0 01-.75-.75zM13.5 9a.75.75.0 000 1.5H15A.75.75.0 0015 9h-1.5zm-.75 3.75a.75.75.0 01.75-.75H15a.75.75.0 010 1.5h-1.5a.75.75.0 01-.75-.75zM9 19.5v-2.25a.75.75.0 01.75-.75h4.5a.75.75.0 01.75.75v2.25a.75.75.0 01-.75.75h-4.5A.75.75.0 019 19.5z" clip-rule="evenodd"/></svg></span></div><div class="flex flex-wrap gap-1"><span class=font-bold>For:</span>
+<span>Administrators</span>
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M12.516 2.17a.75.75.0 00-1.032.0A11.209 11.209.0 013.607 5.25a.75.75.0 00-.722.515A12.74 12.74.0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749.0 00.374.0c5.499-1.415 9.563-6.406 9.563-12.348.0-1.39-.223-2.73-.635-3.985a.75.75.0 00-.722-.516l-.143.001c-2.996.0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></div></div><p>When you convert, your
+<a class=link href=https://docs.docker.com/accounts/>Docker ID</a> becomes an organization instead of
+an individual account. The Docker ID stays the same, so repository
+namespaces and names stay the same. Convert an existing individual account
+into an organization when more than one person needs access to that
+account and its repositories. To choose a new namespace and keep your
+Docker ID as an individual account, see
+<a class=link href=https://docs.docker.com/accounts/organization/setup/orgs/>Create a Docker organization</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=conversion><a class="text-black dark:text-white no-underline hover:underline" href=#conversion>Conversion</a></h2><p>Converting an account into an organization does the following:</p><ul><li>The account gets a
+<a class=link href=https://docs.docker.com/subscription-billing/plans/docker/>Docker Team</a>
+subscription. If the individual account was on a paid plan, it keeps
+the same billing cycle.</li><li>Docker signs you out. Your email address is no longer on any Docker
+account. You can <a class=link href=https://hub.docker.com/signup rel=noopener>sign up</a> with it again
+or update an existing account to use it.</li><li>Repository collaborators are removed.
+<a class=link href=https://docs.docker.com/accounts/organization/manage/members/>Invite them to your organization</a>,
+then add them to a
+<a class=link href=https://docs.docker.com/accounts/organization/manage/manage-a-team/>team</a>
+that has access to the repositories.</li><li>Existing automated builds appear as if the new owner set them up.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=prerequisites><a class="text-black dark:text-white no-underline hover:underline" href=#prerequisites>Prerequisites</a></h2><p>Before you convert an individual account to an organization:</p><ul><li>The individual account must have a verified email address.</li><li>You need a separate Docker ID to <a class=link href=#choose-an-organization-owner>assign as organization owner</a>.</li><li>The individual account must not belong to an organization, a team, or a
+company. If it does, you must
+<a class=link href=#leave-an-existing-organization>leave the organization</a> before you convert.</li></ul><blockquote class="admonition admonition-tip admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_1749" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="1" width="17" height="22"><path d="M9.93896 22H14.939m-4.5-12h4m-2 0v6m3-.6736c2.3649-1.1235 4-3.534 4-6.3264.0-3.86599-3.134-7-7-7C8.57297 2 5.43896 5.13401 5.43896 9c0 2.7924 1.63506 5.2029 4 6.3264V16c0 .931899999999999.0 1.3978.15225 1.7654C9.79419 18.2554 10.1835 18.6448 10.6736 18.8478 11.0411 19 11.5071 19 12.439 19 13.3708 19 13.8368 19 14.2043 18.8478 14.6944 18.6448 15.0837 18.2554 15.2867 17.7654 15.439 17.3978 15.439 16.9319 15.439 16v-.6736z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_1749)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Tip</span></div><div class=admonition-content><p>After you convert an account, personal access tokens from that account
+stop working. Sign in as the new owner and create an
+<a class=link href=https://docs.docker.com/security/access-tokens/organization-access-tokens/>organization access token (OAT)</a>
+for the converted organization.</p></div></blockquote><h3 class="scroll-mt-20 flex items-center gap-2" id=choose-an-organization-owner><a class="text-black dark:text-white no-underline hover:underline" href=#choose-an-organization-owner>Choose an organization owner</a></h3><p>To convert, you must name an owner. That owner has full administrative access
+to configure and manage the organization. You can add more owners after
+conversion. Each owner signs in to a separate individual account, then
+selects the organization in Docker Home.</p><p>To name someone else as the owner, enter that person's Docker ID during
+conversion. If you still need access after conversion, you must sign up
+again so the new owner can invite you to the organization.</p><p>If you want to remain the sole owner without assigning another owner, you
+must create a second individual account with a different email address.
+Use your new account's Docker ID.</p><ul><li>For example, if the account you are converting uses <code>alex@example.com</code>,
+create the owner account with <code>alex.admin@example.com</code>.</li><li>After conversion, <code>alex@example.com</code> is no longer on any Docker account.</li></ul><p>You can update the <code>alex.admin@example.com</code> email back to
+<code>alex@example.com</code> after conversion. See
+<a class=link href=https://docs.docker.com/accounts/individual/manage-account/#update-email-address>Update email address</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=leave-an-existing-organization><a class="text-black dark:text-white no-underline hover:underline" href=#leave-an-existing-organization>Leave an existing organization</a></h3><p>Use this procedure when the individual account is already a member of an
+organization, a team, or a company. The account can be converted after it
+has left each of them. If it has no memberships, skip this section and
+<a class=link href=#convert-to-an-organization>convert the account</a>.</p><p>If the account is the only owner of an organization or company, assign
+the owner role to another member first. Leave after that member can
+administer the organization or company.</p><p>To leave an organization and its teams:</p><ol><li>Sign in to <a class=link href=https://app.docker.com/ rel=noopener>Docker Home</a> and select the
+organization.</li><li>Select <strong>Members</strong> and find your username.</li><li>Select the <strong>Actions</strong> menu, then <strong>Leave organization</strong>.</li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=convert-to-an-organization><a class="text-black dark:text-white no-underline hover:underline" href=#convert-to-an-organization>Convert to an organization</a></h2><p>Converting an account into an organization is permanent. Back up any data
+or settings you want to keep.</p><ol><li>Sign in to <a class=link href=https://app.docker.com/ rel=noopener>Docker Home</a>.</li><li>Select your avatar in the top-right corner.</li><li>Select <strong>Account settings</strong>, then <strong>Convert</strong>.</li><li>Review the warning. You can't undo this action.</li><li>Enter the <strong>Username of new owner</strong>.
+Enter a Docker ID, not an email address. Use 4 to 30 letters and
+digits. The Docker ID must belong to a different account from the one
+you are converting. That account must be active and have a verified
+email address.</li><li>Select <strong>Confirm</strong>. For an account on a Pro plan, the button is
+<strong>Confirm and purchase</strong>.
+The new owner receives a notification email. Sign in with that account
+to manage the organization.</li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=next-steps><a class="text-black dark:text-white no-underline hover:underline" href=#next-steps>Next steps</a></h2><ul><li><a class=link href=https://docs.docker.com/accounts/organization/setup/onboard/>Onboard your organization</a></li><li><a class=link href=https://docs.docker.com/security/access-tokens/organization-access-tokens/>Create an organization access token</a></li></ul>

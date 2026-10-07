@@ -1,0 +1,67 @@
+<p>This page lists security vulnerabilities which Docker mitigated, such that
+processes run in Docker containers were never vulnerable to the bug—even before
+it was fixed. This assumes containers are run without adding extra capabilities
+or not run as <code>--privileged</code>.</p><p>The list below is not even remotely complete. Rather, it is a sample of the few
+bugs we've actually noticed to have attracted security review and publicly
+disclosed vulnerabilities. In all likelihood, the bugs that haven't been
+reported far outnumber those that have. Luckily, since Docker's approach to
+secure by default through apparmor, seccomp, and dropping capabilities, it
+likely mitigates unknown bugs just as well as it does known ones.</p><p>Bugs mitigated:</p><ul><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1956" rel=noopener>CVE-2013-1956</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1957" rel=noopener>1957</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1958" rel=noopener>1958</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1959" rel=noopener>1959</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1979" rel=noopener>1979</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4014" rel=noopener>CVE-2014-4014</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-5206" rel=noopener>5206</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-5207" rel=noopener>5207</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7970" rel=noopener>7970</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7975" rel=noopener>7975</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-2925" rel=noopener>CVE-2015-2925</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-8543" rel=noopener>8543</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-3134" rel=noopener>CVE-2016-3134</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-3135" rel=noopener>3135</a>, etc.:
+The introduction of unprivileged user namespaces lead to a huge increase in the
+attack surface available to unprivileged users by giving such users legitimate
+access to previously root-only system calls like <code>mount()</code>. All of these CVEs
+are examples of security vulnerabilities due to introduction of user namespaces.
+Docker can use user namespaces to set up containers, but then disallows the
+process inside the container from creating its own nested namespaces through the
+default seccomp profile, rendering these vulnerabilities unexploitable.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0181" rel=noopener>CVE-2014-0181</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3339" rel=noopener>CVE-2015-3339</a>:
+These are bugs that require the presence of a setuid binary. Docker disables
+setuid binaries inside containers via the <code>NO_NEW_PRIVS</code> process flag and
+other mechanisms.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4699" rel=noopener>CVE-2014-4699</a>:
+A bug in <code>ptrace()</code> could allow privilege escalation. Docker disables <code>ptrace()</code>
+inside the container using apparmor, seccomp and by dropping <code>CAP_PTRACE</code>.
+Three times the layers of protection there!</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9529" rel=noopener>CVE-2014-9529</a>:
+A series of crafted <code>keyctl()</code> calls could cause kernel DoS / memory corruption.
+Docker disables <code>keyctl()</code> inside containers using seccomp.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3214" rel=noopener>CVE-2015-3214</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-4036" rel=noopener>4036</a>: These are
+bugs in common virtualization drivers which could allow a guest OS user to
+execute code on the host OS. Exploiting them requires access to virtualization
+devices in the guest. Docker hides direct access to these devices when run
+without <code>--privileged</code>. Interestingly, these seem to be cases where containers
+are "more secure" than a VM, going against common wisdom that VMs are
+"more secure" than containers.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-0728" rel=noopener>CVE-2016-0728</a>:
+Use-after-free caused by crafted <code>keyctl()</code> calls could lead to privilege
+escalation. Docker disables <code>keyctl()</code> inside containers using the default
+seccomp profile.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-2383" rel=noopener>CVE-2016-2383</a>:
+A bug in eBPF -- the special in-kernel DSL used to express things like seccomp
+filters -- allowed arbitrary reads of kernel memory. The <code>bpf()</code> system call
+is blocked inside Docker containers using (ironically) seccomp.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-3134" rel=noopener>CVE-2016-3134</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-4997" rel=noopener>4997</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-4998" rel=noopener>4998</a>:
+A bug in setsockopt with <code>IPT_SO_SET_REPLACE</code>, <code>ARPT_SO_SET_REPLACE</code>, and
+<code>ARPT_SO_SET_REPLACE</code> causing memory corruption / local privilege escalation.
+These arguments are blocked by <code>CAP_NET_ADMIN</code>, which Docker does not allow by
+default.</li></ul><p>Bugs not mitigated:</p><ul><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3290" rel=noopener>CVE-2015-3290</a>,
+<a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-5157" rel=noopener>5157</a>: Bugs in
+the kernel's non-maskable interrupt handling allowed privilege escalation.
+Can be exploited in Docker containers because the <code>modify_ldt()</code> system call is
+not currently blocked using seccomp.</li><li><a class=link href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-5195" rel=noopener>CVE-2016-5195</a>:
+A race condition was found in the way the Linux kernel's memory subsystem
+handled the copy-on-write (COW) breakage of private read-only memory mappings,
+which allowed unprivileged local users to gain write access to read-only memory.
+Also known as "dirty COW."
+<em>Partial mitigations:</em> on some operating systems this vulnerability is mitigated
+by the combination of seccomp filtering of <code>ptrace</code> and the fact that <code>/proc/self/mem</code> is read-only.</li></ul>

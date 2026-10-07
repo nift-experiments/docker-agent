@@ -1,0 +1,94 @@
+<p>A matrix strategy lets you fork a single target into multiple different
+variants, based on parameters that you specify. This works in a similar way to
+<a class=link href=https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs rel=noopener>Matrix strategies for GitHub Actions</a>.
+You can use this to reduce duplication in your Bake definition.</p><p>The matrix attribute is a map of parameter names to lists of values. Bake
+builds each possible combination of values as a separate target.</p><p>Each generated target must have a unique name. To specify how target names
+should resolve, use the name attribute.</p><p>The following example resolves the app target to <code>app-foo</code> and <code>app-bar</code>. It
+also uses the matrix value to define the
+<a class=link href=/build/bake/reference/#targettarget>target build stage</a>.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="flex w-full items-center gap-2"><div class="flex items-center gap-2.5 rounded bg-gray-100 px-2 py-0.5 dark:bg-gray-800"><div class="font-normal text-gray-500 dark:text-gray-200">docker-bake.hcl</div></div></div><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFyZ2V0ICJhcHAiIHsKICBuYW1lID0gImFwcC0ke3RndH0iCiAgbWF0cml4ID0gewogICAgdGd0ID0gWyJmb28iLCAiYmFyIl0KICB9CiAgdGFyZ2V0ID0gdGd0Cn0=', copying: false }" class="-top-10
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-hcl data-lang=hcl><span class=line><span class=cl><span class=k>target</span> <span class=s2>&#34;app&#34;</span> {
+</span></span><span class=line><span class=cl><span class=n>  name</span> <span class=o>=</span> <span class=s2>&#34;app-${tgt}&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>  matrix</span> <span class=o>=</span> {
+</span></span><span class=line><span class=cl><span class=n>    tgt</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;foo&#34;, &#34;bar&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl><span class=n>  target</span> <span class=o>=</span> <span class=k>tgt</span>
+</span></span><span class=line><span class=cl>}</span></span></code></pre></div></div></div></div><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgYnVpbGR4IGJha2UgLS1wcmludCBhcHAKWytdIEJ1aWxkaW5nIDAuMHMgKDAvMCkKewogICJncm91cCI6IHsKICAgICJhcHAiOiB7CiAgICAgICJ0YXJnZXRzIjogWwogICAgICAgICJhcHAtZm9vIiwKICAgICAgICAiYXBwLWJhciIKICAgICAgXQogICAgfSwKICAgICJkZWZhdWx0IjogewogICAgICAidGFyZ2V0cyI6IFsKICAgICAgICAiYXBwIgogICAgICBdCiAgICB9CiAgfSwKICAidGFyZ2V0IjogewogICAgImFwcC1iYXIiOiB7CiAgICAgICJjb250ZXh0IjogIi4iLAogICAgICAiZG9ja2VyZmlsZSI6ICJEb2NrZXJmaWxlIiwKICAgICAgInRhcmdldCI6ICJiYXIiCiAgICB9LAogICAgImFwcC1mb28iOiB7CiAgICAgICJjb250ZXh0IjogIi4iLAogICAgICAiZG9ja2VyZmlsZSI6ICJEb2NrZXJmaWxlIiwKICAgICAgInRhcmdldCI6ICJmb28iCiAgICB9CiAgfQp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker buildx bake --print app
+</span></span><span class=line><span class=cl><span class=go>[+] Building 0.0s (0/0)
+</span></span></span><span class=line><span class=cl><span class=go>{
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;group&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;app&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;targets&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;app-foo&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;app-bar&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      ]
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;default&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;targets&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;app&#34;
+</span></span></span><span class=line><span class=cl><span class=go>      ]
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  },
+</span></span></span><span class=line><span class=cl><span class=go>  &#34;target&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;app-bar&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;context&#34;: &#34;.&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;dockerfile&#34;: &#34;Dockerfile&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;target&#34;: &#34;bar&#34;
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;app-foo&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;context&#34;: &#34;.&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;dockerfile&#34;: &#34;Dockerfile&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>      &#34;target&#34;: &#34;foo&#34;
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>  }
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><h2 class="scroll-mt-20 flex items-center gap-2" id=multiple-axes><a class="text-black dark:text-white no-underline hover:underline" href=#multiple-axes>Multiple axes</a></h2><p>You can specify multiple keys in your matrix to fork a target on multiple axes.
+When using multiple matrix keys, Bake builds every possible variant.</p><p>The following example builds four targets:</p><ul><li><code>app-foo-1-0</code></li><li><code>app-foo-2-0</code></li><li><code>app-bar-1-0</code></li><li><code>app-bar-2-0</code></li></ul><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="flex w-full items-center gap-2"><div class="flex items-center gap-2.5 rounded bg-gray-100 px-2 py-0.5 dark:bg-gray-800"><div class="font-normal text-gray-500 dark:text-gray-200">docker-bake.hcl</div></div></div><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFyZ2V0ICJhcHAiIHsKICBuYW1lID0gImFwcC0ke3RndH0tJHtyZXBsYWNlKHZlcnNpb24sICIuIiwgIi0iKX0iCiAgbWF0cml4ID0gewogICAgdGd0ID0gWyJmb28iLCAiYmFyIl0KICAgIHZlcnNpb24gPSBbIjEuMCIsICIyLjAiXQogIH0KICB0YXJnZXQgPSB0Z3QKICBhcmdzID0gewogICAgVkVSU0lPTiA9IHZlcnNpb24KICB9Cn0=', copying: false }" class="-top-10
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-hcl data-lang=hcl><span class=line><span class=cl><span class=k>target</span> <span class=s2>&#34;app&#34;</span> {
+</span></span><span class=line><span class=cl><span class=n>  name</span> <span class=o>=</span> <span class=s2>&#34;app-${tgt}-${replace(version, &#34;.&#34;, &#34;-&#34;)}&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>  matrix</span> <span class=o>=</span> {
+</span></span><span class=line><span class=cl><span class=n>    tgt</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;foo&#34;, &#34;bar&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>    version</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;1.0&#34;, &#34;2.0&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl><span class=n>  target</span> <span class=o>=</span> <span class=k>tgt</span>
+</span></span><span class=line><span class=cl><span class=n>  args</span> <span class=o>=</span> {
+</span></span><span class=line><span class=cl><span class=n>    VERSION</span> <span class=o>=</span> <span class=k>version</span>
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl>}</span></span></code></pre></div></div></div></div><h2 class="scroll-mt-20 flex items-center gap-2" id=multiple-values-per-matrix-target><a class="text-black dark:text-white no-underline hover:underline" href=#multiple-values-per-matrix-target>Multiple values per matrix target</a></h2><p>If you want to differentiate the matrix on more than just a single value, you
+can use maps as matrix values. Bake creates a target for each map, and you can
+access the nested values using dot notation.</p><p>The following example builds two targets:</p><ul><li><code>app-foo-1-0</code></li><li><code>app-bar-2-0</code></li></ul><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="flex w-full items-center gap-2"><div class="flex items-center gap-2.5 rounded bg-gray-100 px-2 py-0.5 dark:bg-gray-800"><div class="font-normal text-gray-500 dark:text-gray-200">docker-bake.hcl</div></div></div><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFyZ2V0ICJhcHAiIHsKICBuYW1lID0gImFwcC0ke2l0ZW0udGd0fS0ke3JlcGxhY2UoaXRlbS52ZXJzaW9uLCAiLiIsICItIil9IgogIG1hdHJpeCA9IHsKICAgIGl0ZW0gPSBbCiAgICAgIHsKICAgICAgICB0Z3QgPSAiZm9vIgogICAgICAgIHZlcnNpb24gPSAiMS4wIgogICAgICB9LAogICAgICB7CiAgICAgICAgdGd0ID0gImJhciIKICAgICAgICB2ZXJzaW9uID0gIjIuMCIKICAgICAgfQogICAgXQogIH0KICB0YXJnZXQgPSBpdGVtLnRndAogIGFyZ3MgPSB7CiAgICBWRVJTSU9OID0gaXRlbS52ZXJzaW9uCiAgfQp9', copying: false }" class="-top-10
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-hcl data-lang=hcl><span class=line><span class=cl><span class=k>target</span> <span class=s2>&#34;app&#34;</span> {
+</span></span><span class=line><span class=cl><span class=n>  name</span> <span class=o>=</span> <span class=s2>&#34;app-${item.tgt}-${replace(item.version, &#34;.&#34;, &#34;-&#34;)}&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>  matrix</span> <span class=o>=</span> {
+</span></span><span class=line><span class=cl><span class=n>    item</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>      {
+</span></span><span class=line><span class=cl><span class=n>        tgt</span> <span class=o>=</span> <span class=s2>&#34;foo&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>        version</span> <span class=o>=</span> <span class=s2>&#34;1.0&#34;</span>
+</span></span><span class=line><span class=cl>      }<span class=p>,</span>
+</span></span><span class=line><span class=cl>      {
+</span></span><span class=line><span class=cl><span class=n>        tgt</span> <span class=o>=</span> <span class=s2>&#34;bar&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>        version</span> <span class=o>=</span> <span class=s2>&#34;2.0&#34;</span>
+</span></span><span class=line><span class=cl>      }
+</span></span><span class=line><span class=cl>    <span class=p>]</span>
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl><span class=n>  target</span> <span class=o>=</span> <span class=k>item</span><span class=p>.</span><span class=k>tgt</span>
+</span></span><span class=line><span class=cl><span class=n>  args</span> <span class=o>=</span> {
+</span></span><span class=line><span class=cl><span class=n>    VERSION</span> <span class=o>=</span> <span class=k>item</span><span class=p>.</span><span class=k>version</span>
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl>}</span></span></code></pre></div></div></div></div>

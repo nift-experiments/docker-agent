@@ -1,0 +1,50 @@
+<h2 class="scroll-mt-20 flex items-center gap-2" id=what-is-slsa><a class="text-black dark:text-white no-underline hover:underline" href=#what-is-slsa>What is SLSA?</a></h2><p>Supply-chain Levels for Software Artifacts (SLSA) is a security framework
+designed to enhance the integrity and security of software supply chains.
+Developed by Google and maintained by the Open Source Security Foundation
+(OpenSSF), SLSA provides a set of guidelines and best practices to prevent
+tampering, improve integrity, and secure packages and infrastructure in software
+projects.</p><p>SLSA defines <a class=link href=https://slsa.dev/spec/latest/build-track-basics rel=noopener>four build levels (0–3)</a> of
+increasing security rigor, focusing on areas such as build provenance, source
+integrity, and build environment security. Each level builds upon the previous
+one, offering a structured approach to achieving higher levels of software
+supply chain security.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=why-is-slsa-important><a class="text-black dark:text-white no-underline hover:underline" href=#why-is-slsa-important>Why is SLSA important?</a></h2><p>SLSA is crucial for modern software development due to the increasing complexity
+and interconnectedness of software supply chains. Supply chain attacks, such as
+the SolarWinds breach, have highlighted the vulnerabilities in software
+development processes. By implementing SLSA, organizations can:</p><ul><li><p>Ensure artifact integrity: Verify that software artifacts have not been
+tampered with during the build and deployment processes.</p></li><li><p>Enhance build provenance: Maintain verifiable records of how and when software
+artifacts were produced, providing transparency and accountability.</p></li><li><p>Secure build environments: Implement controls to protect build systems from
+unauthorized access and modifications.</p></li><li><p>Mitigate supply chain risks: Reduce the risk of introducing vulnerabilities or
+malicious code into the software supply chain.</p></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=what-is-slsa-build-level-3><a class="text-black dark:text-white no-underline hover:underline" href=#what-is-slsa-build-level-3>What is SLSA Build Level 3?</a></h2><p>SLSA Build Level 3, Hardened Builds, is the highest of four progressive levels in
+the SLSA framework. It introduces strict requirements to ensure that software
+artifacts are built securely and traceably. To meet Level 3, a build must:</p><ul><li>Be fully automated and scripted to prevent manual tampering</li><li>Use a trusted build service that enforces source and builder authentication</li><li>Generate a signed, tamper-resistant provenance record describing how the artifact was built</li><li>Capture metadata about the build environment, source repository, and build steps</li></ul><p>This level provides strong guarantees that the software was built from the
+expected source in a controlled, auditable environment, which significantly
+reduces the risk of supply chain attacks.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-hardened-images-and-slsa><a class="text-black dark:text-white no-underline hover:underline" href=#docker-hardened-images-and-slsa>Docker Hardened Images and SLSA</a></h2><p>Docker Hardened Images (DHIs) are secure-by-default container images
+purpose-built for modern production environments. Each DHI is cryptographically
+signed and complies with the <a class=link href=https://slsa.dev/spec/latest/build-track-basics#build-l3 rel=noopener>SLSA Build Level 3
+standard</a>, ensuring
+verifiable build provenance and integrity.</p><p>By integrating SLSA-compliant DHIs into your development and deployment processes, you can:</p><ul><li><p>Achieve higher security levels: Utilize images that meet stringent security
+standards, reducing the risk of vulnerabilities and attacks.</p></li><li><p>Simplify compliance: Leverage built-in features like signed Software Bills of
+Materials (SBOMs) and vulnerability exception (VEX) statements to facilitate
+compliance with regulations such as FedRAMP.</p></li><li><p>Enhance transparency: Access detailed information about the components and
+build process of each image, promoting transparency and trust.</p></li><li><p>Streamline audits: Utilize verifiable build records and signatures to simplify
+security audits and assessments.</p></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=get-and-verify-slsa-provenance-for-docker-hardened-images><a class="text-black dark:text-white no-underline hover:underline" href=#get-and-verify-slsa-provenance-for-docker-hardened-images>Get and verify SLSA provenance for Docker Hardened Images</a></h2><p>Each Docker Hardened Image (DHI) is cryptographically signed and includes
+attestations. These attestations provide verifiable build provenance and
+demonstrate adherence to SLSA Build Level 3 standards.</p><p>To get and verify SLSA provenance for a DHI, you can use Docker Scout.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgc2NvdXQgYXR0ZXN0IGdldCBkaGkuaW8vPGltYWdlPjo8dGFnPiBcCiAgLS1wcmVkaWNhdGUtdHlwZSBodHRwczovL3Nsc2EuZGV2L3Byb3ZlbmFuY2UvdjAuMiBcCiAgLS12ZXJpZnk=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker scout attest get dhi.io/&lt;image&gt;:&lt;tag&gt; <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>  --predicate-type https://slsa.dev/provenance/v0.2 \
+</span></span></span><span class=line><span class=cl><span class=go>  --verify
+</span></span></span></code></pre></div></div></div></div><p>For example:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgc2NvdXQgYXR0ZXN0IGdldCBkaGkuaW8vbm9kZToyMC4xOS1kZWJpYW4xMiBcCiAgLS1wcmVkaWNhdGUtdHlwZSBodHRwczovL3Nsc2EuZGV2L3Byb3ZlbmFuY2UvdjAuMiBcCiAgLS12ZXJpZnk=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker scout attest get dhi.io/node:20.19-debian12 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>  --predicate-type https://slsa.dev/provenance/v0.2 \
+</span></span></span><span class=line><span class=cl><span class=go>  --verify
+</span></span></span></code></pre></div></div></div></div><h2 class="scroll-mt-20 flex items-center gap-2" id=resources><a class="text-black dark:text-white no-underline hover:underline" href=#resources>Resources</a></h2><p>For more details about SLSA definitions and Docker Build, see
+<a class=link href=/build/metadata/attestations/slsa-definitions/>SLSA
+definitions</a>.</p>

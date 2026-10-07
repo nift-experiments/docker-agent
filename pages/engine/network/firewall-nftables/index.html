@@ -1,0 +1,184 @@
+<blockquote class="admonition admonition-warning admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_2018" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="2" width="24" height="21"><path d="M11.9998 9.99999V14m0 4H12.0098M10.6151 4.89171 2.39019 19.0983c-.45621.788-.68431 1.182-.6506 1.5054C1.769 20.8857 1.91677 21.142 2.14613 21.3088 2.40908 21.5 2.86435 21.5 3.77487 21.5H20.2246C21.1352 21.5 21.5904 21.5 21.8534 21.3088 22.0827 21.142 22.2305 20.8857 22.2599 20.6037 22.2936 20.2803 22.0655 19.8863 21.6093 19.0983L13.3844 4.89171C12.9299 4.10654 12.7026 3.71396 12.4061 3.58211c-.258700000000001-.11501-.554-.11501-.8126.0C11.2969 3.71396 11.0696 4.10655 10.6151 4.89171z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_2018)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Warning</span></div><div class=admonition-content><p>Support for nftables introduced in Docker 29.0.0 is experimental, configuration
+options, behavior and implementation may all change in future releases.
+The rules for overlay networks have not yet been migrated from iptables.
+Therefore, nftables cannot be enabled when the Docker daemon is running in
+Swarm mode.</p></div></blockquote><p>To use nftables instead of iptables, use Docker Engine option
+<code>--firewall-backend=nftables</code> on its command line, or <code>"firewall-backend": "nftables"</code>
+in its configuration file. You may also need to modify IP forwarding configuration
+on the host, and migrate rules from the iptables <code>DOCKER-USER</code> chain, see
+<a class=link href=#migrating-from-iptables-to-nftables>migrating from iptables to nftables</a>.</p><p>For bridge networks, Docker creates nftables rules in the host's network
+namespace. For bridge and other network types, nftables rules for DNS are
+also created in the container's network namespace.</p><p>Creation of nftables rules can be disabled using daemon options <code>iptables</code>
+and <code>ip6tables</code>. <em>These options apply to both iptables and nftables.</em>
+See <a class=link href=https://docs.docker.com/engine/network/packet-filtering-firewalls/#prevent-docker-from-manipulating-firewall-rules>Prevent Docker from manipulating firewall rules</a>.
+However, this is not recommended for most users as it will likely break
+container networking.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=dockers-nftables-tables><a class="text-black dark:text-white no-underline hover:underline" href=#dockers-nftables-tables>Docker's nftables tables</a></h2><p>For bridge networks, Docker creates two tables, <code>ip docker-bridges</code> and
+<code>ip6 docker-bridges</code>.</p><p>Each table contains a number of <a class=link href=https://wiki.nftables.org/wiki-nftables/index.php/Configuring_chains#Adding_base_chains rel=noopener>base chains</a>,
+and further chains are added for each bridge network. The moby project
+has some <a class=link href=https://github.com/moby/moby/blob/master/integration/network/bridge/nftablesdoc/index.md rel=noopener>internal documentation</a>
+describing its nftables, and how they depend on network and container
+configuration. However, the tables and their rules are likely to change
+between Docker Engine releases.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Do not modify Docker's tables directly as the modifications are likely to
+be lost, Docker expects to have full ownership of its tables.</p></div></blockquote><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Because iptables has a fixed set of chains, equivalent to nftables base
+chains, all rules are included in those chains. The <code>DOCKER-USER</code> chain
+is supplied as a way to insert rules into the <code>filter</code> table's <code>FORWARD</code>
+chain, to run before Docker's rules.
+In Docker's nftables implementation, there is no <code>DOCKER-USER</code> chain.
+Instead, rules can be added in separate tables, with base chains that
+have the same types and hook points as Docker's base chains. If necessary,
+<a class=link href=https://wiki.nftables.org/wiki-nftables/index.php/Configuring_chains#Base_chain_priority rel=noopener>base chain priority</a>
+can be used to tell nftables which order to call the chains in.
+Docker uses well known <a class=link href=https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks#Priority_within_hook rel=noopener>priority values</a> for each of its base chains.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=migrating-from-iptables-to-nftables><a class="text-black dark:text-white no-underline hover:underline" href=#migrating-from-iptables-to-nftables>Migrating from iptables to nftables</a></h2><p>If the Docker daemon has been running with the iptables firewall backend,
+restarting it with the nftables backend will delete most of Docker's iptables
+chains and rules, and create nftables rules instead.</p><p>If IP forwarding is not enabled, Docker will report an error when creating
+a bridge network that needs it. Because of the default bridge, if IPv4
+forwarding is disabled, the error will be reported during daemon startup.
+See <a class=link href=#ip-forwarding>IP forwarding</a>.</p><p>If you have rules in the <code>DOCKER-USER</code> chain, see <a class=link href=#migrating-docker-user>Migrating
+<code>DOCKER-USER</code></a>.</p><p>You may need to manually update the iptables <code>FORWARD</code> policy if it has
+been set to <code>DROP</code> by Docker with iptables, or as part of your host's
+firewall configuration. See <a class=link href=#forward-policy-in-iptables>FORWARD policy in iptables</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=ip-forwarding><a class="text-black dark:text-white no-underline hover:underline" href=#ip-forwarding>IP forwarding</a></h3><p>IP forwarding on the Docker host enables Docker functionality including port
+publishing, communication between bridge networks, and direct routing from
+outside the host to containers in bridge networks.</p><p>When running with iptables, depending on network and daemon configuration,
+Docker may enable IPv4 and IPv6 forwarding on the host.</p><p>With its nftables firewall backend enabled, Docker will not enable IP forwarding
+itself. It will report an error if forwarding is needed, but not already enabled.
+To disable Docker's check for IP forwarding, letting it start and create networks
+when it determines that forwarding is disabled, use Daemon option <code>--ip-forward=false</code>,
+or <code>"ip-forward": false</code> in its configuration file.</p><blockquote class="admonition admonition-warning admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_2018" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="2" width="24" height="21"><path d="M11.9998 9.99999V14m0 4H12.0098M10.6151 4.89171 2.39019 19.0983c-.45621.788-.68431 1.182-.6506 1.5054C1.769 20.8857 1.91677 21.142 2.14613 21.3088 2.40908 21.5 2.86435 21.5 3.77487 21.5H20.2246C21.1352 21.5 21.5904 21.5 21.8534 21.3088 22.0827 21.142 22.2305 20.8857 22.2599 20.6037 22.2936 20.2803 22.0655 19.8863 21.6093 19.0983L13.3844 4.89171C12.9299 4.10654 12.7026 3.71396 12.4061 3.58211c-.258700000000001-.11501-.554-.11501-.8126.0C11.2969 3.71396 11.0696 4.10655 10.6151 4.89171z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_2018)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Warning</span></div><div class=admonition-content><p>When enabling IP forwarding, make sure you have firewall rules to block
+unwanted forwarding between non-Docker interfaces.</p></div></blockquote><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>If you stop Docker to migrate to nftables, Docker may have already enabled
+IP forwarding on your system. After a reboot, if no other service re-enables
+forwarding, Docker will fail to start.</p></div></blockquote><p>If Docker is in a VM that has a single network interface and no other
+software running, there is probably no unwanted forwarding to block.
+But, on a physical host with multiple network interfaces, forwarding
+between those interfaces should probably be blocked with nftables rules
+unless the host is acting as a router.</p><p>To enable IP forwarding on the host, set the following sysctls:</p><ul><li><code>net.ipv4.ip_forward=1</code></li><li><code>net.ipv6.conf.all.forwarding=1</code></li></ul><p>If your host uses <code>systemd</code>, you may be able to use <code>systemd-sysctl</code>. For
+example, by editing <code>/etc/sysctl.d/99-sysctl.conf</code>.</p><p>If the host is running <code>firewalld</code>, you may be able to use it to block
+unwanted forwarding. Docker's bridges are in a firewalld zone called
+<code>docker</code>, it creates a forwarding policy called <code>docker-forwarding</code> that
+accepts forwarding from <code>ANY</code> zone to the <code>docker</code> zone.</p><p>For example, to use nftables to block forwarding between interfaces <code>eth0</code>
+and <code>eth1</code>, you could use:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFibGUgaW5ldCBuby1leHQtZm9yd2FyZGluZyB7CgljaGFpbiBuby1leHQtZm9yd2FyZGluZyB7CgkJdHlwZSBmaWx0ZXIgaG9vayBmb3J3YXJkIHByaW9yaXR5IGZpbHRlcjsgcG9saWN5IGFjY2VwdDsKCQlpaWZuYW1lICJldGgwIiBvaWZuYW1lICJldGgxIiBkcm9wCgkJaWlmbmFtZSAiZXRoMSIgb2lmbmFtZSAiZXRoMCIgZHJvcAoJfQp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>table inet no-ext-forwarding {
+</span></span></span><span class=line><span class=cl><span class=go>	chain no-ext-forwarding {
+</span></span></span><span class=line><span class=cl><span class=go>		type filter hook forward priority filter; policy accept;
+</span></span></span><span class=line><span class=cl><span class=go>		iifname &#34;eth0&#34; oifname &#34;eth1&#34; drop
+</span></span></span><span class=line><span class=cl><span class=go>		iifname &#34;eth1&#34; oifname &#34;eth0&#34; drop
+</span></span></span><span class=line><span class=cl><span class=go>	}
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=forward-policy-in-iptables><a class="text-black dark:text-white no-underline hover:underline" href=#forward-policy-in-iptables>FORWARD policy in iptables</a></h3><p>An iptables chain with <code>FORWARD</code> policy <code>DROP</code> will drop packets that have
+been accepted by Docker's nftables rules, because the packet will be processed
+by the iptables chains as well as Docker's nftables chains.</p><p>Some features, including port publishing, will not work unless the <code>DROP</code>
+policy is removed, or additional iptables rules are added to the iptables
+<code>FORWARD</code> chain to accept Docker-related traffic.</p><p>When Docker is using iptables, and it enables IP forwarding on the host,
+it sets the default policy of the iptables <code>FORWARD</code> chain to <code>DROP</code>. So,
+if you stop Docker to migrate to nftables, it may have set a <code>DROP</code> that
+you need to remove. It will be removed anyway on reboot.</p><p>To keep using rules in <code>DOCKER-USER</code> that rely on the chain having policy
+<code>DROP</code>, you must add explicit <code>ACCEPT</code> rules for Docker related traffic.</p><p>To check the current iptables <code>FORWARD</code> policy, use:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBpcHRhYmxlcyAtTCBGT1JXQVJECkNoYWluIEZPUldBUkQgKHBvbGljeSBEUk9QKQp0YXJnZXQgICAgIHByb3Qgb3B0IHNvdXJjZSAgICAgICAgICAgICAgIGRlc3RpbmF0aW9uCiQgaXA2dGFibGVzIC1MIEZPUldBUkQKQ2hhaW4gRk9SV0FSRCAocG9saWN5IEFDQ0VQVCkKdGFyZ2V0ICAgICBwcm90IG9wdCBzb3VyY2UgICAgICAgICAgICAgICBkZXN0aW5hdGlvbg==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> iptables -L FORWARD
+</span></span><span class=line><span class=cl><span class=go>Chain FORWARD (policy DROP)
+</span></span></span><span class=line><span class=cl><span class=go>target     prot opt source               destination
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> ip6tables -L FORWARD
+</span></span><span class=line><span class=cl><span class=go>Chain FORWARD (policy ACCEPT)
+</span></span></span><span class=line><span class=cl><span class=go>target     prot opt source               destination
+</span></span></span></code></pre></div></div></div></div><p>To set the iptables policies to <code>ACCEPT</code> for IPv4 and IPv6:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBpcHRhYmxlcyAtUCBGT1JXQVJEIEFDQ0VQVAokIGlwNnRhYmxlcyAtUCBGT1JXQVJEIEFDQ0VQVA==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> iptables -P FORWARD ACCEPT
+</span></span><span class=line><span class=cl><span class=gp>$</span> ip6tables -P FORWARD ACCEPT
+</span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=migrating-docker-user><a class="text-black dark:text-white no-underline hover:underline" href=#migrating-docker-user>Migrating <code>DOCKER-USER</code></a></h3><p>With firewall backend "iptables", rules added to the iptables <code>DOCKER-USER</code>
+are processed before Docker's rules in the filter table's <code>FORWARD</code> chain.</p><p>When starting the daemon with nftables after running with iptables, Docker
+will not remove the jump from the <code>FORWARD</code> chain to <code>DOCKER-USER</code>. So,
+rules created in <code>DOCKER-USER</code> will continue to run until the jump is
+removed or the host is rebooted.</p><p>When starting with nftables, the daemon will not add the jump. So, unless
+there is an existing jump, rules in <code>DOCKER-USER</code> will be ignored.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=migrating-accept-rules><a class="text-black dark:text-white no-underline hover:underline" href=#migrating-accept-rules>Migrating ACCEPT rules</a></h4><p>Some rules in the <code>DOCKER-USER</code> chain will continue to work. For example, if a
+packet is dropped, it will be dropped before or after the nftables rules in
+Docker's <code>filter-FORWARD</code> chain. But other rules, particularly <code>ACCEPT</code> rules
+to override Docker's <code>DROP</code> rules, will not work.</p><p>In nftables, an "accept" rule is not final. It terminates processing
+for its base chain, but the accepted packet will still be processed by
+other base chains, which may drop it.</p><p>To override Docker's <code>drop</code> rule, you must use a firewall mark. Select a
+mark not already in use on your host, and use Docker Engine option
+<code>--bridge-accept-fwmark</code>.</p><p>For example, <code>--bridge-accept-fwmark=1</code> tells the daemon to accept any
+packet with an <code>fwmark</code> value of <code>1</code>. Optionally, you can supply a mask
+to match specific bits in the mark, <code>--bridge-accept-fwmark=0x1/0x3</code>.</p><p>Then, instead of accepting the packet in <code>DOCKER-USER</code>, add the firewall
+mark you have chosen and Docker will not drop it.</p><p>The firewall mark must be added before Docker's rules run. So if the mark
+is added in a chain with type <code>filter</code> and hook <code>forward</code>, it must have
+priority <code>filter - 1</code> or lower.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>By default, remote hosts can only reach a container through a port published
+to one of the Docker host's addresses. Sending packets to the container's own
+IP address instead ("direct routed" access) is not allowed.</p><p>These packets are dropped by a rule in the <code>raw-PREROUTING</code> chain of the
+<code>docker-bridges</code> tables. Because a drop is final, a rule in one of your own
+tables cannot allow them. And, because that chain runs at the <code>prerouting</code>
+hook, before Docker's <code>filter-FORWARD</code> rules, a firewall mark added with
+<code>--bridge-accept-fwmark</code> has no effect on it.</p><p>Any packet that reaches the host's firewall rules already addressed to a
+container is treated this way. For example, a Kubernetes CNI plugin may
+translate a Service address to a container address before the packet reaches
+the host's pre-routing rules. Docker cannot distinguish the result from a
+packet routed to the container by a remote host. Which host interface these
+packets arrive on depends on the plugin's data path — for an overlay network
+it is normally the tunnel device.</p><p>To allow direct routed access to a container's <em>published</em> ports, use network
+option <code>com.docker.network.bridge.trusted_host_interfaces</code>, or daemon option
+<code>allow-direct-routing</code>. Unpublished ports are still protected. See
+<a class=link href=https://docs.docker.com/engine/network/port-publishing/#direct-routing-to-containers-in-bridge-networks>Direct routing to containers in bridge networks</a>.
+To allow direct routed access to all container ports, published or not, see
+<a class=link href=https://docs.docker.com/engine/network/port-publishing/#gateway-modes>Gateway modes</a>.</p></div></blockquote><h4 class="scroll-mt-20 flex items-center gap-2" id=replacing-docker-user-with-an-nftables-table><a class="text-black dark:text-white no-underline hover:underline" href=#replacing-docker-user-with-an-nftables-table>Replacing <code>DOCKER-USER</code> with an nftables table</a></h4><p>Because nftables doesn't have pre-defined chains, to replace the <code>DOCKER-USER</code>
+chain you can create your own table and add chains and rules to it.</p><p>The <code>DOCKER-USER</code> chain has type <code>filter</code> and hook <code>forward</code>, so it can
+only have rules in the filter forward chain. The base chains in your
+table can have any <code>type</code> or <code>hook</code>. If your rules need to run before
+Docker's rules, give the base chains a lower <code>priority</code> number than
+Docker's chain. Or, a higher priority to make sure they run after Docker's
+rules.</p><p>Docker's base chains use the priority values defined at
+<a class=link href=https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks#Priority_within_hook rel=noopener>priority values</a></p><h4 class="scroll-mt-20 flex items-center gap-2" id=example-restricting-external-connections-to-containers><a class="text-black dark:text-white no-underline hover:underline" href=#example-restricting-external-connections-to-containers>Example: restricting external connections to containers</a></h4><p>By default, any remote host can connect to ports published to the Docker
+host's external addresses.</p><p>To allow only a specific IP or network to access the containers, create a
+table with a base chain that has a drop rule. For example, the
+following table drops packets from all IP addresses except <code>192.0.2.2</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFibGUgaXAgbXktdGFibGUgewoJY2hhaW4gbXktZmlsdGVyLWZvcndhcmQgewoJCXR5cGUgZmlsdGVyIGhvb2sgZm9yd2FyZCBwcmlvcml0eSBmaWx0ZXI7IHBvbGljeSBhY2NlcHQ7CgkJaWlmbmFtZSAiZXh0X2lmIiBpcCBzYWRkciAhPSAxOTIuMC4yLjIgY291bnRlciBkcm9wCgl9Cn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>table ip my-table {
+</span></span></span><span class=line><span class=cl><span class=go>	chain my-filter-forward {
+</span></span></span><span class=line><span class=cl><span class=go>		type filter hook forward priority filter; policy accept;
+</span></span></span><span class=line><span class=cl><span class=go>		iifname &#34;ext_if&#34; ip saddr != 192.0.2.2 counter drop
+</span></span></span><span class=line><span class=cl><span class=go>	}
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><p>You will need to change <code>ext_if</code> to your host's external interface name.</p><p>You could instead accept connections from a source subnet. The following
+table only accepts access from the subnet <code>192.0.2.0/24</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFibGUgaXAgbXktdGFibGUgewoJY2hhaW4gbXktZmlsdGVyLWZvcndhcmQgewoJCXR5cGUgZmlsdGVyIGhvb2sgZm9yd2FyZCBwcmlvcml0eSBmaWx0ZXI7IHBvbGljeSBhY2NlcHQ7CgkJaWlmbmFtZSAiZXh0X2lmIiBpcCBzYWRkciAhPSAxOTIuMC4yLjAvMjQgY291bnRlciBkcm9wCgl9Cn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>table ip my-table {
+</span></span></span><span class=line><span class=cl><span class=go>	chain my-filter-forward {
+</span></span></span><span class=line><span class=cl><span class=go>		type filter hook forward priority filter; policy accept;
+</span></span></span><span class=line><span class=cl><span class=go>		iifname &#34;ext_if&#34; ip saddr != 192.0.2.0/24 counter drop
+</span></span></span><span class=line><span class=cl><span class=go>	}
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><p>If you are running other services on the host that use IP forwarding
+and need to be accessed by different external hosts, you will need more
+specific filters. For example, to match the default prefix <code>br-</code> of
+bridge devices belonging to Docker's user-defined bridge networks:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGFibGUgaXAgbXktdGFibGUgewoJY2hhaW4gbXktZmlsdGVyLWZvcndhcmQgewoJCXR5cGUgZmlsdGVyIGhvb2sgZm9yd2FyZCBwcmlvcml0eSBmaWx0ZXI7IHBvbGljeSBhY2NlcHQ7CgkJaWlmbmFtZSAiZXh0X2lmIiBvaWZuYW1lICJici0qIiBpcCBzYWRkciAhPSAxOTIuMC4yLjAvMjQgY291bnRlciBkcm9wCgl9Cn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>table ip my-table {
+</span></span></span><span class=line><span class=cl><span class=go>	chain my-filter-forward {
+</span></span></span><span class=line><span class=cl><span class=go>		type filter hook forward priority filter; policy accept;
+</span></span></span><span class=line><span class=cl><span class=go>		iifname &#34;ext_if&#34; oifname &#34;br-*&#34; ip saddr != 192.0.2.0/24 counter drop
+</span></span></span><span class=line><span class=cl><span class=go>	}
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span></code></pre></div></div></div></div><p>For more information about nftables configuration and advanced usage,
+refer to the <a class=link href=https://wiki.nftables.org/wiki-nftables/index.php/Main_Page rel=noopener>nftables wiki</a>.</p>

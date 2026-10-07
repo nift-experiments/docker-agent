@@ -1,0 +1,50 @@
+<p>This page contains information about the new features, improvements, and changes
+in the Docker Hardened Images (DHI) platform. Release notes are aggregated by
+quarter and include only notable product changes.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=q3-2026><a class="text-black dark:text-white no-underline hover:underline" href=#q3-2026>Q3 2026</a></h2><p>New features and enhancements released in the third quarter of 2026.</p><ul><li>DHI MCP server: The DHI catalog is now accessible via a remote MCP server at
+<code>https://dhi.io/mcp</code>. Connect any MCP-capable AI assistant to search
+repositories, inspect image metadata, retrieve SBOMs, check CVEs, and manage
+mirrors using plain language. For more information, see
+<a class=link href=/dhi/tools/mcp/>Use the DHI MCP
+server</a>.</li><li>DHI API: VEX statements and suppressed CVEs for a Docker Hardened Image are
+now available to query by digest through the DHI GraphQL API. For more
+information, see <a class=link href=https://docs.docker.com/dhi/tools/api/>Use the DHI API</a>.</li><li>DHI webhook payloads: Webhooks on a mirrored Docker Hardened Image repository
+now include a <code>dhi_metadata</code> object describing the vulnerability fixes,
+package changes, and configuration changes between builds. For more
+information, see <a class=link href=https://docs.docker.com/dhi/how-to/mirror/#automate-syncing-with-webhooks>Automate syncing with
+webhooks</a>.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=q2-2026><a class="text-black dark:text-white no-underline hover:underline" href=#q2-2026>Q2 2026</a></h2><p>New features and enhancements released in the second quarter of 2026.</p><ul><li>Debian Hardened System Packages: Added support for Debian-based Docker
+Hardened System Packages (HSP), including new CLI workflows for authenticating
+to the Debian HSP repository.</li><li>Mend.io scanner integration: Mend.io is now a supported scanner for consuming
+DHI VEX data.</li><li>Black Duck scanner integration: Black Duck is now a supported scanner for
+consuming DHI VEX data.</li><li>DHI Select self-serve purchase: DHI Select is now available for self-serve
+purchase directly through the Docker website.</li><li>Bulk customization: Apply customizations to multiple images in a single
+operation through the Docker Hub UI and the CLI.</li><li>Terraform provider: Manage DHI resources, including customizations and
+mirrors, using the official Terraform provider.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=q1-2026><a class="text-black dark:text-white no-underline hover:underline" href=#q1-2026>Q1 2026</a></h2><p>New features and enhancements released in the first quarter of 2026.</p><ul><li>Docker Hardened System Packages (HSP): Announced Docker Hardened System
+Packages, a new offering that provides individually hardened packages for use
+in your own base images. For more information, see the <a class=link href=https://www.docker.com/blog/announcing-docker-hardened-system-packages/ rel=noopener>announcement blog
+post</a>.</li><li>Wiz scanner integration: Wiz is now a supported scanner for consuming DHI VEX
+data.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=q4-2025><a class="text-black dark:text-white no-underline hover:underline" href=#q4-2025>Q4 2025</a></h2><p>New features and enhancements released in the fourth quarter of 2025.</p><ul><li>Docker Hardened Images Community (Free): Docker Hardened Images are now
+available for every developer through a Community subscription tier. The
+subscription tiers are now Community, Select, and Enterprise. For more
+information, see the <a class=link href=https://www.docker.com/blog/docker-hardened-images-for-every-developer/ rel=noopener>announcement blog
+post</a>.</li><li>Independent security validation by SRLabs: SRLabs published an independent
+security validation of Docker Hardened Images. See the
+<a class=link href=https://www.docker.com/blog/docker-hardened-images-security-independently-validated-by-srlabs/ rel=noopener>validation announcement</a>.</li><li>Docker Scout scoring for DHI: Docker Scout image scoring now accounts for the
+security improvements provided by DHI.</li><li>Trivy VEX repository: VEX data for DHI is published in a Trivy-compatible OCI
+VEX repository, making it easier for Trivy and other scanners to consume.</li><li>Docker Scout DHI policy: New Docker Scout policy that evaluates whether images
+use Docker Hardened Images.</li><li>Hardened Helm charts (Beta): Beta release of Docker Hardened Helm Charts. For
+more information, see the <a class=link href=https://www.docker.com/blog/docker-hardened-images-helm-charts-beta/ rel=noopener>announcement blog
+post</a>.</li><li>Mirroring UX: Updated the mirroring experience in Docker Hub with a refreshed
+UI and clearer flows.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=q3-2025><a class="text-black dark:text-white no-underline hover:underline" href=#q3-2025>Q3 2025</a></h2><p>New features and enhancements released in the third quarter of 2025.</p><ul><li>Next evolution release: A major release that introduced customizations,
+FedRAMP-ready images, the AI Migration Agent, and deeper scanner integrations.
+See the <a class=link href=https://www.docker.com/blog/the-next-evolution-of-docker-hardened-images/ rel=noopener>announcement blog
+post</a>
+and the <a class=link href=https://www.docker.com/blog/fedramp-compliance-with-hardened-images/ rel=noopener>FedRAMP compliance blog
+post</a>.</li><li>DHI customizations: Customize DHI images directly from the Docker Hub UI,
+with options for adding packages, files, and configuration on top of a base
+hardened image.</li><li>AI Migration Agent: AI-assisted Dockerfile migration to help convert existing
+Dockerfiles to use Docker Hardened Images.</li><li>CIS compliance attestations: CIS benchmark compliance attestations are now
+included with DHI images.</li><li>STIG variants: STIG-hardened image variants for U.S. Department of Defense
+compliance use cases.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=q2-2025><a class="text-black dark:text-white no-underline hover:underline" href=#q2-2025>Q2 2025</a></h2><p>New features and enhancements released in the second quarter of 2025.</p><ul><li>Docker Hardened Images launch: Docker announced Docker Hardened Images, a new
+family of secure, minimal, and production-ready container images maintained by
+Docker. For more information, see the <a class=link href=https://www.docker.com/blog/introducing-docker-hardened-images/ rel=noopener>launch blog
+post</a>.</li><li>FIPS variants: FIPS-validated image variants for Docker Hardened Images.</li></ul>

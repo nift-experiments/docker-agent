@@ -1,0 +1,127 @@
+<p>The governance described here applies to local sandboxes. Cloud sandboxes
+use separate network policy configuration. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/network-policy/>Cloud network policy</a> for cloud controls.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=resource-model><a class="text-black dark:text-white no-underline hover:underline" href=#resource-model>Resource model</a></h2><p>Docker sandbox governance is built around two resource types: <strong>policies</strong> and
+<strong>rules</strong>.</p><p>A <strong>policy</strong> is a named collection of rules that controls sandbox access.
+Policies exist at two levels:</p><ul><li><strong>Local</strong>: configured per machine using the <code>sbx policy</code> CLI. Applies to
+sandboxes on that machine only.</li><li><strong>Organization</strong>: configured in Docker Home. Network and filesystem policies
+can also be managed via the
+<a class=link href=/reference/api/ai-governance/>Governance API</a>. Applies to sandboxes across
+the organization. An organization can have several policies, each applying
+either org-wide or to specific teams. See <a class=link href=#policy-scope>Policy scope</a>.</li></ul><p>When organization governance is active, only organization allow rules can grant
+access. Local and kit-defined deny rules still apply on top. See
+<a class=link href=#precedence>Precedence</a>.</p><p>A <strong>rule</strong> is the unit of access control within a policy. Each rule has:</p><ul><li><strong>Name</strong>: a human-readable label</li><li><strong>Actions</strong>: the type of access the rule controls</li><li><strong>Resources</strong>: the targets the rule matches against</li><li><strong>Decision</strong>: <code>allow</code> or <code>deny</code></li></ul><p>Rules are grouped by domain. Network and filesystem rules in a policy must
+share the same domain, either <code>network</code> or <code>filesystem</code>. MCP policies use Cedar
+statements written in the <code>MCP</code> namespace instead of the network and filesystem
+rule format.</p><p>An organization network policy can also require approval, which turns every
+allow in that policy into a request the developer must confirm before access is
+granted. Approval is set on the policy rather than on individual rules, so it
+applies to all of the policy's allow rules at once. Without organization
+governance, a request with no matching allow or deny rule also asks for
+approval. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/#approval-required-access>Approval-required access</a>.</p><p>Network approval is separate from the MCP <code>@requireApproval</code> annotation. An MCP
+approval confirms a single call within the session and creates no rule, while
+an approved network destination stays allowed until you remove the rule. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/>MCP access policies</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=limits><a class="text-black dark:text-white no-underline hover:underline" href=#limits>Limits</a></h3><p>Organization policies have the following limits, which help ensure fair usage
+and resource availability across organizations:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Limit</th><th class=p-2>Value</th></tr></thead><tbody><tr><td class=p-2>Policies per organization</td><td class=p-2>100</td></tr><tr><td class=p-2>Rules per policy</td><td class=p-2>250</td></tr><tr><td class=p-2>Policy size</td><td class=p-2>400 KB total, shared across all of a policy's rules</td></tr></tbody></table></div><p>Typical policies use only a small fraction of the policy size limit. Domain
+and file path values have no separate length limit beyond valid format.</p><p>If these limits don't fit your organization's needs,
+<a class=link href=https://www.docker.com/products/ai-governance/#contact-sales rel=noopener>contact Docker Sales</a>
+to discuss options.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=policy-scope><a class="text-black dark:text-white no-underline hover:underline" href=#policy-scope>Policy scope</a></h2><p>Each organization policy applies either across the whole organization or only
+to specific teams:</p><ul><li>Org-wide: with no teams assigned, the policy applies to every member of the
+organization.</li><li>Team-scoped: with one or more teams assigned, the policy applies only to
+members of those teams.</li></ul><p>Teams are the same
+<a class=link href=https://docs.docker.com/accounts/organization/manage/manage-a-team/>teams</a>
+you manage for your organization; Docker matches a policy's teams against each
+user's team membership. Because an organization can mix org-wide and team-scoped
+policies, a single user is often subject to several at once. The policies that
+apply to a given user are their <em>effective policies</em>: every org-wide policy,
+plus every team-scoped policy for a team they belong to. See
+<a class=link href=#rule-evaluation>Rule evaluation</a> for how a user's effective policies combine.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=rule-syntax><a class="text-black dark:text-white no-underline hover:underline" href=#rule-syntax>Rule syntax</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=network-rules><a class="text-black dark:text-white no-underline hover:underline" href=#network-rules>Network rules</a></h3><p>Network rules use <code>connect:tcp</code> for TCP and <code>connect:udp</code> for UDP. Resources are
+hostnames, CIDR ranges, or ports. UDP requires
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#allow-outbound-udp>experimental outbound UDP</a>.
+ICMP is blocked.</p><p><strong>Hostname patterns</strong></p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Pattern</th><th class=p-2>Example</th><th class=p-2>Matches</th></tr></thead><tbody><tr><td class=p-2>Exact hostname</td><td class=p-2><code>example.com</code></td><td class=p-2><code>example.com</code> on any port, not subdomains</td></tr><tr><td class=p-2>Single-level wildcard</td><td class=p-2><code>*.example.com</code></td><td class=p-2>One subdomain level, any port: <code>api.example.com</code></td></tr><tr><td class=p-2>Multi-level wildcard</td><td class=p-2><code>**.example.com</code></td><td class=p-2>Any depth, any port: <code>api.example.com</code>, <code>v2.api.example.com</code></td></tr><tr><td class=p-2>Hostname with port</td><td class=p-2><code>example.com:443</code></td><td class=p-2><code>example.com</code> on port 443 only</td></tr></tbody></table></div><p><code>example.com</code> and <code>*.example.com</code> don't cover each other. Specify both if you
+need to match the root domain and its subdomains.</p><p><strong>CIDR ranges</strong></p><p>Both IPv4 and IPv6 notation are supported: <code>10.0.0.0/8</code>, <code>192.168.1.0/24</code>,
+<code>2001:db8::/32</code>.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=http-method-and-path><a class="text-black dark:text-white no-underline hover:underline" href=#http-method-and-path>HTTP method and path</a></h4><p>A network rule matches a destination host on its own. An HTTP rule is a network
+rule that also names an HTTP method and URL path, so a policy can allow reads
+from an API without allowing writes to it.</p><p>An HTTP rule names one or more methods, a destination, and path patterns. What
+each part accepts depends on where you configure the rule:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Part</th><th class=p-2>Organization policy</th><th class=p-2>Local policy</th></tr></thead><tbody><tr><td class=p-2>Method</td><td class=p-2>One or more listed methods</td><td class=p-2><code>ANY</code>, or one or more methods</td></tr><tr><td class=p-2>Destination</td><td class=p-2>A host or IP address</td><td class=p-2>A host</td></tr><tr><td class=p-2>Path</td><td class=p-2>One or more absolute path patterns</td><td class=p-2>One absolute path pattern</td></tr></tbody></table></div><p>A destination can include a port, and a path pattern looks like <code>/api/**</code>.</p><p>A local rule doesn't accept an IP address or a CIDR range. Use a plain network
+rule for those destinations. To cover a second path in a local policy, add a
+second rule.</p><p>Every rule applies to at least one method. On the CLI, <code>--method ANY</code> covers
+every HTTP method. In the composer, a rule with no methods selected covers
+every method the composer lists. For the methods you can select individually, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/#add-a-network-rule>Add a network rule</a> for an
+organization policy and
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#http-method-and-path-rules>HTTP method and path rules</a>
+for a local one.</p><p>Path patterns follow the same wildcard rules as filesystem paths, where <code>*</code>
+matches within one path segment and <code>**</code> matches any depth. A pattern without a
+wildcard matches that path exactly, so <code>/repos</code> matches <code>/repos</code> and nothing
+below it. Every pattern must start with <code>/</code> and can't contain a query string, a
+fragment, or a <code>..</code> segment. A local rule's path must also be canonical, so it
+can't contain percent-encoding, control characters, repeated or trailing
+slashes, or a <code>.</code> segment. For the full list, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/#http-method-and-path-rules>HTTP method and path rules</a>.</p><p>HTTP requests are evaluated against both layers. A network rule sets the
+baseline for a host, and HTTP rules adjust individual methods and paths within
+it:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Rules that cover the host</th><th class=p-2>Result for an HTTP request</th></tr></thead><tbody><tr><td class=p-2>Network allow only</td><td class=p-2>Allowed at any method and path</td></tr><tr><td class=p-2>HTTP allow only</td><td class=p-2>Allowed only where a rule matches the method and path. Anything else is denied</td></tr><tr><td class=p-2>Network allow and HTTP deny</td><td class=p-2>The denied methods and paths are blocked. The rest stay allowed</td></tr><tr><td class=p-2>Network deny</td><td class=p-2>Blocked. An HTTP allow can't reopen a denied host</td></tr></tbody></table></div><p>A network deny is therefore a floor that HTTP rules can't raise, while a
+network allow is a ceiling that HTTP rules can carve into.</p><p>When a rule requires a method and path decision, the sandbox HTTP proxy
+evaluates each request separately instead of deciding once per connection.</p><p>Those requests have to go through the proxy. A connection it can't inspect,
+such as one it handles transparently, is blocked rather than evaluated.
+Traffic that isn't HTTP, such as SSH, carries no method or path, so HTTP rules
+never match it. Control those destinations with network rules.</p><p>For local and organization policy configuration, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/>Network access policies</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=filesystem-rules><a class="text-black dark:text-white no-underline hover:underline" href=#filesystem-rules>Filesystem rules</a></h3><p>Filesystem rules use the actions <code>read</code> and <code>write</code>. Resources are host paths
+that sandboxes can mount as workspaces.</p><p>A workspace mounted with write access must be allowed by both a <code>read</code> and a
+<code>write</code> rule; a read-only workspace needs only <code>read</code>. When default deny blocks
+a mount, the denial reason names whether read or write access was missing.</p><p><code>~</code> expands to the user's home directory on every platform, including Windows,
+where it resolves to <code>%USERPROFILE%</code>. A single <code>~/**</code> rule therefore matches
+each user's home tree on macOS, Linux, and Windows. The policy engine expands
+only <code>~</code>: it does not expand environment variables, so a pattern such as
+<code>%USERPROFILE%\**</code> or <code>$HOME/**</code> matches nothing.</p><p>For a path outside the home directory, write it in the format the user's
+operating system uses. A rule matches only the format it's written in, so a
+location that several platforms share needs a rule for each:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Operating system</th><th class=p-2>Example path</th></tr></thead><tbody><tr><td class=p-2>macOS, Linux</td><td class=p-2><code>/data/project/**</code></td></tr><tr><td class=p-2>Windows</td><td class=p-2><code>C:\data\project\**</code></td></tr><tr><td class=p-2>WSL</td><td class=p-2><code>\\wsl.localhost\&lt;distro>\data\project\**</code></td></tr></tbody></table></div><p>On Windows, <code>*:</code> matches any drive letter, so <code>*:\data\**</code> matches the path on
+any drive.</p><p>Wildcards behave the same way in every path format:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Pattern</th><th class=p-2>Example</th><th class=p-2>Matches</th></tr></thead><tbody><tr><td class=p-2>Exact path</td><td class=p-2><code>/data</code></td><td class=p-2><code>/data</code> only</td></tr><tr><td class=p-2>Segment wildcard</td><td class=p-2><code>/data/*</code></td><td class=p-2><code>/data/project</code>, one path segment only, not subdirectories</td></tr><tr><td class=p-2>Recursive wildcard</td><td class=p-2><code>/data/**</code></td><td class=p-2><code>/data/project</code>, <code>/data/project/src</code>, any depth</td></tr></tbody></table></div><p>Use <code>**</code> to match a directory tree recursively. A single <code>*</code> matches within one
+path segment and won't cross a path separator. For example, <code>~/**</code> matches all
+paths under the home directory, while <code>~/*</code> matches only its direct children.</p><p>For organization policy configuration and enforcement details, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/filesystem/>Filesystem access policies</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=mcp-policies><a class="text-black dark:text-white no-underline hover:underline" href=#mcp-policies>MCP policies</a></h3><p>MCP policies control Model Context Protocol activity made available to a
+sandbox through Docker's <a class=link href=https://docs.docker.com/ai/sandboxes/mcp-gateway/>MCP gateway</a>. They are
+organization policies written in Cedar using the <code>MCP</code> namespace, rather than
+the network and filesystem rule format.</p><p>MCP policy applies when a developer registers a server and when an agent uses
+the MCP gateway. Registration rules control future <code>sbx mcp add</code> operations.
+Use-time rules control tool calls, gateway meta-tools, resource reads, and
+prompt retrieval from servers that are already registered or loaded.</p><p>Governed MCP activity is default deny: a request is blocked unless a matching
+<code>permit</code> allows it. A matching <code>forbid</code> overrides any <code>permit</code>, including a
+permit that requires approval. Policy scope supplies the principal, so use
+organization or team scope instead of matching users, teams, tenants, or roles
+in Cedar.</p><p>For representative policies, see <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/>MCP access policies</a>.
+For exact action, resource, context, and approval behavior, see the
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/reference/mcp-policy/>MCP policy reference</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=rule-evaluation><a class="text-black dark:text-white no-underline hover:underline" href=#rule-evaluation>Rule evaluation</a></h2><p>When organization governance is active, the rules from all of a user's
+<a class=link href=#policy-scope>effective policies</a> are combined and evaluated together against
+each request, following two principles:</p><ul><li>Deny wins: if any rule matches with <code>decision: deny</code>, the request is denied,
+regardless of any matching allow rules.</li><li>Default deny: anything an allow rule doesn't match is blocked. Outbound
+network traffic is blocked unless a network rule allows the destination, and a
+host path can't be mounted unless a filesystem rule allows it. MCP activity is
+blocked unless an MCP <code>permit</code> allows it.</li></ul><p>Because every effective policy feeds the same evaluation, allows are additive (a
+request is allowed if any effective policy allows it) and denies are absolute (a
+request is blocked if any effective policy denies it). A deny rule in an
+org-wide policy therefore applies to everyone and can't be overridden by a
+team-scoped policy, which makes org-wide deny rules useful as guardrails.</p><p>Local and kit-defined allow rules take no part in this evaluation. Deny rules
+from those sources do still apply. See <a class=link href=#precedence>Precedence</a>.</p><p>A request that an approval-required policy allows produces a third outcome.
+Rather than being allowed outright, it's held back until the developer confirms
+the destination, and the confirmation governs later requests to it. This holds
+even when another policy allows the same request without requiring approval. A
+matching deny still wins, so a denied destination is blocked without asking.
+See <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/#approval-required-access>Approval-required access</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=precedence><a class="text-black dark:text-white no-underline hover:underline" href=#precedence>Precedence</a></h2><p>What applies depends on whether your organization has governance enabled:</p><ul><li>No organization governance: local rules and any kit-defined network rules
+determine what sandboxes can access.</li><li>Organization governance active: organization policy determines what access can
+be granted. Only organization allow rules grant access, so local and
+kit-defined allow rules are inactive and can't expand what the organization
+permits. Deny rules apply from every source, so a local or kit-defined deny
+can still restrict access further.</li></ul><p>For kit-defined rules, see
+<a class=link href=https://github.com/docker/sandbox-kit-spec/blob/main/docs/spec/capabilities/com.docker.sandbox/network-policy@1.md rel=noopener>Network policies</a>
+in the kit specification.</p><p>Precedence is decided by a rule's decision rather than its source:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Rule</th><th class=p-2>Evaluated under organization governance</th></tr></thead><tbody><tr><td class=p-2>Organization allow</td><td class=p-2>Yes</td></tr><tr><td class=p-2>Organization deny</td><td class=p-2>Yes</td></tr><tr><td class=p-2>Local allow</td><td class=p-2>No</td></tr><tr><td class=p-2>Local deny</td><td class=p-2>Yes</td></tr><tr><td class=p-2>Kit-defined allow</td><td class=p-2>No</td></tr><tr><td class=p-2>Kit-defined deny</td><td class=p-2>Yes</td></tr></tbody></table></div><p>Local and kit-defined rules cover network access only, so a deny that layers on
+top of organization policy is always a network deny. <code>sbx policy ls</code> hides
+inactive rules by default. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/monitor-and-enforce/monitoring/#showing-inactive-rules>Monitoring</a> for how
+to list them.</p><p>A local deny takes precedence over an organization approval requirement as
+well, so the request is blocked and no approval is requested. Rules that a
+developer gains by approving a request are the one exception to local allow
+rules being inactive, because they record an answer to the organization's own
+approval requirement rather than granting new access. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/#approval-required-access>Approval-required access</a>.</p><p>When organization governance is active, a user's organization policies are
+evaluated together, as described in <a class=link href=#rule-evaluation>Rule evaluation</a>.</p>

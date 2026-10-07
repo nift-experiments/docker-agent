@@ -1,0 +1,26 @@
+<p>Docker Build implements a client-server architecture, where:</p><ul><li>Client: Buildx is the client and the user interface for running and managing builds.</li><li>Server: BuildKit is the server, or builder, that handles the build execution.</li></ul><p>When you invoke a build, the Buildx client sends a build request to the
+BuildKit backend. BuildKit resolves the build instructions and executes the
+build steps. The build output is either sent back to the client or uploaded to
+a registry, such as Docker Hub.</p><p>Buildx and BuildKit are both installed with Docker Desktop and Docker Engine
+out-of-the-box. When you invoke the <code>docker build</code> command, you're using Buildx
+to run a build using the default BuildKit bundled with Docker.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=buildx><a class="text-black dark:text-white no-underline hover:underline" href=#buildx>Buildx</a></h2><p>Buildx is the CLI tool that you use to run builds. The <code>docker build</code> command
+is a wrapper around Buildx. When you invoke <code>docker build</code>, Buildx interprets
+the build options and sends a build request to the BuildKit backend.</p><p>The Buildx client can do more than just run builds. You can also use Buildx to
+create and manage BuildKit backends, referred to as builders. It also supports
+features for managing images in registries, and for running multiple builds
+concurrently.</p><p>Docker Buildx is installed by default with Docker Desktop. You can also build
+the CLI plugin from source, or grab a binary from the GitHub repository and
+install it manually. See <a class=link href=https://github.com/docker/buildx#manual-download rel=noopener>Buildx README</a>
+on GitHub for more information.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>While <code>docker build</code> invokes Buildx under the hood, there are subtle
+differences between this command and the canonical <code>docker buildx build</code>.
+For details, see <a class=link href=https://docs.docker.com/build/builders/#difference-between-docker-build-and-docker-buildx-build>Difference between <code>docker build</code> and <code>docker buildx build</code></a>.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=buildkit><a class="text-black dark:text-white no-underline hover:underline" href=#buildkit>BuildKit</a></h2><p>BuildKit is the daemon process that executes the build workloads.</p><p>A build execution starts with the invocation of a <code>docker build</code> command.
+Buildx interprets your build command and sends a build request to the BuildKit
+backend. The build request includes:</p><ul><li>The Dockerfile</li><li>Build arguments</li><li>Export options</li><li>Caching options</li></ul><p>BuildKit resolves the build instructions and executes the build steps. While
+BuildKit is executing the build, Buildx monitors the build status and prints
+the progress to the terminal.</p><p>If the build requires resources from the client, such as local files or build
+secrets, BuildKit requests the resources that it needs from Buildx.</p><p>This is one way in which BuildKit is more efficient compared to the legacy
+builder used in earlier versions of Docker. BuildKit only requests the
+resources that the build needs when they're needed. The legacy builder, in
+comparison, always takes a copy of the local filesystem.</p><p>Examples of resources that BuildKit can request from Buildx include:</p><ul><li>Local filesystem build contexts</li><li>Build secrets</li><li>SSH sockets</li><li>Registry authentication tokens</li></ul><p>For more information about BuildKit, see
+<a class=link href=https://docs.docker.com/build/buildkit/>BuildKit</a>.</p>

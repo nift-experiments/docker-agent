@@ -1,0 +1,22 @@
+<p>Docker Offload builds and runs your containers remotely, not on the machine where you invoke the
+commands. This means that files must be transferred from your local system to the
+cloud over the network.</p><p>Transferring files over the network introduces higher latency and lower
+bandwidth compared to local transfers.</p><p>Even with optimizations, large projects or slower network connections can lead to longer transfer times. Here are
+several ways to optimize your setup for Docker Offload:</p><ul><li><a class=link href=#dockerignore-files>Use <code>.dockerignore</code> files</a></li><li><a class=link href=#slim-base-images>Choose slim base images</a></li><li><a class=link href=#multi-stage-builds>Use multi-stage builds</a></li><li><a class=link href=#fetch-remote-files-in-build>Fetch remote files during the build</a></li><li><a class=link href=#multi-threaded-tools>Leverage multi-threaded tools</a></li></ul><p>For general Dockerfile tips, see
+<a class=link href=https://docs.docker.com/build/building/best-practices/>Building best practices</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=dockerignore-files><a class="text-black dark:text-white no-underline hover:underline" href=#dockerignore-files>dockerignore files</a></h2><p>A
+<a class=link href=https://docs.docker.com/build/concepts/context/#dockerignore-files><code>.dockerignore</code> file</a>
+lets you specify which local files should <em>not</em> be included in the build
+context. Files excluded by these patterns won’t be uploaded to Docker Offload
+during a build.</p><p>Typical items to ignore:</p><ul><li><code>.git</code> – avoids transferring your version history. (Note: you won’t be able to run <code>git</code> commands in the build.)</li><li>Build artifacts or locally generated binaries.</li><li>Dependency folders such as <code>node_modules</code>, if those are restored in the build
+process.</li></ul><p>As a rule of thumb, your <code>.dockerignore</code> should be similar to your <code>.gitignore</code>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=slim-base-images><a class="text-black dark:text-white no-underline hover:underline" href=#slim-base-images>Slim base images</a></h2><p>Smaller base images in your <code>FROM</code> instructions can reduce final image size and
+improve build performance. The <a class=link href=https://hub.docker.com/_/alpine rel=noopener><code>alpine</code></a> image
+is a good example of a minimal base.</p><p>For fully static binaries, you can use <a class=link href=https://hub.docker.com/_/scratch rel=noopener><code>scratch</code></a>, which is an empty base image.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=multi-stage-builds><a class="text-black dark:text-white no-underline hover:underline" href=#multi-stage-builds>Multi-stage builds</a></h2><p><a class=link href=/build/building/multi-stage/>Multi-stage builds</a> let you separate build-time
+and runtime environments in your Dockerfile. This not only reduces the size of
+the final image but also allows for parallel stage execution during the build.</p><p>Use <code>COPY --from</code> to copy files from earlier stages or external images. This
+approach helps minimize unnecessary layers and reduce final image size.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=fetch-remote-files-in-build><a class="text-black dark:text-white no-underline hover:underline" href=#fetch-remote-files-in-build>Fetch remote files in build</a></h2><p>When possible, download large files from the internet during the build itself
+instead of bundling them in your local context. This avoids network transfer
+from your client to Docker Offload.</p><p>You can do this using:</p><ul><li>The Dockerfile
+<a class=link href=/reference/dockerfile/#add><code>ADD</code> instruction</a></li><li><code>RUN</code> commands like <code>wget</code>, <code>curl</code>, or <code>rsync</code></li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=multi-threaded-tools><a class="text-black dark:text-white no-underline hover:underline" href=#multi-threaded-tools>Multi-threaded tools</a></h3><p>Some build tools, such as <code>make</code>, are single-threaded by default. If the tool
+supports it, configure it to run in parallel. For example, use <code>make --jobs=4</code>
+to run four jobs simultaneously.</p><p>Taking advantage of available CPU resources in the cloud can significantly
+improve build time.</p>

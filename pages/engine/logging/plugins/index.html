@@ -1,0 +1,19 @@
+<p>Docker logging plugins allow you to extend and customize Docker's logging
+capabilities beyond those of the <a class=link href=https://docs.docker.com/engine/logging/configure/>built-in logging drivers</a>.
+A logging service provider can
+<a class=link href=https://docs.docker.com/engine/extend/plugins_logging/>implement their own plugins</a> and make them
+available on Docker Hub, or a private registry. This topic shows
+how a user of that logging service can configure Docker to use the plugin.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=install-the-logging-driver-plugin><a class="text-black dark:text-white no-underline hover:underline" href=#install-the-logging-driver-plugin>Install the logging driver plugin</a></h2><p>To install a logging driver plugin, use <code>docker plugin install &lt;org/image></code>,
+using the information provided by the plugin developer.</p><p>You can list all installed plugins using <code>docker plugin ls</code>, and you can inspect
+a specific plugin using <code>docker inspect</code>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=configure-the-plugin-as-the-default-logging-driver><a class="text-black dark:text-white no-underline hover:underline" href=#configure-the-plugin-as-the-default-logging-driver>Configure the plugin as the default logging driver</a></h2><p>When the plugin is installed, you can configure the Docker daemon to use it as
+the default by setting the plugin's name as the value of the <code>log-driver</code>
+key in the <code>daemon.json</code>, as detailed in the
+<a class=link href=https://docs.docker.com/engine/logging/configure/#configure-the-default-logging-driver>logging overview</a>. If the
+logging driver supports additional options, you can set those as the values of
+the <code>log-opts</code> array in the same file.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=configure-a-container-to-use-the-plugin-as-the-logging-driver><a class="text-black dark:text-white no-underline hover:underline" href=#configure-a-container-to-use-the-plugin-as-the-logging-driver>Configure a container to use the plugin as the logging driver</a></h2><p>After the plugin is installed, you can configure a container to use the plugin
+as its logging driver by specifying the <code>--log-driver</code> flag to <code>docker run</code>, as
+detailed in the
+<a class=link href=https://docs.docker.com/engine/logging/configure/#configure-the-logging-driver-for-a-container>logging overview</a>.
+If the logging driver supports additional options, you can specify them using
+one or more <code>--log-opt</code> flags with the option name as the key and the option
+value as the value.</p>

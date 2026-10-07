@@ -1,0 +1,56 @@
+<blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>The Docker Sandboxes API and SDK are experimental. Features, interfaces,
+and behavior may change.</p></div></blockquote><p>Before retrying a failed request, check whether the service already started
+the work. For example, a create request can succeed even if your application
+loses the response. Retrying without checking can create a second sandbox.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=read-an-error-response><a class="text-black dark:text-white no-underline hover:underline" href=#read-an-error-response>Read an error response</a></h2><p>API errors contain a <code>code</code>, a <code>message</code>, and optional typed <code>details</code>. Use the
+code to decide how to respond. Several codes share an HTTP status, so the
+status alone might not explain the failure.</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Code</th><th class=p-2>What to do</th></tr></thead><tbody><tr><td class=p-2><code>invalidArgument</code></td><td class=p-2>Correct the malformed request or unsupported value before retrying.</td></tr><tr><td class=p-2><code>unauthenticated</code></td><td class=p-2>Obtain a valid credential to replace the missing, invalid, or expired one.</td></tr><tr><td class=p-2><code>permissionDenied</code></td><td class=p-2>Check that your credentials have permission for the action.</td></tr><tr><td class=p-2><code>notFound</code></td><td class=p-2>Check the resource name and request URL. Cloud also returns this code for routes it doesn't serve.</td></tr><tr><td class=p-2><code>failedPrecondition</code></td><td class=p-2>Check the resource state, required features, and any <code>If-Match</code> header.</td></tr><tr><td class=p-2><code>resourceExhausted</code></td><td class=p-2>Check the error details for a quota, rate limit, or request-size limit.</td></tr><tr><td class=p-2><code>unimplemented</code></td><td class=p-2>Check whether the backend supports the requested feature.</td></tr><tr><td class=p-2><code>unavailable</code></td><td class=p-2>Retry after a delay, once you know the retry won't duplicate work.</td></tr></tbody></table></div><p>For more detail, inspect <code>google.rpc.ErrorInfo</code> in the error's <code>details</code>, if
+present. Use its <code>reason</code> and <code>domain</code> fields together with the error code to
+handle specific causes. Avoid matching the free-form message text, and
+handle responses even when they include detail types you don't recognize.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=recover-from-a-failed-wait><a class="text-black dark:text-white no-underline hover:underline" href=#recover-from-a-failed-wait>Recover from a failed wait</a></h2><p>If the API returns HTTP 202, the work is still in progress. Keep reading the
+resource until it reaches the state you need or fails. The resource's <code>failure</code>
+field describes a failure that occurs after the initial request succeeds.</p><p>If a wait times out or is canceled, the action can still finish. Inspect the
+resource before trying again or deleting it. SDK wait helpers report
+<code>WaitError</code>, which includes the last resource the client received and any
+failure details.</p><p>If the client never received a resource, retry the original request with its
+idempotency key to recover the response. See
+<a class=link href=#retry-without-duplicating-work>Retry without duplicating work</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=retry-without-duplicating-work><a class="text-black dark:text-white no-underline hover:underline" href=#retry-without-duplicating-work>Retry without duplicating work</a></h2><p>An idempotency key identifies one request, so the service can return its
+original response if you send it again. For example, repeating a sandbox
+creation request with the same key returns the first sandbox instead of
+creating another one.</p><p>The SDK generates a key for each supported mutation unless you supply one.
+For direct API calls, include an <code>Idempotency-Key</code> header in the original
+request. Keep the key and the exact request, including any <code>If-Match</code> value,
+for retries.</p><p>The service keeps accepted results for at least 24 hours. A replay returns
+the original response, so read the resource afterward to check its latest
+state.</p><p>Use the same key only when repeating the same request. Changing the request
+under that key causes an error, and using a different key submits another
+action. Send the header only for operations that support it:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Operations</th><th class=p-2><code>Idempotency-Key</code></th></tr></thead><tbody><tr><td class=p-2>Create a sandbox, image, process, port, snapshot, secret, or volume</td><td class=p-2>Optional</td></tr><tr><td class=p-2>Restore a snapshot</td><td class=p-2>Optional</td></tr><tr><td class=p-2>Start, stop, or delete a sandbox</td><td class=p-2>Optional</td></tr><tr><td class=p-2>Update a secret</td><td class=p-2>Optional</td></tr><tr><td class=p-2>Update a sandbox</td><td class=p-2>Required</td></tr></tbody></table></div><p>Other operations don't accept an idempotency key.</p><p>Once you know a create request succeeded, poll the returned resource to wait
+for completion. Retry only when you need to recover from a failure or a lost
+response. For temporary failures, wait between retries and limit the number
+of attempts.</p><p>Process creation also supports an idempotency key. Recover the creation
+response with the same key before starting another process. Process input,
+signals, and file writes aren't covered by that key. Check the outcome
+before repeating those actions.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=account-for-sdk-retries><a class="text-black dark:text-white no-underline hover:underline" href=#account-for-sdk-retries>Account for SDK retries</a></h2><p>The SDK makes up to two additional attempts for eligible transient failures.
+If your application manages its own retry loop, set <code>maxRetries: 0</code> for the
+call to disable automatic retries. Combining both policies can produce more
+attempts than you intended.</p><p>Automatic retries within a call reuse its idempotency key. When retrying from
+your application, pass the original key in the call options as
+<code>idempotencyKey</code>. Otherwise, a separate create call can generate a different
+key and create another sandbox.</p><p>Limit both retry attempts and elapsed time, and honor server retry delays.
+See <a class=link href=https://docs.docker.com/ai/sandboxes-api/limits/#request-rate-limits>Request rate limits</a> for how rate limits
+differ from resource quotas.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=handle-concurrent-changes><a class="text-black dark:text-white no-underline hover:underline" href=#handle-concurrent-changes>Handle concurrent changes</a></h2><p>To avoid changing a resource that someone else has modified, send its <code>etag</code>
+in the <code>If-Match</code> header. An etag identifies the version of the resource you
+read. Operations such as sandbox updates and deletion require this header.
+The SDK sends the etag stored in the resource object you're using.</p><p>For direct API requests, pass the etag exactly as returned, including its
+quotes. A missing required header returns HTTP 428, and a stale etag returns
+HTTP 412.</p><p>If the etag is stale, read the resource again and decide whether your change
+is still appropriate. In the SDK, use the object returned by <code>refresh()</code> for
+the next operation. The original object still has the old etag. Use a
+different idempotency key for a request with an updated etag.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=check-command-results><a class="text-black dark:text-white no-underline hover:underline" href=#check-command-results>Check command results</a></h2><p>An API request can succeed even when the command it runs fails. Check the
+command result's exit code and output separately from request and wait errors.
+A nonzero exit code reports a command failure.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=set-a-timeout-for-commands><a class="text-black dark:text-white no-underline hover:underline" href=#set-a-timeout-for-commands>Set a timeout for commands</a></h2><p>To limit how long <code>processes.run()</code> waits for a command, pass <code>timeoutMs</code> in
+the second argument. For example,
+<code>sandbox.processes.run(input, { timeoutMs: 300_000 })</code> waits up to five minutes.
+Timing out or canceling the call stops local waiting. It doesn't kill the
+process in the sandbox.</p><p>Without <code>timeoutMs</code>, the overall run has no timeout. Individual requests to
+create the process and read its output have a 30-second timeout.</p>

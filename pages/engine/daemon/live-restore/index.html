@@ -1,0 +1,39 @@
+<p>By default, when the Docker daemon terminates, it shuts down running containers.
+You can configure the daemon so that containers remain running if the daemon
+becomes unavailable. This functionality is called <em>live restore</em>. The live restore
+option helps reduce container downtime due to daemon crashes, planned outages,
+or upgrades.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Live restore isn't supported for Windows containers, but it does work for
+Linux containers running on Docker Desktop for Windows.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=enable-live-restore><a class="text-black dark:text-white no-underline hover:underline" href=#enable-live-restore>Enable live restore</a></h2><p>There are two ways to enable the live restore setting to keep containers alive
+when the daemon becomes unavailable. <strong>Only do one of the following</strong>.</p><ul><li><p>Add the configuration to the daemon configuration file. On Linux, this
+defaults to <code>/etc/docker/daemon.json</code>. On Docker Desktop for Mac or Docker
+Desktop for Windows, select the Docker icon from the task bar, then click
+<strong>Settings</strong> -> <strong>Docker Engine</strong>.</p><ul><li><p>Use the following JSON to enable <code>live-restore</code>.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJsaXZlLXJlc3RvcmUiOiB0cnVlCn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;live-restore&#34;</span><span class=p>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div></li><li><p>Restart the Docker daemon. On Linux, you can avoid a restart (and avoid any
+downtime for your containers) by reloading the Docker daemon. If you use
+<code>systemd</code>, then use the command <code>systemctl reload docker</code>. Otherwise, send a
+<code>SIGHUP</code> signal to the <code>dockerd</code> process.</p></li></ul></li><li><p>If you prefer, you can start the <code>dockerd</code> process manually with the
+<code>--live-restore</code> flag. This approach isn't recommended because it doesn't
+set up the environment that <code>systemd</code> or another process manager would use
+when starting the Docker process. This can cause unexpected behavior.</p></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=live-restore-during-upgrades><a class="text-black dark:text-white no-underline hover:underline" href=#live-restore-during-upgrades>Live restore during upgrades</a></h2><p>Live restore allows you to keep containers running across Docker daemon updates,
+but is only supported when installing patch releases (<code>YY.MM.x</code>), not for
+major (<code>YY.MM</code>) daemon upgrades.</p><p>If you skip releases during an upgrade, the daemon may not restore its
+connection to the containers. If the daemon can't restore the connection, it
+can't manage the running containers and you must stop them manually.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=live-restore-upon-restart><a class="text-black dark:text-white no-underline hover:underline" href=#live-restore-upon-restart>Live restore upon restart</a></h2><p>The live restore option only works to restore containers if the daemon options,
+such as bridge IP addresses and graph driver, didn't change. If any of these
+daemon-level configuration options have changed, the live restore may not work
+and you may need to manually stop the containers.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=impact-of-live-restore-on-running-containers><a class="text-black dark:text-white no-underline hover:underline" href=#impact-of-live-restore-on-running-containers>Impact of live restore on running containers</a></h2><p>If the daemon is down for a long time, running containers may fill up the FIFO
+log the daemon normally reads. A full log blocks containers from logging more
+data. The default buffer size is 64K. If the buffers fill, you must restart
+the Docker daemon to flush them.</p><p>On Linux, you can modify the kernel's buffer size by changing
+<code>/proc/sys/fs/pipe-max-size</code>. You can't modify the buffer size on Docker Desktop for
+Mac or Docker Desktop for Windows.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=live-restore-and-swarm-mode><a class="text-black dark:text-white no-underline hover:underline" href=#live-restore-and-swarm-mode>Live restore and Swarm mode</a></h2><p>The live restore option only pertains to standalone containers, and not to Swarm
+services. Swarm services are managed by Swarm managers. If Swarm managers are
+not available, Swarm services continue to run on worker nodes but can't be
+managed until enough Swarm managers are available to maintain a quorum.</p>

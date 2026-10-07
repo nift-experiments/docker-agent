@@ -1,0 +1,22 @@
+<h2 class="scroll-mt-20 flex items-center gap-2" id=what-is-the-cis-docker-benchmark><a class="text-black dark:text-white no-underline hover:underline" href=#what-is-the-cis-docker-benchmark>What is the CIS Docker Benchmark?</a></h2><p>The <a class=link href=https://www.cisecurity.org/benchmark/docker rel=noopener>CIS Docker Benchmark</a> is part
+of the globally recognized CIS Benchmarks, developed by the <a class=link href=https://www.cisecurity.org/ rel=noopener>Center for
+Internet Security (CIS)</a>. It defines recommended secure
+configurations for all aspects of the Docker container ecosystem, including the
+container host, Docker daemon, container images, and the container runtime.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=why-cis-benchmark-compliance-matters><a class="text-black dark:text-white no-underline hover:underline" href=#why-cis-benchmark-compliance-matters>Why CIS Benchmark compliance matters</a></h2><p>Following the CIS Docker Benchmark helps organizations:</p><ul><li>Reduce security risk with widely recognized hardening guidance.</li><li>Meet regulatory or contractual requirements that reference CIS controls.</li><li>Standardize image and Dockerfile practices across teams.</li><li>Demonstrate audit readiness with configuration decisions grounded in a public standard.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=how-docker-hardened-images-comply-with-the-cis-benchmark><a class="text-black dark:text-white no-underline hover:underline" href=#how-docker-hardened-images-comply-with-the-cis-benchmark>How Docker Hardened Images comply with the CIS Benchmark</a></h2><p>Docker Hardened Images (DHIs) are designed with security in mind and are
+verified to be compliant with the relevant controls from the CIS Docker
+Benchmark for the scope that applies to container images and Dockerfile
+configuration.</p><p>CIS-compliant DHIs are compliant with all controls in Section 4, with the sole
+exception of the control requiring Docker Content Trust (DCT), which <a class=link href=https://www.docker.com/blog/retiring-docker-content-trust/ rel=noopener>Docker
+officially retired</a>.
+Instead, DHIs are
+<a class=link href=https://docs.docker.com/dhi/explore/security-concepts/signatures/>signed</a> using
+Cosign, providing an even higher level of authenticity and integrity. By
+starting from a CIS-compliant DHI, teams can adopt image-level best practices
+from the benchmark more quickly and confidently.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>The CIS Docker Benchmark also includes controls for the host, daemon, and
+runtime. CIS-compliant DHIs address only the image and Dockerfile scope (Section
+4). Overall compliance still depends on how you configure and operate the
+broader environment.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=identify-cis-compliant-images><a class="text-black dark:text-white no-underline hover:underline" href=#identify-cis-compliant-images>Identify CIS-compliant images</a></h2><p>CIS-compliant images are labeled as <strong>CIS</strong> in the Docker Hardened Images catalog.
+To find them, <a class=link href=https://docs.docker.com/dhi/how-to/search-evaluate/>search the catalog</a> and look for the <strong>CIS</strong>
+designation on individual listings.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=get-the-benchmark><a class="text-black dark:text-white no-underline hover:underline" href=#get-the-benchmark>Get the benchmark</a></h2><p>Download the latest CIS Docker Benchmark directly from CIS:
+<a class=link href=https://www.cisecurity.org/benchmark/docker rel=noopener>https://www.cisecurity.org/benchmark/docker</a></p>

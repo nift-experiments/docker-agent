@@ -1,0 +1,111 @@
+<p>This document provides an overview of Docker features, products, and
+open-source projects that have been deprecated, retired, or transitioned.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>This page does not cover deprecated and removed Docker Engine features.
+For a detailed list of deprecated Docker Engine features, refer to the
+<a class=link href=https://docs.docker.com/engine/deprecated/>Docker Engine Deprecated Features documentation</a>.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=products-and-features><a class="text-black dark:text-white no-underline hover:underline" href=#products-and-features>Products and features</a></h2><p>Support for these deprecated or retired features is no longer provided by
+Docker, Inc. The projects that have been transitioned to third parties continue
+to receive updates from their new maintainers.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-machine><a class="text-black dark:text-white no-underline hover:underline" href=#docker-machine>Docker Machine</a></h3><p>Docker Machine was a tool for provisioning and managing Docker hosts across
+various platforms, including virtual machines and cloud providers. It is no
+longer maintained, and users are encouraged to use
+<a class=link href=https://docs.docker.com/desktop/>Docker Desktop</a>
+or
+<a class=link href=https://docs.docker.com/engine/>Docker Engine</a> directly on supported platforms.
+Machine's approach to creating and configuring hosts has been superseded by
+more modern workflows that integrate more closely with Docker Desktop.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-toolbox><a class="text-black dark:text-white no-underline hover:underline" href=#docker-toolbox>Docker Toolbox</a></h3><p>Docker Toolbox was used on older systems where Docker Desktop could not run. It
+bundled Docker Machine, Docker Engine, and Docker Compose into a single
+installer. Toolbox is no longer maintained and is effectively replaced by
+<a class=link href=https://docs.docker.com/desktop/>Docker Desktop</a> on current systems. References to
+Docker Toolbox occasionally appear in older documentation or community
+tutorials, but it is not recommended for new installations.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-cloud-integrations><a class="text-black dark:text-white no-underline hover:underline" href=#docker-cloud-integrations>Docker Cloud integrations</a></h3><p>Docker previously offered integrations for Amazon's Elastic Container Service
+(ECS) and Azure Container Instances (ACI) to streamline container workflows.
+These integrations have been deprecated, and users should now rely on native
+cloud tools or third-party solutions to manage their workloads. The move toward
+platform-specific or universal orchestration tools reduced the need for
+specialized Docker Cloud integrations.</p><p>You can still view the relevant documentation for these integrations in the
+<a class=link href=https://github.com/docker-archive/compose-cli/tree/main/docs rel=noopener>Compose CLI repository</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-enterprise-edition><a class="text-black dark:text-white no-underline hover:underline" href=#docker-enterprise-edition>Docker Enterprise Edition</a></h3><p>Docker Enterprise Edition (EE) was Docker's commercial platform for deploying
+and managing large-scale container environments. It was acquired by Mirantis in
+2019, and users looking for enterprise-level functionality can now explore
+Mirantis Kubernetes Engine or other products offered by Mirantis. Much of the
+technology and features found in Docker EE have been absorbed into the Mirantis
+product line.</p><blockquote class="admonition admonition-tip admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_1749" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="1" width="17" height="22"><path d="M9.93896 22H14.939m-4.5-12h4m-2 0v6m3-.6736c2.3649-1.1235 4-3.534 4-6.3264.0-3.86599-3.134-7-7-7C8.57297 2 5.43896 5.13401 5.43896 9c0 2.7924 1.63506 5.2029 4 6.3264V16c0 .931899999999999.0 1.3978.15225 1.7654C9.79419 18.2554 10.1835 18.6448 10.6736 18.8478 11.0411 19 11.5071 19 12.439 19 13.3708 19 13.8368 19 14.2043 18.8478 14.6944 18.6448 15.0837 18.2554 15.2867 17.7654 15.439 17.3978 15.439 16.9319 15.439 16v-.6736z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_1749)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Tip</span></div><div class=admonition-content><p>For information about enterprise-level features offered by Docker today,
+see the <a class=link href="https://www.docker.com/pricing?ref=Docs&amp;refAction=DocsRetired" rel=noopener>Docker Business subscription</a>.</p></div></blockquote><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-data-center-and-docker-trusted-registry><a class="text-black dark:text-white no-underline hover:underline" href=#docker-data-center-and-docker-trusted-registry>Docker Data Center and Docker Trusted Registry</a></h3><p>Docker Data Center (DDC) was an umbrella term that encompassed Docker Universal
+Control Plane (UCP) and Docker Trusted Registry (DTR). These components
+provided a full-stack solution for managing containers, security, and registry
+services in enterprise environments. They are now under the Mirantis portfolio
+following the Docker Enterprise acquisition. Users still encountering
+references to DDC, UCP, or DTR should refer to Mirantis's documentation for
+guidance on modern equivalents.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=dev-environments><a class="text-black dark:text-white no-underline hover:underline" href=#dev-environments>Dev Environments</a></h3><p>Dev Environments was a feature introduced in Docker Desktop that allowed
+developers to spin up development environments quickly. It was deprecated and removed from Docker Desktop version 4.42 and later. Similar workflows can be achieved through
+Docker Compose or by creating custom configurations tailored to specific
+project requirements.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-sandboxes><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-sandboxes>Docker Desktop sandboxes</a></h3><p>Docker Desktop sandboxes let users run AI coding agents in isolated microVMs
+through the <code>docker sandbox</code> command. The <code>docker sandbox</code> plugin was removed
+in Docker Desktop 4.80.0. Use the standalone
+<a class=link href=https://docs.docker.com/ai/sandboxes/><code>sbx</code> CLI</a> instead.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-scout-features><a class="text-black dark:text-white no-underline hover:underline" href=#docker-scout-features>Docker Scout features</a></h3><p>The following Docker Scout features have been retired or deprecated. For
+details, see the
+<a class=link href=https://docs.docker.com/scout/release-notes/platform/>Scout platform release notes</a>.</p><ul><li>Health scores and Scout Everywhere: graded Docker Hub images from A to F
+based on policy compliance, surfaced across Docker Hub. Retired July 1, 2026.</li><li>Sysdig integration: detected images running in your cluster via the Sysdig API.
+Retired July 1, 2026.</li><li>GitHub source code management integration: linked images to their source
+repository and automated base-image updates via PRs. Retired July 1, 2026.
+For base-image updates, use
+<a class=link href=https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates rel=noopener>GitHub Dependabot</a>
+with <code>package-ecosystem: "docker"</code>. For image-to-source linkage, build with
+<code>--provenance=mode=max</code>. This retirement doesn't affect the
+<a class=link href=https://github.com/docker/scout-action rel=noopener><code>docker/scout-action</code></a> GitHub Action
+for CI pipelines.</li><li>Slack integration: sent vulnerability and policy compliance notifications to
+Slack channels. Retired July 30, 2026.</li><li>Notifications: alerted users to newly disclosed CVEs in-product and by
+email. Retired September 1, 2026. To surface CVE and policy results without
+push notifications, integrate <code>docker scout cves</code> or <code>docker scout policy</code>
+into your CI pipeline.</li><li>Native Amazon ECR integration: automatically analyzed images pushed to ECR
+registries using a CloudFormation stack. Retired September 1, 2026. Docker
+Scout still supports ECR through
+<a class=link href=https://docs.docker.com/scout/integrations/registry/><code>docker scout watch</code></a>.</li><li>Native Azure Container Registry integration: automatically analyzed images
+pushed to ACR registries using an ARM template. Retired September 1, 2026.
+Docker Scout still supports ACR through
+<a class=link href=https://docs.docker.com/scout/integrations/registry/><code>docker scout watch</code></a>.</li><li>Policies page in the Dashboard: the <code>docker scout policy</code>
+CLI continues to work. Retired September 1, 2026. See
+<a class=link href=https://docs.docker.com/scout/policy/local/>Evaluate policies</a>.</li><li>SonarQube integration: surfaced SonarQube quality gate results as a Docker
+Scout policy. Retired September 1, 2026.</li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=github-copilot-extension><a class="text-black dark:text-white no-underline hover:underline" href=#github-copilot-extension>GitHub Copilot extension</a></h3><p>The Docker for GitHub Copilot extension integrated Docker capabilities with
+GitHub Copilot Chat, helping developers containerize applications, generate
+Docker assets, and analyze vulnerabilities through conversational prompts. The
+extension was available in early access on the GitHub Marketplace. GitHub
+<a class=link href=https://github.blog/changelog/2025-09-24-deprecate-github-copilot-extensions-github-apps/ rel=noopener>deprecated Copilot Extensions</a>
+which led to the retirement of the Docker for GitHub Copilot extension. If
+you're looking for AI-assisted Docker workflows, explore the Docker MCP Toolkit
+and MCP Catalog, or use Gordon in Docker Desktop and the Docker CLI.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=enhanced-service-account-add-ons><a class="text-black dark:text-white no-underline hover:underline" href=#enhanced-service-account-add-ons>Enhanced Service Account add-ons</a></h3><p>Enhanced Service Account add-ons provided tiered pull rate limits for automated
+workflows and service accounts accessing Docker Hub.</p><p>Docker recommends transitioning to
+<a class=link href=https://docs.docker.com/security/access-tokens/organization-access-tokens/>Organization Access Tokens
+(OATs)</a>, which provide secure,
+programmatic access to Docker Hub with granular repository permissions, token
+expiration, and better security auditing. OATs are included with Docker Team
+and Business subscriptions and offer similar functionality without requiring
+separate add-on purchases.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-hub-automated-builds><a class="text-black dark:text-white no-underline hover:underline" href=#docker-hub-automated-builds>Docker Hub Automated Builds</a></h3><p>Docker Hub Automated Builds was a feature of Docker Hub that allowed building
+Docker images from source code in an external repository and automatically pushing
+the built image to your Docker repositories. This feature has been deprecated and
+will be removed on April 1, 2027.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-content-trust-dct><a class="text-black dark:text-white no-underline hover:underline" href=#docker-content-trust-dct>Docker Content Trust (DCT)</a></h3><p>Docker Content Trust (DCT) and the Notary v1 service at <code>notary.docker.io</code> are
+being fully retired. If you've never set <code>DOCKER_CONTENT_TRUST=1</code> or used
+<code>docker trust</code> commands, this change doesn't affect you. The service shuts down
+completely on December 8, 2026, following brownout windows in July and August.
+For the timeline, migration guidance, and modern alternatives such as
+Sigstore/Cosign and Notation, see the <a class=link href=https://www.docker.com/blog/docker-content-trust-retirement-and-migration-guidance/ rel=noopener>Docker Content Trust retirement and
+migration blog post</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=open-source-projects><a class="text-black dark:text-white no-underline hover:underline" href=#open-source-projects>Open source projects</a></h2><p>Several open-source projects originally maintained by Docker have been
+archived, discontinued, or transitioned to other maintainers or organizations.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=registry-now-cncf-distribution><a class="text-black dark:text-white no-underline hover:underline" href=#registry-now-cncf-distribution>Registry (now CNCF Distribution)</a></h3><p>The Docker Registry served as the open-source implementation of a container
+image registry. It was donated to the Cloud Native Computing Foundation (CNCF)
+in 2019 and is maintained under the name "Distribution." It remains a
+cornerstone for managing and distributing container images.</p><p><a class=link href=https://github.com/distribution/distribution rel=noopener>CNCF Distribution</a></p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-compose-v1-replaced-by-compose-v2><a class="text-black dark:text-white no-underline hover:underline" href=#docker-compose-v1-replaced-by-compose-v2>Docker Compose v1 (replaced by Compose v2)</a></h3><p>Docker Compose v1 (<code>docker-compose</code>), a Python-based tool for defining
+multi-container applications, has been superseded by Compose v2 (<code>docker compose</code>), which is written in Go and integrates with the Docker CLI. Compose
+v1 is no longer maintained, and users should migrate to Compose v2.</p><p><a class=link href=https://docs.docker.com/compose/>Compose v2 Documentation</a></p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-sbom-cli-plugin><a class="text-black dark:text-white no-underline hover:underline" href=#docker-sbom-cli-plugin>Docker SBOM CLI plugin</a></h3><p>The Docker SBOM CLI plugin provided the <code>docker sbom</code> command for generating
+and viewing software bill of materials (SBOMs) for container images. The plugin
+is discontinued. Use
+<a class=link href=/reference/cli/docker/scout/sbom/><code>docker scout sbom</code></a>
+for SBOM generation and inspection.</p><p><a class=link href=https://github.com/docker/sbom-cli-plugin/releases/tag/v0.7.0 rel=noopener>See Docker SBOM CLI plugin release notes for migration guidance</a></p><h3 class="scroll-mt-20 flex items-center gap-2" id=infrakit><a class="text-black dark:text-white no-underline hover:underline" href=#infrakit>InfraKit</a></h3><p>InfraKit was an open-source toolkit designed to manage declarative
+infrastructure and automate container deployments. It has been archived, and
+users are encouraged to explore tools such as Terraform for infrastructure
+provisioning and orchestration.</p><p><a class=link href=https://github.com/docker/infrakit rel=noopener>InfraKit GitHub Repository</a></p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-notary-now-cncf-notary><a class="text-black dark:text-white no-underline hover:underline" href=#docker-notary-now-cncf-notary>Docker Notary (now CNCF Notary)</a></h3><p>Docker Notary was a system for signing and verifying the authenticity of
+container content. It was donated to the CNCF in 2017 and continues to be
+developed as "Notary." Users seeking secure content verification should consult
+the CNCF Notary project.</p><p><a class=link href=https://github.com/notaryproject/notary rel=noopener>CNCF Notary</a></p><h3 class="scroll-mt-20 flex items-center gap-2" id=swarmkit><a class="text-black dark:text-white no-underline hover:underline" href=#swarmkit>SwarmKit</a></h3><p>SwarmKit powers Docker Swarm mode by providing orchestration for container
+deployments. While Swarm mode remains functional, development has slowed in
+favor of Kubernetes-based solutions. Individuals evaluating container
+orchestration options should investigate whether SwarmKit meets modern workload
+requirements.</p><p><a class=link href=https://github.com/docker/swarmkit rel=noopener>SwarmKit GitHub Repository</a></p>

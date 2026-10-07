@@ -1,0 +1,42 @@
+<p>On Linux, Docker creates firewall rules to implement network
+isolation, <a class=link href=https://docs.docker.com/engine/network/port-publishing/>port publishing</a> and filtering.</p><p>Because these rules are required for the correct functioning of Docker bridge
+networks, you should not modify the rules created by Docker.</p><p>This page describes options that control Docker's firewall rules to
+implement functionality including port publishing, and NAT/masquerading.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Docker creates firewall rules for bridge networks.</p><p>No rules are created for <code>ipvlan</code>, <code>macvlan</code> or <code>host</code> networking.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=firewall-backend><a class="text-black dark:text-white no-underline hover:underline" href=#firewall-backend>Firewall backend</a></h2><p>By default, Docker Engine creates its firewall rules using iptables,
+see <a class=link href=https://docs.docker.com/engine/network/firewall-iptables/>Docker with iptables</a>. It also has
+support for nftables, see <a class=link href=https://docs.docker.com/engine/network/firewall-nftables/>Docker with nftables</a>.</p><p>For bridge networks, iptables and nftables have the same functionality.</p><p>Docker Engine option <code>firewall-backend</code> can be used to select whether
+iptables or nftables is used. See
+<a class=link href=https://docs.docker.com/reference/cli/dockerd/ rel=noopener>daemon configuration</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-on-a-router><a class="text-black dark:text-white no-underline hover:underline" href=#docker-on-a-router>Docker on a router</a></h2><p>On Linux, Docker needs "IP Forwarding" enabled on the host. So, it enables
+the <code>sysctl</code> settings <code>net.ipv4.ip_forward</code> and <code>net.ipv6.conf.all.forwarding</code>
+if they are not already enabled when it starts. When it does that, it also
+configures the firewall to drop forwarded packets unless they are explicitly
+accepted.</p><p>When Docker sets the default forwarding policy to "drop", it will prevent
+your Docker host from acting as a router. This is the recommended setting when
+IP Forwarding is enabled, unless router functionality is required.</p><p>To stop Docker from setting the forwarding policy to "drop", include
+<code>"ip-forward-no-drop": true</code> in <code>/etc/docker/daemon.json</code>, or add option
+<code>--ip-forward-no-drop</code> to the <code>dockerd</code> command line.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>With the experimental nftables backend, Docker does not enable IP forwarding
+itself, and it will not create a default "drop" nftables policy. See
+<a class=link href=https://docs.docker.com/engine/network/firewall-nftables/#migrating-from-iptables-to-nftables>Migrating from iptables to nftables</a>.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=prevent-docker-from-manipulating-firewall-rules><a class="text-black dark:text-white no-underline hover:underline" href=#prevent-docker-from-manipulating-firewall-rules>Prevent Docker from manipulating firewall rules</a></h2><p>Setting the <code>iptables</code> or <code>ip6tables</code> keys to <code>false</code> in
+<a class=link href=https://docs.docker.com/reference/cli/dockerd/ rel=noopener>daemon configuration</a>, will
+prevent Docker from creating most of its <code>iptables</code> or <code>nftables</code> rules. But,
+this option is not appropriate for most users, it is likely to break
+container networking for the Docker Engine.</p><p>For example, with Docker's firewalling disabled and no replacement
+rules, containers in bridge networks will not be able to access
+internet hosts by masquerading, but all of their ports will be accessible
+to hosts on the local network.</p><p>It is not possible to completely prevent Docker from creating firewall
+rules, and creating rules after-the-fact is extremely involved and beyond
+the scope of these instructions.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=integration-with-firewalld><a class="text-black dark:text-white no-underline hover:underline" href=#integration-with-firewalld>Integration with firewalld</a></h2><p>If you are running Docker with the <code>iptables</code> or <code>ip6tables</code> options set to
+<code>true</code>, and <a class=link href=https://firewalld.org rel=noopener>firewalld</a> is enabled on your system, in
+addition to its usual iptables or nftables rules, Docker creates a <code>firewalld</code>
+zone called <code>docker</code>, with target <code>ACCEPT</code>.</p><p>All bridge network interfaces created by Docker (for example, <code>docker0</code>) are
+inserted into the <code>docker</code> zone.</p><p>Docker also creates a forwarding policy called <code>docker-forwarding</code> that allows
+forwarding from <code>ANY</code> zone to the <code>docker</code> zone.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-and-ufw><a class="text-black dark:text-white no-underline hover:underline" href=#docker-and-ufw>Docker and ufw</a></h2><p><a class=link href=https://launchpad.net/ufw rel=noopener>Uncomplicated Firewall</a>
+(ufw) is a frontend that ships with Ubuntu, and it lets you manage firewall
+rules. Docker and ufw use firewall rules in ways that make them incompatible
+with each other.</p><p>When you publish a container's ports using Docker, traffic to and from that
+container gets diverted before it goes through the ufw firewall settings.
+Docker routes container traffic in the <code>nat</code> table, which means that packets
+are diverted before it reaches the <code>INPUT</code> and <code>OUTPUT</code> chains that ufw uses.
+Packets are routed before the firewall rules can be applied,
+effectively ignoring your firewall configuration.</p>

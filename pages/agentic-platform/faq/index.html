@@ -1,0 +1,33 @@
+<h2 class="scroll-mt-20 flex items-center gap-2" id=what-can-i-run-in-docker-agentic-platform><a class="text-black dark:text-white no-underline hover:underline" href=#what-can-i-run-in-docker-agentic-platform>What can I run in Docker Agentic Platform?</a></h2><p>You can run agents such as Claude Code, Codex, and Hermes in isolated cloud
+sandboxes with live terminals. Browse <a class=link href=https://docs.docker.com/agentic-platform/kits/>Kits</a> for curated and community
+agents, or choose Shell to work without an agent. You can also enter a public
+kit reference in the launcher.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=can-i-use-private-kits><a class="text-black dark:text-white no-underline hover:underline" href=#can-i-use-private-kits>Can I use private kits?</a></h2><p>You can run private Docker Hub kits using the Docker Sandboxes CLI. Launching
+a kit from the Console requires both the kit and its base image to be public.
+The <strong>Kits</strong> page provides the CLI command to copy.</p><p>To access private GitHub repositories from inside a sandbox, use a
+<a class=link href=https://docs.docker.com/agentic-platform/secrets/#github-credential>GitHub credential</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=how-does-docker-agentic-platform-differ-from-docker-sandboxes><a class="text-black dark:text-white no-underline hover:underline" href=#how-does-docker-agentic-platform-differ-from-docker-sandboxes>How does Docker Agentic Platform differ from Docker Sandboxes?</a></h2><p>Docker Agentic Platform runs sandboxes on Docker-managed cloud infrastructure
+through a web Console. The <code>sbx</code> CLI runs local sandboxes on your development
+machine and cloud sandboxes with <code>sbx --cloud</code>. The Console and CLI have
+different workflows and secret names. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/>Cloud sandboxes</a> for the CLI experience.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=can-i-move-a-sandbox-between-my-machine-and-docker-agentic-platform><a class="text-black dark:text-white no-underline hover:underline" href=#can-i-move-a-sandbox-between-my-machine-and-docker-agentic-platform>Can I move a sandbox between my machine and Docker Agentic Platform?</a></h2><p>The <code>sbx move</code> command copies a sandbox filesystem between local and cloud
+environments. It does not transfer running processes, host bind mounts, or
+managed secrets, and it leaves the source sandbox in place. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/move/>Move a sandbox</a> for the CLI workflow and
+its limitations.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=can-i-share-sandboxes-and-configuration-with-a-team><a class="text-black dark:text-white no-underline hover:underline" href=#can-i-share-sandboxes-and-configuration-with-a-team>Can I share sandboxes and configuration with a team?</a></h2><p>The initial release is for individual use. You manage your own sandboxes, MCP
+connections, secrets, and network policies. Shared workspaces and team
+ownership aren't supported.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=how-does-a-sandbox-access-external-services><a class="text-black dark:text-white no-underline hover:underline" href=#how-does-a-sandbox-access-external-services>How does a sandbox access external services?</a></h2><p>The <strong>Open</strong> user policy allows outbound access to any host. <strong>Balanced</strong>
+allows a curated set of hosts and services. Allow rules from all applicable
+policies are combined: selecting both <strong>Open</strong> and <strong>Balanced</strong> permits all
+outbound destinations except those blocked by explicit deny rules. Balanced's
+allow list doesn't restrict Open's access. To restrict access with an allow
+list, deselect <strong>Open</strong> if it is selected and can be removed.</p><p>The launcher remembers your policy selections from the previous launch in the
+same browser. Without saved selections, it selects the account's policies
+marked <strong>Always applied</strong>. These policies can't be deselected in the launcher.</p><p>Your kit's network rules also apply. If an allow rule and a deny rule match
+the same destination, the deny rule wins. See <a class=link href=https://docs.docker.com/agentic-platform/policies/>Network policies</a>
+for details.</p><p>For services that need authentication, save your credentials under
+<a class=link href=https://docs.docker.com/agentic-platform/secrets/>Secrets</a>. The sandbox proxy adds them to matching requests without
+exposing their values to the agent.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=how-are-sandbox-usage-and-model-inference-billed><a class="text-black dark:text-white no-underline hover:underline" href=#how-are-sandbox-usage-and-model-inference-billed>How are sandbox usage and model inference billed?</a></h2><p>You pay for compute by the second while your sandbox runs. The Console also
+shows the equivalent hourly rate.</p><p>Your model provider bills inference separately, under the account associated
+with your API key. See
+<a class=link href=/subscription-billing/>Docker Billing</a> for account,
+usage, and payment information.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=how-long-are-logs-telemetry-and-snapshots-retained><a class="text-black dark:text-white no-underline hover:underline" href=#how-long-are-logs-telemetry-and-snapshots-retained>How long are logs, telemetry, and snapshots retained?</a></h2><p>Service logs are kept for 31 days and raw telemetry for 12 months.</p><p>All snapshots, including the most recent snapshot created when you pause a
+sandbox, are automatically deleted after seven days of non-use.</p>

@@ -1,0 +1,33 @@
+<p>Use network policies to control which hosts and services your sandbox can
+reach. For tools and authentication, configure <a class=link href=https://docs.docker.com/agentic-platform/mcp/>MCP</a> and
+<a class=link href=https://docs.docker.com/agentic-platform/secrets/>Secrets</a> separately.</p><p>There are two types of network policy:</p><ul><li>Kit policies are the read-only network rules defined by the selected kit.
+They apply automatically when you create a sandbox, including when you use a
+custom kit. Review curated kit rules under <strong>Kit policies</strong> on the
+<strong>Policies</strong> page. The launcher's policy picker also shows the selected kit's
+policy when the kit includes network rules.</li><li>User policies are policies that you can select when you create a sandbox.
+Choose the read-only <strong>Open</strong> or <strong>Balanced</strong> presets, or create a custom
+policy. <strong>Open</strong> allows outbound access to any host. <strong>Balanced</strong> allows
+access to a curated set of hosts and services.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=select-policies-for-a-sandbox><a class="text-black dark:text-white no-underline hover:underline" href=#select-policies-for-a-sandbox>Select policies for a sandbox</a></h2><p>The launcher remembers your policy selections from the previous launch in the
+same browser. Without saved selections, it selects the account's policies
+marked <strong>Always applied</strong>. These policies can't be deselected in the launcher.
+You can select zero, one, or several additional user policies.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=how-policies-combine><a class="text-black dark:text-white no-underline hover:underline" href=#how-policies-combine>How policies combine</a></h2><p>Allow rules from all applicable user policies and the kit are combined. A
+destination allowed by any of these rules is permitted unless an explicit
+deny rule blocks it. Deny rules take precedence over allow rules.</p><p>For example, selecting both <strong>Open</strong> and <strong>Balanced</strong> permits all outbound
+destinations except those explicitly denied. Open's <code>**</code> rule already allows
+all destinations, so Balanced's allow list doesn't narrow access. To restrict
+access with an allow list, deselect <strong>Open</strong> if it is selected and can be
+removed, and review the allow rules in the remaining policies and kit.</p><p>If the combined allow list contains any rules, destinations outside that list
+are blocked. This default behavior isn't an explicit deny rule: adding an
+allow rule in another policy permits the matching destinations. If the
+combined allow list is empty or absent, the sandbox can reach any destination
+except those blocked by deny rules.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=policy-rules><a class="text-black dark:text-white no-underline hover:underline" href=#policy-rules>Policy rules</a></h2><p>Policy rules allow or deny network destinations. Use the following hostname
+patterns:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Pattern</th><th class=p-2>Example</th><th class=p-2>Matches</th></tr></thead><tbody><tr><td class=p-2>Exact hostname</td><td class=p-2><code>example.com</code></td><td class=p-2><code>example.com</code> only, not subdomains</td></tr><tr><td class=p-2>Single-level wildcard</td><td class=p-2><code>*.example.com</code></td><td class=p-2>One subdomain level, such as <code>api.example.com</code></td></tr><tr><td class=p-2>Multi-level wildcard</td><td class=p-2><code>**.example.com</code></td><td class=p-2>Any depth: <code>api.example.com</code>, <code>v2.api.example.com</code></td></tr><tr><td class=p-2>Hostname with port</td><td class=p-2><code>example.com:443</code></td><td class=p-2><code>example.com</code> on port 443 only</td></tr></tbody></table></div><p><code>example.com</code> does not match subdomains, and <code>*.example.com</code> does not match the
+root domain. Add each pattern required by your destinations.</p><p>You can also match IPv4 and IPv6 CIDR ranges, such as <code>10.0.0.0/8</code>,
+<code>192.168.1.0/24</code>, and <code>2001:db8::/32</code>.</p><p>Include the hosts your agent needs both during setup and while it runs, such
+as source control services, package registries, and model providers.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=create-a-policy><a class="text-black dark:text-white no-underline hover:underline" href=#create-a-policy>Create a policy</a></h2><ol><li>Open <strong>Policies</strong> and select <strong>New policy</strong>.</li><li>Give the policy a name that describes what it's for.</li><li>Add allow and deny rules for the required destinations.</li><li>Review the rules and save the policy.</li></ol><p>To apply the policy, select it under <strong>Egress policy for this sandbox</strong> when you
+create a sandbox.</p><p>You can edit, copy, or delete a custom policy. You can't edit or delete the
+built-in presets or kit policies.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=understand-blocked-access><a class="text-black dark:text-white no-underline hover:underline" href=#understand-blocked-access>Understand blocked access</a></h2><p>If a policy blocks a service, your agent or tool might report an HTTP 403
+response, a connection failure, or another service error. Check the error
+message for the host it tried to reach.</p><p>Check that your allow rules cover the host and port, along with any supporting
+APIs the service needs. Add the narrowest rule that permits the required
+access. Use <strong>Open</strong> if your task needs broad outbound access.</p>

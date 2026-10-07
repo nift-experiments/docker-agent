@@ -1,0 +1,57 @@
+<p>Docker Hardened Images (DHI) is a comprehensive catalog of
+security-hardened container images built to meet diverse
+development and production needs.</p><p>You can explore the DHI catalog on <a class=link href=https://hub.docker.com/hardened-images/catalog rel=noopener>Docker Hub</a> or use the <a class=link href=https://docs.docker.com/dhi/tools/cli/>DHI CLI</a> to browse
+available images, tags, and metadata from the command line.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=framework-and-application-images><a class="text-black dark:text-white no-underline hover:underline" href=#framework-and-application-images>Framework and application images</a></h2><p>DHI includes a selection of popular frameworks and application images, each
+hardened and maintained to ensure security and compliance. These images
+integrate seamlessly into existing workflows, allowing developers to focus on
+building applications without compromising on security.</p><p>For example, you might find repositories like the following in the DHI catalog:</p><ul><li><code>node</code>: framework for Node.js applications</li><li><code>python</code>: framework for Python applications</li><li><code>nginx</code>: web server image</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=base-image-distributions><a class="text-black dark:text-white no-underline hover:underline" href=#base-image-distributions>Base image distributions</a></h2><p>Docker Hardened Images are available in different base image options, giving you
+flexibility to choose the best match for your environment and workload
+requirements:</p><ul><li><p>Debian-based images: A good fit if you're already working in glibc-based
+environments. Debian is widely used and offers strong compatibility across
+many language ecosystems and enterprise systems.</p></li><li><p>Alpine-based images: A smaller and more lightweight option using musl libc.
+These images tend to be small and are therefore faster to pull and have a
+reduced footprint.</p></li></ul><p>Each image maintains a minimal and secure runtime layer by removing
+non-essential components like shells, package managers, and debugging tools.
+This helps reduce the attack surface while retaining compatibility with common
+runtime environments. To maintain this lean, secure foundation, DHI standardizes
+on Debian for glibc-based images, which provides broad compatibility while
+minimizing complexity and maintenance overhead.</p><p>Example tags include:</p><ul><li><code>3.9.23-alpine3.21</code>: Alpine-based image for Python 3.9.23</li><li><code>3.9.23-debian12</code>: Debian-based image for Python 3.9.23</li></ul><p>If you're not sure which to choose, start with the base you're already familiar
+with. Debian tends to offer the broadest compatibility.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=development-and-runtime-variants><a class="text-black dark:text-white no-underline hover:underline" href=#development-and-runtime-variants>Development and runtime variants</a></h2><p>To accommodate different stages of the application lifecycle, DHI offers all
+language framework images and select application images in two variants:</p><ul><li><p>Development (dev) images: Equipped with necessary development tools and
+libraries, these images facilitate the building and testing of applications in a
+secure environment. They include a shell, package manager, a root user, and
+other tools needed for development.</p></li><li><p>Runtime images: Stripped of development tools, these images contain only the
+essential components needed to run applications, ensuring a minimal attack
+surface in production.</p></li></ul><p>This separation supports multi-stage builds, enabling developers to compile code
+in a secure build environment and deploy it using a lean runtime image.</p><p>For example, you might find tags like the following in a DHI repository:</p><ul><li><code>3.9.23-debian12</code>: runtime image for Python 3.9.23</li><li><code>3.9.23-debian12-dev</code>: development image for Python 3.9.23</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=fips-and-stig-variants><a class="text-black dark:text-white no-underline hover:underline" href=#fips-and-stig-variants>FIPs and STIG variants</a></h2><div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Subscription:</span>
+<span>Docker Hardened Images Select or Enterprise</span>
+<span class="icon-svg icon-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M18.1639 21.6147v-3m0 0v-3m0 3h-3m3 0h3m-1.2947-5.2866C19.9541 12.8974 20 12.4544 20 11.9999V7.21747C20 6.41796 20 6.0182 19.8692 5.67457 19.7537 5.37101 19.566 5.10015 19.3223 4.8854 19.0465 4.64231 18.6722 4.50195 17.9236 4.22122L12.5618 2.21054C12.3539 2.13258 12.25 2.0936 12.143 2.07815 12.0482 2.06444 11.9518 2.06444 11.857 2.07815 11.75 2.0936 11.6461 2.13258 11.4382 2.21054L6.0764 4.22122c-.7486.28073-1.1229.42109-1.39874.66418-.24368.21475-.43139.48561-.5469.78917C4 6.0182 4 6.41796 4 7.21747V11.9999c0 4.9084 5.35396 8.4784 7.302 9.6148C11.5234 21.7439 11.6341 21.8085 11.7903 21.842 11.9116 21.868 12.0884 21.868 12.2097 21.842 12.3659 21.8085 12.4766 21.7439 12.698 21.6147 12.986 21.4467 13.3484 21.2255 13.757 20.9547m.76-11.24605c0 .72785-.3089 1.38355-.8027 1.84305C13.5354 11.7181 13.446 11.8013 13.4126 11.8658 13.3774 11.9337 13.3672 11.9737 13.3656 12.0501 13.364 12.1227 13.3936 12.2115 13.4528 12.3891l.7697 2.3092C14.322 14.9966 14.3717 15.1458 14.3419 15.2645 14.3158 15.3684 14.2509 15.4584 14.1606 15.516 14.0574 15.5818 13.9002 15.5818 13.5858 15.5818H10.4142C10.0998 15.5818 9.94255 15.5818 9.83936 15.516 9.74903 15.4584 9.68416 15.3684 9.65807 15.2645 9.62826 15.1458 9.67797 14.9966 9.7774 14.6983l.7698-2.3092C10.6063 12.2115 10.6359 12.1227 10.6344 12.0501 10.6328 11.9737 10.6226 11.9337 10.5874 11.8658 10.5539 11.8013 10.4645 11.7181 10.2857 11.5517 9.79182 11.0922 9.48291 10.4365 9.48291 9.70865c0-1.39013 1.12689-2.51706 2.51709-2.51706 1.3901.0 2.517 1.12693 2.517 2.51706z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div><p>Some Docker Hardened Images include a <code>-fips</code> variant. These variants use
+cryptographic modules that have been validated under <a class=link href=https://docs.docker.com/dhi/explore/security-concepts/fips/>FIPS
+140</a>, a U.S. government standard for secure
+cryptographic operations.</p><p>FIPS variants are designed to help organizations meet regulatory and compliance
+requirements related to cryptographic use in sensitive or regulated
+environments.</p><p>You can recognize FIPS variants by their tag that includes <code>-fips</code>.</p><p>For example:</p><ul><li><code>3.13-fips</code>: FIPS variant of the Python 3.13 image</li><li><code>3.9.23-debian12-fips</code>: FIPS variant of the Debian-based Python 3.9.23 image</li></ul><p>FIPS variants can be used in the same way as any other Docker Hardened Image and
+are ideal for teams operating in regulated industries or under compliance
+frameworks that require cryptographic validation.</p><p>In addition to FIPS variants, some Docker Hardened Images also include
+STIG-ready variants. These images are scanned against custom STIG-based
+profiles and come with signed STIG scan attestations to support audits and
+compliance reporting. To identify STIG-ready variants, look for the <strong>STIG</strong>
+in the <strong>Compliance</strong> column of the image tags list in the Docker Hub catalog.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=compatibility-variants><a class="text-black dark:text-white no-underline hover:underline" href=#compatibility-variants>Compatibility variants</a></h2><p>Some Docker Hardened Images include a compatibility variant. These variants
+provide additional tools and configurations for specific use cases without
+bloating the minimal base images.</p><p>Compatibility variants are created to support:</p><ul><li><p>Helm chart compatibility: Applications deployed via Helm charts and
+Kubernetes that require specific runtime configurations or utilities for
+seamless integration with popular Helm charts.</p></li><li><p>Special application use-cases: Applications that need optional tools not
+included in the minimal image.</p></li></ul><p>By offering these as separate image flavors, DHI ensures that the minimal images
+remain lean and secure, while providing the tools you need in dedicated
+variants. This approach maintains a minimal attack surface for standard
+deployments while supporting specialized requirements when needed.</p><p>You can recognize compatibility variants by their tag that includes <code>-compat</code>.</p><p>Use compatibility variants when your deployment requires additional tools beyond
+the minimal runtime, such as when using Helm charts or applications with
+specific tooling requirements.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=socket-firewall-variants><a class="text-black dark:text-white no-underline hover:underline" href=#socket-firewall-variants>Socket Firewall variants</a></h2><p>Some Docker Hardened Images include Socket Firewall variants. These are <code>dev</code>
+variants that come with <a class=link href=https://socket.dev/ rel=noopener>Socket</a> preinstalled to monitor
+package manager activity and block malicious packages during development and CI
+builds.</p><p>Two tiers are available, identified by their tag suffix:</p><ul><li><code>-sfw-dev</code>: Socket Firewall Free. No API key required.</li><li><code>-sfw-ent-dev</code>: Socket Firewall Enterprise. Requires an API key from Socket.</li></ul><p>Not all images offer both tiers.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=image-specific-variants><a class="text-black dark:text-white no-underline hover:underline" href=#image-specific-variants>Image-specific variants</a></h2><p>Some images include variants that go beyond the general <code>dev</code>, <code>compat</code>, and
+<code>sfw</code> patterns. These represent distinct editions, bundled tooling, or
+runtime configurations specific to that image. Examples include a PHP-FPM variant
+for web server integration, a native binary build for faster startup, or a
+specific edition of a database.</p><p>You can identify these variants by their tag suffix. The image name in the tag
+suffix typically reflects what's included or different.</p>

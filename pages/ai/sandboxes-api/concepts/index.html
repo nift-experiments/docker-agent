@@ -1,0 +1,89 @@
+<blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>The Docker Sandboxes API and SDK are experimental. Features, interfaces,
+and behavior may change.</p></div></blockquote><p>An application uses the Docker Sandboxes API to create sandboxes, connect to
+them, and track their state. Choose the environment for your sandbox, then
+learn how to work with its resources throughout their lifecycle.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=kits-and-sandbox-images><a class="text-black dark:text-white no-underline hover:underline" href=#kits-and-sandbox-images>Kits and sandbox images</a></h2><p>A sandbox kit defines an environment for an agent or tool, including its
+image, setup, network rules, and credential requirements. The SDK bundles a
+catalog of kits you can launch by name. Using kits from other sources
+requires preparing their content for the API.</p><p>You can also create a sandbox from a container image. Choose the source based
+on how much of the environment you want to configure yourself:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Source</th><th class=p-2>What it provides</th><th class=p-2>How to create a sandbox</th></tr></thead><tbody><tr><td class=p-2><a class=link href=#bundled-kits>Bundled kit</a></td><td class=p-2>An image reference and configuration included in the SDK's catalog</td><td class=p-2><code>client.kits.launch('shell')</code></td></tr><tr><td class=p-2>Custom kit</td><td class=p-2>An environment defined by a kit you obtain separately</td><td class=p-2><code>client.create()</code> with <a class=link href=#supply-kit-artifacts>prepared kit artifacts</a></td></tr><tr><td class=p-2>Registry image (<code>imageRef</code>)</td><td class=p-2>A container image to use with your own sandbox settings</td><td class=p-2><code>client.create({ imageRef: 'ubuntu:24.04', resources: 'small' })</code></td></tr><tr><td class=p-2>Image resource (<code>image</code>)</td><td class=p-2>An image already prepared for Cloud Sandboxes, including its compute settings</td><td class=p-2><code>client.create({ image: 'images/&lt;uid>' })</code></td></tr></tbody></table></div><p>The <code>imageRef</code> value is an image name in a registry. The <code>image</code> value is a
+resource name returned by the Sandboxes API. When you use <code>image</code>, omit
+<code>resources</code> because the image resource supplies its compute settings.</p><p>These creation methods don't wait for the sandbox to be running. See
+<a class=link href=#wait-for-an-action-to-finish>Wait for an action to finish</a> before running
+commands.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=bundled-kits><a class="text-black dark:text-white no-underline hover:underline" href=#bundled-kits>Bundled kits</a></h3><p>The npm package includes the following kit definitions and supporting files.
+Launch a bundled kit by its short name, such as <code>shell</code>:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Kit name</th><th class=p-2>Environment</th></tr></thead><tbody><tr><td class=p-2><code>shell</code></td><td class=p-2>A shell environment for running your own commands</td></tr><tr><td class=p-2><code>claude</code></td><td class=p-2>Claude Code</td></tr><tr><td class=p-2><code>codex</code></td><td class=p-2>Codex</td></tr><tr><td class=p-2><code>cursor</code></td><td class=p-2>Cursor</td></tr><tr><td class=p-2><code>devin</code></td><td class=p-2>Devin</td></tr><tr><td class=p-2><code>docker-agent</code></td><td class=p-2>Docker Agent</td></tr><tr><td class=p-2><code>gemini</code></td><td class=p-2>Gemini CLI</td></tr><tr><td class=p-2><code>opencode</code></td><td class=p-2>OpenCode</td></tr></tbody></table></div><p>For example, <code>client.kits.launchAndWait('shell')</code> creates a shell sandbox and
+waits until it's running. The kit launch helpers default to <code>small</code> compute,
+with two CPUs and 4 GiB of memory. See <a class=link href=https://docs.docker.com/ai/sandboxes-api/limits/#compute-sizes>Compute sizes</a>
+to choose a different size.</p><p>Bundled kits are tied to the SDK release. Call <code>client.kits.list()</code> to see
+the catalog in your installed version. The kit definitions are included in
+the npm package, so the SDK doesn't download them from a registry. Cloud
+Sandboxes pulls their referenced container images as needed.</p><p>To run an AI agent, provide credentials for its model provider, such as an
+Anthropic API key for Claude Code. See
+<a class=link href=https://docs.docker.com/ai/sandboxes-api/authentication/#authenticate-agents>Authenticate agents</a>. The <code>shell</code> kit
+needs no provider key to run commands.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=resource-names><a class="text-black dark:text-white no-underline hover:underline" href=#resource-names>Resource names</a></h2><p>Use a resource's returned <code>name</code> to refer to it in later requests. A sandbox
+name has the form <code>sandboxes/&lt;uid></code>. Pass the complete name, including the
+<code>sandboxes/</code> prefix, when reading or deleting it.</p><p>The server assigns the name, which stays the same throughout the resource's
+lifetime. The optional <code>displayName</code> is a label you can change without
+changing the resource's identity.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=wait-for-an-action-to-finish><a class="text-black dark:text-white no-underline hover:underline" href=#wait-for-an-action-to-finish>Wait for an action to finish</a></h2><p>Wait until a sandbox is running before sending commands to it. In the SDK,
+<code>client.kits.launchAndWait()</code> creates a bundled kit's sandbox and waits for it
+to run. If you use <code>client.create()</code> or <code>client.kits.launch()</code>, call
+<code>waitUntilRunning()</code> on the returned sandbox and use the result to run commands.</p><p>For direct API requests, HTTP 202 means the action was accepted and is still
+in progress. Read the resource repeatedly until it reaches the state you need.</p><p>Sandbox creation can continue after your client stops waiting. Read the
+sandbox again to check its state, and inspect its <code>failure</code> field if it has
+failed. See <a class=link href=https://docs.docker.com/ai/sandboxes-api/errors/>Errors and retries</a> for how to recover.</p><p>Deletion can also take time. The API returns HTTP 202 while the sandbox is
+being deleted and HTTP 204 when deletion is complete. After deletion,
+authorized reads return <code>notFound</code>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=wait-for-kit-setup><a class="text-black dark:text-white no-underline hover:underline" href=#wait-for-kit-setup>Wait for kit setup</a></h3><p><code>waitUntilRunning()</code> and <code>kits.launchAndWait()</code> wait for the sandbox to reach
+the <code>running</code> state. Kit setup commands, such as installing tools or cloning
+a repository, can still be running at that point.</p><p>The SDK doesn't provide a helper that waits for all kit setup to finish. If
+your application depends on that setup, add a readiness check before starting
+its work. What you check depends on the kit and the task—for example, a
+completion marker written after a repository clone finishes, or a successful
+health check from a service.</p><p>Poll with a delay between checks and a timeout so your application stops
+waiting if setup fails.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=management-and-sandbox-endpoints><a class="text-black dark:text-white no-underline hover:underline" href=#management-and-sandbox-endpoints>Management and sandbox endpoints</a></h2><p>Creating a sandbox and running a command inside it use different endpoints:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Endpoint</th><th class=p-2>Use it to</th></tr></thead><tbody><tr><td class=p-2>Management API at <code>https://connect.docker.com/sandboxes</code></td><td class=p-2>Create, inspect, and delete sandboxes and manage related resources.</td></tr><tr><td class=p-2>Sandbox API at the returned <code>core.endpoint.uri</code></td><td class=p-2>Run processes and read or write files inside that sandbox.</td></tr></tbody></table></div><p>The SDK builds request URLs from these base URLs. If you make HTTP requests
+directly, append the <code>/v1</code> route to the base URL, preserving any existing path.
+For example, the management route <code>/v1/sandboxes</code> becomes
+<code>https://connect.docker.com/sandboxes/v1/sandboxes</code>.</p><p>Each sandbox endpoint requires a token that grants access to that sandbox.
+The SDK obtains this token when you use a sandbox's process or file methods. See
+<a class=link href=https://docs.docker.com/ai/sandboxes-api/authentication/>Authentication and authorization</a> for details.</p><p>A sandbox's endpoint can change when its runtime changes. Read the sandbox
+resource again before reconnecting to get its endpoint.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=read-all-results-from-a-list><a class="text-black dark:text-white no-underline hover:underline" href=#read-all-results-from-a-list>Read all results from a list</a></h2><p>List requests return one page of results at a time. To retrieve the next page,
+pass the response's <code>nextPageToken</code> as the next request's <code>pageToken</code>. Keep the
+same page size, filter, and ordering. Continue until <code>nextPageToken</code> is empty,
+even if a page contains fewer items than you requested.</p><p>The default page size is 25 for Cloud sandbox, image, snapshot, volume, and
+secret lists. You can request up to 100 items per page.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-supported-cloud-options><a class="text-black dark:text-white no-underline hover:underline" href=#choose-supported-cloud-options>Choose supported Cloud options</a></h2><p>Cloud supports kits, sandbox timeouts, stored secrets, and volume attachments,
+subject to account permissions and feature availability. For example, volume
+access must be enabled for your account. An SDK method's presence doesn't
+guarantee that your account can use it.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=supply-kit-artifacts><a class="text-black dark:text-white no-underline hover:underline" href=#supply-kit-artifacts>Supply kit artifacts</a></h2><p>To use a kit outside the bundled catalog, your application must load and
+prepare its content before calling <code>client.create()</code>. The npm SDK doesn't
+fetch kits from a registry. Its <code>kits.launch()</code> and <code>kits.launchAndWait()</code>
+helpers accept only bundled kit names.</p><p>For example, the <a class=link href=https://hub.docker.com/r/sbx/hermes-agent-kit rel=noopener>Hermes agent kit</a>
+is published as <code>docker.io/sbx/hermes-agent-kit:latest</code>. To use it through the
+SDK, you need code outside the SDK that loads the kit definition and its
+supporting files into the serialized
+<a class=link href=https://github.com/docker/sbx-kits-contrib/blob/v0.17.0/spec/types.go rel=noopener>v2 artifact format</a>
+accepted by the API.</p><p>The kit artifacts described here use the v2 format. The <code>kits</code> array contains
+a sandbox kit and any mixins that add configuration to it. See the
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/kits-v2/>v2 kit reference</a> for details. The bundled
+launch helpers prepare this same input for the kits in their catalog.</p><p>Pass the kit's source reference and prepared artifact bytes to
+<code>client.create()</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ZnVuY3Rpb24gY3JlYXRlRnJvbUtpdChyZWZlcmVuY2U6IHN0cmluZywgYXJ0aWZhY3RCeXRlczogVWludDhBcnJheSkgewogIHJldHVybiBjbGllbnQuY3JlYXRlKHsKICAgIHJlc291cmNlczogJ3NtYWxsJywKICAgIGtpdHM6IFsKICAgICAgewogICAgICAgIGFydGlmYWN0OiB7CiAgICAgICAgICByZWY6IHsgcmVmOiByZWZlcmVuY2UsIGtpbmQ6ICdzYW5kYm94JyB9LAogICAgICAgICAgaW5saW5lOiBhcnRpZmFjdEJ5dGVzLAogICAgICAgIH0sCiAgICAgIH0sCiAgICBdLAogIH0pOwp9', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createFromKit</span><span class=p>(</span><span class=nx>reference</span>: <span class=kt>string</span><span class=p>,</span> <span class=nx>artifactBytes</span>: <span class=kt>Uint8Array</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>client</span><span class=p>.</span><span class=nx>create</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=nx>resources</span><span class=o>:</span> <span class=s1>&#39;small&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>kits</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>artifact</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nx>ref</span><span class=o>:</span> <span class=p>{</span> <span class=nx>ref</span>: <span class=kt>reference</span><span class=p>,</span> <span class=nx>kind</span><span class=o>:</span> <span class=s1>&#39;sandbox&#39;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>          <span class=nx>inline</span>: <span class=kt>artifactBytes</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>      <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><p>The <code>ref</code> identifies the kit's source. It doesn't trigger a registry pull.
+The <code>inline</code> value contains the serialized artifact as a <code>Uint8Array</code>,
+including the kit's file content. Raw <code>spec.yaml</code>, ZIP files, and OCI manifests
+aren't valid inputs for this field.</p><p>To launch a public kit by registry reference without writing loading code,
+use the
+<a class=link href=https://docs.docker.com/agentic-platform/kits/#run-a-kit-by-reference>Docker Agentic Platform Console</a>.</p>

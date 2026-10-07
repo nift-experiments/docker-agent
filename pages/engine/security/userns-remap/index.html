@@ -1,0 +1,186 @@
+<p>Linux namespaces provide isolation for running processes, limiting their access
+to system resources without the running process being aware of the limitations.
+For more information on Linux namespaces, see
+<a class=link href=https://www.linux.com/news/understanding-and-securing-linux-namespaces rel=noopener>Linux namespaces</a>.</p><p>The best way to prevent privilege-escalation attacks from within a container is
+to configure your container's applications to run as unprivileged users. For
+containers whose processes must run as the <code>root</code> user within the container, you
+can re-map this user to a less-privileged user on the Docker host. The mapped
+user is assigned a range of UIDs which function within the namespace as normal
+UIDs from 0 to 65536, but have no privileges on the host machine itself.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>With <code>userns-remap</code>, the Docker daemon still runs as root. To run both the
+daemon and containers without root privileges, see <a class=link href=https://docs.docker.com/engine/security/rootless/>Rootless mode</a>
+instead.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=about-remapping-and-subordinate-user-and-group-ids><a class="text-black dark:text-white no-underline hover:underline" href=#about-remapping-and-subordinate-user-and-group-ids>About remapping and subordinate user and group IDs</a></h2><p>The remapping itself is handled by two files: <code>/etc/subuid</code> and <code>/etc/subgid</code>.
+Each file works the same, but one is concerned with the user ID range, and the
+other with the group ID range. Consider the following entry in <code>/etc/subuid</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGVzdHVzZXI6MjMxMDcyOjY1NTM2', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>testuser:231072:65536</span></span></code></pre></div></div></div></div><p>This means that <code>testuser</code> is assigned a subordinate user ID range of <code>231072</code>
+and the next 65536 integers in sequence. UID <code>231072</code> is mapped within the
+namespace (within the container, in this case) as UID <code>0</code> (<code>root</code>). UID <code>231073</code>
+is mapped as UID <code>1</code>, and so forth. If a process attempts to escalate privilege
+outside of the namespace, the process is running as an unprivileged high-number
+UID on the host, which does not even map to a real user. This means the process
+has no privileges on the host system at all.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>It is possible to assign multiple subordinate ranges for a given user or group
+by adding multiple non-overlapping mappings for the same user or group in the
+<code>/etc/subuid</code> or <code>/etc/subgid</code> file. In this case, Docker uses only the first
+five mappings, in accordance with the kernel's limitation of only five entries
+in <code>/proc/self/uid_map</code> and <code>/proc/self/gid_map</code>.</p></div></blockquote><p>When you configure Docker to use the <code>userns-remap</code> feature, you can optionally
+specify an existing user and/or group, or you can specify <code>default</code>. If you
+specify <code>default</code>, a user and group <code>dockremap</code> is created and used for this
+purpose.</p><blockquote class="admonition admonition-warning admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_2018" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="2" width="24" height="21"><path d="M11.9998 9.99999V14m0 4H12.0098M10.6151 4.89171 2.39019 19.0983c-.45621.788-.68431 1.182-.6506 1.5054C1.769 20.8857 1.91677 21.142 2.14613 21.3088 2.40908 21.5 2.86435 21.5 3.77487 21.5H20.2246C21.1352 21.5 21.5904 21.5 21.8534 21.3088 22.0827 21.142 22.2305 20.8857 22.2599 20.6037 22.2936 20.2803 22.0655 19.8863 21.6093 19.0983L13.3844 4.89171C12.9299 4.10654 12.7026 3.71396 12.4061 3.58211c-.258700000000001-.11501-.554-.11501-.8126.0C11.2969 3.71396 11.0696 4.10655 10.6151 4.89171z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_2018)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Warning</span></div><div class=admonition-content><p>Some distributions do not automatically add the new group to the
+<code>/etc/subuid</code> and <code>/etc/subgid</code> files. If that's the case, you may have
+to manually edit these files and assign non-overlapping ranges. This step is
+covered in <a class=link href=#prerequisites>Prerequisites</a>.</p></div></blockquote><p>It is very important that the ranges do not overlap, so that a process cannot gain
+access in a different namespace. On most Linux distributions, system utilities
+manage the ranges for you when you add or remove users.</p><p>This re-mapping is transparent to the container, but introduces some
+configuration complexity in situations where the container needs access to
+resources on the Docker host, such as bind mounts into areas of the filesystem
+that the system user cannot write to. From a security standpoint, it is best to
+avoid these situations.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=prerequisites><a class="text-black dark:text-white no-underline hover:underline" href=#prerequisites>Prerequisites</a></h2><ol><li><p>The subordinate UID and GID ranges must be associated with an existing user,
+even though the association is an implementation detail. The user owns
+the namespaced storage directories under <code>/var/lib/docker/</code>. If you don't
+want to use an existing user, Docker can create one for you and use that. If
+you want to use an existing username or user ID, it must already exist.
+Typically, this means that the relevant entries need to be in
+<code>/etc/passwd</code> and <code>/etc/group</code>, but if you are using a different
+authentication back-end, this requirement may translate differently.</p><p>To verify this, use the <code>id</code> command:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBpZCB0ZXN0dXNlcgoKdWlkPTEwMDEodGVzdHVzZXIpIGdpZD0xMDAxKHRlc3R1c2VyKSBncm91cHM9MTAwMSh0ZXN0dXNlcik=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> id testuser
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>uid=1001(testuser) gid=1001(testuser) groups=1001(testuser)
+</span></span></span></code></pre></div></div></div></div></li><li><p>The way the namespace remapping is handled on the host is using two files,
+<code>/etc/subuid</code> and <code>/etc/subgid</code>. These files are typically managed
+automatically when you add or remove users or groups, but on some
+distributions, you may need to manage these files manually.</p><p>Each file contains three fields: the username or ID of the user, followed by
+a beginning UID or GID (which is treated as UID or GID 0 within the namespace)
+and a maximum number of UIDs or GIDs available to the user. For instance,
+given the following entry:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'dGVzdHVzZXI6MjMxMDcyOjY1NTM2', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>testuser:231072:65536</span></span></code></pre></div></div></div></div><p>This means that user-namespaced processes started by <code>testuser</code> are
+owned by host UID <code>231072</code> (which looks like UID <code>0</code> inside the
+namespace) through 296607 (231072 + 65536 - 1). These ranges should not overlap,
+to ensure that namespaced processes cannot access each other's namespaces.</p><p>After adding your user, check <code>/etc/subuid</code> and <code>/etc/subgid</code> to see if your
+user has an entry in each. If not, you need to add it, being careful to
+avoid overlap.</p><p>If you want to use the <code>dockremap</code> user automatically created by Docker,
+check for the <code>dockremap</code> entry in these files after
+configuring and restarting Docker.</p></li><li><p>If there are any locations on the Docker host where the unprivileged
+user needs to write, adjust the permissions of those locations
+accordingly. This is also true if you want to use the <code>dockremap</code> user
+automatically created by Docker, but you can't modify the
+permissions until after configuring and restarting Docker.</p></li><li><p>Enabling <code>userns-remap</code> effectively masks existing image and container
+layers, as well as other Docker objects within <code>/var/lib/docker/</code>. This is
+because Docker needs to adjust the ownership of these resources and actually
+stores them in a subdirectory within <code>/var/lib/docker/</code>. It is best to enable
+this feature on a new Docker installation rather than an existing one.</p><p>Along the same lines, if you disable <code>userns-remap</code> you can't access any
+of the resources created while it was enabled.</p></li><li><p>Check the <a class=link href=#user-namespace-known-limitations>limitations</a> on user
+namespaces to be sure your use case is possible.</p></li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=enable-userns-remap-on-the-daemon><a class="text-black dark:text-white no-underline hover:underline" href=#enable-userns-remap-on-the-daemon>Enable userns-remap on the daemon</a></h2><p>You can start <code>dockerd</code> with the <code>--userns-remap</code> flag or follow this
+procedure to configure the daemon using the <code>daemon.json</code> configuration file.
+The <code>daemon.json</code> method is recommended. If you use the flag, use the following
+command as a model:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXJkIC0tdXNlcm5zLXJlbWFwPSJ0ZXN0dXNlcjp0ZXN0dXNlciI=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> dockerd --userns-remap<span class=o>=</span><span class=s2>&#34;testuser:testuser&#34;</span>
+</span></span></code></pre></div></div></div></div><ol><li><p>Edit <code>/etc/docker/daemon.json</code>. Assuming the file was previously empty, the
+following entry enables <code>userns-remap</code> using user and group called
+<code>testuser</code>. You can address the user and group by ID or name. You only need to
+specify the group name or ID if it is different from the user name or ID. If
+you provide both the user and group name or ID, separate them by a colon
+(<code>:</code>) character. The following formats all work for the value, assuming
+the UID and GID of <code>testuser</code> are <code>1001</code>:</p><ul><li><code>testuser</code></li><li><code>testuser:testuser</code></li><li><code>1001</code></li><li><code>1001:1001</code></li><li><code>testuser:1001</code></li><li><code>1001:testuser</code></li></ul><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'ewogICJ1c2VybnMtcmVtYXAiOiAidGVzdHVzZXIiCn0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;userns-remap&#34;</span><span class=p>:</span> <span class=s2>&#34;testuser&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div></div></div></div><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>To use the <code>dockremap</code> user and have Docker create it for you,
+set the value to <code>default</code> rather than <code>testuser</code>.</p></div></blockquote><p>Save the file and restart Docker.</p></li><li><p>If you are using the <code>dockremap</code> user, verify that Docker created it using
+the <code>id</code> command.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBpZCBkb2NrcmVtYXAKCnVpZD0xMTIoZG9ja3JlbWFwKSBnaWQ9MTE2KGRvY2tyZW1hcCkgZ3JvdXBzPTExNihkb2NrcmVtYXAp', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> id dockremap
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>uid=112(dockremap) gid=116(dockremap) groups=116(dockremap)
+</span></span></span></code></pre></div></div></div></div><p>Verify that the entry has been added to <code>/etc/subuid</code> and <code>/etc/subgid</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBncmVwIGRvY2tyZW1hcCAvZXRjL3N1YnVpZAoKZG9ja3JlbWFwOjIzMTA3Mjo2NTUzNgoKJCBncmVwIGRvY2tyZW1hcCAvZXRjL3N1YmdpZAoKZG9ja3JlbWFwOjIzMTA3Mjo2NTUzNg==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> grep dockremap /etc/subuid
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>dockremap:231072:65536
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> grep dockremap /etc/subgid
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>dockremap:231072:65536
+</span></span></span></code></pre></div></div></div></div><p>If these entries are not present, edit the files as the <code>root</code> user and
+assign a starting UID and GID that is the highest-assigned one plus the
+offset (in this case, <code>65536</code>). Be careful not to allow any overlap in the
+ranges.</p></li><li><p>Verify that previous images are not available using the <code>docker image ls</code>
+command. The output should be empty.</p></li><li><p>Start a container from the <code>hello-world</code> image.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgcnVuIGhlbGxvLXdvcmxk', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker run hello-world
+</span></span></code></pre></div></div></div></div></li><li><p>Verify that a namespaced directory exists within <code>/var/lib/docker/</code> named
+with the UID and GID of the namespaced user, owned by that UID and GID,
+and not group-or-world-readable. Some of the subdirectories are still
+owned by <code>root</code> and have different permissions.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBzdWRvIGxzIC1sZCAvdmFyL2xpYi9kb2NrZXIvMjMxMDcyLjIzMTA3Mi8KCmRyd3gtLS0tLS0gMTEgMjMxMDcyIDIzMTA3MiAxMSBKdW4gMjEgMjE6MTkgL3Zhci9saWIvZG9ja2VyLzIzMTA3Mi4yMzEwNzIvCgokIHN1ZG8gbHMgLWwgL3Zhci9saWIvZG9ja2VyLzIzMTA3Mi4yMzEwNzIvCgp0b3RhbCAxNApkcnd4LS0tLS0tIDUgMjMxMDcyIDIzMTA3MiA1IEp1biAyMSAyMToxOSBhdWZzCmRyd3gtLS0tLS0gMyAyMzEwNzIgMjMxMDcyIDMgSnVuIDIxIDIxOjIxIGNvbnRhaW5lcnMKZHJ3eC0tLS0tLSAzIHJvb3QgICByb290ICAgMyBKdW4gMjEgMjE6MTkgaW1hZ2UKZHJ3eHIteC0tLSAzIHJvb3QgICByb290ICAgMyBKdW4gMjEgMjE6MTkgbmV0d29yawpkcnd4LS0tLS0tIDQgcm9vdCAgIHJvb3QgICA0IEp1biAyMSAyMToxOSBwbHVnaW5zCmRyd3gtLS0tLS0gMiByb290ICAgcm9vdCAgIDIgSnVuIDIxIDIxOjE5IHN3YXJtCmRyd3gtLS0tLS0gMiAyMzEwNzIgMjMxMDcyIDIgSnVuIDIxIDIxOjIxIHRtcApkcnd4LS0tLS0tIDIgcm9vdCAgIHJvb3QgICAyIEp1biAyMSAyMToxOSB0cnVzdApkcnd4LS0tLS0tIDIgMjMxMDcyIDIzMTA3MiAzIEp1biAyMSAyMToxOSB2b2x1bWVz', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> sudo ls -ld /var/lib/docker/231072.231072/
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 11 231072 231072 11 Jun 21 21:19 /var/lib/docker/231072.231072/
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=gp>$</span> sudo ls -l /var/lib/docker/231072.231072/
+</span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>total 14
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 5 231072 231072 5 Jun 21 21:19 aufs
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 3 231072 231072 3 Jun 21 21:21 containers
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 3 root   root   3 Jun 21 21:19 image
+</span></span></span><span class=line><span class=cl><span class=go>drwxr-x--- 3 root   root   3 Jun 21 21:19 network
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 4 root   root   4 Jun 21 21:19 plugins
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 2 root   root   2 Jun 21 21:19 swarm
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 2 231072 231072 2 Jun 21 21:21 tmp
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 2 root   root   2 Jun 21 21:19 trust
+</span></span></span><span class=line><span class=cl><span class=go>drwx------ 2 231072 231072 3 Jun 21 21:19 volumes
+</span></span></span></code></pre></div></div></div></div><p>Your directory listing may have some differences, especially if you
+use a different container storage driver than <code>aufs</code>.</p><p>The directories which are owned by the remapped user are used instead
+of the same directories directly beneath <code>/var/lib/docker/</code> and the
+unused versions (such as <code>/var/lib/docker/tmp/</code> in the example here)
+can be removed. Docker does not use them while <code>userns-remap</code> is
+enabled.</p></li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=disable-namespace-remapping-for-a-container><a class="text-black dark:text-white no-underline hover:underline" href=#disable-namespace-remapping-for-a-container>Disable namespace remapping for a container</a></h2><p>If you enable user namespaces on the daemon, all containers are started with
+user namespaces enabled by default. In some situations, such as privileged
+containers, you may need to disable user namespaces for a specific container.
+See
+<a class=link href=#user-namespace-known-limitations>user namespace known limitations</a>
+for some of these limitations.</p><p>To disable user namespaces for a specific container, add the <code>--userns=host</code>
+flag to the <code>docker container create</code>, <code>docker container run</code>, or <code>docker container exec</code> command.</p><p>There is a side effect when using this flag: user remapping will not be enabled for that container but, because the read-only (image) layers are shared between containers, ownership of the containers filesystem will still be remapped.</p><p>What this means is that the whole container filesystem will belong to the user specified in the <code>--userns-remap</code> daemon config (<code>231072</code> in the example above). This can lead to unexpected behavior of programs inside the container. For instance <code>sudo</code> (which checks that its binaries belong to user <code>0</code>) or binaries with a <code>setuid</code> flag.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=user-namespace-known-limitations><a class="text-black dark:text-white no-underline hover:underline" href=#user-namespace-known-limitations>User namespace known limitations</a></h2><p>The following standard Docker features are incompatible with running a Docker
+daemon with user namespaces enabled:</p><ul><li>Sharing PID or NET namespaces with the host (<code>--pid=host</code> or <code>--network=host</code>).</li><li>External (volume or storage) drivers which are unaware or incapable of using
+daemon user mappings.</li><li>Using the <code>--privileged</code> mode flag on <code>docker run</code> without also specifying
+<code>--userns=host</code>.</li></ul><p>User namespaces are an advanced feature and require coordination with other
+capabilities. For example, if volumes are mounted from the host, file ownership
+must be pre-arranged if you need read or write access to the volume contents.</p><p>While the root user inside a user-namespaced container process has many of the
+expected privileges of the superuser within the container, the Linux kernel
+imposes restrictions based on internal knowledge that this is a user-namespaced
+process. One notable restriction is the inability to use the <code>mknod</code> command.
+Permission is denied for device creation within the container when run by
+the <code>root</code> user.</p>

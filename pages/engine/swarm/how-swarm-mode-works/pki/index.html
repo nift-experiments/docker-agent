@@ -1,0 +1,64 @@
+<p>The Swarm mode public key infrastructure (PKI) system built into Docker
+makes it simple to securely deploy a container orchestration system. The nodes
+in a swarm use mutual Transport Layer Security (TLS) to authenticate, authorize,
+and encrypt the communications with other nodes in the swarm.</p><p>When you create a swarm by running <code>docker swarm init</code>, Docker designates itself
+as a manager node. By default, the manager node generates a new root Certificate
+Authority (CA) along with a key pair, which are used to secure communications
+with other nodes that join the swarm. If you prefer, you can specify your own
+externally-generated root CA, using the <code>--external-ca</code> flag of the
+<a class=link href=/reference/cli/docker/swarm/init/>docker swarm init</a> command.</p><p>The manager node also generates two tokens to use when you join additional nodes
+to the swarm: one worker token and one manager token. Each token
+includes the digest of the root CA's certificate and a randomly generated
+secret. When a node joins the swarm, the joining node uses the digest to
+validate the root CA certificate from the remote manager. The remote manager
+uses the secret to ensure the joining node is an approved node.</p><p>Each time a new node joins the swarm, the manager issues a certificate to the
+node. The certificate contains a randomly generated node ID to identify the node
+under the certificate common name (CN) and the role under the organizational
+unit (OU). The node ID serves as the cryptographically secure node identity for
+the lifetime of the node in the current swarm.</p><p>The diagram below illustrates how manager nodes and worker nodes encrypt
+communications using a minimum of TLS 1.2.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src="/engine/swarm/images/tls.webp?w=600" alt="TLS diagram" width=600 class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src="/engine/swarm/images/tls.webp?w=600" alt="TLS diagram"></div></template></figure><p>The example below shows the information from a certificate from a worker node:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'Q2VydGlmaWNhdGU6CiAgICBEYXRhOgogICAgICAgIFZlcnNpb246IDMgKDB4MikKICAgICAgICBTZXJpYWwgTnVtYmVyOgogICAgICAgICAgICAzYjoxYzowNjo5MTo3MzpmYjoxNjpmZjo2OTpjMzpmNzphMjpmZTo5NjpjMTo3MzplMjo4MDo5NzozYgogICAgICAgIFNpZ25hdHVyZSBBbGdvcml0aG06IGVjZHNhLXdpdGgtU0hBMjU2CiAgICAgICAgSXNzdWVyOiBDTj1zd2FybS1jYQogICAgICAgIFZhbGlkaXR5CiAgICAgICAgICAgIE5vdCBCZWZvcmU6IEF1ZyAzMCAwMjozOTowMCAyMDE2IEdNVAogICAgICAgICAgICBOb3QgQWZ0ZXIgOiBOb3YgMjggMDM6Mzk6MDAgMjAxNiBHTVQKICAgICAgICBTdWJqZWN0OiBPPWVjMmFkaWx4ZjRuZ3Y3ZXY4ZndzaTYxaTcsIE9VPXN3YXJtLXdvcmtlciwgQ049ZHcwMnBvYTR2cXZ6eGk1YzEwZ200cHEyZwouLi5zbmlwLi4u', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Certificate:
+</span></span><span class=line><span class=cl>    Data:
+</span></span><span class=line><span class=cl>        Version: 3 (0x2)
+</span></span><span class=line><span class=cl>        Serial Number:
+</span></span><span class=line><span class=cl>            3b:1c:06:91:73:fb:16:ff:69:c3:f7:a2:fe:96:c1:73:e2:80:97:3b
+</span></span><span class=line><span class=cl>        Signature Algorithm: ecdsa-with-SHA256
+</span></span><span class=line><span class=cl>        Issuer: CN=swarm-ca
+</span></span><span class=line><span class=cl>        Validity
+</span></span><span class=line><span class=cl>            Not Before: Aug 30 02:39:00 2016 GMT
+</span></span><span class=line><span class=cl>            Not After : Nov 28 03:39:00 2016 GMT
+</span></span><span class=line><span class=cl>        Subject: O=ec2adilxf4ngv7ev8fwsi61i7, OU=swarm-worker, CN=dw02poa4vqvzxi5c10gm4pq2g
+</span></span><span class=line><span class=cl>...snip...</span></span></code></pre></div></div></div></div><p>By default, each node in the swarm renews its certificate every three months.
+You can configure this interval by running the <code>docker swarm update --cert-expiry &lt;TIME PERIOD></code> command. The minimum rotation value is 1 hour.
+Refer to the
+<a class=link href=/reference/cli/docker/swarm/update/>docker swarm update</a> CLI
+reference for details.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=rotating-the-ca-certificate><a class="text-black dark:text-white no-underline hover:underline" href=#rotating-the-ca-certificate>Rotating the CA certificate</a></h2><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Mirantis Kubernetes Engine (MKE), formerly known as Docker UCP, provides an external
+certificate manager service for the swarm. If you run swarm on MKE, you shouldn't
+rotate the CA certificates manually. Instead, contact Mirantis support if you need
+to rotate a certificate.</p></div></blockquote><p>In the event that a cluster CA key or a manager node is compromised, you can
+rotate the swarm root CA so that none of the nodes trust certificates
+signed by the old root CA anymore.</p><p>Run <code>docker swarm ca --rotate</code> to generate a new CA certificate and key. If you
+prefer, you can pass the <code>--ca-cert</code> and <code>--external-ca</code> flags to specify the
+root certificate and to use a root CA external to the swarm. Alternately,
+you can pass the <code>--ca-cert</code> and <code>--ca-key</code> flags to specify the exact
+certificate and key you would like the swarm to use.</p><p>When you issue the <code>docker swarm ca --rotate</code> command, the following things
+happen in sequence:</p><ol><li><p>Docker generates a cross-signed certificate. This means that a version of
+the new root CA certificate is signed with the old root CA certificate.
+This cross-signed certificate is used as an intermediate certificate for all
+new node certificates. This ensures that nodes that still trust the old root
+CA can still validate a certificate signed by the new CA.</p></li><li><p>Docker also tells all nodes to immediately renew their TLS certificates.
+This process may take several minutes, depending on the number of nodes in
+the swarm.</p></li><li><p>After every node in the swarm has a new TLS certificate signed by the new CA,
+Docker forgets about the old CA certificate and key material, and tells
+all the nodes to trust the new CA certificate only.</p><p>This also causes a change in the swarm's join tokens. The previous
+join tokens are no longer valid.</p></li></ol><p>From this point on, all new node certificates issued are signed with the new
+root CA, and do not contain any intermediates.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=learn-more><a class="text-black dark:text-white no-underline hover:underline" href=#learn-more>Learn More</a></h2><ul><li>Read about how <a class=link href=https://docs.docker.com/engine/swarm/how-swarm-mode-works/nodes/>nodes</a> work.</li><li>Learn how Swarm mode <a class=link href=https://docs.docker.com/engine/swarm/how-swarm-mode-works/services/>services</a> work.</li></ul>

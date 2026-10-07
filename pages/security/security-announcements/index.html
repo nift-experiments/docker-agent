@@ -1,0 +1,225 @@
+<p><a class=link href=/security/security-announcements/index.xml>Subscribe to security RSS feed</a></p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-sandboxes-0420-security-update-cve-2026-77179-and-cve-2026-79994><a class="text-black dark:text-white no-underline hover:underline" href=#docker-sandboxes-0420-security-update-cve-2026-77179-and-cve-2026-79994>Docker Sandboxes 0.42.0 security update: CVE-2026-77179 and CVE-2026-79994</a></h2><p>Two vulnerabilities in Docker Sandboxes were fixed on September 7 in the
+<a class=link href=https://docs.docker.com/ai/sandboxes/release-notes/#0420>0.42.0</a> release:</p><ul><li>Addressed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-77179" rel=noopener>CVE-2026-77179</a>,
+where the virtio-fs host server on macOS followed symlinks when reopening an
+unlinked file from a stored path. A malicious guest could replace a parent
+directory with a symlink, escape the shared workspace, and read or modify
+arbitrary host files as the VMM user, potentially leading to code execution on
+the host. Versions 0.28.0 up to but not including 0.42.0 on macOS are
+affected. [Critical]</li><li>Addressed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-79994" rel=noopener>CVE-2026-79994</a>,
+where the guest-to-host Unix domain socket relay checked that a socket path
+was inside an authorized workspace but reconnected using the path name. A
+malicious guest could replace an intermediate directory with a symlink between
+the check and the connection, causing the host to connect to an arbitrary
+<code>AF_UNIX</code> socket outside the shared workspace and exposing data or host-side
+capabilities provided by that socket. Versions 0.37.0 up to but not including
+0.42.0 are affected. [High]</li></ul><p>If you can't update to
+<a class=link href=https://docs.docker.com/ai/sandboxes/release-notes/#0420>0.42.0</a> or
+later, use
+<a class=link href=https://docs.docker.com/ai/sandboxes/usage/#clone-mode>clone mode</a> and avoid
+adding read-write host mounts.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4860-security-update-cve-2026-17106><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4860-security-update-cve-2026-17106>Docker Desktop 4.86.0 security update: CVE-2026-17106</a></h2><p>A vulnerability in Docker Desktop was fixed on August 10 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4860>4.86.0</a> release:</p><ul><li>Addressed CVE-2026-17106, a destination-escape flaw in <code>docker container cp</code>.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4710-security-update-cve-2026-5843><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4710-security-update-cve-2026-5843>Docker Desktop 4.71.0 security update: CVE-2026-5843</a></h2><p>A vulnerability in Docker Desktop was fixed on April 27 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4710>4.71.0</a> release:</p><ul><li>Addressed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-5843" rel=noopener>CVE-2026-5843</a>,
+container-to-host code execution in the Docker Model Runner MLX inference
+backend.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4680-security-update-cve-2026-5817><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4680-security-update-cve-2026-5817>Docker Desktop 4.68.0 security update: CVE-2026-5817</a></h2><p>A vulnerability in Docker Desktop was fixed on April 7 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4680>4.68.0</a> release:</p><ul><li>Addressed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-5817" rel=noopener>CVE-2026-5817</a>,
+container-to-host code execution in the Docker Model Runner vllm-metal
+inference backend.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4670-security-update-cve-2026-33990><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4670-security-update-cve-2026-33990>Docker Desktop 4.67.0 security update: CVE-2026-33990</a></h2><p>A vulnerability in Docker Desktop was fixed on March 30 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4670>4.67.0</a> release:</p><ul><li>Addressed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-33990" rel=noopener>CVE-2026-33990</a>,
+SSRF in Docker Model Runner OCI Registry Client.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4620-security-update-cve-2026-28400><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4620-security-update-cve-2026-28400>Docker Desktop 4.62.0 security update: CVE-2026-28400</a></h2><p>A vulnerability in Docker Desktop was fixed on February 23 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4620>4.62.0</a> release:</p><ul><li>Addressed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-28400" rel=noopener>CVE-2026-28400</a>,
+runtime flag injection in Docker Model Runner.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4620-security-update-cve-2026-2664><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4620-security-update-cve-2026-2664>Docker Desktop 4.62.0 security update: CVE-2026-2664</a></h2><p>A vulnerability in Docker Desktop was fixed on February 23 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4620>4.62.0</a> release:</p><ul><li>Fixed <a class=link href="https://www.cve.org/cverecord?id=CVE-2026-2664" rel=noopener>CVE-2026-2664</a>, out of
+bounds read in gRPC-FUSE kernel module.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4540-security-update-cve-2025-13743><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4540-security-update-cve-2025-13743>Docker Desktop 4.54.0 security update: CVE-2025-13743</a></h2><p>A vulnerability in Docker Desktop was fixed on December 4 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4540>4.54.0</a> release:</p><ul><li>Fixed <a class=link href="https://www.cve.org/cverecord?id=CVE-2025-13743" rel=noopener>CVE-2025-13743</a> where
+Docker Desktop diagnostics bundles were found to include expired Hub PATs in
+log output due to error object serialization.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4490-security-update-cve-2025-9164><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4490-security-update-cve-2025-9164>Docker Desktop 4.49.0 security update: CVE-2025-9164</a></h2><p>A vulnerability in Docker Desktop for Windows was fixed on October 23 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4490>4.49.0</a> release:</p><ul><li>Fixed <a class=link href="https://www.cve.org/cverecord?id=CVE-2025-9164" rel=noopener>CVE-2025-9164</a> where
+the Docker Desktop for Windows installer was vulnerable to DLL hijacking due
+to insecure DLL search order. The installer searches for required DLLs in the
+user's Downloads folder before checking system directories, allowing local
+privilege escalation through malicious DLL placement.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4470-security-update-cve-2025-10657><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4470-security-update-cve-2025-10657>Docker Desktop 4.47.0 security update: CVE-2025-10657</a></h2><p>A vulnerability in Docker Desktop was fixed on September 25 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4470>4.47.0</a> release:</p><ul><li>Fixed <a class=link href="https://www.cve.org/CVERecord?id=CVE-2025-10657" rel=noopener>CVE-2025-10657</a> where
+the Enhanced Container Isolation
+<a class=link href=https://docs.docker.com/desktop/enterprise/hardened-desktop/enhanced-container-isolation/config/#command-restrictions>Docker Socket command restrictions</a>
+feature was not working properly in Docker Desktop 4.46.0 only (the
+configuration for it was being ignored).</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4443-security-update-cve-2025-9074><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4443-security-update-cve-2025-9074>Docker Desktop 4.44.3 security update: CVE-2025-9074</a></h2><p><em>Last updated August 20, 2025</em></p><p>A vulnerability in Docker Desktop was fixed on August 20 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4443>4.44.3</a> release:</p><ul><li>Fixed <a class=link href="https://www.cve.org/CVERecord?id=CVE-2025-9074" rel=noopener>CVE-2025-9074</a> where a
+malicious container running on Docker Desktop could access the Docker Engine
+and launch additional containers without requiring the Docker socket to be
+mounted. This could allow unauthorized access to user files on the host
+system. Enhanced Container Isolation (ECI) does not mitigate this
+vulnerability.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4440-security-update-cve-2025-23266><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4440-security-update-cve-2025-23266>Docker Desktop 4.44.0 security update: CVE-2025-23266</a></h2><p><em>Last updated July 31, 2025</em></p><p>Docker is aware of
+<a class=link href=https://nvd.nist.gov/vuln/detail/CVE-2025-23266 rel=noopener>CVE-2025-23266</a>, a critical
+vulnerability affecting the NVIDIA Container Toolkit in CDI mode up to version
+1.17.7. Docker Desktop includes version 1.17.8, which is not impacted. However,
+older versions of Docker Desktop that bundled earlier toolkit versions may be
+affected if CDI mode was manually enabled. Upgrade to Docker Desktop 4.44 or
+later to ensure you're using the patched version.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4430-security-update-cve-2025-6587><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4430-security-update-cve-2025-6587>Docker Desktop 4.43.0 security update: CVE-2025-6587</a></h2><p><em>Last updated July 3, 2025</em></p><p>A vulnerability in Docker Desktop was fixed on July 3 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4430>4.43.0</a> release:</p><ul><li>Fixed <a class=link href="https://www.cve.org/CVERecord?id=CVE-2025-6587" rel=noopener>CVE-2025-6587</a> where
+sensitive system environment variables were included in Docker Desktop
+diagnostic logs, allowing for potential secret exposure.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4410-security-update-cve-2025-3224-cve-2025-4095-and-cve-2025-3911><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4410-security-update-cve-2025-3224-cve-2025-4095-and-cve-2025-3911>Docker Desktop 4.41.0 security update: CVE-2025-3224, CVE-2025-4095, and CVE-2025-3911</a></h2><p><em>Last updated May 15, 2025</em></p><p>Three vulnerabilities in Docker Desktop were fixed on April 28 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4410>4.41.0</a> release.</p><ul><li>Fixed <a class=link href="https://www.cve.org/CVERecord?id=CVE-2025-3224" rel=noopener>CVE-2025-3224</a> allowing
+an attacker with access to a user machine to perform an elevation of privilege
+when Docker Desktop updates.</li><li>Fixed <a class=link href="https://www.cve.org/CVERecord?id=CVE-2025-4095" rel=noopener>CVE-2025-4095</a> where
+Registry Access Management (RAM) policies were not enforced when using a MacOS
+configuration profile, allowing users to pull images from unapproved
+registries.</li><li>Fixed <a class=link href="https://www.cve.org/CVERecord?id=CVE-2025-3911" rel=noopener>CVE-2025-3911</a> allowing
+an attacker with read access to a user's machine to obtain sensitive
+information from Docker Desktop log files, including environment variables
+configured for running containers.</li></ul><p>Update to Docker Desktop
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4410>4.41.0</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop-4342-security-update-cve-2024-8695-and-cve-2024-8696><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop-4342-security-update-cve-2024-8695-and-cve-2024-8696>Docker Desktop 4.34.2 security update: CVE-2024-8695 and CVE-2024-8696</a></h2><p><em>Last updated September 13, 2024</em></p><p>Two remote code execution (RCE) vulnerabilities in Docker Desktop related to
+Docker Extensions were reported by <a class=link href=https://cure53.de/ rel=noopener>Cure53</a> and were fixed
+on September 12 in the
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4342>4.34.2</a> release.</p><ul><li><a class=link href="https://www.cve.org/cverecord?id=CVE-2024-8695" rel=noopener>CVE-2024-8695</a>: A remote code
+execution (RCE) vulnerability via crafted extension description/changelog
+could be abused by a malicious extension in Docker Desktop before 4.34.2.
+[Critical]</li><li><a class=link href="https://www.cve.org/cverecord?id=CVE-2024-8696" rel=noopener>CVE-2024-8696</a>: A remote code
+execution (RCE) vulnerability via crafted extension
+publisher-url/additional-urls could be abused by a malicious extension in
+Docker Desktop before 4.34.2. [High]</li></ul><p>No existing extensions exploiting the vulnerabilities were found in the
+Extensions Marketplace. The Docker Team will be closely monitoring and
+diligently reviewing any requests for publishing new extensions.</p><p>Update to Docker Desktop
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4342>4.34.2</a>. If you are unable to update
+promptly, you can
+<a class=link href=https://docs.docker.com/extensions/settings-feedback/#turn-on-or-turn-off-extensions>disable Docker Extensions</a>
+as a workaround.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=deprecation-of-password-logins-on-cli-when-sso-enforced><a class="text-black dark:text-white no-underline hover:underline" href=#deprecation-of-password-logins-on-cli-when-sso-enforced>Deprecation of password logins on CLI when SSO enforced</a></h2><p><em>Last updated July 2024</em></p><p>When
+<a class=link href=https://docs.docker.com/security/authentication/single-sign-on/connect/>SSO enforcement</a>
+was first introduced, Docker provided a grace period to continue to let
+passwords be used on the Docker CLI when authenticating to Docker Hub. This was
+allowed so organizations could adopt SSO enforcement. It is recommended that
+administrators configuring SSO encourage users using the CLI
+<a class=link href=https://docs.docker.com/security/authentication/single-sign-on/#prerequisites>to switch over to Personal Access Tokens</a>
+in anticipation of this grace period ending.</p><p>On September 16, 2024, the grace period ended and passwords can no longer
+authenticate to Docker Hub via the Docker CLI when SSO is enforced. Affected
+users are required to switch over to using PATs to continue signing in.</p><p>This deprecation is a step toward a secure experience for developers and
+organizations.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=soc-2-type-2-attestation-and-iso-27001-certification><a class="text-black dark:text-white no-underline hover:underline" href=#soc-2-type-2-attestation-and-iso-27001-certification>SOC 2 Type 2 attestation and ISO 27001 certification</a></h2><p><em>Last updated June 2024</em></p><p>Docker received its SOC 2 Type 2 attestation and ISO 27001 certification with
+no exceptions or major non-conformities.</p><p>Security is part of Docker's operations, mission, and company strategy.
+Docker's products are core to the user community, and the SOC 2 Type 2
+attestation and ISO 27001 certification demonstrate Docker's ongoing commitment
+to security.</p><p>For more information, see the
+<a class=link href=https://www.docker.com/blog/docker-announces-soc-2-type-2-attestation-iso-27001-certification/ rel=noopener>Blog announcement</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-security-advisory-multiple-vulnerabilities-in-runc-buildkit-and-moby><a class="text-black dark:text-white no-underline hover:underline" href=#docker-security-advisory-multiple-vulnerabilities-in-runc-buildkit-and-moby>Docker security advisory: multiple vulnerabilities in runc, BuildKit, and Moby</a></h2><p><em>Last updated February 2, 2024</em></p><p>Docker prioritizes the security and integrity of its software and the trust of
+its users. Security researchers at Snyk Labs identified and reported four
+security vulnerabilities in the container ecosystem. One of the vulnerabilities,
+<a class=link href=https://scout.docker.com/v/CVE-2024-21626 rel=noopener>CVE-2024-21626</a>, concerns the runc
+container runtime, and the other three affect BuildKit
+(<a class=link href=https://scout.docker.com/v/CVE-2024-23651 rel=noopener>CVE-2024-23651</a>,
+<a class=link href=https://scout.docker.com/v/CVE-2024-23652 rel=noopener>CVE-2024-23652</a>, and
+<a class=link href=https://scout.docker.com/v/CVE-2024-23653 rel=noopener>CVE-2024-23653</a>). Docker, in
+collaboration with the reporters and open source maintainers, coordinated and
+implemented the remediations.</p><p>Docker published patched versions of runc, BuildKit, and Moby on January 31 and
+released an update for Docker Desktop on February 1 to address these
+vulnerabilities. The latest BuildKit and Moby releases also included fixes for
+<a class=link href=https://scout.docker.com/v/CVE-2024-23650 rel=noopener>CVE-2024-23650</a> and
+<a class=link href=https://scout.docker.com/v/CVE-2024-24557 rel=noopener>CVE-2024-24557</a>, discovered
+respectively by an independent researcher and through Docker's internal research
+initiatives.</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2 style=text-align:left></th><th class=p-2 style=text-align:left>Versions impacted</th></tr></thead><tbody><tr><td class=p-2 style=text-align:left><code>runc</code></td><td class=p-2 style=text-align:left>&lt;= 1.1.11</td></tr><tr><td class=p-2 style=text-align:left><code>BuildKit</code></td><td class=p-2 style=text-align:left>&lt;= 0.12.4</td></tr><tr><td class=p-2 style=text-align:left><code>Moby (Docker Engine)</code></td><td class=p-2 style=text-align:left>&lt;= 25.0.1 and &lt;= 24.0.8</td></tr><tr><td class=p-2 style=text-align:left><code>Docker Desktop</code></td><td class=p-2 style=text-align:left>&lt;= 4.27.0</td></tr></tbody></table></div><h3 class="scroll-mt-20 flex items-center gap-2" id=what-should-i-do-if-im-on-an-affected-version><a class="text-black dark:text-white no-underline hover:underline" href=#what-should-i-do-if-im-on-an-affected-version>What should I do if I'm on an affected version?</a></h3><p>If you are using affected versions of runc, BuildKit, Moby, or Docker Desktop,
+make sure to update to the latest versions, linked in the following table:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2 style=text-align:left></th><th class=p-2 style=text-align:left>Patched versions</th></tr></thead><tbody><tr><td class=p-2 style=text-align:left><code>runc</code></td><td class=p-2 style=text-align:left>>= <a class=link href=https://github.com/opencontainers/runc/releases/tag/v1.1.12 rel=noopener>1.1.12</a></td></tr><tr><td class=p-2 style=text-align:left><code>BuildKit</code></td><td class=p-2 style=text-align:left>>= <a class=link href=https://github.com/moby/buildkit/releases/tag/v0.12.5 rel=noopener>0.12.5</a></td></tr><tr><td class=p-2 style=text-align:left><code>Moby (Docker Engine)</code></td><td class=p-2 style=text-align:left>>= <a class=link href=https://github.com/moby/moby/releases/tag/v25.0.2 rel=noopener>25.0.2</a> and >= <a class=link href=https://github.com/moby/moby/releases/tag/v24.0.9 rel=noopener>24.0.9</a></td></tr><tr><td class=p-2 style=text-align:left><code>Docker Desktop</code></td><td class=p-2 style=text-align:left>>=
+<a class=link href=https://docs.docker.com/desktop/release-notes/#4271>4.27.1</a></td></tr></tbody></table></div><p>If you are unable to update to an unaffected version promptly, follow these best
+practices to mitigate risk:</p><ul><li>Only use trusted Docker images (such as
+<a class=link href=https://docs.docker.com/docker-hub/image-library/trusted-content/#docker-official-images>Docker Official Images</a>).</li><li>Don't build Docker images from untrusted sources or untrusted Dockerfiles.</li><li>If you are a Docker Business customer using Docker Desktop and unable to
+update to v4.27.1, make sure to enable
+<a class=link href=https://docs.docker.com/desktop/enterprise/hardened-desktop/>Hardened Docker Desktop</a>
+features such as:<ul><li><a class=link href=https://docs.docker.com/desktop/enterprise/hardened-desktop/enhanced-container-isolation/>Enhanced Container Isolation</a>,
+which mitigates the impact of CVE-2024-21626 in the case of running
+containers from malicious images.</li><li><a class=link href=https://docs.docker.com/desktop/enterprise/hardened-desktop/image-access-management/>Image Access Management</a>,
+and
+<a class=link href=https://docs.docker.com/desktop/enterprise/hardened-desktop/registry-access-management/>Registry Access Management</a>,
+which give organizations control over which images and repositories their
+users can access.</li></ul></li><li>For CVE-2024-23650, CVE-2024-23651, CVE-2024-23652, and CVE-2024-23653, avoid
+using BuildKit frontend from an untrusted source. A frontend image is usually
+specified as the #syntax line on your Dockerfile, or with <code>--frontend</code> flag
+when using the <code>buildctl build</code> command.</li><li>To mitigate CVE-2024-24557, make sure to either use BuildKit or disable
+caching when building images. From the CLI this can be done via the
+<code>DOCKER_BUILDKIT=1</code> environment variable (default for Moby >= v23.0 if the
+Buildx plugin is installed) or the <code>--no-cache flag</code>. If you are using the
+HTTP API directly or through a client, the same can be done by setting
+<code>nocache</code> to <code>true</code> or <code>version</code> to <code>2</code> for the
+<a class=link href=https://docs.docker.com/reference/api/engine/version/v1.44/#tag/Image/operation/ImageBuild rel=noopener>/build API endpoint</a>.</li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=technical-details-and-impact><a class="text-black dark:text-white no-underline hover:underline" href=#technical-details-and-impact>Technical details and impact</a></h3><h4 class="scroll-mt-20 flex items-center gap-2" id=cve-2024-21626-high><a class="text-black dark:text-white no-underline hover:underline" href=#cve-2024-21626-high>CVE-2024-21626 (High)</a></h4><p>In runc v1.1.11 and earlier, due to certain leaked file descriptors, an attacker
+can gain access to the host filesystem by causing a newly-spawned container
+process (from <code>runc exec</code>) to have a working directory in the host filesystem
+namespace, or by tricking a user to run a malicious image and allow a container
+process to gain access to the host filesystem through <code>runc run</code>. The attacks
+can also be adapted to overwrite semi-arbitrary host binaries, allowing for
+complete container escapes. Note that when using higher-level runtimes (such as
+Docker or Kubernetes), this vulnerability can be exploited by running a
+malicious container image without additional configuration or by passing
+specific workdir options when starting a container. The vulnerability can also
+be exploited from within Dockerfiles in the case of Docker.</p><p><em>The issue has been fixed in runc v1.1.12.</em></p><h4 class="scroll-mt-20 flex items-center gap-2" id=cve-2024-23651-high><a class="text-black dark:text-white no-underline hover:underline" href=#cve-2024-23651-high>CVE-2024-23651 (High)</a></h4><p>In BuildKit &lt;= v0.12.4, two malicious build steps running in parallel sharing
+the same cache mounts with subpaths could cause a race condition, leading to
+files from the host system being accessible to the build container. This will
+only occur if a user is trying to build a Dockerfile of a malicious project.</p><p><em>The issue has been fixed in BuildKit v0.12.5.</em></p><h4 class="scroll-mt-20 flex items-center gap-2" id=cve-2024-23652-high><a class="text-black dark:text-white no-underline hover:underline" href=#cve-2024-23652-high>CVE-2024-23652 (High)</a></h4><p>In BuildKit &lt;= v0.12.4, a malicious BuildKit frontend or Dockerfile using
+<code>RUN --mount</code> could trick the feature that removes empty files created for the
+mountpoints into removing a file outside the container from the host system.
+This will only occur if a user is using a malicious Dockerfile.</p><p><em>The issue has been fixed in BuildKit v0.12.5.</em></p><h4 class="scroll-mt-20 flex items-center gap-2" id=cve-2024-23653-high><a class="text-black dark:text-white no-underline hover:underline" href=#cve-2024-23653-high>CVE-2024-23653 (High)</a></h4><p>In addition to running containers as build steps, BuildKit also provides APIs
+for running interactive containers based on built images. In BuildKit &lt;=
+v0.12.4, it is possible to use these APIs to ask BuildKit to run a container
+with elevated privileges. Normally, running such containers is only allowed if
+special <code>security.insecure</code> entitlement is enabled both by buildkitd
+configuration and allowed by the user initializing the build request.</p><p><em>The issue has been fixed in BuildKit v0.12.5.</em></p><h4 class="scroll-mt-20 flex items-center gap-2" id=cve-2024-23650-medium><a class="text-black dark:text-white no-underline hover:underline" href=#cve-2024-23650-medium>CVE-2024-23650 (Medium)</a></h4><p>In BuildKit &lt;= v0.12.4, a malicious BuildKit client or frontend could craft a
+request that could lead to BuildKit daemon crashing with a panic.</p><p><em>The issue has been fixed in BuildKit v0.12.5.</em></p><h4 class="scroll-mt-20 flex items-center gap-2" id=cve-2024-24557-medium><a class="text-black dark:text-white no-underline hover:underline" href=#cve-2024-24557-medium>CVE-2024-24557 (Medium)</a></h4><p>In Moby &lt;= v25.0.1 and &lt;= v24.0.8, the classic builder cache system is prone to
+cache poisoning if the image is built FROM scratch. Also, changes to some
+instructions (most important being <code>HEALTHCHECK</code> and <code>ONBUILD</code>) would not cause
+a cache miss. An attacker with knowledge of the Dockerfile someone is using
+could poison their cache by making them pull a specially crafted image that
+would be considered a valid cache candidate for some build steps.</p><p><em>The issue has been fixed in Moby >= v25.0.2 and >= v24.0.9.</em></p><h3 class="scroll-mt-20 flex items-center gap-2" id=how-are-docker-products-affected><a class="text-black dark:text-white no-underline hover:underline" href=#how-are-docker-products-affected>How are Docker products affected?</a></h3><h4 class="scroll-mt-20 flex items-center gap-2" id=docker-desktop><a class="text-black dark:text-white no-underline hover:underline" href=#docker-desktop>Docker Desktop</a></h4><p>Docker Desktop v4.27.0 and earlier are affected. Docker Desktop v4.27.1 was
+released on February 1 and includes runc, BuildKit, and dockerd binaries
+patches. In addition to updating to this new version, use only trusted Docker
+images and Dockerfiles in your builds.</p><p>As always, you should check Docker Desktop system requirements for your
+operating system
+(
+<a class=link href=https://docs.docker.com/desktop/setup/install/windows-install/#system-requirements>Windows</a>,
+<a class=link href=https://docs.docker.com/desktop/setup/install/linux/#general-system-requirements>Linux</a>,
+<a class=link href=https://docs.docker.com/desktop/setup/install/mac-install/#system-requirements>Mac</a>) before
+updating to ensure full compatibility.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=docker-build-cloud><a class="text-black dark:text-white no-underline hover:underline" href=#docker-build-cloud>Docker Build Cloud</a></h4><p>Any new Docker Build Cloud builder instances will be provisioned with the latest
+Docker Engine and BuildKit versions and will, therefore, be unaffected by these
+CVEs. Updates have also been rolled out to existing Docker Build Cloud builders.</p><p><em>No other Docker products are affected by these vulnerabilities.</em></p><h3 class="scroll-mt-20 flex items-center gap-2" id=advisory-links><a class="text-black dark:text-white no-underline hover:underline" href=#advisory-links>Advisory links</a></h3><ul><li>Runc<ul><li><a class=link href=https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv rel=noopener>CVE-2024-21626</a></li></ul></li><li>BuildKit<ul><li><a class=link href=https://github.com/moby/buildkit/security/advisories/GHSA-9p26-698r-w4hx rel=noopener>CVE-2024-23650</a></li><li><a class=link href=https://github.com/moby/buildkit/security/advisories/GHSA-m3r6-h7wv-7xxv rel=noopener>CVE-2024-23651</a></li><li><a class=link href=https://github.com/moby/buildkit/security/advisories/GHSA-4v98-7qmw-rqr8 rel=noopener>CVE-2024-23652</a></li><li><a class=link href=https://github.com/moby/buildkit/security/advisories/GHSA-wr6v-9f75-vh2g rel=noopener>CVE-2024-23653</a></li></ul></li><li>Moby<ul><li><a class=link href=https://github.com/moby/moby/security/advisories/GHSA-xw73-rw38-6vjc rel=noopener>CVE-2024-24557</a></li></ul></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=text4shell-cve-2022-42889><a class="text-black dark:text-white no-underline hover:underline" href=#text4shell-cve-2022-42889>Text4Shell CVE-2022-42889</a></h2><p><em>Last updated October 2022</em></p><p><a class=link href=https://nvd.nist.gov/vuln/detail/CVE-2022-42889 rel=noopener>CVE-2022-42889</a> has been
+discovered in the popular Apache Commons Text library. Versions of this library
+up to but not including 1.10.0 are affected by this vulnerability.</p><p>Update to the latest version of
+<a class=link href=https://commons.apache.org/proper/commons-text/download_text.cgi rel=noopener>Apache Commons Text</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=scan-images-on-docker-hub><a class="text-black dark:text-white no-underline hover:underline" href=#scan-images-on-docker-hub>Scan images on Docker Hub</a></h3><p>Docker Hub security scans triggered after 1200 UTC 21 October 2021 are now
+correctly identifying the Text4Shell CVE. Scans before this date do not
+currently reflect the status of this vulnerability. Trigger scans by pushing
+new images to Docker Hub to view the status of the Text4Shell CVE in the
+vulnerability report. For detailed instructions, see
+<a class=link href=https://docs.docker.com/docker-hub/repos/manage/vulnerability-scanning/>Scan images on Docker Hub</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=docker-official-images-impacted-by-cve-2022-42889><a class="text-black dark:text-white no-underline hover:underline" href=#docker-official-images-impacted-by-cve-2022-42889>Docker Official Images impacted by CVE-2022-42889</a></h3><p>A number of
+<a class=link href=https://docs.docker.com/docker-hub/image-library/trusted-content/#docker-official-images>Docker Official Images</a>
+contain the vulnerable versions of Apache Commons Text. The following lists
+Docker Official Images that may contain the vulnerable versions of Apache
+Commons Text:</p><ul><li><a class=link href=https://hub.docker.com/_/bonita rel=noopener>bonita</a></li><li><a class=link href=https://hub.docker.com/_/couchbase rel=noopener>Couchbase</a></li><li><a class=link href=https://hub.docker.com/_/geonetwork rel=noopener>Geonetwork</a></li><li><a class=link href=https://hub.docker.com/_/neo4j rel=noopener>neo4j</a></li><li><a class=link href=https://hub.docker.com/_/sliverpeas rel=noopener>sliverpeas</a></li><li><a class=link href=https://hub.docker.com/_/solr rel=noopener>solr</a></li><li><a class=link href=https://hub.docker.com/_/xwiki rel=noopener>xwiki</a></li></ul><p>Docker updated Apache Commons Text in these images to the latest version. Some
+of these images may not be vulnerable for other reasons. Also review the
+guidelines published on the upstream websites.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=log4j-2-cve-2021-44228><a class="text-black dark:text-white no-underline hover:underline" href=#log4j-2-cve-2021-44228>Log4j 2 CVE-2021-44228</a></h2><p><em>Last updated December 2021</em></p><p>The <a class=link href=https://nvd.nist.gov/vuln/detail/CVE-2021-44228 rel=noopener>Log4j 2 CVE-2021-44228</a>
+vulnerability in Log4j 2, a common Java logging library, allows remote code
+execution, often from a context that is available to an attacker. For example,
+it was found in Minecraft servers which allowed the commands to be typed into
+chat logs as these were then sent to the logger. This makes it a serious
+vulnerability, as the logging library is used so widely and it may be simple
+to exploit. Many open source maintainers are working hard with fixes and
+updates to the software ecosystem.</p><p>The vulnerable versions of Log4j 2 are versions 2.0 to version 2.14.1 inclusive.
+The first fixed version is 2.15.0. Update to the
+<a class=link href=https://logging.apache.org/log4j/2.x/download.html rel=noopener>latest version</a> if you can.
+If you are using a version before 2.0, you are also not vulnerable.</p><p>You may not be vulnerable if you are using these versions, as your configuration
+may already mitigate this, or the things you log may not include any user input.
+This may be difficult to validate however without understanding all the code
+paths that may log in detail, and where they may get input from. So you probably
+will want to upgrade all code using vulnerable versions.</p><blockquote class="admonition not-prose"><p>CVE-2021-45046</p><p>As an update to
+<a class=link href=https://nvd.nist.gov/vuln/detail/CVE-2021-44228 rel=noopener>CVE-2021-44228</a>, the fix
+made in version 2.15.0 was incomplete. Additional issues have been identified
+and are tracked with
+<a class=link href=https://nvd.nist.gov/vuln/detail/CVE-2021-45046 rel=noopener>CVE-2021-45046</a> and
+<a class=link href=https://nvd.nist.gov/vuln/detail/CVE-2021-45105 rel=noopener>CVE-2021-45105</a>. For a more
+complete fix to this vulnerability, update to 2.17.0 where possible.</p></blockquote><h3 class="scroll-mt-20 flex items-center gap-2" id=scan-images-on-docker-hub-1><a class="text-black dark:text-white no-underline hover:underline" href=#scan-images-on-docker-hub-1>Scan images on Docker Hub</a></h3><p>Docker Hub security scans triggered after 1700 UTC 13 December 2021 are now
+correctly identifying the Log4j 2 CVEs. Scans before this date do not currently
+reflect the status of this vulnerability. Trigger scans by pushing new images
+to Docker Hub to view the status of Log4j 2 CVE in the vulnerability report.
+For detailed instructions, see
+<a class=link href=https://docs.docker.com/docker-hub/repos/manage/vulnerability-scanning/>Scan images on Docker Hub</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-official-images-impacted-by-log4j-2-cve><a class="text-black dark:text-white no-underline hover:underline" href=#docker-official-images-impacted-by-log4j-2-cve>Docker Official Images impacted by Log4j 2 CVE</a></h2><p><em>Last updated December 2021</em></p><p>A number of
+<a class=link href=https://docs.docker.com/docker-hub/image-library/trusted-content/#docker-official-images>Docker Official Images</a>
+contain the vulnerable versions of Log4j 2 CVE-2021-44228. The following table
+lists Docker Official Images that may contain the vulnerable versions of Log4j
+2. Docker updated Log4j 2 in these images to the latest version. Some of these
+images may not be vulnerable for other reasons. Also review the guidelines
+published on the upstream websites.</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2 style=text-align:left>Repository</th><th class=p-2 style=text-align:left>Patched version</th><th class=p-2 style=text-align:left>Additional documentation</th></tr></thead><tbody><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/couchbase rel=noopener>couchbase</a></td><td class=p-2 style=text-align:left>7.0.3</td><td class=p-2 style=text-align:left><a class=link href=https://blog.couchbase.com/what-to-know-about-the-log4j-vulnerability-cve-2021-44228/ rel=noopener>Couchbase blog</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/elasticsearch rel=noopener>Elasticsearch</a></td><td class=p-2 style=text-align:left>6.8.22, 7.16.2</td><td class=p-2 style=text-align:left><a class=link href=https://www.elastic.co/blog/new-elasticsearch-and-logstash-releases-upgrade-apache-log4j2 rel=noopener>Elasticsearch announcement</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/flink rel=noopener>Flink</a></td><td class=p-2 style=text-align:left>1.11.6, 1.12.7, 1.13.5, 1.14.2</td><td class=p-2 style=text-align:left><a class=link href=https://flink.apache.org/2021/12/10/log4j-cve.html rel=noopener>Flink advice on Log4j CVE</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/geonetwork rel=noopener>Geonetwork</a></td><td class=p-2 style=text-align:left>3.10.10</td><td class=p-2 style=text-align:left><a class=link href=https://github.com/geonetwork/core-geonetwork/issues/6076 rel=noopener>Geonetwork GitHub discussion</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/lightstreamer rel=noopener>lightstreamer</a></td><td class=p-2 style=text-align:left>Awaiting info</td><td class=p-2 style=text-align:left>Awaiting info</td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/logstash rel=noopener>logstash</a></td><td class=p-2 style=text-align:left>6.8.22, 7.16.2</td><td class=p-2 style=text-align:left><a class=link href=https://www.elastic.co/blog/new-elasticsearch-and-logstash-releases-upgrade-apache-log4j2 rel=noopener>Elasticsearch announcement</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/neo4j rel=noopener>neo4j</a></td><td class=p-2 style=text-align:left>4.4.2</td><td class=p-2 style=text-align:left><a class=link href=https://community.neo4j.com/t/log4j-cve-mitigation-for-neo4j/48856 rel=noopener>Neo4j announcement</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/solr rel=noopener>solr</a></td><td class=p-2 style=text-align:left>8.11.1</td><td class=p-2 style=text-align:left><a class=link href=https://solr.apache.org/security.html#apache-solr-affected-by-apache-log4j-cve-2021-44228 rel=noopener>Solr security news</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/sonarqube rel=noopener>sonarqube</a></td><td class=p-2 style=text-align:left>8.9.5, 9.2.2</td><td class=p-2 style=text-align:left><a class=link href=https://community.sonarsource.com/t/sonarqube-sonarcloud-and-the-log4j-vulnerability/54721 rel=noopener>SonarQube announcement</a></td></tr><tr><td class=p-2 style=text-align:left><a class=link href=https://hub.docker.com/_/storm rel=noopener>storm</a></td><td class=p-2 style=text-align:left>Awaiting info</td><td class=p-2 style=text-align:left>Awaiting info</td></tr></tbody></table></div><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Although <a class=link href=https://hub.docker.com/_/xwiki rel=noopener>xwiki</a> images may be detected as
+vulnerable by some scanners, the authors believe the images are not vulnerable
+by Log4j 2 CVE as the API jars do not contain the vulnerability. The
+<a class=link href=https://hub.docker.com/_/nuxeo rel=noopener>Nuxeo</a> image is deprecated and will not be
+updated.</p></div></blockquote>

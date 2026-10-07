@@ -1,0 +1,68 @@
+<p>Docker Hardened Images (DHI) work with various vulnerability scanners. However, to get
+accurate results that reflect the actual security posture of these images, your
+scanner needs to understand the VEX (Vulnerability Exploitability eXchange)
+attestations included with each image.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=scanners-with-vex-support><a class="text-black dark:text-white no-underline hover:underline" href=#scanners-with-vex-support>Scanners with VEX support</a></h2><p>The following scanners can read and apply VEX attestations included with Docker
+Hardened Images:</p><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>Scanner</th><th class=p-2>VEX application</th></tr></thead><tbody><tr><td class=p-2><a class=link href=/scout/>Docker Scout</a></td><td class=p-2>Automatic, zero configuration</td></tr><tr><td class=p-2><a class=link href=https://trivy.dev/ rel=noopener>Trivy</a></td><td class=p-2>VEX Hub (recommended) or local VEX file</td></tr><tr><td class=p-2><a class=link href=https://github.com/anchore/grype rel=noopener>Grype</a></td><td class=p-2>Via <code>--vex</code> flag with local VEX file</td></tr><tr><td class=p-2><a class=link href=https://docs.wiz.io/ rel=noopener>Wiz</a></td><td class=p-2>Automatic, zero configuration</td></tr><tr><td class=p-2><a class=link href=https://docs.mend.io/platform/latest/docker-hardened-images rel=noopener>Mend.io</a></td><td class=p-2>Automatic, zero configuration</td></tr><tr><td class=p-2><a class=link href=https://documentation.blackduck.com/bundle/bd-hub/page/Reporting/vexReport_global.html rel=noopener>Black Duck</a></td><td class=p-2>Automatic, zero configuration</td></tr><tr><td class=p-2><a class=link href=https://help.aikido.dev/container-image-scanning/standalone-registries/docker-hub-images rel=noopener>Aikido</a></td><td class=p-2>Automatic, zero configuration</td></tr><tr><td class=p-2><a class=link href=https://docs.aws.amazon.com/inspector/latest/user/supported.html rel=noopener>AWS Inspector</a></td><td class=p-2>Automatic, zero configuration</td></tr></tbody></table></div><p>For step-by-step instructions for Docker Scout, Trivy, and Grype, see
+<a class=link href=https://docs.docker.com/dhi/how-to/scan/>Scan Docker Hardened Images</a>. For Wiz, Mend.io, Black Duck, Aikido, and AWS Inspector, refer to their respective documentation.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choosing-a-scanner-for-docker-hardened-images><a class="text-black dark:text-white no-underline hover:underline" href=#choosing-a-scanner-for-docker-hardened-images>Choosing a scanner for Docker Hardened Images</a></h2><p>When selecting a scanner for use with Docker Hardened Images, whether it
+supports open standards like OpenVEX is the key differentiator.</p><p>Docker Hardened Images include signed VEX attestations that follow the
+<a class=link href=https://openvex.dev/ rel=noopener>OpenVEX standard</a>. OpenVEX is an open standard that meets
+the minimum requirements for VEX defined by CISA (Cybersecurity and
+Infrastructure Security Agency), the U.S. government agency responsible for
+cybersecurity guidance. These attestations document which vulnerabilities don't
+apply to the image and why, helping you focus on real risks. To understand what
+VEX is and how it works, see the
+<a class=link href=https://docs.docker.com/dhi/explore/security-concepts/vex/>VEX core concept</a>.</p><p>Because OpenVEX is an open standard with government backing, it has strong
+industry momentum and any tool can implement it without vendor-specific
+integrations. This matters when you bring in third-party auditors with their own
+scanning tools, or when you want to use multiple security tools in your
+pipeline. With VEX, these tools can all read and verify the same vulnerability
+data directly from your images.</p><p>Without open standards like VEX, vendors make exploitability decisions using
+proprietary methods, making it difficult to verify claims or compare results
+across tools. This fragments your security toolchain and creates inconsistent
+vulnerability assessments across different scanning tools.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=benefits-of-scanners-with-vex-support><a class="text-black dark:text-white no-underline hover:underline" href=#benefits-of-scanners-with-vex-support>Benefits of scanners with VEX support</a></h3><p>Scanners that support open standards like OpenVEX and can interpret VEX attestations
+from Docker Hardened Images offer the following benefits:</p><ul><li>Accurate vulnerability counts: Automatically filter out vulnerabilities
+that don't apply to your specific image, often reducing false positives
+dramatically.</li><li>Transparency and auditability: Verify exactly why vulnerabilities are or
+aren't flagged; security teams and compliance officers can review the reasoning
+rather than trusting a vendor's black box.</li><li>Scanner flexibility: Switch between any VEX-enabled scanner (Docker Scout,
+Trivy, Grype, etc.) without losing vulnerability context or rebuilding exclusion lists.</li><li>Consistent results: VEX-enabled scanners interpret the same data the
+same way, eliminating discrepancies between tools.</li><li>Faster workflows: Focus on real risks rather than researching why reported
+CVEs don't actually affect your deployment.</li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=scanners-without-vex-support><a class="text-black dark:text-white no-underline hover:underline" href=#scanners-without-vex-support>Scanners without VEX support</a></h3><p>Scanners that can't read VEX attestations will report vulnerabilities that don't
+apply to Docker Hardened Images. This creates operational challenges:</p><ul><li>Manual filtering required: You'll need to maintain scanner-specific ignore
+lists to replicate what VEX statements already document.</li><li>Higher false positive rates: Expect to see more reported vulnerabilities
+that don't represent real risks.</li><li>Increased investigation time: Security teams spend time researching why
+CVEs don't apply instead of addressing actual vulnerabilities. With Docker
+Hardened Images, security experts at Docker manage this investigation for
+you, thoroughly vetting each justification before adding it to a VEX statement.</li><li>CI/CD friction: Build pipelines may fail on vulnerabilities that aren't
+exploitable in your images.</li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=vex-based-vulnerability-handling-versus-proprietary-approaches><a class="text-black dark:text-white no-underline hover:underline" href=#vex-based-vulnerability-handling-versus-proprietary-approaches>VEX-based vulnerability handling versus proprietary approaches</a></h3><p>Docker Hardened Images use VEX attestations based on the OpenVEX open standard to document vulnerability exploitability. OpenVEX is an open standard that is recognized by government agencies such as CISA. This open standards approach differs from how some other image vendors handle vulnerabilities using proprietary methods.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=docker-hardened-images-with-vex><a class="text-black dark:text-white no-underline hover:underline" href=#docker-hardened-images-with-vex>Docker Hardened Images with VEX</a></h4><p>The image includes signed attestations that explain which vulnerabilities don't
+apply and why. Any VEX-enabled scanner can read these attestations, giving you:</p><ul><li>Tool flexibility: Use any scanner that supports OpenVEX (Docker Scout,
+Trivy, Grype, etc.)</li><li>Complete transparency: Review the exact reasoning for each vulnerability
+assessment</li><li>Full auditability: Security teams and compliance officers can independently
+verify all vulnerability assessments and reasoning</li><li>Historical visibility: VEX statements remain with the image, so you can
+always check vulnerability status, even for older versions</li></ul><h4 class="scroll-mt-20 flex items-center gap-2" id=proprietary-vulnerability-handling><a class="text-black dark:text-white no-underline hover:underline" href=#proprietary-vulnerability-handling>Proprietary vulnerability handling</a></h4><p>Some image vendors use proprietary advisory feeds or internal databases instead
+of VEX. While this may result in fewer reported vulnerabilities, it creates
+significant limitations:</p><ul><li>Tool dependency: You must use the vendor's preferred scanning tools to see
+their vulnerability filtering, while standard scanners will still report all
+CVEs; scanners must implement proprietary feeds rather than using open
+standards that work with all images</li><li>No transparency: Proprietary feeds act as "black boxes" - vulnerabilities
+simply disappear from vendor tools with no explanation</li><li>Limited verifiability: Security teams have no way to independently verify
+why vulnerabilities are excluded or whether the reasoning is sound</li><li>Maintenance challenges: If you scan older image versions with standard
+tools, you can't determine which vulnerabilities actually applied at that
+time, making long-term security tracking difficult</li><li>Ecosystem incompatibility: Your existing security tools (SCA, policy
+engines, compliance scanners) can't access or verify the vendor's proprietary
+vulnerability data</li></ul><p>The fundamental difference: VEX-based approaches explain vulnerability
+assessments using open standards that any tool can verify and audit. Proprietary
+approaches hide vulnerabilities in vendor-specific systems where the reasoning
+can't be independently validated.</p><p>For Docker Hardened Images, use VEX-enabled scanners to get accurate results
+that work across your entire security toolchain.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=what-to-expect-from-different-scanners><a class="text-black dark:text-white no-underline hover:underline" href=#what-to-expect-from-different-scanners>What to expect from different scanners</a></h2><p>When scanning Docker Hardened Images with different tools, you'll see
+significant differences in reported vulnerability counts.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=what-vex-enabled-scanners-filter-automatically><a class="text-black dark:text-white no-underline hover:underline" href=#what-vex-enabled-scanners-filter-automatically>What VEX-enabled scanners filter automatically</a></h3><p>When you scan Docker Hardened Images with VEX-enabled scanners, they
+automatically exclude vulnerabilities that don't apply:</p><ul><li>Hardware-specific vulnerabilities: Issues that only affect specific
+hardware architectures (for example, Power10 processors) that are irrelevant to
+containerized workloads.</li><li>Unreachable code paths: CVEs in code that exists in the package but isn't
+executed in the image's runtime configuration.</li><li>Build-time only issues: Vulnerabilities in build tools or dependencies
+that don't exist in the final runtime image.</li><li>Temporary identifiers: Placeholder vulnerability IDs (like Debian's
+<code>TEMP-xxxxxxx</code>) that aren't intended for external tracking.</li></ul><h3 class="scroll-mt-20 flex items-center gap-2" id=using-scanners-without-vex-support><a class="text-black dark:text-white no-underline hover:underline" href=#using-scanners-without-vex-support>Using scanners without VEX support</a></h3><p>If your scanner doesn't support VEX, you'll need to manually exclude
+vulnerabilities through scanner-specific mechanisms like ignore lists or policy
+exceptions. This requires:</p><ul><li>Reviewing VEX statements from Docker Hardened Images</li><li>Translating VEX justifications into your scanner's format</li><li>Maintaining these exclusions as new vulnerabilities are discovered</li><li>Repeating this process if you switch scanners or add additional scanning tools</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=whats-next><a class="text-black dark:text-white no-underline hover:underline" href=#whats-next>What's next</a></h2><p>Learn how to
+<a class=link href=https://docs.docker.com/dhi/how-to/scan/>scan Docker Hardened Images</a> with
+VEX-compliant scanners.</p>

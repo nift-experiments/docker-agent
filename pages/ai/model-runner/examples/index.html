@@ -1,0 +1,166 @@
+<p>See some examples of complete workflows using Docker Model Runner.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=sample-project><a class="text-black dark:text-white no-underline hover:underline" href=#sample-project>Sample project</a></h2><p>You can now start building your generative AI application powered by Docker
+Model Runner.</p><p>If you want to try an existing GenAI application, follow these steps:</p><ol><li><p>Set up the sample app. Clone and run the following repository:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL2RvY2tlci9oZWxsby1nZW5haS5naXQ=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> git clone https://github.com/docker/hello-genai.git
+</span></span></code></pre></div></div></div></div></li><li><p>In your terminal, go to the <code>hello-genai</code> directory.</p></li><li><p>Run <code>run.sh</code> to pull the chosen model and run the app.</p></li><li><p>Open your app in the browser at the addresses specified in the repository
+<a class=link href=https://github.com/docker/hello-genai rel=noopener>README</a>.</p></li></ol><p>You see the GenAI app's interface where you can start typing your prompts.</p><p>You can now interact with your own GenAI app, powered by a local model. Try a
+few prompts and notice how fast the responses are — all running on your machine
+with Docker.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=use-model-runner-in-github-actions><a class="text-black dark:text-white no-underline hover:underline" href=#use-model-runner-in-github-actions>Use Model Runner in GitHub Actions</a></h2><p>Here is an example of how to use Model Runner as part of a GitHub workflow.
+The example installs Model Runner, tests the installation, pulls and runs a
+model, interacts with the model via the API, and deletes the model.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="flex w-full items-center gap-2"><div class="flex items-center gap-2.5 rounded bg-gray-100 px-2 py-0.5 dark:bg-gray-800"><div class="font-normal text-gray-500 dark:text-gray-200">dmr-run.yml</div></div></div><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'bmFtZTogRG9ja2VyIE1vZGVsIFJ1bm5lciBFeGFtcGxlIFdvcmtmbG93CgpwZXJtaXNzaW9uczoKICBjb250ZW50czogcmVhZAoKb246CiAgd29ya2Zsb3dfZGlzcGF0Y2g6CiAgICBpbnB1dHM6CiAgICAgIHRlc3RfbW9kZWw6CiAgICAgICAgZGVzY3JpcHRpb246ICdNb2RlbCB0byB0ZXN0IHdpdGggKGRlZmF1bHQ6IGFpL3Ntb2xsbTI6MzYwTS1RNF9LX00pJwogICAgICAgIHJlcXVpcmVkOiBmYWxzZQogICAgICAgIHR5cGU6IHN0cmluZwogICAgICAgIGRlZmF1bHQ6ICdhaS9zbW9sbG0yOjM2ME0tUTRfS19NJwoKam9iczoKICBkbXItdGVzdDoKICAgIHJ1bnMtb246IHVidW50dS1sYXRlc3QKICAgIHRpbWVvdXQtbWludXRlczogMzAKCiAgICBzdGVwczoKICAgICAgLSBuYW1lOiBTZXQgdXAgRG9ja2VyCiAgICAgICAgdXNlczogZG9ja2VyL3NldHVwLWRvY2tlci1hY3Rpb25AdjUKCiAgICAgIC0gbmFtZTogSW5zdGFsbCBkb2NrZXItbW9kZWwtcGx1Z2luCiAgICAgICAgcnVuOiB8CiAgICAgICAgICBlY2hvICJJbnN0YWxsaW5nIGRvY2tlci1tb2RlbC1wbHVnaW4uLi4iCiAgICAgICAgICAjIEFkZCBEb2NrZXIncyBvZmZpY2lhbCBHUEcga2V5OgogICAgICAgICAgc3VkbyBhcHQtZ2V0IHVwZGF0ZQogICAgICAgICAgc3VkbyBhcHQtZ2V0IGluc3RhbGwgY2EtY2VydGlmaWNhdGVzIGN1cmwKICAgICAgICAgIHN1ZG8gaW5zdGFsbCAtbSAwNzU1IC1kIC9ldGMvYXB0L2tleXJpbmdzCiAgICAgICAgICBzdWRvIGN1cmwgLWZzU0wgaHR0cHM6Ly9kb3dubG9hZC5kb2NrZXIuY29tL2xpbnV4L3VidW50dS9ncGcgLW8gL2V0Yy9hcHQva2V5cmluZ3MvZG9ja2VyLmFzYwogICAgICAgICAgc3VkbyBjaG1vZCBhK3IgL2V0Yy9hcHQva2V5cmluZ3MvZG9ja2VyLmFzYwogICAgICAgICAgCiAgICAgICAgICAjIEFkZCB0aGUgcmVwb3NpdG9yeSB0byBBcHQgc291cmNlczoKICAgICAgICAgIGVjaG8gXAogICAgICAgICAgImRlYiBbYXJjaD0kKGRwa2cgLS1wcmludC1hcmNoaXRlY3R1cmUpIHNpZ25lZC1ieT0vZXRjL2FwdC9rZXlyaW5ncy9kb2NrZXIuYXNjXSBodHRwczovL2Rvd25sb2FkLmRvY2tlci5jb20vbGludXgvdWJ1bnR1IFwKICAgICAgICAgICQoLiAvZXRjL29zLXJlbGVhc2UgJiYgZWNobyAiJHtVQlVOVFVfQ09ERU5BTUU6LSRWRVJTSU9OX0NPREVOQU1FfSIpIHN0YWJsZSIgfCBcCiAgICAgICAgICBzdWRvIHRlZSAvZXRjL2FwdC9zb3VyY2VzLmxpc3QuZC9kb2NrZXIubGlzdCA+IC9kZXYvbnVsbAogICAgICAgICAgc3VkbyBhcHQtZ2V0IHVwZGF0ZQogICAgICAgICAgc3VkbyBhcHQtZ2V0IGluc3RhbGwgLXkgZG9ja2VyLW1vZGVsLXBsdWdpbgogICAgICAgICAgCiAgICAgICAgICBlY2hvICJJbnN0YWxsYXRpb24gY29tcGxldGVkIHN1Y2Nlc3NmdWxseSIKCiAgICAgIC0gbmFtZTogVGVzdCBkb2NrZXIgbW9kZWwgdmVyc2lvbgogICAgICAgIHJ1bjogfAogICAgICAgICAgZWNobyAiVGVzdGluZyBkb2NrZXIgbW9kZWwgdmVyc2lvbiBjb21tYW5kLi4uIgogICAgICAgICAgc3VkbyBkb2NrZXIgbW9kZWwgdmVyc2lvbgogICAgICAgICAgCiAgICAgICAgICAjIFZlcmlmeSB0aGUgY29tbWFuZCByZXR1cm5zIHN1Y2Nlc3NmdWxseQogICAgICAgICAgaWYgWyAkPyAtZXEgMCBdOyB0aGVuCiAgICAgICAgICAgIGVjaG8gIuKchSBkb2NrZXIgbW9kZWwgdmVyc2lvbiBjb21tYW5kIHdvcmtzIGNvcnJlY3RseSIKICAgICAgICAgIGVsc2UKICAgICAgICAgICAgZWNobyAi4p2MIGRvY2tlciBtb2RlbCB2ZXJzaW9uIGNvbW1hbmQgZmFpbGVkIgogICAgICAgICAgICBleGl0IDEKICAgICAgICAgIGZpCgogICAgICAtIG5hbWU6IFB1bGwgdGhlIHByb3ZpZGVkIG1vZGVsIGFuZCBydW4gaXQKICAgICAgICBydW46IHwKICAgICAgICAgIE1PREVMPSIke3sgZ2l0aHViLmV2ZW50LmlucHV0cy50ZXN0X21vZGVsIHx8ICdhaS9zbW9sbG0yOjM2ME0tUTRfS19NJyB9fSIKICAgICAgICAgIGVjaG8gIlRlc3Rpbmcgd2l0aCBtb2RlbDogJE1PREVMIgogICAgICAgICAgCiAgICAgICAgICAjIFRlc3QgbW9kZWwgcHVsbAogICAgICAgICAgZWNobyAiUHVsbGluZyBtb2RlbC4uLiIKICAgICAgICAgIHN1ZG8gZG9ja2VyIG1vZGVsIHB1bGwgIiRNT0RFTCIKICAgICAgICAgIAogICAgICAgICAgaWYgWyAkPyAtZXEgMCBdOyB0aGVuCiAgICAgICAgICAgIGVjaG8gIuKchSBNb2RlbCBwdWxsIHN1Y2Nlc3NmdWwiCiAgICAgICAgICBlbHNlCiAgICAgICAgICAgIGVjaG8gIuKdjCBNb2RlbCBwdWxsIGZhaWxlZCIKICAgICAgICAgICAgZXhpdCAxCiAgICAgICAgICBmaQogICAgICAgICAgICAgICAgICAKICAgICAgICAgICMgVGVzdCBiYXNpYyBtb2RlbCBydW4gKHdpdGggdGltZW91dCB0byBhdm9pZCBoYW5naW5nKQogICAgICAgICAgZWNobyAiVGVzdGluZyBkb2NrZXIgbW9kZWwgcnVuLi4uIgogICAgICAgICAgdGltZW91dCA2MHMgc3VkbyBkb2NrZXIgbW9kZWwgcnVuICIkTU9ERUwiICJHaXZlIG1lIGEgZmFjdCBhYm91dCB3aGFsZXMuIiB8fCB7CiAgICAgICAgICAgIGV4aXRfY29kZT0kPwogICAgICAgICAgICBpZiBbICRleGl0X2NvZGUgLWVxIDEyNCBdOyB0aGVuCiAgICAgICAgICAgICAgZWNobyAi4pyFIE1vZGVsIHJ1biB0ZXN0IGNvbXBsZXRlZCAodGltZWQgb3V0IGFzIGV4cGVjdGVkIGZvciBub24taW50ZXJhY3RpdmUgdGVzdCkiCiAgICAgICAgICAgIGVsc2UKICAgICAgICAgICAgICBlY2hvICLinYwgTW9kZWwgcnVuIGZhaWxlZCB3aXRoIGV4aXQgY29kZTogJGV4aXRfY29kZSIKICAgICAgICAgICAgICBleGl0IDEKICAgICAgICAgICAgZmkKICAgICAgICAgIH0KCiAgICAgIC0gbmFtZTogVGVzdCBBUEkgZW5kcG9pbnQKICAgICAgICBydW46IHwKICAgICAgICAgIE1PREVMPSIke3sgZ2l0aHViLmV2ZW50LmlucHV0cy50ZXN0X21vZGVsIHx8ICdhaS9zbW9sbG0yOjM2ME0tUTRfS19NJyB9fSIKICAgICAgICAgIGVjaG8gIlRlc3RpbmcgQVBJIGVuZHBvaW50IHdpdGggbW9kZWw6ICRNT0RFTCIKICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAjIFRlc3QgQVBJIGNhbGwgd2l0aCBjdXJsCiAgICAgICAgICBlY2hvICJUZXN0aW5nIEFQSSBjYWxsLi4uIgogICAgICAgICAgUkVTUE9OU0U9JChjdXJsIC1zIGh0dHA6Ly9sb2NhbGhvc3Q6MTI0MzQvZW5naW5lcy9sbGFtYS5jcHAvdjEvY2hhdC9jb21wbGV0aW9ucyBcCiAgICAgICAgICAgIC1IICJDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL2pzb24iIFwKICAgICAgICAgICAgLWQgInsKICAgICAgICAgICAgICAgIFwibW9kZWxcIjogXCIkTU9ERUxcIiwKICAgICAgICAgICAgICAgIFwibWVzc2FnZXNcIjogWwogICAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAgICAgXCJyb2xlXCI6IFwidXNlclwiLAogICAgICAgICAgICAgICAgICAgICAgICBcImNvbnRlbnRcIjogXCJTYXkgaGVsbG9cIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIF0sCiAgICAgICAgICAgICAgICBcInRvcF9rXCI6IDEsCiAgICAgICAgICAgICAgICBcInRlbXBlcmF0dXJlXCI6IDAKICAgICAgICAgICAgfSIpCiAgICAgICAgICAKICAgICAgICAgIGlmIFsgJD8gLWVxIDAgXTsgdGhlbgogICAgICAgICAgICBlY2hvICLinIUgQVBJIGNhbGwgc3VjY2Vzc2Z1bCIKICAgICAgICAgICAgZWNobyAiUmVzcG9uc2UgcmVjZWl2ZWQ6ICRSRVNQT05TRSIKICAgICAgICAgICAgCiAgICAgICAgICAgICMgQ2hlY2sgaWYgcmVzcG9uc2UgY29udGFpbnMgImhlbGxvIiAoY2FzZS1pbnNlbnNpdGl2ZSkKICAgICAgICAgICAgaWYgZWNobyAiJFJFU1BPTlNFIiB8IGdyZXAgLXFpICJoZWxsbyI7IHRoZW4KICAgICAgICAgICAgICBlY2hvICLinIUgUmVzcG9uc2UgY29udGFpbnMgJ2hlbGxvJyAoY2FzZS1pbnNlbnNpdGl2ZSkiCiAgICAgICAgICAgIGVsc2UKICAgICAgICAgICAgICBlY2hvICLinYwgUmVzcG9uc2UgZG9lcyBub3QgY29udGFpbiAnaGVsbG8nIgogICAgICAgICAgICAgIGVjaG8gIkZ1bGwgcmVzcG9uc2U6ICRSRVNQT05TRSIKICAgICAgICAgICAgICBleGl0IDEKICAgICAgICAgICAgZmkKICAgICAgICAgIGVsc2UKICAgICAgICAgICAgZWNobyAi4p2MIEFQSSBjYWxsIGZhaWxlZCIKICAgICAgICAgICAgZXhpdCAxCiAgICAgICAgICBmaQoKICAgICAgLSBuYW1lOiBUZXN0IG1vZGVsIGNsZWFudXAKICAgICAgICBydW46IHwKICAgICAgICAgIE1PREVMPSIke3sgZ2l0aHViLmV2ZW50LmlucHV0cy50ZXN0X21vZGVsIHx8ICdhaS9zbW9sbG0yOjM2ME0tUTRfS19NJyB9fSIKICAgICAgICAgIAogICAgICAgICAgZWNobyAiQ2xlYW5pbmcgdXAgdGVzdCBtb2RlbC4uLiIKICAgICAgICAgIHN1ZG8gZG9ja2VyIG1vZGVsIHJtICIkTU9ERUwiIHx8IGVjaG8gIk1vZGVsIHJlbW92YWwgZmFpbGVkIG9yIG1vZGVsIG5vdCBmb3VuZCIKICAgICAgICAgIAogICAgICAgICAgIyBWZXJpZnkgbW9kZWwgd2FzIHJlbW92ZWQKICAgICAgICAgIGVjaG8gIlZlcmlmeWluZyBtb2RlbCBjbGVhbnVwLi4uIgogICAgICAgICAgc3VkbyBkb2NrZXIgbW9kZWwgbHMKICAgICAgICAgIAogICAgICAgICAgZWNobyAi4pyFIE1vZGVsIGNsZWFudXAgY29tcGxldGVkIgoKICAgICAgLSBuYW1lOiBSZXBvcnQgc3VjY2VzcwogICAgICAgIGlmOiBzdWNjZXNzKCkKICAgICAgICBydW46IHwKICAgICAgICAgIGVjaG8gIvCfjokgRG9ja2VyIE1vZGVsIFJ1bm5lciBkYWlseSBoZWFsdGggY2hlY2sgY29tcGxldGVkIHN1Y2Nlc3NmdWxseSEiCiAgICAgICAgICBlY2hvICJBbGwgdGVzdHMgcGFzc2VkOiIKICAgICAgICAgIGVjaG8gIiAg4pyFIGRvY2tlci1tb2RlbC1wbHVnaW4gaW5zdGFsbGF0aW9uIHN1Y2Nlc3NmdWwiCiAgICAgICAgICBlY2hvICIgIOKchSBkb2NrZXIgbW9kZWwgdmVyc2lvbiBjb21tYW5kIHdvcmtpbmciCiAgICAgICAgICBlY2hvICIgIOKchSBNb2RlbCBwdWxsIGFuZCBydW4gb3BlcmF0aW9ucyBzdWNjZXNzZnVsIgogICAgICAgICAgZWNobyAiICDinIUgQVBJIGVuZHBvaW50IG9wZXJhdGlvbnMgc3VjY2Vzc2Z1bCIKICAgICAgICAgIGVjaG8gIiAg4pyFIENsZWFudXAgb3BlcmF0aW9ucyBzdWNjZXNzZnVsIg==', copying: false }" class="-top-10
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div x-data="{ collapse: true }" class="relative overflow-clip" x-init="$watch('collapse', value => $refs.root.scrollIntoView({ behavior: 'smooth'}))"><div x-show=collapse class="absolute z-10 flex h-32 w-full flex-col-reverse items-center overflow-clip pb-4"><button @click="collapse = false" class=chip>
+<span>Show more</span>
+<span class=icon-svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M12.53 16.28a.75.75.0 01-1.06.0l-7.5-7.5a.75.75.0 011.06-1.06L12 14.69l6.97-6.97a.75.75.0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd"/></svg></span></button></div><div :class="{ 'h-32': collapse }"><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Docker Model Runner Example Workflow</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>permissions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>contents</span><span class=p>:</span><span class=w> </span><span class=l>read</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>workflow_dispatch</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>inputs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>test_model</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>description: &#39;Model to test with (default</span><span class=p>:</span><span class=w> </span><span class=l>ai/smollm2:360M-Q4_K_M)&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>required</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>default</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;ai/smollm2:360M-Q4_K_M&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>jobs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>dmr-test</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>runs-on</span><span class=p>:</span><span class=w> </span><span class=l>ubuntu-latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>timeout-minutes</span><span class=p>:</span><span class=w> </span><span class=m>30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>steps</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Set up Docker</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>docker/setup-docker-action@v5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Install docker-model-plugin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Installing docker-model-plugin...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          # Add Docker&#39;s official GPG key:
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo apt-get update
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo apt-get install ca-certificates curl
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo install -m 0755 -d /etc/apt/keyrings
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo chmod a+r /etc/apt/keyrings/docker.asc
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          # Add the repository to Apt sources:
+</span></span></span><span class=line><span class=cl><span class=sd>          echo \
+</span></span></span><span class=line><span class=cl><span class=sd>          &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class=line><span class=cl><span class=sd>          $(. /etc/os-release &amp;&amp; echo &#34;${UBUNTU_CODENAME:-$VERSION_CODENAME}&#34;) stable&#34; | \
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo apt-get update
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo apt-get install -y docker-model-plugin
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Installation completed successfully&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Test docker model version</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Testing docker model version command...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo docker model version
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          # Verify the command returns successfully
+</span></span></span><span class=line><span class=cl><span class=sd>          if [ $? -eq 0 ]; then
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;✅ docker model version command works correctly&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          else
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;❌ docker model version command failed&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            exit 1
+</span></span></span><span class=line><span class=cl><span class=sd>          fi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Pull the provided model and run it</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>          MODEL=&#34;${{ github.event.inputs.test_model || &#39;ai/smollm2:360M-Q4_K_M&#39; }}&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Testing with model: $MODEL&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          # Test model pull
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Pulling model...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo docker model pull &#34;$MODEL&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          if [ $? -eq 0 ]; then
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;✅ Model pull successful&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          else
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;❌ Model pull failed&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            exit 1
+</span></span></span><span class=line><span class=cl><span class=sd>          fi
+</span></span></span><span class=line><span class=cl><span class=sd>                  
+</span></span></span><span class=line><span class=cl><span class=sd>          # Test basic model run (with timeout to avoid hanging)
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Testing docker model run...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          timeout 60s sudo docker model run &#34;$MODEL&#34; &#34;Give me a fact about whales.&#34; || {
+</span></span></span><span class=line><span class=cl><span class=sd>            exit_code=$?
+</span></span></span><span class=line><span class=cl><span class=sd>            if [ $exit_code -eq 124 ]; then
+</span></span></span><span class=line><span class=cl><span class=sd>              echo &#34;✅ Model run test completed (timed out as expected for non-interactive test)&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            else
+</span></span></span><span class=line><span class=cl><span class=sd>              echo &#34;❌ Model run failed with exit code: $exit_code&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>              exit 1
+</span></span></span><span class=line><span class=cl><span class=sd>            fi
+</span></span></span><span class=line><span class=cl><span class=sd>          }</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Test API endpoint</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>          MODEL=&#34;${{ github.event.inputs.test_model || &#39;ai/smollm2:360M-Q4_K_M&#39; }}&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Testing API endpoint with model: $MODEL&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>                  
+</span></span></span><span class=line><span class=cl><span class=sd>          # Test API call with curl
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Testing API call...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          RESPONSE=$(curl -s http://localhost:12434/engines/llama.cpp/v1/chat/completions \
+</span></span></span><span class=line><span class=cl><span class=sd>            -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=sd>            -d &#34;{
+</span></span></span><span class=line><span class=cl><span class=sd>                \&#34;model\&#34;: \&#34;$MODEL\&#34;,
+</span></span></span><span class=line><span class=cl><span class=sd>                \&#34;messages\&#34;: [
+</span></span></span><span class=line><span class=cl><span class=sd>                    {
+</span></span></span><span class=line><span class=cl><span class=sd>                        \&#34;role\&#34;: \&#34;user\&#34;,
+</span></span></span><span class=line><span class=cl><span class=sd>                        \&#34;content\&#34;: \&#34;Say hello\&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>                    }
+</span></span></span><span class=line><span class=cl><span class=sd>                ],
+</span></span></span><span class=line><span class=cl><span class=sd>                \&#34;top_k\&#34;: 1,
+</span></span></span><span class=line><span class=cl><span class=sd>                \&#34;temperature\&#34;: 0
+</span></span></span><span class=line><span class=cl><span class=sd>            }&#34;)
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          if [ $? -eq 0 ]; then
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;✅ API call successful&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;Response received: $RESPONSE&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            
+</span></span></span><span class=line><span class=cl><span class=sd>            # Check if response contains &#34;hello&#34; (case-insensitive)
+</span></span></span><span class=line><span class=cl><span class=sd>            if echo &#34;$RESPONSE&#34; | grep -qi &#34;hello&#34;; then
+</span></span></span><span class=line><span class=cl><span class=sd>              echo &#34;✅ Response contains &#39;hello&#39; (case-insensitive)&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            else
+</span></span></span><span class=line><span class=cl><span class=sd>              echo &#34;❌ Response does not contain &#39;hello&#39;&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>              echo &#34;Full response: $RESPONSE&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>              exit 1
+</span></span></span><span class=line><span class=cl><span class=sd>            fi
+</span></span></span><span class=line><span class=cl><span class=sd>          else
+</span></span></span><span class=line><span class=cl><span class=sd>            echo &#34;❌ API call failed&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>            exit 1
+</span></span></span><span class=line><span class=cl><span class=sd>          fi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Test model cleanup</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>          MODEL=&#34;${{ github.event.inputs.test_model || &#39;ai/smollm2:360M-Q4_K_M&#39; }}&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Cleaning up test model...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo docker model rm &#34;$MODEL&#34; || echo &#34;Model removal failed or model not found&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          # Verify model was removed
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;Verifying model cleanup...&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          sudo docker model ls
+</span></span></span><span class=line><span class=cl><span class=sd>          
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;✅ Model cleanup completed&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Report success</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>if</span><span class=p>:</span><span class=w> </span><span class=l>success()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;🎉 Docker Model Runner daily health check completed successfully!&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;All tests passed:&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;  ✅ docker-model-plugin installation successful&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;  ✅ docker model version command working&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;  ✅ Model pull and run operations successful&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;  ✅ API endpoint operations successful&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>          echo &#34;  ✅ Cleanup operations successful&#34;</span></span></span></code></pre></div><button @click="collapse = true" x-show=!collapse class="chip mx-auto mt-4 flex items-center text-sm">
+<span>Hide</span>
+<span class=icon-svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M11.47 7.72a.75.75.0 011.06.0l7.5 7.5a.75.75.0 11-1.06 1.06L12 9.31l-6.97 6.97a.75.75.0 01-1.06-1.06l7.5-7.5z" clip-rule="evenodd"/></svg></span></button></div></div></div></div></div><h2 class="scroll-mt-20 flex items-center gap-2" id=related-pages><a class="text-black dark:text-white no-underline hover:underline" href=#related-pages>Related pages</a></h2><ul><li><a class=link href=https://docs.docker.com/ai/compose/models-and-compose/>Models and Compose</a></li></ul>

@@ -1,0 +1,57 @@
+<p>Developers face challenges with multi-container Docker applications, including
+complex configuration, dependency management, and maintaining consistent
+environments. Networking, resource allocation, data persistence, logging, and
+monitoring add to the difficulty. Security concerns and troubleshooting issues
+further complicate the process, requiring effective tools and practices for
+efficient management.</p><p>Docker Compose solves the problem of managing multi-container Docker
+applications by providing a simple way to define, configure, and run all the
+containers needed for an application using a single YAML file. This approach
+helps developers to easily set up, share, and maintain consistent development,
+testing, and production environments, ensuring that complex applications can be
+deployed with all their dependencies and services properly configured and
+orchestrated.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=what-youll-learn><a class="text-black dark:text-white no-underline hover:underline" href=#what-youll-learn>What you’ll learn</a></h2><ul><li>What Docker Compose is and what it does</li><li>How to define services</li><li>Use cases for Docker Compose</li><li>How things would be different without Docker Compose</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=whos-this-for><a class="text-black dark:text-white no-underline hover:underline" href=#whos-this-for>Who’s this for?</a></h2><ul><li>Developers and DevOps engineers who need to define, manage, and orchestrate
+multi-container Docker applications efficiently across multiple environments.</li><li>Development teams that want to increase productivity by streamlining
+development workflows and reducing setup time.</li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=tools-integration><a class="text-black dark:text-white no-underline hover:underline" href=#tools-integration>Tools integration</a></h2><p>Works well with Docker CLI, CI/CD tools, and container orchestration tools.</p><div id=compose-lp-survey-anchor></div><h2 class="scroll-mt-20 flex items-center gap-2" id=why-docker-compose><a class="text-black dark:text-white no-underline hover:underline" href=#why-docker-compose>Why Docker Compose?</a></h2><p>Docker Compose is an essential tool for defining and running multi-container
+Docker applications. Docker Compose simplifies the Docker experience, making it
+easier for developers to create, manage, and deploy applications by using YAML
+files to configure application services.</p><p>Docker Compose provides several benefits:</p><ul><li>Lets you define multi-container applications in a single YAML file.</li><li>Ensures consistent environments across development, testing, and production.</li><li>Manages the startup and linking of multiple containers effortlessly.</li><li>Streamlines development workflows and reduces setup time.</li><li>Ensures that each service runs in its own container, avoiding conflicts.</li></ul><div id=youtube-player-2EqarOM2V4U data-video-id=2EqarOM2V4U class="youtube-video aspect-video h-fit w-full py-2"></div><div id=compose-lp-survey-anchor></div><h2 class="scroll-mt-20 flex items-center gap-2" id=demo-set-up-and-use-docker-compose><a class="text-black dark:text-white no-underline hover:underline" href=#demo-set-up-and-use-docker-compose>Demo: set up and use Docker Compose</a></h2><p>This Docker Compose demo shows how to orchestrate a multi-container application
+environment, streamlining development and deployment processes.</p><ul><li>Compare Docker Compose to the <code>docker run</code> command</li><li>Configure a multi-container web app using a Compose file</li><li>Run a multi-container web app using one command</li></ul><div id=youtube-player-P5RBKmOLPH4 data-video-id=P5RBKmOLPH4 class="youtube-video aspect-video h-fit w-full py-2"></div><div id=compose-lp-survey-anchor></div><h2 class="scroll-mt-20 flex items-center gap-2" id=common-challenges-and-questions><a class="text-black dark:text-white no-underline hover:underline" href=#common-challenges-and-questions>Common challenges and questions</a></h2><h4 class="scroll-mt-20 flex items-center gap-2" id=do-i-need-to-maintain-a-separate-compose-file-for-my-development-testing-and-staging-environments><a class="text-black dark:text-white no-underline hover:underline" href=#do-i-need-to-maintain-a-separate-compose-file-for-my-development-testing-and-staging-environments>Do I need to maintain a separate Compose file for my development, testing, and staging environments?</a></h4><p>You don't necessarily need to maintain entirely separate Compose files for your
+development, testing, and staging environments. You can define all your
+services in a single Compose file (<code>compose.yaml</code>). You can use profiles to
+group service configurations specific to each environment (<code>dev</code>, <code>test</code>,
+<code>staging</code>).</p><p>When you need to spin up an environment, you can activate the corresponding
+profiles. For example, to set up the development environment:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBkb2NrZXIgY29tcG9zZSAtLXByb2ZpbGUgZGV2IHVw', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> docker compose --profile dev up
+</span></span></code></pre></div></div></div></div><p>This command starts only the services associated with the <code>dev</code> profile,
+leaving the rest inactive.</p><p>For more information on using profiles, see
+<a class=link href=/compose/how-tos/profiles/>Using profiles with
+Compose</a>.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=how-can-i-enforce-the-database-service-to-start-up-before-the-frontend-service><a class="text-black dark:text-white no-underline hover:underline" href=#how-can-i-enforce-the-database-service-to-start-up-before-the-frontend-service>How can I enforce the database service to start up before the frontend service?</a></h4><p>Docker Compose ensures services start in a specific order by using the
+<code>depends_on</code> property. This tells Compose to start the database service before
+even attempting to launch the frontend service. This is crucial since
+applications often rely on databases being ready for connections.</p><p>However, <code>depends_on</code> only guarantees the order, not that the database is fully
+initialized. For a more robust approach, especially if your application relies
+on a prepared database (e.g., after migrations), consider
+<a class=link href=https://docs.docker.com/reference/compose-file/services/#healthcheck>health
+checks</a>. Here, you can
+configure the frontend to wait until the database passes its health check
+before starting. This ensures the database is not only up but also ready to
+handle requests.</p><p>For more information on setting the startup order of your services, see
+<a class=link href=/compose/how-tos/startup-order/>Control startup and shutdown order in Compose</a>.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=can-i-use-compose-to-build-a-docker-image><a class="text-black dark:text-white no-underline hover:underline" href=#can-i-use-compose-to-build-a-docker-image>Can I use Compose to build a Docker image?</a></h4><p>Yes, you can use Docker Compose to build Docker images. Docker Compose is a
+tool for defining and running multi-container applications. Even if your
+application isn't a multi-container application, Docker Compose can make it
+easier to run by defining all the <code>docker run</code> options in a file.</p><p>To use Compose, you need a <code>compose.yaml</code> file. In this file, you can specify
+the build context and Dockerfile for each service. When you run the command
+<code>docker compose up --build</code>, Docker Compose will build the images for each
+service and then start the containers.</p><p>For more information on building Docker images using Compose, see the
+<a class=link href=/compose/compose-file/build/>Compose
+Build Specification</a>.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=what-is-the-difference-between-docker-compose-and-dockerfile><a class="text-black dark:text-white no-underline hover:underline" href=#what-is-the-difference-between-docker-compose-and-dockerfile>What is the difference between Docker Compose and Dockerfile?</a></h4><p>A Dockerfile provides instructions to build a container image while a Compose
+file defines your running containers. Quite often, a Compose file references a
+Dockerfile to build an image to use for a particular service.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=what-is-the-difference-between-the-docker-compose-up-and-docker-compose-run-commands><a class="text-black dark:text-white no-underline hover:underline" href=#what-is-the-difference-between-the-docker-compose-up-and-docker-compose-run-commands>What is the difference between the <code>docker compose up</code> and <code>docker compose run</code> commands?</a></h4><p>The <code>docker compose up</code> command creates and starts all your services. It's
+perfect for launching your development environment or running the entire
+application. The <code>docker compose run</code> command focuses on individual services.
+It starts a specified service along with its dependencies, allowing you to run
+tests or perform one-off tasks within that container.</p><div id=compose-lp-survey-anchor></div>

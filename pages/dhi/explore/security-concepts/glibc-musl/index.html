@@ -1,0 +1,21 @@
+<p>Docker Hardened Images (DHI) are built to prioritize security without
+sacrificing compatibility with the broader open source and enterprise software
+ecosystem. A key aspect of this compatibility is support for common Linux
+standard libraries: <code>glibc</code> and <code>musl</code>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=what-are-glibc-and-musl><a class="text-black dark:text-white no-underline hover:underline" href=#what-are-glibc-and-musl>What are glibc and musl?</a></h2><p>When you run Linux-based containers, the image's C library plays a key role in
+how applications interact with the operating system. Most modern Linux
+distributions rely on one of the following standard C libraries:</p><ul><li><p><code>glibc</code> (GNU C Library): The standard C library on mainstream distributions
+like Debian, Ubuntu, and Red Hat Enterprise Linux. It is widely supported and
+typically considered the most compatible option across languages, frameworks,
+and enterprise software.</p></li><li><p><code>musl</code>: A lightweight alternative to <code>glibc</code>, commonly used in minimal
+distributions like Alpine Linux. While it offers smaller image sizes and
+performance benefits, <code>musl</code> is not always fully compatible with software that
+expects <code>glibc</code>.</p></li></ul><h2 class="scroll-mt-20 flex items-center gap-2" id=dhi-compatibility><a class="text-black dark:text-white no-underline hover:underline" href=#dhi-compatibility>DHI compatibility</a></h2><p>DHI images are available in both <code>glibc</code>-based (e.g., Debian) and <code>musl</code>-based
+(e.g., Alpine) variants. For enterprise applications and language runtimes where
+compatibility is critical, we recommend using DHI images based on glibc.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=what-to-choose-glibc-or-musl><a class="text-black dark:text-white no-underline hover:underline" href=#what-to-choose-glibc-or-musl>What to choose, glibc or musl?</a></h2><p>Docker Hardened Images are available in both glibc-based (Debian) and musl-based
+(Alpine) variants, allowing you to choose the best fit for your workload.</p><p>Choose Debian-based (<code>glibc</code>) images if:</p><ul><li>You need broad compatibility with enterprise workloads, language runtimes, or
+proprietary software.</li><li>You're using ecosystems like .NET, Java, or Python with native extensions that
+depend on <code>glibc</code>.</li><li>You want to minimize the risk of runtime errors due to library
+incompatibilities.</li></ul><p>Choose Alpine-based (<code>musl</code>) images if:</p><ul><li>You want a minimal footprint with smaller image sizes and reduced surface
+area.</li><li>You're building a custom or tightly controlled application stack where
+dependencies are known and tested.</li><li>You prioritize startup speed and lean deployments over maximum compatibility.</li></ul><p>If you're unsure, start with a Debian-based image to ensure compatibility, and
+evaluate Alpine once you're confident in your application's dependencies.</p>

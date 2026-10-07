@@ -1,0 +1,18 @@
+<p>Filesystem access policies control which host paths a sandbox can mount as a
+workspace. Each policy contains one or more rules that restrict sandbox
+workspaces to approved directories.</p><p>Filesystem access is managed with <a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>organization policies</a>. When
+organization governance is active, organization rules determine which paths a
+sandbox can mount, and the local filesystem allow rules from the default preset
+become inactive. <code>sbx policy deny</code> applies to network access only, so there are
+no local filesystem deny rules to layer on top. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#precedence>Precedence</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=rule-syntax><a class="text-black dark:text-white no-underline hover:underline" href=#rule-syntax>Rule syntax</a></h2><p>Filesystem rules use the actions <code>read</code> and <code>write</code>. Resources are host path
+patterns.</p><p>A writable workspace mount must be allowed by both a <code>read</code> rule and a <code>write</code>
+rule. A read-only workspace needs only <code>read</code>.</p><p>Examples:</p><ul><li><code>~/**</code></li><li><code>/data/project/**</code></li><li><code>C:\data\project\**</code></li><li><code>\\wsl.localhost\&lt;distro>\data\project\**</code></li></ul><p>Use <code>**</code> to match a directory tree recursively. A single <code>*</code> matches only one
+path segment. For exact path matching behavior across macOS, Linux, Windows,
+and WSL, see <a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#filesystem-rules>Filesystem rules</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=organization-filesystem-rules><a class="text-black dark:text-white no-underline hover:underline" href=#organization-filesystem-rules>Organization filesystem rules</a></h2><p>Organization filesystem rules belong to policies that can apply to the whole
+organization or to selected teams. For setup steps and team scoping, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/organization/>Organization policies</a>.</p><p>Filesystem policy is checked when a workspace is mounted, which happens when a
+sandbox is created. To apply a filesystem policy change to a running workflow,
+remove the sandbox and create a new one.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=troubleshooting><a class="text-black dark:text-white no-underline hover:underline" href=#troubleshooting>Troubleshooting</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=sandbox-cannot-mount-workspace><a class="text-black dark:text-white no-underline hover:underline" href=#sandbox-cannot-mount-workspace>Sandbox cannot mount workspace</a></h3><p>If a sandbox fails to mount with a <code>mount policy denied</code> error, verify that the
+filesystem allow rule uses <code>**</code> rather than <code>*</code>. A single <code>*</code> doesn't match
+across directory separators.</p>

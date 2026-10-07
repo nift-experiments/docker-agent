@@ -1,0 +1,49 @@
+<p>The image details view shows a breakdown of the Docker Scout analysis. You can
+access the image view from the Docker Scout Dashboard, the Docker Desktop
+<strong>Images</strong> view, and from the image tag page on Docker Hub. The image details
+show a breakdown of the image hierarchy (base images), image layers, packages,
+and vulnerabilities.</p><p>Docker Desktop first analyzes images locally, where it generates a software bill of materials (SBOM).
+Docker Desktop, Docker Hub, and the Docker Scout Dashboard and CLI all use the <a class=link href=https://github.com/package-url/purl-spec rel=noopener>package URL (PURL) links</a>
+in this SBOM to query for matching Common Vulnerabilities and Exposures (CVEs) in
+<a class=link href=https://docs.docker.com/scout/deep-dive/advisory-db-sources/>Docker Scout's advisory database</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=image-hierarchy><a class="text-black dark:text-white no-underline hover:underline" href=#image-hierarchy>Image hierarchy</a></h2><p>The image you inspect may have one or more base images represented under
+<strong>Image hierarchy</strong>. This means the author of the image used other images as
+starting points when building the image. Often these base images are either
+operating system images such as Debian, Ubuntu, and Alpine, or programming
+language images such as PHP, Python, and Java.</p><p>Selecting each image in the chain lets you see which layers originate from each
+base image. Selecting the <strong>ALL</strong> row selects all layers and base images.</p><p>One or more of the base images may have updates available, which may include
+updated security patches that remove vulnerabilities from your image. Any base
+images with available updates are noted to the right of <strong>Image hierarchy</strong>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=layers><a class="text-black dark:text-white no-underline hover:underline" href=#layers>Layers</a></h2><p>A Docker image consists of layers. Image layers are listed from top to bottom,
+with the earliest layer at the top and the most recent layer at the bottom.
+Often, the layers at the top of the list originate from a base image, and the
+layers towards the bottom added by the image author, often using
+commands in a Dockerfile. Selecting a base image under <strong>Image hierarchy</strong>
+highlights with layers originate from a base image.</p><p>Selecting individual or multiple layers filters the packages and vulnerabilities
+on the right-hand side to show what the selected layers added.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=vulnerabilities><a class="text-black dark:text-white no-underline hover:underline" href=#vulnerabilities>Vulnerabilities</a></h2><p>The <strong>Vulnerabilities</strong> tab displays a list of vulnerabilities and exploits detected in the image. The list is grouped by package, and sorted in order of severity.</p><p>You can find further information on the vulnerability or exploit, including if a fix is available, by expanding the list item.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=remediation-recommendations><a class="text-black dark:text-white no-underline hover:underline" href=#remediation-recommendations>Remediation recommendations</a></h2><p>When you inspect an image in Docker Desktop or Docker Hub,
+Docker Scout can provide recommendations for improving the security of that image.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=recommendations-in-docker-desktop><a class="text-black dark:text-white no-underline hover:underline" href=#recommendations-in-docker-desktop>Recommendations in Docker Desktop</a></h3><p>To view security recommendations for an image in Docker Desktop:</p><ol><li>Go to the <strong>Images</strong> view in Docker Desktop.</li><li>Select the image tag that you want to view recommendations for.</li><li>Near the top, select the <strong>Recommended fixes</strong> drop-down button.</li></ol><p>The drop-down menu lets you choose whether you want to see recommendations for
+the current image or any base images used to build it:</p><ul><li><a class=link href=#recommendations-for-current-image><strong>Recommendations for this image</strong></a>
+provides recommendations for the current image that you're inspecting.</li><li><a class=link href=#recommendations-for-base-image><strong>Recommendations for base image</strong></a> provides
+recommendations for base images used to build the image.</li></ul><p>If the image you're viewing has no associated base images, the drop-down menu only
+shows the option to view recommendations for the current image.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=recommendations-in-docker-hub><a class="text-black dark:text-white no-underline hover:underline" href=#recommendations-in-docker-hub>Recommendations in Docker Hub</a></h3><p>To view security recommendations for an image in Docker Hub:</p><ol><li><p>Go to the repository page for an image where you have activated Docker Scout
+image analysis.</p></li><li><p>Open the <strong>Tags</strong> tab.</p></li><li><p>Select the tag that you want to view recommendations for.</p></li><li><p>Select the <strong>View recommended base image fixes</strong> button.</p><p>This opens a window which gives you recommendations for you can improve the
+security of your image by using better base images. See
+<a class=link href=#recommendations-for-base-image>Recommendations for base image</a> for more
+details.</p></li></ol><h3 class="scroll-mt-20 flex items-center gap-2" id=recommendations-for-current-image><a class="text-black dark:text-white no-underline hover:underline" href=#recommendations-for-current-image>Recommendations for current image</a></h3><p>The recommendations for the current image view helps you determine whether the image
+version that you're using is out of date. If the tag you're using is referencing an
+old digest, the view shows a recommendation to update the tag by pulling the
+latest version.</p><p>Select the <strong>Pull new image</strong> button to get the updated version. Check the
+checkbox to remove the old version after pulling the latest.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=recommendations-for-base-image><a class="text-black dark:text-white no-underline hover:underline" href=#recommendations-for-base-image>Recommendations for base image</a></h3><p>The base image recommendations view contains two tabs for toggling between
+different types of recommendations:</p><ul><li><strong>Refresh base image</strong></li><li><strong>Change base image</strong></li></ul><p>These base image recommendations are only actionable if you're the author of the
+image you're inspecting. This is because changing the base image for an image
+requires you to update the Dockerfile and re-build the image.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=refresh-base-image><a class="text-black dark:text-white no-underline hover:underline" href=#refresh-base-image>Refresh base image</a></h4><p>This tab shows if the selected base image tag is the latest available version,
+or if it's outdated.</p><p>If the base image tag used to build the current image isn't the latest, then the
+delta between the two versions shows in this window. The delta information
+includes:</p><ul><li>The tag name, and aliases, of the recommended (newer) version</li><li>The age of the current base image version</li><li>The age of the latest available version</li><li>The number of CVEs affecting each version</li></ul><p>At the bottom of the window, you also receive command snippets that you can
+run to re-build the image using the latest version.</p><h4 class="scroll-mt-20 flex items-center gap-2" id=change-base-image><a class="text-black dark:text-white no-underline hover:underline" href=#change-base-image>Change base image</a></h4><p>This tab shows different alternative tags that you can use, and outlines the
+benefits and disadvantages of each tag version. Selecting the base image shows
+recommended options for that tag.</p><p>For example, if the image you're inspecting is using an old version of <code>debian</code>
+as a base image, it shows recommendations for newer and more secure versions
+of <code>debian</code> to use. By providing more than one alternative to choose from, you
+can see for yourself how the options compare with each other, and decide which
+one to use.</p><p>Select a tag recommendation to see further details of the recommendation.
+It shows the benefits and potential disadvantages of the tag, why it's a
+recommended, and how to update your Dockerfile to use this version.</p>

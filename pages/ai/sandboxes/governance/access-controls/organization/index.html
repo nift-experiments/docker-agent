@@ -1,0 +1,112 @@
+<p>The governance described here applies to local sandboxes. Cloud sandboxes
+use separate network policy configuration. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/network-policy/>Cloud network policy</a> for cloud controls.</p><p><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/local/>Local policies</a> give individual developers control over what their
+sandboxes can access. Organization policy moves that control to the admin level:
+organization policies apply to local sandboxes across the organization, either to
+every member or to specific teams. When organization governance is active, only
+organization allow rules grant access: local <code>sbx policy</code> allow rules are no
+longer evaluated and can't expand what the organization permits. Local network
+deny rules remain active, so developers can restrict access further but never
+loosen it.</p><p>Admins can manage organization policies through the Docker Home UI. For
+programmatic management of network and filesystem policies, use the
+<a class=link href=/reference/api/ai-governance/>Governance API</a>.</p><p>By default, only organization
+<a class=link href=https://docs.docker.com/security/roles-and-permissions/core-roles/>owners</a> can
+view and manage AI Governance policies. To let someone other than an owner
+manage policies, create a
+<a class=link href=https://docs.docker.com/security/roles-and-permissions/custom-roles/>custom role</a>
+with the <strong>Governance</strong> permissions and assign it to a user or team.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Sandbox organization governance is available on a separate paid
+subscription.
+<a class=link href=https://www.docker.com/products/ai-governance/#contact-sales rel=noopener>Contact Docker Sales</a>
+to request access.</p></div></blockquote><h2 class="scroll-mt-20 flex items-center gap-2" id=create-a-policy><a class="text-black dark:text-white no-underline hover:underline" href=#create-a-policy>Create a policy</a></h2><p>Manage policies from the <strong>AI Platform</strong> section in the left-hand navigation
+of <a class=link href=https://app.docker.com rel=noopener>Docker Home</a>.</p><p>To create a policy:</p><ol><li>Sign in to <a class=link href=https://app.docker.com rel=noopener>Docker Home</a> and select your
+organization.</li><li>In the left-hand navigation, expand <strong>AI Platform</strong> and select
+<strong>Network access</strong>, <strong>Filesystem access</strong>, or <strong>MCP access</strong>.</li><li>Select <strong>Create policy</strong>.</li><li>Enter a <strong>Policy name</strong>.</li><li>Set the <strong>Scope</strong> to <strong>Organization</strong> or <strong>Teams</strong>. If you select <strong>Teams</strong>,
+choose the teams the policy applies to. See
+<a class=link href=#scope-policies-to-teams>Scope policies to teams</a>.</li><li>Define the policy rules.<ul><li>Network and filesystem policies: select <strong>Add rule</strong> for each rule. For a
+network policy, see <a class=link href=#add-a-network-rule>Add a network rule</a>.</li><li>MCP policies: enter Cedar statements in the policy editor. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/>MCP access policies</a>.</li></ul></li><li>For a network policy, set <strong>Require approval before access</strong> if developers
+should confirm each destination before a sandbox can reach it. See
+<a class=link href=#require-approval-for-a-network-policy>Require approval for a network policy</a>.</li></ol><p>Existing policies are listed with their name, scope, rule count, and last
+update. Use the action menu (⋮) to edit or delete a policy.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=add-a-network-rule><a class="text-black dark:text-white no-underline hover:underline" href=#add-a-network-rule>Add a network rule</a></h3><p>Each rule has an optional <strong>Rule name</strong>, a <strong>Type</strong> that decides what the rule
+matches, and a <strong>Decision</strong> of <strong>Allow</strong> or <strong>Deny</strong>.</p><ul><li><strong>HTTP</strong> matches only HTTP requests with the methods and paths you specify.<ul><li>In <strong>Destination</strong>, enter the host or IP address the rule covers. It
+matches any port unless you add one. Enter the destination with no scheme
+and no path, so <code>api.github.com</code> rather than
+<code>https://api.github.com/repos</code>. A local HTTP rule accepts only a host.</li><li>Under <strong>HTTP methods</strong>, select the methods the rule applies to. Use
+<strong>Select all</strong> to select every method, or <strong>Read-only</strong> to select <code>GET</code>,
+<code>HEAD</code>, and <code>OPTIONS</code>. A rule saved with no methods selected matches every
+method the composer lists. The composer doesn't list <code>CONNECT</code> or
+<code>TRACE</code>, which differs from the CLI, where <code>--method ANY</code> matches every
+HTTP method.</li><li>Under <strong>Path patterns</strong>, add one or more paths the rule covers, such as
+<code>/repos/*</code> and <code>/v1/**</code>. Leave it empty to match any path.</li></ul></li><li><strong>All traffic</strong> matches every request to the destinations you list, on any
+port, method, and path.<ul><li>Under <strong>Protocols</strong>, select <strong>TCP</strong>, <strong>UDP</strong>, or <strong>Both</strong>.</li><li>Under <strong>Destinations</strong>, add the hosts, IP addresses, or CIDR ranges the
+rule covers. A destination matches any port unless you add one, such as
+<code>example.com:8080</code>.</li></ul></li></ul><p>An HTTP rule's paths all belong to its one destination, so to cover paths on a
+second host, add a second rule. For the pattern syntax and how HTTP rules
+combine with <strong>All traffic</strong> rules, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#http-method-and-path>HTTP rules</a>.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=require-approval-for-a-network-policy><a class="text-black dark:text-white no-underline hover:underline" href=#require-approval-for-a-network-policy>Require approval for a network policy</a></h3><p>Turning on <strong>Require approval before access</strong> means the destinations a network
+policy allows aren't reachable until the developer confirms each one. For how
+approval behaves and what satisfies it, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/#approval-required-access>Approval-required access</a>.</p><p>To set it on an existing policy:</p><ol><li>Sign in to <a class=link href=https://app.docker.com rel=noopener>Docker Home</a> and select your
+organization.</li><li>In the left-hand navigation, expand <strong>AI Platform</strong> and select
+<strong>Network access</strong>.</li><li>In the policy list, open the policy's action menu (⋮) and select <strong>Edit</strong>.</li><li>Turn on <strong>Require approval before access</strong>.</li><li>Select <strong>Save</strong>.</li></ol><p>The policy's detail page reports approval as <strong>Required</strong> or <strong>Not required</strong>.
+Editing a policy replaces it in full, so turning the setting off removes the
+requirement from every rule in that policy.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=configure-a-support-message><a class="text-black dark:text-white no-underline hover:underline" href=#configure-a-support-message>Configure a support message</a></h2><p>Admins can add an optional support message that appears after the policy denial
+details when a sandbox action is blocked by organization governance. Use it to
+point members to an internal support channel, ticket queue, or security contact.</p><p>To set the message:</p><ol><li>Sign in to <a class=link href=https://app.docker.com rel=noopener>Docker Home</a> and select your
+organization.</li><li>In the left-hand navigation, expand <strong>AI Platform</strong> and select <strong>Manage</strong>.</li><li>In <strong>Support message</strong>, enter up to 500 characters.</li><li>Select <strong>Save changes</strong>.</li></ol><p>Docker shows the message only for denials caused by organization governance
+policy and for requests an
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/#approval-required-access>approval-required policy</a> blocks. If you
+leave it blank, Docker shows the policy denial without additional contact text.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=choose-a-policy-type><a class="text-black dark:text-white no-underline hover:underline" href=#choose-a-policy-type>Choose a policy type</a></h2><p>Organization policies are managed by access surface. Use the access-control
+pages for syntax, examples, and enforcement details:</p><ul><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/>Network access policies</a>: control outbound network access from
+sandboxes, by host or by HTTP method and path.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/filesystem/>Filesystem access policies</a>: control which host paths
+sandboxes can mount as workspaces.</li><li><a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/>MCP access policies</a>: control MCP server registration, tool calls,
+resources, prompts, and approval gates with Cedar policy.</li></ul><p>When organization governance is active, local and kit-defined allow rules are
+not evaluated, while deny rules from those sources still apply. See
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#precedence>Precedence</a>. To see which rules are active on a
+developer machine, use
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/monitor-and-enforce/monitoring/>Monitoring policies</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=scope-policies-to-teams><a class="text-black dark:text-white no-underline hover:underline" href=#scope-policies-to-teams>Scope policies to teams</a></h2><p>An organization can have more than one policy, and each policy applies either
+to the whole organization or to specific teams. Scoping lets you apply different
+rules to different parts of the organization.</p><p>A policy's <a class=link href=#create-a-policy><strong>Scope</strong></a> controls who it applies to. Set it to
+<strong>Organization</strong> to apply the policy to every member, or to <strong>Teams</strong> to apply
+it only to members of the teams you select.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=before-you-start><a class="text-black dark:text-white no-underline hover:underline" href=#before-you-start>Before you start</a></h3><p>Team scoping targets your organization's existing
+<a class=link href=https://docs.docker.com/accounts/organization/manage/manage-a-team/>teams</a>, so a team must
+exist before you can scope a policy to it. Create teams and manage their members
+in one of two ways:</p><ul><li>Manually, in Docker Home.</li><li>Automatically, by using
+<a class=link href=https://docs.docker.com/security/provisioning/scim/group-mapping/>group mapping</a>
+to synchronize your identity provider's groups with the teams in your
+organization. Group mapping creates teams that don't already exist and keeps
+their membership in step with your IdP groups.</li></ul><p>Because policies apply by team, a user's policies update automatically as their
+team membership changes, including changes synced from your IdP.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=how-scoped-policies-combine><a class="text-black dark:text-white no-underline hover:underline" href=#how-scoped-policies-combine>How scoped policies combine</a></h3><p>A user is governed by all of their
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/#policy-scope>effective policies</a>: every org-wide policy, plus
+the team-scoped policies for the teams they belong to. Use org-wide policies
+for guardrails that must apply everywhere, and team-scoped policies for access
+that only some teams need.</p><p>For precedence between local and organization policies, and for how allow and
+deny rules combine, see <a class=link href=https://docs.docker.com/ai/sandboxes/governance/concepts/>Policy concepts</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=troubleshooting><a class="text-black dark:text-white no-underline hover:underline" href=#troubleshooting>Troubleshooting</a></h2><h3 class="scroll-mt-20 flex items-center gap-2" id=policy-changes-not-taking-effect><a class="text-black dark:text-white no-underline hover:underline" href=#policy-changes-not-taking-effect>Policy changes not taking effect</a></h3><p>After updating organization policies, changes take up to 5 minutes to
+propagate to developer machines. To apply changes immediately, users can run
+<code>sbx policy reset</code>, which stops the daemon and forces it to pull the latest
+organization policies on the next <code>sbx</code> command.</p><blockquote class="admonition admonition-warning admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_2018" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="2" width="24" height="21"><path d="M11.9998 9.99999V14m0 4H12.0098M10.6151 4.89171 2.39019 19.0983c-.45621.788-.68431 1.182-.6506 1.5054C1.769 20.8857 1.91677 21.142 2.14613 21.3088 2.40908 21.5 2.86435 21.5 3.77487 21.5H20.2246C21.1352 21.5 21.5904 21.5 21.8534 21.3088 22.0827 21.142 22.2305 20.8857 22.2599 20.6037 22.2936 20.2803 22.0655 19.8863 21.6093 19.0983L13.3844 4.89171C12.9299 4.10654 12.7026 3.71396 12.4061 3.58211c-.258700000000001-.11501-.554-.11501-.8126.0C11.2969 3.71396 11.0696 4.10655 10.6151 4.89171z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_2018)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Warning</span></div><div class=admonition-content><p><code>sbx policy reset</code> deletes all locally configured policy rules, including any
+destinations the developer has approved under an
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/network/#approval-required-access>approval-required policy</a>. Those
+destinations are requested again the next time a sandbox reaches them. The
+command prompts for confirmation before proceeding.</p></div></blockquote><h4 class="scroll-mt-20 flex items-center gap-2" id=enforcement-timing-by-policy-type><a class="text-black dark:text-white no-underline hover:underline" href=#enforcement-timing-by-policy-type>Enforcement timing by policy type</a></h4><p>Policy types differ in when a change takes effect after it reaches the
+developer machine:</p><ul><li><p>Network policy is evaluated on every outbound request. Once a policy
+change has synced to the developer's machine (up to 5 minutes), it applies
+immediately to subsequent requests. HTTP rules are evaluated per request in
+the same way.</p></li><li><p>An approval requirement applies from the point the policy change syncs.
+Destinations a developer already approved stay reachable, because the
+approval is recorded on the developer's machine. To withdraw one, add a deny
+rule. A deny takes precedence over a recorded approval.</p></li><li><p>Filesystem policy is only checked when a workspace is mounted — that
+is, when a sandbox is created. Once a sandbox is running, changing the
+filesystem policy has no effect on that sandbox. The sandbox continues to
+access the previously allowed path until it is removed and a new one is
+created.</p></li><li><p>MCP registration policy is evaluated when a server is registered with
+<code>sbx mcp add</code>. Changing registration rules doesn't remove existing
+registrations or stop an already-loaded server by itself.</p></li><li><p>MCP use-time policy is evaluated by the MCP gateway when a sandbox makes a
+governed MCP request, such as a tool call, resource read, prompt retrieval,
+or built-in gateway tool call. Once a policy change has synced, use-time
+rules apply to subsequent governed MCP requests through the gateway.</p></li></ul><p>To apply a filesystem policy change immediately, remove the running sandbox
+and create a new one. To prevent use of an MCP server that is already registered
+or loaded, add use-time rules for the registered server name. For examples, see
+<a class=link href=https://docs.docker.com/ai/sandboxes/governance/access-controls/mcp/#withdraw-server-access>Withdraw server access</a>.</p>

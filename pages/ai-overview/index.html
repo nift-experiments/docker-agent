@@ -1,0 +1,22 @@
+<p>Docker provides tools for working with AI across your development workflow.
+Each tool serves a different purpose.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=which-tool-do-i-need><a class="text-black dark:text-white no-underline hover:underline" href=#which-tool-do-i-need>Which tool do I need?</a></h2><div class=overflow-x-auto><table><thead class="bg-gray-100 dark:bg-gray-800"><tr><th class=p-2>I want to...</th><th class=p-2>Use</th><th class=p-2>Interface</th></tr></thead><tbody><tr><td class=p-2>Run coding agents in isolated environments</td><td class=p-2><a class=link href=https://docs.docker.com/ai/sandboxes/>Docker Sandboxes</a></td><td class=p-2><code>sbx</code></td></tr><tr><td class=p-2>Run agents in cloud sandboxes through a web Console</td><td class=p-2><a class=link href=https://docs.docker.com/agentic-platform/>Docker Agentic Platform</a> (experimental)</td><td class=p-2>Web Console</td></tr><tr><td class=p-2>Get AI help with Docker tasks (containers, images, Dockerfiles)</td><td class=p-2><a class=link href=https://docs.docker.com/ai/gordon/>Gordon</a></td><td class=p-2><code>docker ai</code></td></tr><tr><td class=p-2>Run AI models locally with an OpenAI-compatible API</td><td class=p-2><a class=link href=https://docs.docker.com/ai/model-runner/>Model Runner</a></td><td class=p-2><code>docker model</code></td></tr><tr><td class=p-2>Connect AI tools to external services via MCP</td><td class=p-2><a class=link href=https://docs.docker.com/ai/mcp-catalog-and-toolkit/>MCP Catalog and Toolkit</a></td><td class=p-2><code>docker mcp</code></td></tr><tr><td class=p-2>Build and orchestrate custom multi-agent teams</td><td class=p-2><a class=link href=https://docs.docker.com/ai/docker-agent/>Docker Agent</a></td><td class=p-2><code>docker agent</code></td></tr><tr><td class=p-2>Give my coding agent Docker best-practice guidance</td><td class=p-2><a class=link href=https://docs.docker.com/ai/skills/>Docker Skills</a></td><td class=p-2>None</td></tr></tbody></table></div><h2 class="scroll-mt-20 flex items-center gap-2" id=how-these-tools-relate><a class="text-black dark:text-white no-underline hover:underline" href=#how-these-tools-relate>How these tools relate</a></h2><p><strong>Gordon</strong> is Docker's built-in AI assistant. It helps with Docker-specific
+tasks like debugging containers, writing Dockerfiles, and managing images. You
+interact with it through Docker Desktop or the <code>docker ai</code> command.</p><p><strong>Docker Agent</strong> is an open-source framework for defining teams of AI agents
+in YAML. You configure agents with specific roles, models, and tools, then
+run them from your terminal. Docker Agent is a general-purpose agent runtime,
+not specific to Docker tasks.</p><p><strong>Docker Skills</strong> are Docker's official, open-source instructions for compatible
+coding agents working on Docker tasks. Install them through your agent's
+supported method; they can also be used by Docker Agent and agents running in
+Docker Sandboxes. Browse the <a class=link href=https://github.com/docker/skills#readme rel=noopener>Docker Skills
+catalog</a> for current guidance.</p><p>Docker Sandboxes provides isolated environments for running coding agents
+<a class=link href=https://docs.docker.com/ai/sandboxes/get-started/>locally</a> or
+<a class=link href=https://docs.docker.com/ai/sandboxes/cloud/>in the cloud</a>. Sandboxes is the isolation layer;
+the agents themselves are separate tools. Agent configuration and supported
+features differ between local and cloud sandboxes.</p><p>Docker Agentic Platform is an experimental service for running agents in
+Docker-managed cloud sandboxes. Its web Console provides kit selection,
+credentials, network policies, MCP tools, and sandbox lifecycle controls.
+<a class=link href=https://docs.docker.com/agentic-platform/signup/>Activate a subscription</a> to use cloud compute,
+billed on a pay-as-you-go basis.</p><p><strong>Model Runner</strong> lets you run LLMs locally. Other tools like Docker Agent can
+use Model Runner as a model provider.</p><p><strong>MCP Catalog and Toolkit</strong> manages connections between AI tools and external
+services using the Model Context Protocol. Gordon, Docker Agent, and
+third-party tools can all use MCP servers configured through the Toolkit.</p>

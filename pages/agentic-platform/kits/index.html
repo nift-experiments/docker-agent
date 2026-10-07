@@ -1,0 +1,29 @@
+<p>A kit defines a sandbox's base image, agent, setup, network rules, and the
+credentials it can use. Choose a kit from the <strong>Kits</strong> catalog or enter a public
+kit reference to run an agent in Docker Agentic Platform.</p><p>Launching a kit from the Console requires both the kit and its base image to
+be public. To run a kit from a private Docker Hub repository, use the Docker
+Sandboxes CLI. The <strong>Kits</strong> page provides the command to copy.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=browse-and-run-a-kit><a class="text-black dark:text-white no-underline hover:underline" href=#browse-and-run-a-kit>Browse and run a kit</a></h2><p>Kits curated by Docker include agents such as Claude Code, Codex, Antigravity,
+and Hermes, as well as a Shell kit for working without a pre-installed agent.</p><p>Use the format badge to identify
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/kits-v2/>v2 kits</a>
+or
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/>v3 kits</a>.
+When available, Docker Hub details include the publisher, pull and star counts,
+last update, architectures, and a security attestations indicator.</p><ol><li>Open <strong>Kits</strong> in the Console.</li><li>Search by name or description.</li><li>Select <strong>Run</strong> on a kit to open the sandbox launcher with that kit selected.</li><li>Review its credentials, network policies, tools, compute size, and
+timer, then select <strong>Run</strong> in the launcher to create the sandbox.</li></ol><p>Use a kit's Hub link to open its repository on Docker Hub. For the launch steps,
+see <a class=link href=https://docs.docker.com/agentic-platform/get-started/#start-a-sandbox>Get started</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=run-a-kit-by-reference><a class="text-black dark:text-white no-underline hover:underline" href=#run-a-kit-by-reference>Run a kit by reference</a></h2><p>To use a public kit that you already know:</p><ol><li>Open <strong>New</strong> and open the kit picker.</li><li>Select <strong>add a public kit</strong>.</li><li>Enter the kit's registry reference, such as <code>myorg/my-kit:1.0</code>. You can omit
+the <code>docker.io/</code> prefix for Docker Hub references.</li><li>Wait for the kit's name and supported credentials to appear. If you see an
+error, check the reference and confirm that the kit is public.</li><li>Configure the sandbox and select <strong>Run</strong>.</li></ol><p>Enter a reference to a sandbox kit. You can't launch a sandbox from a container
+image reference or a mixin kit. Mixins add capabilities to other kits, and the
+Console doesn't support combining kits.</p><p>The credentials available in the launcher depend on the kit. A custom kit must
+declare the credentials it needs, including GitHub credentials for private
+repository access. See <a class=link href=https://docs.docker.com/agentic-platform/secrets/>Secrets</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=kit-size-limits><a class="text-black dark:text-white no-underline hover:underline" href=#kit-size-limits>Kit size limits</a></h2><p>Custom kits can contain up to 64 MiB of registry content, measured as the total
+size of the config blob and compressed layers declared in the kit manifest.
+The kit's file payload must also fit within 256 MiB when loaded for launch.
+These limits apply to the kit artifact, not its referenced base image.</p><p>If the launcher reports "That kit is larger than this platform accepts", the
+reference exceeds the 64 MiB limit. Check that the reference points to a
+sandbox kit rather than a container image. Put large dependencies in the
+base image and keep the kit's bundled files small.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=create-your-own-kit><a class="text-black dark:text-white no-underline hover:underline" href=#create-your-own-kit>Create your own kit</a></h2><p>To ask your coding agent to help create a kit, copy the prompt from <strong>Kits</strong> and
+paste it into your agent. Follow the <strong>Kit authoring docs</strong> link for instructions,
+or see
+<a class=link href=https://docs.docker.com/ai/sandboxes/customize/author/>Kit authoring</a>.</p><p>After publishing the kit to a public registry, enter its reference in the
+launcher. Its base image must also be public.</p>

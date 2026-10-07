@@ -1,0 +1,133 @@
+<p>Docker Hub's trusted content provides a curated selection of high-quality,
+secure images designed to give developers confidence in the reliability and
+security of the resources they use. These images are stable, regularly updated,
+and adhere to industry best practices, making them a strong foundation for
+building and deploying applications. Docker Hub's trusted content includes
+Docker Official Images, Docker Hardened Images and charts, Verified Publisher
+images, and Docker-Sponsored Open Source Software images.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-official-images><a class="text-black dark:text-white no-underline hover:underline" href=#docker-official-images>Docker Official Images</a></h2><p>The Docker Official Images are a curated set of Docker repositories hosted on
+Docker Hub.</p><p>Docker recommends you use the Docker Official Images in your projects. These
+images have clear documentation, promote best practices, and are regularly
+updated. Docker Official Images support most common use cases, making them
+perfect for new Docker users. Advanced users can benefit from more specialized
+image variants as well as review Docker Official Images as part of your
+<code>Dockerfile</code> learning process.</p><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Use of Docker Official Images is subject to <a class=link href=https://www.docker.com/legal/docker-terms-service/ rel=noopener>Docker's Terms of Service</a>.</p></div></blockquote><p>These images provide essential base repositories that serve as the starting
+point for the majority of users.</p><p>These include operating systems such as
+<a class=link href=https://hub.docker.com/_/ubuntu/ rel=noopener>Ubuntu</a> and
+<a class=link href=https://hub.docker.com/_/alpine/ rel=noopener>Alpine</a>, programming language runtimes such as
+<a class=link href=https://hub.docker.com/_/python rel=noopener>Python</a> and
+<a class=link href=https://hub.docker.com/_/node rel=noopener>Node</a>, and other essential tools such as
+<a class=link href=https://hub.docker.com/_/memcached rel=noopener>memcached</a> and
+<a class=link href=https://hub.docker.com/_/mysql rel=noopener>MySQL</a>.</p><p>The images are some of the <a class=link href=https://www.docker.com/blog/enhancing-security-and-transparency-with-docker-official-images/ rel=noopener>most secure images</a>
+on Docker Hub. This is particularly important as Docker Official Images are
+some of the most popular on Docker Hub. Typically, Docker Official images have
+few or no packages containing CVEs.</p><p>The images exemplify
+<a class=link href=https://docs.docker.com/build/building/best-practices/>Dockerfile best practices</a>
+and provide clear documentation to serve as a reference for other Dockerfile authors.</p><p>Images that are part of this program have a special badge on Docker Hub making
+it easier for you to identify projects that are part of Docker Official Images.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/docker-hub/images/official-image-badge-iso.png alt="Docker official image badge" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/docker-hub/images/official-image-badge-iso.png alt="Docker official image badge"></div></template></figure><h3 class="scroll-mt-20 flex items-center gap-2" id=supported-tags-and-respective-dockerfile-links><a class="text-black dark:text-white no-underline hover:underline" href=#supported-tags-and-respective-dockerfile-links>Supported tags and respective Dockerfile links</a></h3><p>The repository description for each Docker Official Image contains a
+<strong>Supported tags and respective Dockerfile links</strong> section that lists all the
+current tags with links to the Dockerfiles that created the image with those
+tags. The purpose of this section is to show what image variants are available.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/docker-hub/images/supported_tags.webp alt="Example: supported tags for Ubuntu" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/docker-hub/images/supported_tags.webp alt="Example: supported tags for Ubuntu"></div></template></figure><p>Tags listed on the same line all refer to the same underlying image. Multiple
+tags can point to the same image. For example, in the previous screenshot taken
+from the <code>ubuntu</code> Docker Official Images repository, the tags <code>24.04</code>,
+<code>noble-20240225</code>, <code>noble</code>, and <code>devel</code> all refer to the same image.</p><p>The <code>latest</code> tag for a Docker Official Image is often optimized for ease of use
+and includes a wide variety of useful software, such as developer and build tools.
+By tagging an image as <code>latest</code>, the image maintainers are essentially suggesting
+that image be used as the default. In other words, if you do not know what tag to
+use or are unfamiliar with the underlying software, you should probably start with
+the <code>latest</code> image. As your understanding of the software and image variants advances,
+you may find other image variants better suit your needs.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=slim-images><a class="text-black dark:text-white no-underline hover:underline" href=#slim-images>Slim images</a></h3><p>A number of language stacks such as
+<a class=link href=https://hub.docker.com/_/node/ rel=noopener>Node.js</a>,
+<a class=link href=https://hub.docker.com/_/python/ rel=noopener>Python</a>, and
+<a class=link href=https://hub.docker.com/_/ruby/ rel=noopener>Ruby</a> have <code>slim</code> tag variants
+designed to provide a lightweight, production-ready base image
+with fewer packages.</p><p>A typical consumption pattern for <code>slim</code>
+images is as the base image for the final stage of a
+<a class=link href=https://docs.docker.com/build/building/multi-stage/ rel=noopener>multi-staged build</a>.
+For example, you build your application in the first stage of the build
+using the <code>latest</code> variant and then copy your application into the final
+stage based upon the <code>slim</code> variant. Here is an example <code>Dockerfile</code>.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'RlJPTSBub2RlOmxhdGVzdCBBUyBidWlsZApXT1JLRElSIC9hcHAKQ09QWSBwYWNrYWdlLmpzb24gcGFja2FnZS1sb2NrLmpzb24gLi8KUlVOIG5wbSBjaQpDT1BZIC4gLi8KRlJPTSBub2RlOnNsaW0KV09SS0RJUiAvYXBwCkNPUFkgLS1mcm9tPWJ1aWxkIC9hcHAgL2FwcApDTUQgWyJub2RlIiwgImFwcC5qcyJd', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>node:latest</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=s>build</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/app</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> package.json package-lock.json ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> npm ci<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> . ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>node:slim</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/app</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> --from<span class=o>=</span>build /app /app<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>CMD</span> <span class=p>[</span><span class=s2>&#34;node&#34;</span><span class=p>,</span> <span class=s2>&#34;app.js&#34;</span><span class=p>]</span></span></span></code></pre></div></div></div></div><h3 class="scroll-mt-20 flex items-center gap-2" id=alpine-images><a class="text-black dark:text-white no-underline hover:underline" href=#alpine-images>Alpine images</a></h3><p>Many Docker Official Images repositories also offer <code>alpine</code> variants. These
+images are built on top of the <a class=link href=https://www.alpinelinux.org/ rel=noopener>Alpine Linux</a>
+distribution rather than Debian or Ubuntu. Alpine Linux is focused on providing
+a small, simple, and secure base for container images, and Docker Official
+Images <code>alpine</code> variants typically aim to install only necessary packages. As a
+result, Docker Official Images <code>alpine</code> variants are typically even smaller
+than <code>slim</code> variants.</p><p>The main caveat to note is that Alpine Linux uses <a class=link href=https://musl.libc.org/ rel=noopener>musl libc</a>
+instead of <a class=link href=https://www.gnu.org/software/libc/ rel=noopener>glibc</a>. Additionally, to
+minimize image size, it's uncommon for Alpine-based images to include tools
+such as Git or Bash by default. Depending on the depth of libc requirements or
+assumptions in your programs, you may find yourself running into issues due to
+missing libraries or tools.</p><p>When you use Alpine images as a base, consider the following options in order
+to make your program compatible with Alpine Linux and musl:</p><ul><li>Compile your program against musl libc</li><li>Statically link glibc libraries into your program</li><li>Avoid C dependencies altogether (for example, build Go programs without CGO)</li><li>Add the software you need yourself in your Dockerfile.</li></ul><p>Refer to the <code>alpine</code> image <a class=link href=https://hub.docker.com/_/alpine rel=noopener>description</a> on
+Docker Hub for examples on how to install packages if you are unfamiliar.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=codenames><a class="text-black dark:text-white no-underline hover:underline" href=#codenames>Codenames</a></h3><p>Tags with words that look like Toy Story characters (for example, <code>bookworm</code>,
+<code>bullseye</code>, and <code>trixie</code>) or adjectives (such as <code>jammy</code>, and
+<code>noble</code>), indicate the codename of the Linux distribution they use as a base
+image. Debian release codenames are <a class=link href=https://en.wikipedia.org/wiki/Debian_version_history#Naming_convention rel=noopener>based on Toy Story characters</a>,
+and Ubuntu's take the form of "Adjective Animal". For example, the
+codename for Ubuntu 24.04 is "Noble Numbat".</p><p>Linux distribution indicators are helpful because many Docker Official Images
+provide variants built upon multiple underlying distribution versions (for
+example, <code>postgres:bookworm</code> and <code>postgres:trixie</code>).</p><h3 class="scroll-mt-20 flex items-center gap-2" id=other-tags><a class="text-black dark:text-white no-underline hover:underline" href=#other-tags>Other tags</a></h3><p>Docker Official Images tags may contain other hints to the purpose of
+their image variant in addition to those described here. Often these
+tag variants are explained in the Docker Official Images repository
+documentation. Reading through the "How to use this image" and
+"Image Variants" sections will help you to understand how to use these
+variants.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=troubleshooting-failed-pulls><a class="text-black dark:text-white no-underline hover:underline" href=#troubleshooting-failed-pulls>Troubleshooting failed pulls</a></h3><p>If you're experiencing failed pulls of Docker Official Images, check whether
+the <code>DOCKER_CONTENT_TRUST</code> environment variable is set to <code>1</code>. Docker Content
+Trust is being retired and the service is no longer reliable for pulls. To
+resolve pull failures, unset <code>DOCKER_CONTENT_TRUST</code>. For more information, see
+<a class=link href=https://docs.docker.com/retired/#docker-content-trust-dct>Docker Content Trust (DCT)</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-hardened-images><a class="text-black dark:text-white no-underline hover:underline" href=#docker-hardened-images>Docker Hardened Images</a></h2><p>Docker Hardened Images (DHI) are minimal, secure, and production-ready
+container base and application images maintained by Docker. DHI also includes
+Docker-provided hardened Helm charts built from upstream sources and published
+as OCI artifacts in Docker Hub.</p><p>DHI is designed to reduce vulnerabilities and simplify compliance while fitting
+into existing Docker workflows with little to no retooling required. Docker
+maintains near-zero CVEs in DHI images, and DHI images and charts include
+signed security metadata such as SBOMs and provenance attestations.</p><p>Image and chart repositories have special badges
+on Docker Hub, making it easier to identify trusted DHI content.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/docker-hub/images/dhi-image-label.png alt="Docker Hardened Image badge" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/docker-hub/images/dhi-image-label.png alt="Docker Hardened Image badge"></div></template></figure><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/docker-hub/images/dhi-chart-label.png alt="Docker Hardened Chart badge" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/docker-hub/images/dhi-chart-label.png alt="Docker Hardened Chart badge"></div></template></figure><p>To browse available repositories, see the <a class=link href=https://hub.docker.com/hardened-images/catalog rel=noopener>Docker Hardened Images
+catalog</a>. For implementation
+guidance, see
+<a class=link href=/dhi/>Docker Hardened Images</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=verified-publisher-images><a class="text-black dark:text-white no-underline hover:underline" href=#verified-publisher-images>Verified Publisher images</a></h2><p>The Docker Verified Publisher program provides high-quality images from
+commercial publishers verified by Docker.</p><p>These images help development teams build secure software supply chains,
+minimizing exposure to malicious content early in the process to save time and
+money later.</p><p>Images that are part of this program have a special badge on Docker Hub making
+it easier for users to identify projects that Docker has verified as
+high-quality commercial publishers.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/docker-hub/images/verified-publisher-badge-iso.png alt="Docker-Verified Publisher badge" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/docker-hub/images/verified-publisher-badge-iso.png alt="Docker-Verified Publisher badge"></div></template></figure><h2 class="scroll-mt-20 flex items-center gap-2" id=docker-sponsored-open-source-software-images><a class="text-black dark:text-white no-underline hover:underline" href=#docker-sponsored-open-source-software-images>Docker-Sponsored Open Source Software images</a></h2><p>The Docker-Sponsored Open Source Software (OSS) program provides images that are
+published and maintained by open-source projects sponsored by Docker.</p><p>Images that are part of this program have a special badge on Docker Hub making
+it easier for users to identify projects that Docker has verified as trusted,
+secure, and active open-source projects.</p><figure x-data="{ zoom: false }" @click="zoom = ! zoom" class="cursor-pointer hover:opacity-90"><img loading=lazy src=https://docs.docker.com/docker-hub/images/sponsored-badge-iso.png alt="Docker-Sponsored Open Source badge" class="mx-auto rounded-sm">
+<template x-teleport=body><div x-show=zoom @click="zoom = false" x-transition.opacity.duration.250ms class="fixed inset-0 z-20 flex items-center justify-center bg-black/100 p-6"><button class="icon-svg fixed top-6 right-8 z-30 text-white">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M5.47 5.47a.75.75.0 011.06.0L12 10.94l5.47-5.47a.75.75.0 111.06 1.06L13.06 12l5.47 5.47a.75.75.0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75.0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75.0 010-1.06z" clip-rule="evenodd"/></svg>
+</button>
+<img loading=lazy class="max-h-full max-w-full rounded-sm" src=https://docs.docker.com/docker-hub/images/sponsored-badge-iso.png alt="Docker-Sponsored Open Source badge"></div></template></figure>

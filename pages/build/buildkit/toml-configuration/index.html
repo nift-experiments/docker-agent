@@ -1,0 +1,233 @@
+<p>The TOML file used to configure the buildkitd daemon settings has a short
+list of global settings followed by a series of sections for specific areas
+of daemon configuration.</p><p>The file path is <code>/etc/buildkit/buildkitd.toml</code> for rootful mode,
+<code>~/.config/buildkit/buildkitd.toml</code> for rootless mode.</p><p>The following is a complete <code>buildkitd.toml</code> configuration example.
+Note that some configuration options are only useful in edge cases.</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'IyByb290IGlzIHdoZXJlIGFsbCBidWlsZGtpdCBzdGF0ZSBpcyBzdG9yZWQuCnJvb3QgPSAiL3Zhci9saWIvYnVpbGRraXQiCiMgaW5zZWN1cmUtZW50aXRsZW1lbnRzIGFsbG93cyBpbnNlY3VyZSBlbnRpdGxlbWVudHMsIGRpc2FibGVkIGJ5IGRlZmF1bHQuCmluc2VjdXJlLWVudGl0bGVtZW50cyA9IFsgIm5ldHdvcmsuaG9zdCIsICJzZWN1cml0eS5pbnNlY3VyZSIsICJkZXZpY2UiIF0KIyBwcm94eU5ldHdvcmsgZW5hYmxlcyBwcm94eSBuZXR3b3JrIGVuZm9yY2VtZW50IGZvciBhbGwgYnVpbGRzLCBkaXNhYmxlZCBieSBkZWZhdWx0LgojIEl0IGNhbiBhbHNvIGJlIGVuYWJsZWQgd2l0aCBidWlsZGtpdGQgLS1wcm94eS1uZXR3b3JrLgpwcm94eU5ldHdvcmsgPSB0cnVlCiMgcHJvdmVuYW5jZUVudkRpciBpcyB0aGUgZGlyZWN0b3J5IHdoZXJlIGV4dHJhIGNvbmZpZyBpcyBsb2FkZWQgdGhhdCBpcyBhZGRlZAojIHRvIHRoZSBwcm92ZW5hbmNlIG9mIGJ1aWxkczoKIyBzbHNhIHYwLjI6IGludm9jYXRpb24uZW52aXJvbm1lbnQuKgojIHNsc2EgdjE6IGJ1aWxkRGVmaW5pdGlvbi5pbnRlcm5hbFBhcmFtZXRlcnMuKgpwcm92ZW5hbmNlRW52RGlyID0gIi9ldGMvYnVpbGRraXQvcHJvdmVuYW5jZS5kIgoKW2xvZ10KICAjIGxvZyBmb3JtYXR0ZXI6IGpzb24gb3IgdGV4dAogIGZvcm1hdCA9ICJ0ZXh0IgoKICAjIGxvZyBsZXZlbCAoZXJyb3Ivd2Fybi9pbmZvL2RlYnVnL3RyYWNlKQogIGxldmVsID0gImluZm8iCgpbZG5zXQogIG5hbWVzZXJ2ZXJzPVsiMS4xLjEuMSIsIjguOC44LjgiXQogIG9wdGlvbnM9WyJlZG5zMCJdCiAgc2VhcmNoRG9tYWlucz1bImV4YW1wbGUuY29tIl0KCltncnBjXQogIGFkZHJlc3MgPSBbICJ0Y3A6Ly8wLjAuMC4wOjEyMzQiIF0KICAjIGRlYnVnQWRkcmVzcyBpcyBhZGRyZXNzIGZvciBhdHRhY2hpbmcgZ28gcHJvZmlsZXMgYW5kIGRlYnVnZ2Vycy4KICBkZWJ1Z0FkZHJlc3MgPSAiMC4wLjAuMDo2MDYwIgogIHVpZCA9IDAKICBnaWQgPSAwCiAgW2dycGMudGxzXQogICAgY2VydCA9ICIvZXRjL2J1aWxka2l0L3Rscy5jcnQiCiAgICBrZXkgPSAiL2V0Yy9idWlsZGtpdC90bHMua2V5IgogICAgY2EgPSAiL2V0Yy9idWlsZGtpdC90bHNjYS5jcnQiCgpbb3RlbF0KICAjIE9URUwgY29sbGVjdG9yIHRyYWNlIHNvY2tldCBwYXRoCiAgc29ja2V0UGF0aCA9ICIvcnVuL2J1aWxka2l0L290ZWwtZ3JwYy5zb2NrIgoKW2NkaV0KICAjIERpc2FibGVzIHN1cHBvcnQgb2YgdGhlIENvbnRhaW5lciBEZXZpY2UgSW50ZXJmYWNlIChDREkpLgogIGRpc2FibGVkID0gdHJ1ZQogICMgTGlzdCBvZiBkaXJlY3RvcmllcyB0byBzY2FuIGZvciBDREkgc3BlYyBmaWxlcy4gRm9yIG1vcmUgZGV0YWlscyBhYm91dCBDREkKICAjIHNwZWNpZmljYXRpb24sIHBsZWFzZSByZWZlciB0byBodHRwczovL2dpdGh1Yi5jb20vY25jZi10YWdzL2NvbnRhaW5lci1kZXZpY2UtaW50ZXJmYWNlL2Jsb2IvbWFpbi9TUEVDLm1kI2NkaS1qc29uLXNwZWNpZmljYXRpb24KICBzcGVjRGlycyA9IFsiL2V0Yy9jZGkiLCAiL3Zhci9ydW4vY2RpIiwgIi9ldGMvYnVpbGRraXQvY2RpIl0KCiMgY29uZmlnIGZvciBidWlsZCBoaXN0b3J5IEFQSSB0aGF0IHN0b3JlcyBpbmZvcm1hdGlvbiBhYm91dCBjb21wbGV0ZWQgYnVpbGQgY29tbWFuZHMKW2hpc3RvcnldCiAgIyBtYXhBZ2UgaXMgdGhlIG1heGltdW0gYWdlIG9mIGhpc3RvcnkgZW50cmllcyB0byBrZWVwLCBpbiBzZWNvbmRzLgogIG1heEFnZSA9IDE3MjgwMAogICMgbWF4RW50cmllcyBpcyB0aGUgbWF4aW11bSBudW1iZXIgb2YgaGlzdG9yeSBlbnRyaWVzIHRvIGtlZXAuIFdoZW4gdGhlCiAgIyBoaXN0b3J5IHNlY3Rpb24gaXMgb21pdHRlZCwgdGhlIGRlZmF1bHQgaXMgNTAuIElmIG9ubHkgbWF4QWdlIGlzIHNldCwKICAjIGFsbCBlbnRyaWVzIG9sZGVyIHRoYW4gbWF4QWdlIGFyZSByZW1vdmVkLgogICMgU2V0dGluZyB0aGlzIHZhbHVlIHRvIDAgcHJldmVudHMgcmVjb3JkaW5nIG5ldyBidWlsZCBoaXN0b3J5LCBpbmNsdWRpbmcKICAjIGFjdGl2ZS1idWlsZCBldmVudHMuIEV4aXN0aW5nIHJlY29yZHMgcmVtYWluIGF2YWlsYWJsZSB1bnRpbCBub3JtYWwgR0MuCiAgbWF4RW50cmllcyA9IDUwCgpbd29ya2VyLm9jaV0KICBlbmFibGVkID0gdHJ1ZQogICMgcGxhdGZvcm1zIGlzIG1hbnVhbGx5IGNvbmZpZ3VyZSBwbGF0Zm9ybXMsIGRldGVjdGVkIGF1dG9tYXRpY2FsbHkgaWYgdW5zZXQuCiAgcGxhdGZvcm1zID0gWyAibGludXgvYW1kNjQiLCAibGludXgvYXJtNjQiIF0KICBzbmFwc2hvdHRlciA9ICJhdXRvIiAjIG92ZXJsYXlmcyBvciBuYXRpdmUsIGRlZmF1bHQgdmFsdWUgaXMgImF1dG8iLgogIHJvb3RsZXNzID0gZmFsc2UgIyBzZWUgZG9jcy9yb290bGVzcy5tZCBmb3IgdGhlIGRldGFpbHMgb24gcm9vdGxlc3MgbW9kZS4KICAjIFdoZXRoZXIgcnVuIHN1YnByb2Nlc3NlcyBpbiBtYWluIHBpZCBuYW1lc3BhY2Ugb3Igbm90LCB0aGlzIGlzIHVzZWZ1bCBmb3IKICAjIHJ1bm5pbmcgcm9vdGxlc3MgYnVpbGRraXQgaW5zaWRlIGEgY29udGFpbmVyLgogIG5vUHJvY2Vzc1NhbmRib3ggPSBmYWxzZQogICMgZ2MgZW5hYmxlcy9kaXNhYmxlcyBnYXJiYWdlIGNvbGxlY3Rpb24KICBnYyA9IHRydWUKICAjIHJlc2VydmVkU3BhY2UgaXMgdGhlIG1pbmltdW0gYW1vdW50IG9mIGRpc2sgc3BhY2UgZ3VhcmFudGVlZCB0byBiZQogICMgcmV0YWluZWQgYnkgdGhpcyBidWlsZGtpdCB3b3JrZXIgLSBhbnkgdXNhZ2UgYmVsb3cgdGhpcyB0aHJlc2hvbGQgd2lsbCBub3QKICAjIGJlIHJlY2xhaW1lZCBkdXJpbmcgZ2FyYmFnZSBjb2xsZWN0aW9uLgogICMgYWxsIGRpc2sgc3BhY2UgcGFyYW1ldGVycyBjYW4gYmUgYW4gaW50ZWdlciBudW1iZXIgb2YgYnl0ZXMgKGUuZy4KICAjIDUxMjAwMDAwMCksIGEgc3RyaW5nIHdpdGggYSB1bml0IChlLmcuICI1MTJNQiIpLCBvciBhIHN0cmluZyBwZXJjZW50YWdlCiAgIyBvZiB0aGUgdG90YWwgZGlzayBzcGFjZSAoZS5nLiAiMTAlIikKICByZXNlcnZlZFNwYWNlID0gIjMwJSIKICAjIG1heFVzZWRTcGFjZSBpcyB0aGUgbWF4aW11bSBhbW91bnQgb2YgZGlzayBzcGFjZSB0aGF0IG1heSBiZSB1c2VkIGJ5CiAgIyB0aGlzIGJ1aWxka2l0IHdvcmtlciAtIGFueSB1c2FnZSBhYm92ZSB0aGlzIHRocmVzaG9sZCB3aWxsIGJlIHJlY2xhaW1lZAogICMgZHVyaW5nIGdhcmJhZ2UgY29sbGVjdGlvbi4KICBtYXhVc2VkU3BhY2UgPSAiNjAlIgogICMgbWluRnJlZVNwYWNlIGlzIHRoZSB0YXJnZXQgYW1vdW50IG9mIGZyZWUgZGlzayBzcGFjZSB0aGF0IHRoZSBnYXJiYWdlCiAgIyBjb2xsZWN0b3Igd2lsbCBhdHRlbXB0IHRvIGxlYXZlIC0gaG93ZXZlciwgaXQgd2lsbCBuZXZlciBiZSBib3VnaHQgYmVsb3cKICAjIHJlc2VydmVkU3BhY2UuCiAgbWluRnJlZVNwYWNlID0gIjIwR0IiCiAgIyBhbHRlcm5hdGUgT0NJIHdvcmtlciBiaW5hcnkgbmFtZShleGFtcGxlICdjcnVuJyksIGJ5IGRlZmF1bHQgZWl0aGVyIAogICMgYnVpbGRraXQtcnVuYyBvciBydW5jIGJpbmFyeSBpcyB1c2VkCiAgYmluYXJ5ID0gIiIKICAjIG5hbWUgb2YgdGhlIGFwcGFybW9yIHByb2ZpbGUgdGhhdCBzaG91bGQgYmUgdXNlZCB0byBjb25zdHJhaW4gYnVpbGQgY29udGFpbmVycy4KICAjIHRoZSBwcm9maWxlIHNob3VsZCBhbHJlYWR5IGJlIGxvYWRlZCAoYnkgYSBoaWdoZXIgbGV2ZWwgc3lzdGVtKSBiZWZvcmUgY3JlYXRpbmcgYSB3b3JrZXIuCiAgYXBwYXJtb3ItcHJvZmlsZSA9ICIiCiAgIyBsaW1pdCB0aGUgbnVtYmVyIG9mIHBhcmFsbGVsIGJ1aWxkIHN0ZXBzIHRoYXQgY2FuIHJ1biBhdCB0aGUgc2FtZSB0aW1lCiAgbWF4LXBhcmFsbGVsaXNtID0gNAogICMgbWFpbnRhaW4gYSBwb29sIG9mIHJldXNhYmxlIENOSSBuZXR3b3JrIG5hbWVzcGFjZXMgdG8gYW1vcnRpemUgdGhlIG92ZXJoZWFkCiAgIyBvZiBhbGxvY2F0aW5nIGFuZCByZWxlYXNpbmcgdGhlIG5hbWVzcGFjZXMKICBjbmlQb29sU2l6ZSA9IDE2CgogIFt3b3JrZXIub2NpLmxhYmVsc10KICAgICJmb28iID0gImJhciIKCiAgW1t3b3JrZXIub2NpLmdjcG9saWN5XV0KICAgICMgcmVzZXJ2ZWRTcGFjZSBpcyB0aGUgbWluaW11bSBhbW91bnQgb2YgZGlzayBzcGFjZSBndWFyYW50ZWVkIHRvIGJlCiAgICAjIHJldGFpbmVkIGJ5IHRoaXMgcG9saWN5IC0gYW55IHVzYWdlIGJlbG93IHRoaXMgdGhyZXNob2xkIHdpbGwgbm90IGJlCiAgICAjIHJlY2xhaW1lZCBkdXJpbmcgIyBnYXJiYWdlIGNvbGxlY3Rpb24uCiAgICByZXNlcnZlZFNwYWNlID0gIjUxMk1CIgogICAgIyBtYXhVc2VkU3BhY2UgaXMgdGhlIG1heGltdW0gYW1vdW50IG9mIGRpc2sgc3BhY2UgdGhhdCBtYXkgYmUgdXNlZCBieSB0aGlzCiAgICAjIHBvbGljeSAtIGFueSB1c2FnZSBhYm92ZSB0aGlzIHRocmVzaG9sZCB3aWxsIGJlIHJlY2xhaW1lZCBkdXJpbmcgZ2FyYmFnZQogICAgIyBjb2xsZWN0aW9uLgogICAgbWF4VXNlZFNwYWNlID0gIjFHQiIKICAgICMgbWluRnJlZVNwYWNlIGlzIHRoZSB0YXJnZXQgYW1vdW50IG9mIGZyZWUgZGlzayBzcGFjZSB0aGF0IHRoZSBnYXJiYWdlCiAgICAjIGNvbGxlY3RvciB3aWxsIGF0dGVtcHQgdG8gbGVhdmUgLSBob3dldmVyLCBpdCB3aWxsIG5ldmVyIGJlIGJvdWdodCBiZWxvdwogICAgIyByZXNlcnZlZFNwYWNlLgogICAgbWluRnJlZVNwYWNlID0gIjEwR0IiCiAgICAjIGtlZXBEdXJhdGlvbiBjYW4gYmUgYW4gaW50ZWdlciBudW1iZXIgb2Ygc2Vjb25kcyAoZS5nLiAxNzI4MDApLCBvciBhCiAgICAjIHN0cmluZyBkdXJhdGlvbiAoZS5nLiAiNDhoIikKICAgIGtlZXBEdXJhdGlvbiA9ICI0OGgiCiAgICBmaWx0ZXJzID0gWyAidHlwZT09c291cmNlLmxvY2FsIiwgInR5cGU9PWV4ZWMuY2FjaGVtb3VudCIsICJ0eXBlPT1zb3VyY2UuZ2l0LmNoZWNrb3V0Il0KICBbW3dvcmtlci5vY2kuZ2Nwb2xpY3ldXQogICAgYWxsID0gdHJ1ZQogICAgcmVzZXJ2ZWRTcGFjZSA9IDEwMjQwMDAwMDAKClt3b3JrZXIuY29udGFpbmVyZF0KICBhZGRyZXNzID0gIi9ydW4vY29udGFpbmVyZC9jb250YWluZXJkLnNvY2siCiAgZW5hYmxlZCA9IHRydWUKICBwbGF0Zm9ybXMgPSBbICJsaW51eC9hbWQ2NCIsICJsaW51eC9hcm02NCIgXQogIG5hbWVzcGFjZSA9ICJidWlsZGtpdCIKCiAgIyBnYyBlbmFibGVzL2Rpc2FibGVzIGdhcmJhZ2UgY29sbGVjdGlvbgogIGdjID0gdHJ1ZQogICMgcmVzZXJ2ZWRTcGFjZSBpcyB0aGUgbWluaW11bSBhbW91bnQgb2YgZGlzayBzcGFjZSBndWFyYW50ZWVkIHRvIGJlCiAgIyByZXRhaW5lZCBieSB0aGlzIGJ1aWxka2l0IHdvcmtlciAtIGFueSB1c2FnZSBiZWxvdyB0aGlzIHRocmVzaG9sZCB3aWxsIG5vdAogICMgYmUgcmVjbGFpbWVkIGR1cmluZyBnYXJiYWdlIGNvbGxlY3Rpb24uCiAgIyBhbGwgZGlzayBzcGFjZSBwYXJhbWV0ZXJzIGNhbiBiZSBhbiBpbnRlZ2VyIG51bWJlciBvZiBieXRlcyAoZS5nLgogICMgNTEyMDAwMDAwKSwgYSBzdHJpbmcgd2l0aCBhIHVuaXQgKGUuZy4gIjUxMk1CIiksIG9yIGEgc3RyaW5nIHBlcmNlbnRhZ2UKICAjIG9mIHRoZSB0b3RhbCBkaXNrIHNwYWNlIChlLmcuICIxMCUiKQogIHJlc2VydmVkU3BhY2UgPSAiMzAlIgogICMgbWF4VXNlZFNwYWNlIGlzIHRoZSBtYXhpbXVtIGFtb3VudCBvZiBkaXNrIHNwYWNlIHRoYXQgbWF5IGJlIHVzZWQgYnkKICAjIHRoaXMgYnVpbGRraXQgd29ya2VyIC0gYW55IHVzYWdlIGFib3ZlIHRoaXMgdGhyZXNob2xkIHdpbGwgYmUgcmVjbGFpbWVkCiAgIyBkdXJpbmcgZ2FyYmFnZSBjb2xsZWN0aW9uLgogIG1heFVzZWRTcGFjZSA9ICI2MCUiCiAgIyBtaW5GcmVlU3BhY2UgaXMgdGhlIHRhcmdldCBhbW91bnQgb2YgZnJlZSBkaXNrIHNwYWNlIHRoYXQgdGhlIGdhcmJhZ2UKICAjIGNvbGxlY3RvciB3aWxsIGF0dGVtcHQgdG8gbGVhdmUgLSBob3dldmVyLCBpdCB3aWxsIG5ldmVyIGJlIGJvdWdodCBiZWxvdwogICMgcmVzZXJ2ZWRTcGFjZS4KICBtaW5GcmVlU3BhY2UgPSAiMjBHQiIKICAjIGxpbWl0IHRoZSBudW1iZXIgb2YgcGFyYWxsZWwgYnVpbGQgc3RlcHMgdGhhdCBjYW4gcnVuIGF0IHRoZSBzYW1lIHRpbWUKICBtYXgtcGFyYWxsZWxpc20gPSA0CiAgIyBtYWludGFpbiBhIHBvb2wgb2YgcmV1c2FibGUgQ05JIG5ldHdvcmsgbmFtZXNwYWNlcyB0byBhbW9ydGl6ZSB0aGUgb3ZlcmhlYWQKICAjIG9mIGFsbG9jYXRpbmcgYW5kIHJlbGVhc2luZyB0aGUgbmFtZXNwYWNlcwogIGNuaVBvb2xTaXplID0gMTYKICAjIGRlZmF1bHRDZ3JvdXBQYXJlbnQgc2V0cyB0aGUgcGFyZW50IGNncm91cCBvZiBhbGwgY29udGFpbmVycy4KICBkZWZhdWx0Q2dyb3VwUGFyZW50ID0gImJ1aWxka2l0IgoKICBbd29ya2VyLmNvbnRhaW5lcmQubGFiZWxzXQogICAgImZvbyIgPSAiYmFyIgoKICAjIGNvbmZpZ3VyZSB0aGUgY29udGFpbmVyZCBydW50aW1lCiAgW3dvcmtlci5jb250YWluZXJkLnJ1bnRpbWVdCiAgICBuYW1lID0gImlvLmNvbnRhaW5lcmQucnVuYy52MiIKICAgIHBhdGggPSAiL3BhdGgvdG8vY29udGFpbmVyZC9ydW5jL3NoaW0iCiAgICBvcHRpb25zID0geyBCaW5hcnlOYW1lID0gInJ1bmMiIH0KCiAgW1t3b3JrZXIuY29udGFpbmVyZC5nY3BvbGljeV1dCiAgICByZXNlcnZlZFNwYWNlID0gNTEyMDAwMDAwCiAgICBrZWVwRHVyYXRpb24gPSAxNzI4MDAKICAgIGZpbHRlcnMgPSBbICJ0eXBlPT1zb3VyY2UubG9jYWwiLCAidHlwZT09ZXhlYy5jYWNoZW1vdW50IiwgInR5cGU9PXNvdXJjZS5naXQuY2hlY2tvdXQiXQogIFtbd29ya2VyLmNvbnRhaW5lcmQuZ2Nwb2xpY3ldXQogICAgYWxsID0gdHJ1ZQogICAgcmVzZXJ2ZWRTcGFjZSA9IDEwMjQwMDAwMDAKCiMgcmVnaXN0cnkgY29uZmlndXJlcyBhIG5ldyBEb2NrZXIgcmVnaXN0ZXIgdXNlZCBmb3IgY2FjaGUgaW1wb3J0IG9yIG91dHB1dC4KW3JlZ2lzdHJ5LiJkb2NrZXIuaW8iXQogICMgbWlycm9yIGNvbmZpZ3VyYXRpb24gdG8gaGFuZGxlIHBhdGggaW4gY2FzZSBhIG1pcnJvciByZWdpc3RyeSByZXF1aXJlcyBhIC9wcm9qZWN0IHBhdGggcmF0aGVyIHRoYW4ganVzdCBhIGhvc3Q6cG9ydAogIG1pcnJvcnMgPSBbInlvdXJtaXJyb3IubG9jYWw6NTAwMCIsICJjb3JlLmhhcmJvci5kb21haW4vcHJveHkuZG9ja2VyLmlvIl0KICAjIFVzZSBwbGFpbiBIVFRQIHRvIGNvbm5lY3QgdG8gdGhlIG1pcnJvcnMuCiAgaHR0cCA9IHRydWUKICAjIFVzZSBIVFRQUyB3aXRoIHNlbGYtc2lnbmVkIGNlcnRpZmljYXRlcy4gRG8gbm90IGVuYWJsZSB0aGlzIHRvZ2V0aGVyIHdpdGggYGh0dHBgLgogIGluc2VjdXJlID0gdHJ1ZQogICMgSWYgeW91IHVzZSB0b2tlbiBhdXRoIHdpdGggc2VsZi1zaWduZWQgY2VydGlmaWNhdGVzLAogICMgdGhlbiBidWlsZGN0bCBhbHNvIG5lZWRzIHRvIHRydXN0IHRoZSB0b2tlbiBwcm92aWRlciBDQSAoZm9yIGV4YW1wbGUsIGNlcnRpZmljYXRlcyB0aGF0IGFyZSBjb25maWd1cmVkIGZvciByZWdpc3RyeSkKICAjIGJlY2F1c2UgYnVpbGRjdGwgcHVsbHMgdG9rZW5zIGRpcmVjdGx5IHdpdGhvdXQgZGFlbW9uIHByb2Nlc3MKICBjYT1bIi9ldGMvY29uZmlnL215Y2EucGVtIl0KICBbW3JlZ2lzdHJ5LiJkb2NrZXIuaW8iLmtleXBhaXJdXQogICAga2V5PSIvZXRjL2NvbmZpZy9rZXkucGVtIgogICAgY2VydD0iL2V0Yy9jb25maWcvY2VydC5wZW0iCgojIG9wdGlvbmFsbHkgbWlycm9yIGNvbmZpZ3VyYXRpb24gY2FuIGJlIGRvbmUgYnkgZGVmaW5pbmcgaXQgYXMgYSByZWdpc3RyeS4KW3JlZ2lzdHJ5LiJ5b3VybWlycm9yLmxvY2FsOjUwMDAiXQogIGh0dHAgPSB0cnVlCgojIEZyb250ZW5kIGNvbnRyb2wKW2Zyb250ZW5kLiJkb2NrZXJmaWxlLnYwIl0KICBlbmFibGVkID0gdHJ1ZQoKW2Zyb250ZW5kLiJnYXRld2F5LnYwIl0KICBlbmFibGVkID0gdHJ1ZQogICMgSWYgYWxsb3dlZFJlcG9zaXRvcmllcyBpcyBlbXB0eSwgYWxsIGdhdGV3YXkgc291cmNlcyBhcmUgYWxsb3dlZC4KICAjIE90aGVyd2lzZSwgb25seSB0aGUgbGlzdGVkIHJlcG9zaXRvcmllcyBhcmUgYWxsb3dlZCBhcyBhIGdhdGV3YXkgc291cmNlLgogICMgCiAgIyBOT1RFOiBPbmx5IHRoZSByZXBvc2l0b3J5IG5hbWUgKHdpdGhvdXQgdGFnKSBpcyBjb21wYXJlZC4KICAjCiAgIyBFeGFtcGxlOgogICMgYWxsb3dlZFJlcG9zaXRvcmllcyA9IFsgImRvY2tlci1yZWdpc3RyeS53aWtpbWVkaWEub3JnL3JlcG9zL3JlbGVuZy9ibHViYmVyL2J1aWxka2l0IiBdCiAgYWxsb3dlZFJlcG9zaXRvcmllcyA9IFtdCgpbc3lzdGVtXQogICMgaG93IG9mdGVuIGJ1aWxka2l0IHNjYW5zIGZvciBjaGFuZ2VzIGluIHRoZSBzdXBwb3J0ZWQgZW11bGF0ZWQgcGxhdGZvcm1zCiAgcGxhdGZvcm1zQ2FjaGVNYXhBZ2UgPSAiMWgiCiAgIyBtYXhSZWdpc3RyeUNvbmN1cnJlbmN5IHNldHMgdGhlIG1heGltdW0gbnVtYmVyIG9mIGNvbmN1cnJlbnQgY29ubmVjdGlvbnMKICAjIHBlciByZWdpc3RyeS4gSWYgdW5zZXQsIHRoZSBkZWZhdWx0IGNvbmN1cnJlbmN5IGxpbWl0IGlzIHVzZWQuCiAgbWF4UmVnaXN0cnlDb25jdXJyZW5jeSA9IDQKCgojIG9wdGlvbmFsIHNpZ25lZCBjYWNoZSBjb25maWd1cmF0aW9uIGZvciBHaXRIdWIgQWN0aW9ucyBiYWNrZW5kCltnaGFjYWNoZS5zaWduXQojIGNvbW1hbmQgdGhhdCBzaWducyB0aGUgcGF5bG9hZCBpbiBzdGRpbiBhbmQgb3V0cHV0cyB0aGUgc2lnbmF0dXJlIHRvIHN0ZG91dC4gTm9ybWFsbHkgeW91IHdhbnQgY29zaWduIHRvIHByb2R1Y2UgdGhlIHNpZ25hdHVyZSBieXRlcy4KY21kID0gIiIKW2doYWNhY2hlLnZlcmlmeV0KcmVxdWlyZWQgPSBmYWxzZQpbZ2hhY2FjaGUudmVyaWZ5LnBvbGljeV0KdGltZXN0YW1wVGhyZXNob2xkID0gMQp0bG9nVGhyZXNob2xkID0gMQojIGNldGlmaWNhdGUgcHJvcGVydGllcyB0aGF0IG5lZWQgdG8gbWF0Y2guIFNpbXBsZSB3aWxkY2FyZHMgKCopIGFyZSBzdXBwb3J0ZWQuCmNlcnRpZmljYXRlSXNzdWVyID0gIiIKc3ViamVjdEFsdGVybmF0aXZlTmFtZSA9ICIiCmJ1aWxkU2lnbmVyVVJJID0gIiI=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=c># root is where all buildkit state is stored.</span>
+</span></span><span class=line><span class=cl><span class=nx>root</span> <span class=p>=</span> <span class=s2>&#34;/var/lib/buildkit&#34;</span>
+</span></span><span class=line><span class=cl><span class=c># insecure-entitlements allows insecure entitlements, disabled by default.</span>
+</span></span><span class=line><span class=cl><span class=nx>insecure-entitlements</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;network.host&#34;</span><span class=p>,</span> <span class=s2>&#34;security.insecure&#34;</span><span class=p>,</span> <span class=s2>&#34;device&#34;</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c># proxyNetwork enables proxy network enforcement for all builds, disabled by default.</span>
+</span></span><span class=line><span class=cl><span class=c># It can also be enabled with buildkitd --proxy-network.</span>
+</span></span><span class=line><span class=cl><span class=nx>proxyNetwork</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=c># provenanceEnvDir is the directory where extra config is loaded that is added</span>
+</span></span><span class=line><span class=cl><span class=c># to the provenance of builds:</span>
+</span></span><span class=line><span class=cl><span class=c># slsa v0.2: invocation.environment.*</span>
+</span></span><span class=line><span class=cl><span class=c># slsa v1: buildDefinition.internalParameters.*</span>
+</span></span><span class=line><span class=cl><span class=nx>provenanceEnvDir</span> <span class=p>=</span> <span class=s2>&#34;/etc/buildkit/provenance.d&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>log</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># log formatter: json or text</span>
+</span></span><span class=line><span class=cl>  <span class=nx>format</span> <span class=p>=</span> <span class=s2>&#34;text&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c># log level (error/warn/info/debug/trace)</span>
+</span></span><span class=line><span class=cl>  <span class=nx>level</span> <span class=p>=</span> <span class=s2>&#34;info&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>dns</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>nameservers</span><span class=p>=[</span><span class=s2>&#34;1.1.1.1&#34;</span><span class=p>,</span><span class=s2>&#34;8.8.8.8&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>options</span><span class=p>=[</span><span class=s2>&#34;edns0&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>searchDomains</span><span class=p>=[</span><span class=s2>&#34;example.com&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>grpc</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>address</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;tcp://0.0.0.0:1234&#34;</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># debugAddress is address for attaching go profiles and debuggers.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>debugAddress</span> <span class=p>=</span> <span class=s2>&#34;0.0.0.0:6060&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>uid</span> <span class=p>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>  <span class=nx>gid</span> <span class=p>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>grpc</span><span class=p>.</span><span class=nx>tls</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>cert</span> <span class=p>=</span> <span class=s2>&#34;/etc/buildkit/tls.crt&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>key</span> <span class=p>=</span> <span class=s2>&#34;/etc/buildkit/tls.key&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>ca</span> <span class=p>=</span> <span class=s2>&#34;/etc/buildkit/tlsca.crt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>otel</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># OTEL collector trace socket path</span>
+</span></span><span class=line><span class=cl>  <span class=nx>socketPath</span> <span class=p>=</span> <span class=s2>&#34;/run/buildkit/otel-grpc.sock&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>cdi</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># Disables support of the Container Device Interface (CDI).</span>
+</span></span><span class=line><span class=cl>  <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># List of directories to scan for CDI spec files. For more details about CDI</span>
+</span></span><span class=line><span class=cl>  <span class=c># specification, please refer to https://github.com/cncf-tags/container-device-interface/blob/main/SPEC.md#cdi-json-specification</span>
+</span></span><span class=line><span class=cl>  <span class=nx>specDirs</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;/etc/cdi&#34;</span><span class=p>,</span> <span class=s2>&#34;/var/run/cdi&#34;</span><span class=p>,</span> <span class=s2>&#34;/etc/buildkit/cdi&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># config for build history API that stores information about completed build commands</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>history</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># maxAge is the maximum age of history entries to keep, in seconds.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxAge</span> <span class=p>=</span> <span class=mi>172800</span>
+</span></span><span class=line><span class=cl>  <span class=c># maxEntries is the maximum number of history entries to keep. When the</span>
+</span></span><span class=line><span class=cl>  <span class=c># history section is omitted, the default is 50. If only maxAge is set,</span>
+</span></span><span class=line><span class=cl>  <span class=c># all entries older than maxAge are removed.</span>
+</span></span><span class=line><span class=cl>  <span class=c># Setting this value to 0 prevents recording new build history, including</span>
+</span></span><span class=line><span class=cl>  <span class=c># active-build events. Existing records remain available until normal GC.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxEntries</span> <span class=p>=</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>enabled</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># platforms is manually configure platforms, detected automatically if unset.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>platforms</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;linux/amd64&#34;</span><span class=p>,</span> <span class=s2>&#34;linux/arm64&#34;</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>snapshotter</span> <span class=p>=</span> <span class=s2>&#34;auto&#34;</span> <span class=c># overlayfs or native, default value is &#34;auto&#34;.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>rootless</span> <span class=p>=</span> <span class=kc>false</span> <span class=c># see docs/rootless.md for the details on rootless mode.</span>
+</span></span><span class=line><span class=cl>  <span class=c># Whether run subprocesses in main pid namespace or not, this is useful for</span>
+</span></span><span class=line><span class=cl>  <span class=c># running rootless buildkit inside a container.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>noProcessSandbox</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>  <span class=c># gc enables/disables garbage collection</span>
+</span></span><span class=line><span class=cl>  <span class=nx>gc</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># reservedSpace is the minimum amount of disk space guaranteed to be</span>
+</span></span><span class=line><span class=cl>  <span class=c># retained by this buildkit worker - any usage below this threshold will not</span>
+</span></span><span class=line><span class=cl>  <span class=c># be reclaimed during garbage collection.</span>
+</span></span><span class=line><span class=cl>  <span class=c># all disk space parameters can be an integer number of bytes (e.g.</span>
+</span></span><span class=line><span class=cl>  <span class=c># 512000000), a string with a unit (e.g. &#34;512MB&#34;), or a string percentage</span>
+</span></span><span class=line><span class=cl>  <span class=c># of the total disk space (e.g. &#34;10%&#34;)</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;30%&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># maxUsedSpace is the maximum amount of disk space that may be used by</span>
+</span></span><span class=line><span class=cl>  <span class=c># this buildkit worker - any usage above this threshold will be reclaimed</span>
+</span></span><span class=line><span class=cl>  <span class=c># during garbage collection.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;60%&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># minFreeSpace is the target amount of free disk space that the garbage</span>
+</span></span><span class=line><span class=cl>  <span class=c># collector will attempt to leave - however, it will never be bought below</span>
+</span></span><span class=line><span class=cl>  <span class=c># reservedSpace.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>minFreeSpace</span> <span class=p>=</span> <span class=s2>&#34;20GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># alternate OCI worker binary name(example &#39;crun&#39;), by default either </span>
+</span></span><span class=line><span class=cl>  <span class=c># buildkit-runc or runc binary is used</span>
+</span></span><span class=line><span class=cl>  <span class=nx>binary</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># name of the apparmor profile that should be used to constrain build containers.</span>
+</span></span><span class=line><span class=cl>  <span class=c># the profile should already be loaded (by a higher level system) before creating a worker.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>apparmor-profile</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># limit the number of parallel build steps that can run at the same time</span>
+</span></span><span class=line><span class=cl>  <span class=nx>max-parallelism</span> <span class=p>=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>  <span class=c># maintain a pool of reusable CNI network namespaces to amortize the overhead</span>
+</span></span><span class=line><span class=cl>  <span class=c># of allocating and releasing the namespaces</span>
+</span></span><span class=line><span class=cl>  <span class=nx>cniPoolSize</span> <span class=p>=</span> <span class=mi>16</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>labels</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;foo&#34;</span> <span class=p>=</span> <span class=s2>&#34;bar&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=c># reservedSpace is the minimum amount of disk space guaranteed to be</span>
+</span></span><span class=line><span class=cl>    <span class=c># retained by this policy - any usage below this threshold will not be</span>
+</span></span><span class=line><span class=cl>    <span class=c># reclaimed during # garbage collection.</span>
+</span></span><span class=line><span class=cl>    <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;512MB&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c># maxUsedSpace is the maximum amount of disk space that may be used by this</span>
+</span></span><span class=line><span class=cl>    <span class=c># policy - any usage above this threshold will be reclaimed during garbage</span>
+</span></span><span class=line><span class=cl>    <span class=c># collection.</span>
+</span></span><span class=line><span class=cl>    <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;1GB&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c># minFreeSpace is the target amount of free disk space that the garbage</span>
+</span></span><span class=line><span class=cl>    <span class=c># collector will attempt to leave - however, it will never be bought below</span>
+</span></span><span class=line><span class=cl>    <span class=c># reservedSpace.</span>
+</span></span><span class=line><span class=cl>    <span class=nx>minFreeSpace</span> <span class=p>=</span> <span class=s2>&#34;10GB&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c># keepDuration can be an integer number of seconds (e.g. 172800), or a</span>
+</span></span><span class=line><span class=cl>    <span class=c># string duration (e.g. &#34;48h&#34;)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>keepDuration</span> <span class=p>=</span> <span class=s2>&#34;48h&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>filters</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;type==source.local&#34;</span><span class=p>,</span> <span class=s2>&#34;type==exec.cachemount&#34;</span><span class=p>,</span> <span class=s2>&#34;type==source.git.checkout&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>oci</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>all</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=mi>1024000000</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>containerd</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>address</span> <span class=p>=</span> <span class=s2>&#34;/run/containerd/containerd.sock&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>enabled</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=nx>platforms</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;linux/amd64&#34;</span><span class=p>,</span> <span class=s2>&#34;linux/arm64&#34;</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>namespace</span> <span class=p>=</span> <span class=s2>&#34;buildkit&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c># gc enables/disables garbage collection</span>
+</span></span><span class=line><span class=cl>  <span class=nx>gc</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># reservedSpace is the minimum amount of disk space guaranteed to be</span>
+</span></span><span class=line><span class=cl>  <span class=c># retained by this buildkit worker - any usage below this threshold will not</span>
+</span></span><span class=line><span class=cl>  <span class=c># be reclaimed during garbage collection.</span>
+</span></span><span class=line><span class=cl>  <span class=c># all disk space parameters can be an integer number of bytes (e.g.</span>
+</span></span><span class=line><span class=cl>  <span class=c># 512000000), a string with a unit (e.g. &#34;512MB&#34;), or a string percentage</span>
+</span></span><span class=line><span class=cl>  <span class=c># of the total disk space (e.g. &#34;10%&#34;)</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=s2>&#34;30%&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># maxUsedSpace is the maximum amount of disk space that may be used by</span>
+</span></span><span class=line><span class=cl>  <span class=c># this buildkit worker - any usage above this threshold will be reclaimed</span>
+</span></span><span class=line><span class=cl>  <span class=c># during garbage collection.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxUsedSpace</span> <span class=p>=</span> <span class=s2>&#34;60%&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># minFreeSpace is the target amount of free disk space that the garbage</span>
+</span></span><span class=line><span class=cl>  <span class=c># collector will attempt to leave - however, it will never be bought below</span>
+</span></span><span class=line><span class=cl>  <span class=c># reservedSpace.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>minFreeSpace</span> <span class=p>=</span> <span class=s2>&#34;20GB&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># limit the number of parallel build steps that can run at the same time</span>
+</span></span><span class=line><span class=cl>  <span class=nx>max-parallelism</span> <span class=p>=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>  <span class=c># maintain a pool of reusable CNI network namespaces to amortize the overhead</span>
+</span></span><span class=line><span class=cl>  <span class=c># of allocating and releasing the namespaces</span>
+</span></span><span class=line><span class=cl>  <span class=nx>cniPoolSize</span> <span class=p>=</span> <span class=mi>16</span>
+</span></span><span class=line><span class=cl>  <span class=c># defaultCgroupParent sets the parent cgroup of all containers.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>defaultCgroupParent</span> <span class=p>=</span> <span class=s2>&#34;buildkit&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>containerd</span><span class=p>.</span><span class=nx>labels</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;foo&#34;</span> <span class=p>=</span> <span class=s2>&#34;bar&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c># configure the containerd runtime</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>containerd</span><span class=p>.</span><span class=nx>runtime</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span> <span class=p>=</span> <span class=s2>&#34;io.containerd.runc.v2&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>path</span> <span class=p>=</span> <span class=s2>&#34;/path/to/containerd/runc/shim&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>options</span> <span class=p>=</span> <span class=p>{</span> <span class=nx>BinaryName</span> <span class=p>=</span> <span class=s2>&#34;runc&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>containerd</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=mi>512000000</span>
+</span></span><span class=line><span class=cl>    <span class=nx>keepDuration</span> <span class=p>=</span> <span class=mi>172800</span>
+</span></span><span class=line><span class=cl>    <span class=nx>filters</span> <span class=p>=</span> <span class=p>[</span> <span class=s2>&#34;type==source.local&#34;</span><span class=p>,</span> <span class=s2>&#34;type==exec.cachemount&#34;</span><span class=p>,</span> <span class=s2>&#34;type==source.git.checkout&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>worker</span><span class=p>.</span><span class=nx>containerd</span><span class=p>.</span><span class=nx>gcpolicy</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>all</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=nx>reservedSpace</span> <span class=p>=</span> <span class=mi>1024000000</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># registry configures a new Docker register used for cache import or output.</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>registry</span><span class=p>.</span><span class=s2>&#34;docker.io&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># mirror configuration to handle path in case a mirror registry requires a /project path rather than just a host:port</span>
+</span></span><span class=line><span class=cl>  <span class=nx>mirrors</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;yourmirror.local:5000&#34;</span><span class=p>,</span> <span class=s2>&#34;core.harbor.domain/proxy.docker.io&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># Use plain HTTP to connect to the mirrors.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>http</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># Use HTTPS with self-signed certificates. Do not enable this together with `http`.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>insecure</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># If you use token auth with self-signed certificates,</span>
+</span></span><span class=line><span class=cl>  <span class=c># then buildctl also needs to trust the token provider CA (for example, certificates that are configured for registry)</span>
+</span></span><span class=line><span class=cl>  <span class=c># because buildctl pulls tokens directly without daemon process</span>
+</span></span><span class=line><span class=cl>  <span class=nx>ca</span><span class=p>=[</span><span class=s2>&#34;/etc/config/myca.pem&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>registry</span><span class=p>.</span><span class=s2>&#34;docker.io&#34;</span><span class=p>.</span><span class=nx>keypair</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>key</span><span class=p>=</span><span class=s2>&#34;/etc/config/key.pem&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>cert</span><span class=p>=</span><span class=s2>&#34;/etc/config/cert.pem&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># optionally mirror configuration can be done by defining it as a registry.</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>registry</span><span class=p>.</span><span class=s2>&#34;yourmirror.local:5000&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>http</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Frontend control</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>frontend</span><span class=p>.</span><span class=s2>&#34;dockerfile.v0&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>enabled</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>frontend</span><span class=p>.</span><span class=s2>&#34;gateway.v0&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>enabled</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>  <span class=c># If allowedRepositories is empty, all gateway sources are allowed.</span>
+</span></span><span class=line><span class=cl>  <span class=c># Otherwise, only the listed repositories are allowed as a gateway source.</span>
+</span></span><span class=line><span class=cl>  <span class=c># </span>
+</span></span><span class=line><span class=cl>  <span class=c># NOTE: Only the repository name (without tag) is compared.</span>
+</span></span><span class=line><span class=cl>  <span class=c>#</span>
+</span></span><span class=line><span class=cl>  <span class=c># Example:</span>
+</span></span><span class=line><span class=cl>  <span class=c># allowedRepositories = [ &#34;docker-registry.wikimedia.org/repos/releng/blubber/buildkit&#34; ]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>allowedRepositories</span> <span class=p>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>system</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=c># how often buildkit scans for changes in the supported emulated platforms</span>
+</span></span><span class=line><span class=cl>  <span class=nx>platformsCacheMaxAge</span> <span class=p>=</span> <span class=s2>&#34;1h&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=c># maxRegistryConcurrency sets the maximum number of concurrent connections</span>
+</span></span><span class=line><span class=cl>  <span class=c># per registry. If unset, the default concurrency limit is used.</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxRegistryConcurrency</span> <span class=p>=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># optional signed cache configuration for GitHub Actions backend</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>ghacache</span><span class=p>.</span><span class=nx>sign</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c># command that signs the payload in stdin and outputs the signature to stdout. Normally you want cosign to produce the signature bytes.</span>
+</span></span><span class=line><span class=cl><span class=nx>cmd</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>ghacache</span><span class=p>.</span><span class=nx>verify</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>required</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>ghacache</span><span class=p>.</span><span class=nx>verify</span><span class=p>.</span><span class=nx>policy</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>timestampThreshold</span> <span class=p>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=nx>tlogThreshold</span> <span class=p>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=c># cetificate properties that need to match. Simple wildcards (*) are supported.</span>
+</span></span><span class=line><span class=cl><span class=nx>certificateIssuer</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>subjectAlternativeName</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>buildSignerURI</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span></span></span></code></pre></div></div></div></div>

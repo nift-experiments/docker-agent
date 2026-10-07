@@ -1,0 +1,112 @@
+<p>This example shows how to migrate a .NET application to Docker Hardened Images.</p><p>The following examples show Dockerfiles before and after migration to Docker
+Hardened Images. Each example includes four variations:</p><ul><li>Before (Wolfi): A sample Dockerfile using Wolfi distribution images, before migrating to DHI</li><li>Before (DOI): A sample Dockerfile using Docker Official Images, before migrating to DHI</li><li>After (multi-stage): A sample Dockerfile after migrating to DHI with multi-stage builds (recommended for minimal, secure images)</li><li>After (single-stage): A sample Dockerfile after migrating to DHI with single-stage builds (simpler but results in a larger image with a broader attack surface)</li></ul><blockquote class="admonition admonition-note admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 16V12m0-4H12.01M22 12c0 5.5228-4.4772 10-10 10C6.47715 22 2 17.5228 2 12 2 6.47715 6.47715 2 12 2c5.5228.0 10 4.47715 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</span><span class=admonition-title>Note</span></div><div class=admonition-content><p>Multi-stage builds are recommended for most use cases. Single-stage builds are
+supported for simplicity, but come with tradeoffs in size and security.</p><p>You must authenticate to <code>dhi.io</code> before you can pull Docker Hardened Images.
+Use your Docker ID credentials (the same username and password you use for
+Docker Hub). If you don't have a Docker account, <a class=link href=https://docs.docker.com/accounts/individual/create-account/>create
+one</a> for free.</p><p>Run <code>docker login dhi.io</code> to authenticate.</p></div></blockquote><div class=tabs x-data="{ selected: 'Before-Wolfi' }" aria-role=tabpanel><div aria-role=tablist class=tablist><button class=tab-item :class="selected === 'Before-Wolfi' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'Before-Wolfi'">
+Before (Wolfi)
+</button>
+<button class=tab-item :class="selected === 'Before-DOI' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'Before-DOI'">
+Before (DOI)
+</button>
+<button class=tab-item :class="selected === 'After-multi-stage' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'After-multi-stage'">
+After (multi-stage)
+</button>
+<button class=tab-item :class="selected === 'After-single-stage' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'After-single-stage'">
+After (single-stage)</button></div><div><div aria-role=tab :class="selected !== 'Before-Wolfi' && 'hidden'"><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'I3N5bnRheD1kb2NrZXIvZG9ja2VyZmlsZToxCgpGUk9NIGNnci5kZXYvY2hhaW5ndWFyZC9kb3RuZXQtc2RrOmxhdGVzdC1kZXYgQVMgYnVpbGRlcgoKV09SS0RJUiAvc3JjCkNPUFkgLiAuLwoKIyBJbnN0YWxsIGFueSBhZGRpdGlvbmFsIHBhY2thZ2VzIGlmIG5lZWRlZCB1c2luZyBhcGsKIyBSVU4gYXBrIGFkZCAtLW5vLWNhY2hlIGdpdAoKUlVOIGRvdG5ldCByZXN0b3JlClJVTiBkb3RuZXQgcHVibGlzaCAtYyBSZWxlYXNlIC1vIC9zcmMvb3V0IC0tbm8tcmVzdG9yZQoKRlJPTSBjZ3IuZGV2L2NoYWluZ3VhcmQvYXNwbmV0LXJ1bnRpbWU6bGF0ZXN0CgpXT1JLRElSIC9hcHAKQ09QWSAtLWZyb209YnVpbGRlciAvc3JjL291dCAuLwoKRU5UUllQT0lOVCBbImRvdG5ldCIsICJhcHAuZGxsIl0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=c>#syntax=docker/dockerfile:1</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>cgr.dev/chainguard/dotnet-sdk:latest-dev</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=s>builder</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/src</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> . ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># Install any additional packages if needed using apk</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># RUN apk add --no-cache git</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet publish -c Release -o /src/out --no-restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>cgr.dev/chainguard/aspnet-runtime:latest</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/app</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> --from<span class=o>=</span>builder /src/out ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>ENTRYPOINT</span> <span class=p>[</span><span class=s2>&#34;dotnet&#34;</span><span class=p>,</span> <span class=s2>&#34;app.dll&#34;</span><span class=p>]</span></span></span></code></pre></div></div></div></div></div><div aria-role=tab :class="selected !== 'Before-DOI' && 'hidden'"><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'I3N5bnRheD1kb2NrZXIvZG9ja2VyZmlsZToxCgpGUk9NIG1jci5taWNyb3NvZnQuY29tL2RvdG5ldC9zZGs6OC4wIEFTIGJ1aWxkZXIKCldPUktESVIgL3NyYwpDT1BZIC4gLi8KCiMgSW5zdGFsbCBhbnkgYWRkaXRpb25hbCBwYWNrYWdlcyBpZiBuZWVkZWQgdXNpbmcgYXB0CiMgUlVOIGFwdC1nZXQgdXBkYXRlICYmIGFwdC1nZXQgaW5zdGFsbCAteSBnaXQgJiYgcm0gLXJmIC92YXIvbGliL2FwdC9saXN0cy8qCgpSVU4gZG90bmV0IHJlc3RvcmUKUlVOIGRvdG5ldCBwdWJsaXNoIC1jIFJlbGVhc2UgLW8gL2FwcCAtLW5vLXJlc3RvcmUKCkZST00gbWNyLm1pY3Jvc29mdC5jb20vZG90bmV0L2FzcG5ldDo4LjAKCldPUktESVIgL2FwcApDT1BZIC0tZnJvbT1idWlsZGVyIC9hcHAgLi8KCkVOVFJZUE9JTlQgWyJkb3RuZXQiLCAiYXBwLmRsbCJd', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=c>#syntax=docker/dockerfile:1</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>mcr.microsoft.com/dotnet/sdk:8.0</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=s>builder</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/src</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> . ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># Install any additional packages if needed using apt</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># RUN apt-get update &amp;&amp; apt-get install -y git &amp;&amp; rm -rf /var/lib/apt/lists/*</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet publish -c Release -o /app --no-restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>mcr.microsoft.com/dotnet/aspnet:8.0</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/app</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> --from<span class=o>=</span>builder /app ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>ENTRYPOINT</span> <span class=p>[</span><span class=s2>&#34;dotnet&#34;</span><span class=p>,</span> <span class=s2>&#34;app.dll&#34;</span><span class=p>]</span></span></span></code></pre></div></div></div></div></div><div aria-role=tab :class="selected !== 'After-multi-stage' && 'hidden'"><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'I3N5bnRheD1kb2NrZXIvZG9ja2VyZmlsZToxCgojID09PSBCdWlsZCBzdGFnZTogUmVzdG9yZSwgYnVpbGQsIGFuZCBwdWJsaXNoIHRoZSAuTkVUIGFwcGxpY2F0aW9uID09PQpGUk9NIGRoaS5pby9kb3RuZXQ6OC1zZGstYWxwaW5lMy4yMiBBUyBidWlsZGVyCgpXT1JLRElSIC9zcmMKQ09QWSAuIC4vCgojIEluc3RhbGwgYW55IGFkZGl0aW9uYWwgcGFja2FnZXMgaWYgbmVlZGVkIHVzaW5nIGFwawojIFJVTiBhcGsgYWRkIC0tbm8tY2FjaGUgZ2l0CgpSVU4gZG90bmV0IHJlc3RvcmUKUlVOIGRvdG5ldCBwdWJsaXNoIC1jIFJlbGVhc2UgLW8gL2FwcCAtLW5vLXJlc3RvcmUKCiMgPT09IEZpbmFsIHN0YWdlOiBDcmVhdGUgbWluaW1hbCBydW50aW1lIGltYWdlID09PQpGUk9NIGRoaS5pby9hc3BuZXRjb3JlOjgtYWxwaW5lMy4yMgoKV09SS0RJUiAvYXBwCkNPUFkgLS1mcm9tPWJ1aWxkZXIgL2FwcCAuLwoKRU5UUllQT0lOVCBbImRvdG5ldCIsICJhcHAuZGxsIl0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=c>#syntax=docker/dockerfile:1</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># === Build stage: Restore, build, and publish the .NET application ===</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>dhi.io/dotnet:8-sdk-alpine3.22</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=s>builder</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/src</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> . ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># Install any additional packages if needed using apk</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># RUN apk add --no-cache git</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet publish -c Release -o /app --no-restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># === Final stage: Create minimal runtime image ===</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>dhi.io/aspnetcore:8-alpine3.22</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/app</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> --from<span class=o>=</span>builder /app ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>ENTRYPOINT</span> <span class=p>[</span><span class=s2>&#34;dotnet&#34;</span><span class=p>,</span> <span class=s2>&#34;app.dll&#34;</span><span class=p>]</span></span></span></code></pre></div></div></div></div></div><div aria-role=tab :class="selected !== 'After-single-stage' && 'hidden'"><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'I3N5bnRheD1kb2NrZXIvZG9ja2VyZmlsZToxCgpGUk9NIGRoaS5pby9kb3RuZXQ6OC1zZGstYWxwaW5lMy4yMgoKV09SS0RJUiAvc3JjCkNPUFkgLiAuLwoKIyBJbnN0YWxsIGFueSBhZGRpdGlvbmFsIHBhY2thZ2VzIGlmIG5lZWRlZCB1c2luZyBhcGsKIyBSVU4gYXBrIGFkZCAtLW5vLWNhY2hlIGdpdAoKUlVOIGRvdG5ldCByZXN0b3JlClJVTiBkb3RuZXQgcHVibGlzaCAtYyBSZWxlYXNlIC1vIC9hcHAgLS1uby1yZXN0b3JlCgpXT1JLRElSIC9hcHAKCkVOVFJZUE9JTlQgWyJkb3RuZXQiLCAiL2FwcC9hcHAuZGxsIl0=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=c>#syntax=docker/dockerfile:1</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>FROM</span><span class=w> </span><span class=s>dhi.io/dotnet:8-sdk-alpine3.22</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/src</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>COPY</span> . ./<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># Install any additional packages if needed using apk</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=c># RUN apk add --no-cache git</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>RUN</span> dotnet publish -c Release -o /app --no-restore<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>WORKDIR</span><span class=w> </span><span class=s>/app</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=k>ENTRYPOINT</span> <span class=p>[</span><span class=s2>&#34;dotnet&#34;</span><span class=p>,</span> <span class=s2>&#34;/app/app.dll&#34;</span><span class=p>]</span></span></span></code></pre></div></div></div></div></div></div></div>

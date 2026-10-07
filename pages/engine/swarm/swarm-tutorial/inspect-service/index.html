@@ -1,0 +1,103 @@
+<p>When you have <a class=link href=https://docs.docker.com/engine/swarm/swarm-tutorial/deploy-service/>deployed a service</a> to your swarm, you can use
+the Docker CLI to see details about the service running in the swarm.</p><ol><li><p>If you haven't already, open a terminal and ssh into the machine where you
+run your manager node. For example, the tutorial uses a machine named
+<code>manager1</code>.</p></li><li><p>Run <code>docker service inspect --pretty &lt;SERVICE-ID></code> to display the details
+about a service in an easily readable format.</p><p>To see the details on the <code>helloworld</code> service:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'W21hbmFnZXIxXSQgZG9ja2VyIHNlcnZpY2UgaW5zcGVjdCAtLXByZXR0eSBoZWxsb3dvcmxkCgpJRDoJCTl1azQ2MzlxcGc3bnB3ZjNmbjJhYXNrc3IKTmFtZToJCWhlbGxvd29ybGQKU2VydmljZSBNb2RlOglSRVBMSUNBVEVECiBSZXBsaWNhczoJCTEKUGxhY2VtZW50OgpVcGRhdGVDb25maWc6CiBQYXJhbGxlbGlzbToJMQpDb250YWluZXJTcGVjOgogSW1hZ2U6CQlhbHBpbmUKIEFyZ3M6CXBpbmcgZG9ja2VyLmNvbQpSZXNvdXJjZXM6CkVuZHBvaW50IE1vZGU6ICB2aXA=', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>[manager1]$ docker service inspect --pretty helloworld
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>ID:		9uk4639qpg7npwf3fn2aasksr
+</span></span></span><span class=line><span class=cl><span class=go>Name:		helloworld
+</span></span></span><span class=line><span class=cl><span class=go>Service Mode:	REPLICATED
+</span></span></span><span class=line><span class=cl><span class=go> Replicas:		1
+</span></span></span><span class=line><span class=cl><span class=go>Placement:
+</span></span></span><span class=line><span class=cl><span class=go>UpdateConfig:
+</span></span></span><span class=line><span class=cl><span class=go> Parallelism:	1
+</span></span></span><span class=line><span class=cl><span class=go>ContainerSpec:
+</span></span></span><span class=line><span class=cl><span class=go> Image:		alpine
+</span></span></span><span class=line><span class=cl><span class=go> Args:	ping docker.com
+</span></span></span><span class=line><span class=cl><span class=go>Resources:
+</span></span></span><span class=line><span class=cl><span class=go>Endpoint Mode:  vip
+</span></span></span></code></pre></div></div></div></div><blockquote class="admonition admonition-tip admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_1749" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="1" width="17" height="22"><path d="M9.93896 22H14.939m-4.5-12h4m-2 0v6m3-.6736c2.3649-1.1235 4-3.534 4-6.3264.0-3.86599-3.134-7-7-7C8.57297 2 5.43896 5.13401 5.43896 9c0 2.7924 1.63506 5.2029 4 6.3264V16c0 .931899999999999.0 1.3978.15225 1.7654C9.79419 18.2554 10.1835 18.6448 10.6736 18.8478 11.0411 19 11.5071 19 12.439 19 13.3708 19 13.8368 19 14.2043 18.8478 14.6944 18.6448 15.0837 18.2554 15.2867 17.7654 15.439 17.3978 15.439 16.9319 15.439 16v-.6736z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_1749)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Tip</span></div><div class=admonition-content><p>To return the service details in json format, run the same command
+without the <code>--pretty</code> flag.</p></div></blockquote><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'W21hbmFnZXIxXSQgZG9ja2VyIHNlcnZpY2UgaW5zcGVjdCBoZWxsb3dvcmxkClsKewogICAgIklEIjogIjl1azQ2MzlxcGc3bnB3ZjNmbjJhYXNrc3IiLAogICAgIlZlcnNpb24iOiB7CiAgICAgICAgIkluZGV4IjogNDE4CiAgICB9LAogICAgIkNyZWF0ZWRBdCI6ICIyMDE2LTA2LTE2VDIxOjU3OjExLjYyMjIyMjMyN1oiLAogICAgIlVwZGF0ZWRBdCI6ICIyMDE2LTA2LTE2VDIxOjU3OjExLjYyMjIyMjMyN1oiLAogICAgIlNwZWMiOiB7CiAgICAgICAgIk5hbWUiOiAiaGVsbG93b3JsZCIsCiAgICAgICAgIlRhc2tUZW1wbGF0ZSI6IHsKICAgICAgICAgICAgIkNvbnRhaW5lclNwZWMiOiB7CiAgICAgICAgICAgICAgICAiSW1hZ2UiOiAiYWxwaW5lIiwKICAgICAgICAgICAgICAgICJBcmdzIjogWwogICAgICAgICAgICAgICAgICAgICJwaW5nIiwKICAgICAgICAgICAgICAgICAgICAiZG9ja2VyLmNvbSIKICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgfSwKICAgICAgICAgICAgIlJlc291cmNlcyI6IHsKICAgICAgICAgICAgICAgICJMaW1pdHMiOiB7fSwKICAgICAgICAgICAgICAgICJSZXNlcnZhdGlvbnMiOiB7fQogICAgICAgICAgICB9LAogICAgICAgICAgICAiUmVzdGFydFBvbGljeSI6IHsKICAgICAgICAgICAgICAgICJDb25kaXRpb24iOiAiYW55IiwKICAgICAgICAgICAgICAgICJNYXhBdHRlbXB0cyI6IDAKICAgICAgICAgICAgfSwKICAgICAgICAgICAgIlBsYWNlbWVudCI6IHt9CiAgICAgICAgfSwKICAgICAgICAiTW9kZSI6IHsKICAgICAgICAgICAgIlJlcGxpY2F0ZWQiOiB7CiAgICAgICAgICAgICAgICAiUmVwbGljYXMiOiAxCiAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgICJVcGRhdGVDb25maWciOiB7CiAgICAgICAgICAgICJQYXJhbGxlbGlzbSI6IDEKICAgICAgICB9LAogICAgICAgICJFbmRwb2ludFNwZWMiOiB7CiAgICAgICAgICAgICJNb2RlIjogInZpcCIKICAgICAgICB9CiAgICB9LAogICAgIkVuZHBvaW50IjogewogICAgICAgICJTcGVjIjoge30KICAgIH0KfQpd', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>[manager1]$ docker service inspect helloworld
+</span></span></span><span class=line><span class=cl><span class=go>[
+</span></span></span><span class=line><span class=cl><span class=go>{
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;ID&#34;: &#34;9uk4639qpg7npwf3fn2aasksr&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;Version&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;Index&#34;: 418
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;CreatedAt&#34;: &#34;2016-06-16T21:57:11.622222327Z&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;UpdatedAt&#34;: &#34;2016-06-16T21:57:11.622222327Z&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;Spec&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;Name&#34;: &#34;helloworld&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;TaskTemplate&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;ContainerSpec&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;Image&#34;: &#34;alpine&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;Args&#34;: [
+</span></span></span><span class=line><span class=cl><span class=go>                    &#34;ping&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>                    &#34;docker.com&#34;
+</span></span></span><span class=line><span class=cl><span class=go>                ]
+</span></span></span><span class=line><span class=cl><span class=go>            },
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;Resources&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;Limits&#34;: {},
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;Reservations&#34;: {}
+</span></span></span><span class=line><span class=cl><span class=go>            },
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;RestartPolicy&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;Condition&#34;: &#34;any&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;MaxAttempts&#34;: 0
+</span></span></span><span class=line><span class=cl><span class=go>            },
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;Placement&#34;: {}
+</span></span></span><span class=line><span class=cl><span class=go>        },
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;Mode&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;Replicated&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>                &#34;Replicas&#34;: 1
+</span></span></span><span class=line><span class=cl><span class=go>            }
+</span></span></span><span class=line><span class=cl><span class=go>        },
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;UpdateConfig&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;Parallelism&#34;: 1
+</span></span></span><span class=line><span class=cl><span class=go>        },
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;EndpointSpec&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>            &#34;Mode&#34;: &#34;vip&#34;
+</span></span></span><span class=line><span class=cl><span class=go>        }
+</span></span></span><span class=line><span class=cl><span class=go>    },
+</span></span></span><span class=line><span class=cl><span class=go>    &#34;Endpoint&#34;: {
+</span></span></span><span class=line><span class=cl><span class=go>        &#34;Spec&#34;: {}
+</span></span></span><span class=line><span class=cl><span class=go>    }
+</span></span></span><span class=line><span class=cl><span class=go>}
+</span></span></span><span class=line><span class=cl><span class=go>]
+</span></span></span></code></pre></div></div></div></div></li><li><p>Run <code>docker service ps &lt;SERVICE-ID></code> to see which nodes are running the
+service:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'W21hbmFnZXIxXSQgZG9ja2VyIHNlcnZpY2UgcHMgaGVsbG93b3JsZAoKTkFNRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIElNQUdFICAgTk9ERSAgICAgREVTSVJFRCBTVEFURSAgQ1VSUkVOVCBTVEFURSAgICAgICAgICAgRVJST1IgICAgICAgICAgICAgICBQT1JUUwpoZWxsb3dvcmxkLjEuOHAxdmV2M2ZxNXptMG1pOGcwYXM0MXczNSAgYWxwaW5lICB3b3JrZXIyICBSdW5uaW5nICAgICAgICBSdW5uaW5nIDMgbWludXRlcw==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>[manager1]$ docker service ps helloworld
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>NAME                                    IMAGE   NODE     DESIRED STATE  CURRENT STATE           ERROR               PORTS
+</span></span></span><span class=line><span class=cl><span class=go>helloworld.1.8p1vev3fq5zm0mi8g0as41w35  alpine  worker2  Running        Running 3 minutes
+</span></span></span></code></pre></div></div></div></div><p>In this case, the one instance of the <code>helloworld</code> service is running on the
+<code>worker2</code> node. You may see the service running on your manager node. By
+default, manager nodes in a swarm can execute tasks just like worker nodes.</p><p>Swarm also shows you the <code>DESIRED STATE</code> and <code>CURRENT STATE</code> of the service
+task so you can see if tasks are running according to the service
+definition.</p></li><li><p>Run <code>docker ps</code> on the node where the task is running to see details about
+the container for the task.</p><blockquote class="admonition admonition-tip admonition not-prose"><div class=admonition-header><span class=admonition-icon><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><mask id="mask0_5432_1749" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="1" width="17" height="22"><path d="M9.93896 22H14.939m-4.5-12h4m-2 0v6m3-.6736c2.3649-1.1235 4-3.534 4-6.3264.0-3.86599-3.134-7-7-7C8.57297 2 5.43896 5.13401 5.43896 9c0 2.7924 1.63506 5.2029 4 6.3264V16c0 .931899999999999.0 1.3978.15225 1.7654C9.79419 18.2554 10.1835 18.6448 10.6736 18.8478 11.0411 19 11.5071 19 12.439 19 13.3708 19 13.8368 19 14.2043 18.8478 14.6944 18.6448 15.0837 18.2554 15.2867 17.7654 15.439 17.3978 15.439 16.9319 15.439 16v-.6736z" stroke="#6C7E9D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask><g mask="url(#mask0_5432_1749)"><rect width="24" height="24" fill="currentColor" fill-opacity=".8"/></g></svg>
+</span><span class=admonition-title>Tip</span></div><div class=admonition-content><p>If <code>helloworld</code> is running on a node other than your manager node,
+you must ssh to that node.</p></div></blockquote><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'W3dvcmtlcjJdJCBkb2NrZXIgcHMKCkNPTlRBSU5FUiBJRCAgICAgICAgSU1BR0UgICAgICAgICAgICAgICBDT01NQU5EICAgICAgICAgICAgIENSRUFURUQgICAgICAgICAgICAgU1RBVFVTICAgICAgICAgICAgICBQT1JUUyAgICAgICAgICAgICAgIE5BTUVTCmU2MDlkZGU5NGU0NyAgICAgICAgYWxwaW5lOmxhdGVzdCAgICAgICAicGluZyBkb2NrZXIuY29tIiAgIDMgbWludXRlcyBhZ28gICAgICAgVXAgMyBtaW51dGVzICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhlbGxvd29ybGQuMS44cDF2ZXYzZnE1em0wbWk4ZzBhczQxdzM1', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>[worker2]$ docker ps
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=go>CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+</span></span></span><span class=line><span class=cl><span class=go>e609dde94e47        alpine:latest       &#34;ping docker.com&#34;   3 minutes ago       Up 3 minutes                            helloworld.1.8p1vev3fq5zm0mi8g0as41w35
+</span></span></span></code></pre></div></div></div></div></li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=next-steps><a class="text-black dark:text-white no-underline hover:underline" href=#next-steps>Next steps</a></h2><p>Next, you'll change the scale for the service running in the swarm.</p><a class="button not-prose" href=https://docs.docker.com/engine/swarm/swarm-tutorial/scale-service/>Change the scale</a>

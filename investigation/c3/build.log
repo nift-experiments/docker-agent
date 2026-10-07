@@ -1,0 +1,11 @@
+📦 1015 files built successfully
+time taken: 1.478249 seconds
+{
+  "model": "maintained HTML \u2192 Nift composition",
+  "composition_prepare_s": 0.05957361008040607,
+  "asset_publication_s": 0.20190390199422836,
+  "asset_files": 3479,
+  "nift_composition_s": 1.4897124129347503,
+  "total_s": 1.7511970011983067,
+  "search": "C2 frozen reference search fixture; fresh publication/indexing is not benchmarked."
+}

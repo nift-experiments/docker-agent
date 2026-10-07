@@ -1,0 +1,141 @@
+<p>In this topic learn about the features available to manage access to your
+repositories. This includes visibility, collaborators, roles, teams, and
+organization access tokens.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=repository-visibility><a class="text-black dark:text-white no-underline hover:underline" href=#repository-visibility>Repository visibility</a></h2><p>The most basic repository access is controlled via the visibility. A
+repository's visibility can be public or private.</p><p>With public visibility, the repository appears in Docker Hub search results and
+can be pulled by everyone. To manage push access to public personal
+repositories, you can use collaborators. To manage push access to public
+organization repositories, you can use roles, teams, or organization access
+tokens.</p><p>With private visibility, the repository doesn't appear in Docker Hub search
+results and is only accessible to those with granted permission. To manage push
+and pull access to private personal repositories, you can use collaborators. To
+manage push and pull access to private organization repositories, you can use
+roles, teams, or organization access tokens.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=change-repository-visibility><a class="text-black dark:text-white no-underline hover:underline" href=#change-repository-visibility>Change repository visibility</a></h3><p>When creating a repository in Docker Hub, you can set the repository visibility.
+In addition, you can set the default repository visibility when a repository is
+created in your personal repository settings. The following describes how to
+change the visibility after the repository has been created.</p><p>To change repository visibility:</p><ol><li><p>Sign in to <a class=link href=https://hub.docker.com rel=noopener>Docker Hub</a>.</p></li><li><p>Select <strong>My Hub</strong> > <strong>Repositories</strong>.</p></li><li><p>Select a repository.</p><p>The <strong>General</strong> page for the repository appears.</p></li><li><p>Select the <strong>Settings</strong> tab.</p></li><li><p>Under <strong>Visibility settings</strong>, select one of the following:</p><ul><li><strong>Make public</strong>: The repository appears in Docker Hub search results and can be
+pulled by everyone.</li><li><strong>Make private</strong>: The repository doesn't appear in Docker Hub search results
+and is only accessible to you and collaborators. In addition, if the
+repository is in an organization's namespace, then the repository
+is accessible to those with applicable roles or permissions.</li></ul></li><li><p>Type the repository's name to verify the change.</p></li><li><p>Select <strong>Make public</strong> or <strong>Make private</strong>.</p></li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=collaborators><a class="text-black dark:text-white no-underline hover:underline" href=#collaborators>Collaborators</a></h2><p>A collaborator is someone you want to give <code>push</code> and <code>pull</code> access to a
+personal repository. Collaborators aren't able to perform any administrative
+tasks such as deleting the repository or changing its visibility from private to
+public. In addition, collaborators can't add other collaborators.</p><p>Only personal repositories can use collaborators. You can add unlimited
+collaborators to public repositories, and Docker Pro accounts can add up to 1
+collaborator on private repositories.</p><p>Organization repositories can't use collaborators, but can use member roles,
+teams, or organization access tokens to manage access.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=manage-collaborators><a class="text-black dark:text-white no-underline hover:underline" href=#manage-collaborators>Manage collaborators</a></h3><ol><li><p>Sign in to <a class=link href=https://hub.docker.com rel=noopener>Docker Hub</a>.</p></li><li><p>Select <strong>My Hub</strong> > <strong>Repositories</strong>.</p><p>A list of your repositories appears.</p></li><li><p>Select a repository.</p><p>The <strong>General</strong> page for the repository appears.</p></li><li><p>Select the <strong>Collaborators</strong> tab.</p></li><li><p>Add or remove collaborators based on their Docker username.</p></li></ol><p>You can choose collaborators and manage their access to a private
+repository from that repository's <strong>Settings</strong> page.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=organization-roles><a class="text-black dark:text-white no-underline hover:underline" href=#organization-roles>Organization roles</a></h2><p>Organizations can use roles for individuals, giving them different
+permissions in the organization. For more details, see
+<a class=link href=https://docs.docker.com/security/roles-and-permissions/>Roles and
+permissions</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=organization-teams><a class="text-black dark:text-white no-underline hover:underline" href=#organization-teams>Organization teams</a></h2><p>Organizations can use teams. A team can be assigned fine-grained repository
+access.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=configure-team-repository-permissions><a class="text-black dark:text-white no-underline hover:underline" href=#configure-team-repository-permissions>Configure team repository permissions</a></h3><p>You must create a team before you are able to configure repository permissions.
+For more details, see
+<a class=link href=https://docs.docker.com/accounts/organization/manage/manage-a-team/>Create and manage a
+team</a>.</p><p>To configure team repository permissions:</p><ol><li><p>Sign in to <a class=link href=https://hub.docker.com rel=noopener>Docker Hub</a>.</p></li><li><p>Select <strong>My Hub</strong> > <strong>Repositories</strong>.</p><p>A list of your repositories appears.</p></li><li><p>Select a repository.</p><p>The <strong>General</strong> page for the repository appears.</p></li><li><p>Select the <strong>Permissions</strong> tab.</p></li><li><p>Add, modify, or remove a team's repository permissions.</p><ul><li>Add: Specify the <strong>Team</strong>, select the <strong>Permission</strong>, and then select <strong>Add</strong>.</li><li>Modify: Specify the new permission next to the team.</li><li>Remove: Select the <strong>Remove permission</strong> icon next to the team.</li></ul></li></ol><h2 class="scroll-mt-20 flex items-center gap-2" id=organization-access-tokens-oats><a class="text-black dark:text-white no-underline hover:underline" href=#organization-access-tokens-oats>Organization access tokens (OATs)</a></h2><p>Organizations can use OATs. OATs let you assign fine-grained repository access
+permissions to tokens. For more details, see
+<a class=link href=https://docs.docker.com/security/access-tokens/organization-access-tokens/>Organization access
+tokens</a>.</p><h2 class="scroll-mt-20 flex items-center gap-2" id=gated-distribution><a class="text-black dark:text-white no-underline hover:underline" href=#gated-distribution>Gated distribution</a></h2><div class="not-prose summary-bar"><div class="flex flex-wrap gap-1"><span class=font-bold>Availability:</span>
+<span>Early Access
+<span class="icon-svg icon-sm"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75.0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75.0 019.75 22.5.75.75.0 019 21.75v-4.131A15.838 15.838.0 016.382 15H2.25a.75.75.0 01-.75-.75 6.75 6.75.0 017.815-6.666zM15 6.75a2.25 2.25.0 100 4.5 2.25 2.25.0 000-4.5z" clip-rule="evenodd"/><path d="M5.26 17.242a.75.75.0 10-.897-1.203 5.243 5.243.0 00-2.05 5.022.75.75.0 00.625.627 5.243 5.243.0 005.022-2.051.75.75.0 10-1.202-.897A3.744 3.744.0 013.75 20.25c0-1.23.592-2.323 1.51-3.008z"/></svg></span></span></div></div><p>Gated distribution allows publishers to securely share private container images
+with external customers or partners, without giving them full organization
+access or visibility into your teams, collaborators, or other repositories.
+Content stays in private repositories, and external users can pull from them
+without being added to your internal organization.</p><p>This feature is ideal for commercial software publishers who want to control who
+can pull specific images while preserving a clean separation between internal
+users and external consumers.</p><p>If you are interested in Gated Distribution contact the <a href=https://www.docker.com/pricing/contact-sales/ id=dkr_docs_cs_hub_gated_distribution class=link rel=noopener>Docker Sales
+Team</a> for more information.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=distributor-members><a class="text-black dark:text-white no-underline hover:underline" href=#distributor-members>Distributor members</a></h3><p>When you invite users to an organization entitled with gated distribution, you
+assign them a role that determines their level of access. For gated
+distribution, external users are invited as <strong>distributor members</strong> within a
+specific team that you create. This role grants pull-only access to the
+repositories assigned to that team, and nothing else in your organization. See
+<a class=link href=https://docs.docker.com/security/roles-and-permissions/>Roles and permissions</a>
+for details about the access permissions for other roles.</p><p>Distributor members can't see other members in their team or organization, and
+they can't see any repositories other than the ones their team has been granted
+access to. This isolation is what makes the role suitable for distributing gated
+images to external users, partners, or customers without exposing internal
+collaborators, teams, or repositories.</p><p>Because distributor members consume licenses allocated for that role, consider
+provisioning a separate organization for gated distribution rather than adding
+distributor members to your main organization. This keeps regular members from
+inadvertently consuming the licenses set aside for external distribution.</p><h3 class="scroll-mt-20 flex items-center gap-2" id=invite-distributor-members-via-api><a class="text-black dark:text-white no-underline hover:underline" href=#invite-distributor-members-via-api>Invite distributor members via API</a></h3><p>Distributor members can only be invited using the Docker Hub API. UI-based
+invitations are not supported for this role.</p><p>To invite distributor members:</p><ol><li><p>Use the
+<a class=link href=/reference/api/hub/latest/operations/AuthCreateAccessToken/>authentication
+API</a>
+to generate a bearer token for your Docker Hub account. This token authorizes
+the API requests you use to send invites. Replace <code>myusername</code> and
+<code>dckr_pat_...</code> with your Docker ID and a
+<a class=link href=https://docs.docker.com/security/access-tokens/>personal access
+token</a>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBUT0tFTj0kKGN1cmwgLXMgLVggUE9TVCAiaHR0cHM6Ly9odWIuZG9ja2VyLmNvbS92Mi9hdXRoL3Rva2VuIiBcCiAgICAtSCAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiBcCiAgICAtZCAneyJpZGVudGlmaWVyIjogIm15dXNlcm5hbWUiLCAic2VjcmV0IjogImRja3JfcGF0Xy4uLiJ9JyBcCiAgICB8IGpxIC1yIC5hY2Nlc3NfdG9rZW4p', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> <span class=nv>TOKEN</span><span class=o>=</span><span class=k>$(</span>curl -s -X POST <span class=s2>&#34;https://hub.docker.com/v2/auth/token&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -d &#39;{&#34;identifier&#34;: &#34;myusername&#34;, &#34;secret&#34;: &#34;dckr_pat_...&#34;}&#39; \
+</span></span></span><span class=line><span class=cl><span class=go>    | jq -r .access_token)
+</span></span></span></code></pre></div></div></div></div></li><li><p>Create a team to group the distributor members and assign them a shared set
+of repository permissions.</p><div class=tabs x-data="{ selected: 'Hub' }" aria-role=tabpanel><div aria-role=tablist class=tablist><button class=tab-item :class="selected === 'Hub' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'Hub'">
+Hub
+</button>
+<button class=tab-item :class="selected === 'API' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'API'">
+API</button></div><div><div aria-role=tab :class="selected !== 'Hub' && 'hidden'"><ol><li>Sign in to <a class=link href=https://app.docker.com rel=noopener>Docker Home</a> and select your
+organization.</li><li>Select <strong>Teams</strong>.</li><li>Select <strong>Create team</strong>.</li><li>Provide the team's information, then select <strong>Create</strong>.</li></ol><p>For more details, see
+<a class=link href=https://docs.docker.com/accounts/organization/manage/manage-a-team/>Create and manage a
+team</a>.</p></div><div aria-role=tab :class="selected !== 'API' && 'hidden'"><p>Use the
+<a class=link href=/reference/api/hub/latest/operations/postV2OrgsByOrgNameGroups/>teams
+API</a>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBjdXJsIC1zIC1YIFBPU1QgImh0dHBzOi8vaHViLmRvY2tlci5jb20vdjIvb3Jncy9leGFtcGxlLW9yZy9ncm91cHMiIFwKICAgIC1IICJBdXRob3JpemF0aW9uOiBCZWFyZXIgJFRPS0VOIiBcCiAgICAtSCAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiBcCiAgICAtZCAneyJuYW1lIjogImN1c3RvbWVyLXRlYW0iLCAiZGVzY3JpcHRpb24iOiAiRXh0ZXJuYWwgZGlzdHJpYnV0b3IgbWVtYmVycyJ9Jw==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> curl -s -X POST <span class=s2>&#34;https://hub.docker.com/v2/orgs/example-org/groups&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Authorization: Bearer $TOKEN&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -d &#39;{&#34;name&#34;: &#34;customer-team&#34;, &#34;description&#34;: &#34;External distributor members&#34;}&#39;
+</span></span></span></code></pre></div></div></div></div><p>The response includes the new team's <code>id</code>. Save it for the next step, for
+example <code>GROUP_ID=12345</code>.</p></div></div></div></li><li><p>Grant the team read-only access to the repositories you want distributor
+members to access.</p><div class=tabs x-data="{ selected: 'Hub' }" aria-role=tabpanel><div aria-role=tablist class=tablist><button class=tab-item :class="selected === 'Hub' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'Hub'">
+Hub
+</button>
+<button class=tab-item :class="selected === 'API' &&
+          'border-blue border-b-4 dark:border-b-blue-600'" @click="selected = 'API'">
+API</button></div><div><div aria-role=tab :class="selected !== 'Hub' && 'hidden'"><ol><li>Sign in to <a class=link href=https://hub.docker.com rel=noopener>Docker Hub</a>.</li><li>Select <strong>My Hub</strong> > <strong>Repositories</strong>.</li><li>Select the repository.</li><li>Select the <strong>Permissions</strong> tab.</li><li>Specify the <strong>Team</strong>, select <strong>Read-only</strong> as the <strong>Permission</strong>, and
+then select <strong>Add</strong>.</li></ol></div><div aria-role=tab :class="selected !== 'API' && 'hidden'"><p>Use the
+<a class=link href=/reference/api/hub/latest/operations/CreateRepositoryGroup/>repository teams
+API</a>,
+passing the team's <code>id</code> from the previous step as <code>group_id</code>:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBjdXJsIC1zIC1YIFBPU1QgImh0dHBzOi8vaHViLmRvY2tlci5jb20vdjIvcmVwb3NpdG9yaWVzL2V4YW1wbGUtb3JnL2V4YW1wbGUtcmVwby9ncm91cHMiIFwKICAgIC1IICJBdXRob3JpemF0aW9uOiBCZWFyZXIgJFRPS0VOIiBcCiAgICAtSCAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiBcCiAgICAtZCAie1wiZ3JvdXBfaWRcIjogJEdST1VQX0lELCBcInBlcm1pc3Npb25cIjogXCJyZWFkXCJ9Ig==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> curl -s -X POST <span class=s2>&#34;https://hub.docker.com/v2/repositories/example-org/example-repo/groups&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Authorization: Bearer $TOKEN&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -d &#34;{\&#34;group_id\&#34;: $GROUP_ID, \&#34;permission\&#34;: \&#34;read\&#34;}&#34;
+</span></span></span></code></pre></div></div></div></div></div></div></div></li><li><p>Use the
+<a class=link href=/reference/api/hub/latest/operations/postV2InvitesBulk/>bulk create invites
+endpoint</a>
+to send email invites. In the request body, set <code>role</code> to
+<code>distributor_member</code>, specify the <code>team</code>, and list the invitees' email
+addresses:</p><div data-pagefind-ignore x-data x-ref=root class="group mt-2 mb-4 flex w-full scroll-mt-2 flex-col items-start gap-4 rounded bg-gray-50 p-2 outline outline-1 outline-offset-[-1px] outline-gray-200 dark:bg-gray-900 dark:outline-gray-800"><div class="relative w-full"><div class="syntax-light dark:syntax-dark not-prose w-full"><button x-data="{ code: 'JCBjdXJsIC1zIC1YIFBPU1QgImh0dHBzOi8vaHViLmRvY2tlci5jb20vdjIvaW52aXRlcy9idWxrIiBcCiAgICAtSCAiQXV0aG9yaXphdGlvbjogQmVhcmVyICRUT0tFTiIgXAogICAgLUggIkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbiIgXAogICAgLWQgJ3sKICAgICAgICAgICJvcmciOiAiZXhhbXBsZS1vcmciLAogICAgICAgICAgInRlYW0iOiAiY3VzdG9tZXItdGVhbSIsCiAgICAgICAgICAicm9sZSI6ICJkaXN0cmlidXRvcl9tZW1iZXIiLAogICAgICAgICAgImludml0ZWVzIjogWyJ1c2VyQGV4YW1wbGUuY29tIl0KICAgICAgICB9Jw==', copying: false }" class="top-1
+absolute right-2 z-10 text-gray-300 dark:text-gray-500" title=copy @click="window.navigator.clipboard.writeText(atob(code).replaceAll(/^[\$>]\s+/gm, ''));
+      copying = true;
+      setTimeout(() => copying = false, 2000);">
+<span :class="{ 'group-hover:block' : !copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75.0 013.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75.0 0121 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875.0 017.5 16.125V3.375z"/><path d="M15 5.25a5.23 5.23.0 00-1.279-3.434 9.768 9.768.0 016.963 6.963A5.23 5.23.0 0017.25 7.5h-1.875A.375.375.0 0115 7.125V5.25zM4.875 6H6v10.125A3.375 3.375.0 009.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875.0 013 20.625V7.875C3 6.839 3.84 6 4.875 6z"/></svg>
+</span><span :class="{ 'group-hover:block' : copying }" class="icon-svg hidden"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75.0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75.0 00-1.06 1.06l2.25 2.25a.75.75.0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></span></button><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=gp>$</span> curl -s -X POST <span class=s2>&#34;https://hub.docker.com/v2/invites/bulk&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Authorization: Bearer $TOKEN&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -H &#34;Content-Type: application/json&#34; \
+</span></span></span><span class=line><span class=cl><span class=go>    -d &#39;{
+</span></span></span><span class=line><span class=cl><span class=go>          &#34;org&#34;: &#34;example-org&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>          &#34;team&#34;: &#34;customer-team&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>          &#34;role&#34;: &#34;distributor_member&#34;,
+</span></span></span><span class=line><span class=cl><span class=go>          &#34;invitees&#34;: [&#34;user@example.com&#34;]
+</span></span></span><span class=line><span class=cl><span class=go>        }&#39;
+</span></span></span></code></pre></div></div></div></div><p>This sends email invitations to the specified users and automatically assigns
+them to the team.</p></li><li><p>The invited user receives an email invitation from Docker Hub. When they
+select the link in the email, they sign in with their Docker ID (or create
+one if needed) to accept the invite. Once accepted, they're added to the
+organization as a distributor member with pull-only access to the
+repositories assigned to their team.</p></li></ol>
